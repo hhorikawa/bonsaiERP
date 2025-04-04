@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+    <meta content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <link rel="shortcut icon" href="/bonsai.ico" type="image/x-icon">
+    <%= csrf_meta_tag %>
+
+    <title>bonsaiERP - <%= current_organisation %></title>
+
+    <%= stylesheet_link_tag "application", media: 'all' %>
+    <%= javascript_include_tag asset_path('angular/angular-file-upload-shim.min.js') %>
+    <%= cdn_scripts 'jquery', 'angular' %>
+    <%= javascript_include_tag "application" %>
+    <% if Rails.env.production? %>
+      <script src="//d2wy8f7a9ursnm.cloudfront.net/bugsnag-2.min.js" data-apikey="5764f05c4e7d87832059e096471f9bc9"></script>
+      <%= render 'layouts/google_analytics' %>
+    <% end %>
+
+    <script type="text/javascript">
+      this.organisation = {
+        currency: "<%= currency %>",
+        name: "<%= organisation_name %>"
+      }
+
+      this.exchangeRates = <%= set_exchange_rates %>;
+      this.currencies = <%= File.read Rails.root.join 'public', 'currencies.json' %>;
+    </script>
+  </head>
+
+  <body ng-app="myApp">
+    <%= render 'layouts/search_url' %>
+
+    <%= render 'layouts/notifications' %>
+
+    <!-- Header -->
+    <div id="head">
+      <% cache [current_user, 'menu'] do %>
+        <div class="cont"><%= render 'layouts/menus' %></div>
+      <% end %>
+    </div>
+
+    <div id="head2" class="<%= current_organisation.header_css %>">
+      <div class="row-fluid cont">
+        <div class="span12">
+          <h3 class="organisation"><%= organisation_name %></h3>
+        </div>
+      </div>
+    </div>
+
+    <div id="wrapper" class="cont">
+      <div id="topbar">
+        <div class="container-fluid">
+          <div class="main-links row-fluid"><%= yield :links %></div>
+        </div>
+      </div>
+
+      <div id="cont">
+        <div class="container-fluid">
+          <%= render "layouts/flash", flash: flash %>
+
+          <% if current_user.change_default_password? %>
+            <%= render "users/change_default_password" %>
+          <% end %>
+
+          <%= yield %>
+          <div class="clear"></div>
+        </div>
+      </div>
+
+      <%= render 'layouts/footer' %>
+    </div>
+
+    <script type="text/javascript">
+      bonsai.currency = this.currency = "<%= currency %>";
+      _b.numSeparator = '.';
+      _b.numDelimiter = ' ';
+      $(function() {
+        _b.numSeparator = '.';
+        _b.numDelimiter = ' ';
+      })
+
+      $(document).foundation({
+        topbar: {
+          custom_back_text: true,
+          back_text: '<i class="icon-caret-left"></i> Back'
+        }
+      });
+    </script>
+
+    <!-- Cache all tags -->
+    <script type="text/javascript">
+      this.bonsai.tags = <%= tags_list.to_json %>
+      this.bonsai.tags_hash = <%= tags_list_hash.to_json %>
+    </script>
+  </body>
+</html>

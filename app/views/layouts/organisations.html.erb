@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,maximum-scale=1">
+    <link rel="shortcut icon" href="/bonsai.ico" type="image/x-icon">
+    <%= csrf_meta_tag %>
+
+    <title>Bonsai</title>
+    <%= stylesheet_link_tag "application" %>
+
+    <%= javascript_include_tag "application" %>
+
+    <script type="text/javascript">
+      this.exchangeRates = <%= set_exchange_rates %>;
+      this.currencies = <%= CURRENCIES.to_json %>;
+    </script>
+  </head>
+
+  <body>
+    <!-- Header -->
+    <div id="head">
+      <div class="navbar navbar-inverse">
+        <div class="navbar-inner">
+          <div class="container">
+            <button class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+              <i class="icon-reorder"></i>
+              Menú
+            </button>
+            <div class="nav-collapse collapse cont">
+              <div class="pull-right">
+                <ul id="usersettings">
+                  <li id="current_user">
+                    <%= link_to current_user do %>
+                      <i class="icon-user"></i>
+                      <%= current_user %>
+                    <% end %>
+                  </li>
+
+                  <li id="logout">
+                    <%= link_to logout_path do %>
+                      <i class="icon-off"></i>
+                      Salir
+                    <% end %>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row-fluid organisation">
+      <div class="cont">
+        <div class="span12">
+          <h3><%= current_organisation.name %></h3>
+        </div>
+      </div>
+    </div>
+
+    <div id="wrapper" class="cont">
+      <div id="menu">
+        <div class="container-fluid">
+          <div class="main-links row-fluid"><%= yield :links %></div>
+        </div>
+      </div>
+
+      <div id="cont">
+        <div class="container-fluid">
+          <%= render "layouts/flash", flash: flash %>
+
+          <%= yield %>
+          <div class="clear"></div>
+        </div>
+      </div>
+      <div id="footer">
+        <p>
+          ©2010-2013 &middot;
+          <%= link_to "BonsaiERP", "http://bonsaierp.com" %>
+          El software para la gestión de empresas
+          <br/><br/>
+
+          <a href="http://twitter.com/#!/bonsaierp" target="_blank">Twitter</a>
+          &middot;
+          <a href="http://www.facebook.com/pages/BonsaiERP/337187402983197" target="_blank">Facebook</a>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

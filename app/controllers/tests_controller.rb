@@ -1,5 +1,5 @@
 class TestsController < ApplicationController
-  skip_before_filter :set_tenant, :check_authorization!
+  skip_before_action :set_tenant, :check_authorization!
 
   def index
     params[:view] ||= 'email'
@@ -13,7 +13,7 @@ class TestsController < ApplicationController
       s = (Struct.new(:email, :name)).new(email, name)
       RegistrationMailer.test_email(s).deliver
 
-      render text: "Email send to #{email}"
+      render plain: "Email send to #{email}"
     end
   end
 

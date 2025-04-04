@@ -2,9 +2,9 @@
 # author: Boris Barroso
 # email: boriscyber@gmail.com
 class RegistrationsController < ApplicationController
-  skip_before_filter :set_tenant, :check_authorization!
-  #before_filter :check_allow_registration
-  before_filter :check_registration_tenant, only: ['show']
+  skip_before_action :set_tenant, :check_authorization!
+  #before_action :check_allow_registration
+  before_action :check_registration_tenant, only: ['show']
 
   layout 'sessions'
 
@@ -23,7 +23,7 @@ class RegistrationsController < ApplicationController
       redirect_to new_organisation_path, notice: 'Ya esta registrado, ahora ingrese los datos de su empresa.'
     elsif @user
       # TODO: Create a view
-      render text: 'Error' and return
+      render plain: 'Error' and return
     else
       redirect_to "http://#{DOMAIN}?error_conf_token" and return
     end

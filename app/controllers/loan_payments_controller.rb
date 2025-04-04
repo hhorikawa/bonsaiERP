@@ -1,5 +1,5 @@
 class LoanPaymentsController < ApplicationController
-  before_filter :check_loan!
+  before_action :check_loan!
 
 
   #####################################
@@ -87,7 +87,7 @@ class LoanPaymentsController < ApplicationController
 
       unless @loan.is_a?(Loan)
         if request.xhr?
-          render text: 'Error'
+          render plain: 'Error'
         else
           flash[:warning] = 'Ha ingresado un Prestamo invalido.'
           redirect_to dashboar_path and return

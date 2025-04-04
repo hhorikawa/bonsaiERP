@@ -34,7 +34,7 @@ class AccountLedgersController < ApplicationController
   # PATCH /account_ledgers/:id
   # update the reference
   def update
-    if @account_ledger.update_attributes(reference: params[:reference])
+    if @account_ledger.update_attributes(account_ledger_params)
       al = @account_ledger
       render json: {id: al.id, reference: al.reference, updater: al.updater.to_s, updated_at: I18n.l(al.updated_at)}
     else
@@ -76,4 +76,7 @@ class AccountLedgersController < ApplicationController
       @account_ledger = AccountLedger.find(params[:id])
     end
 
+    def account_ledger_params
+      params.permit(:reference)
+    end
 end

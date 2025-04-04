@@ -1,0 +1,103 @@
+<% content_for :links do %>
+  <ul class="breadcrumbs span6">
+    <li>
+      &nbsp;
+    </li>
+  </ul>
+<% end %>
+
+<%# if current_organisation.dued_on? %>
+  <div class="alert alert-error">
+    <h3>
+      Please make the corresponding payment to avoid service interruption
+    </h3>
+  </div>
+<%# end %>
+
+<h4 class="n gray">
+  <%= t("views.dashboard.home.title").html_safe %>
+</h4>
+
+<p>
+  <%= t("views.dashboard.home.help_recomendation").html_safe %>
+</p>
+
+<p>
+  <%= t("views.dashboard.home.users_recomendation").html_safe %>
+</p>
+<% t = Time.zone.now %>
+
+<div class="well well-small span8">
+  <i class="icon-user blue" title="<%= t("general.modified_by") %>: <%= current_user %> <%= l t %>, ID: <%= current_user.id %>" data-toggle="tooltip"></i>
+
+  <i class="icon-user dark" title="<%= t("general.created_by") %>: <%= current_user %> <%= l t %>, ID: <%= current_user.id %>" data-toggle="tooltip"></i>
+
+  <i class="icon-user bonsai-dark" title="<%= t("general.approved_by") %>: <%= current_user %> <%= l t %>, ID: <%= current_user.id %>" data-toggle="tooltip"></i>
+
+  <i class="icon-user text-error" title="<%= t("general.nulled_by") %>: <%= current_user %> <%= l t %>, ID: <%= current_user.id %>, " data-toggle="tooltip"></i>
+
+  <span class="muted"><%= t("views.dashboard.home.move_over_users") %></span>
+</div>
+
+<div class="clearfix"></div>
+<hr>
+
+<h2><%= t('views.dashboard.flow') %></h2>
+
+<h4 class="n">Income Flow</h4>
+
+<ol class="unstyled">
+  <li class="row-fluid">
+    <div class="span6">
+      <p>
+        <h4 class="round bg-green">1</h4>
+        Click on <strong>General</strong> and then <strong>New Income</strong>
+      </p>
+      <div class="well well-small">
+        <%= image_tag 'workflow/menu-new-income.png' %>
+      </div>
+    </div>
+
+    <div class="span6">
+      <p>
+        <h4 class="round bg-green">2</h4>
+        Use the help
+
+        <a class="dark b">
+          <i class="icon-question-sign"></i>
+          Help
+        </a>
+        if you need it and create an Income
+      </p>
+
+      <%= image_tag 'workflow/new_income.png', class: 'polaroid' %>
+    </div>
+  </li>
+
+  <li class="row-fluid">
+    <div class="span6">
+      <p>
+        <h4 class="round bg-green">3</h4>
+        Select an account and start collecting payment
+      </p>
+
+      <%= image_tag 'workflow/new_payment.png', class: 'polaroid' %>
+    </div>
+
+    <div class="span6">
+      <p>
+        <h4 class="round bg-green">4</h4>
+        Finally <strong>Deliver the merchandise</strong>
+      </p>
+
+      <%= image_tag 'workflow/give_inventory.png', class: 'polaroid' %>
+    </div>
+  </li>
+
+  <li class="row-fluid">
+    <p>
+      These are the basic steps to complete an income (Sale). Remember that
+      you can disable inventory for an income if desired.
+    </p>
+  </li>
+</ol>

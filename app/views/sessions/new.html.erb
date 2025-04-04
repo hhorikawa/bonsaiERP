@@ -1,0 +1,42 @@
+<h1 class="c login">
+  <%= t("views.sessions.new.login") %>
+</h1>
+
+<div class="initial c">
+  <%= simple_form_for @session do |f| %>
+    <%= hidden_field :demo_login, params[:demo_login] %>
+    <div class="large">
+      <i class="muted icon-envelope icon" title="<%= t("views.sessions.new.icon_email_title") %>" data-toggle="tooltip"></i>
+      <%= f.text_field :email, placeholder: t("views.sessions.new.email_placeholder"), class: 'email' %>
+    </div>
+    <div class="large">
+      <i class="muted icon-key icon" title="<%= t("views.sessions.new.icon_pass_title") %>" data-toggle="tooltip"></i>
+      <%= f.password_field :password, placeholder: t("views.sessions.new.pass_placeholder") %>
+    </div>
+
+    <%= f.submit t("views.sessions.new.submit"), class: "btn btn-success b" %>
+
+    <div class="link fs110">
+      <%= link_to new_reset_password_path, class: "white" do %>
+        <i class="icon-lock-open"></i>
+        <%= t("views.sessions.new.forgot_your_password") %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  $(function() {
+    $('input.email').focus();
+
+    var demos = ['demo@demo.com', 'demo1@demo.com', 'demo3@demo.com'];
+
+    if(<%= params[:demo_login] == 'true' %>) {
+      var login = demos[Math.round(Math.random() * 2)];
+      $('#session_email').val(login);
+      $('#session_password').val('demo1234');
+      $('.btn-success').popoverNotitle({content: 'Haga click para ingresar al demo', placement: 'bottom'})
+      $('.btn-success').popover('show');
+    }
+  });
+</script>

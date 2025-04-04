@@ -1,0 +1,130 @@
+<nav class="top-bar" data-topbar>
+  <ul class="title-area">
+    <li class="name"></li>
+    <li class="toggle-topbar menu-icon">
+      <a href="#">
+        <%= t('views.menu.title') %>
+      </a>
+    </li>
+  </ul>
+  <section class="top-bar-section">
+    <ul class="left">
+      <li class="has-dropdown">
+        <a href='#'>
+          <%= t('views.menu.reports') %>
+        </a>
+        <ul class="dropdown">
+          <li>
+            <%= link_to t("views.menu.home"), home_path %>
+          </li>
+          <li>
+            <%= link_to t("views.menu.dashboard"), dashboard_path %>
+          </li>
+          <li>
+            <%= link_to t("views.menu.reports"), reports_path %>
+          </li>
+          <li>
+            <%= link_to t("views.menu.inventory"), inventory_report_path %>
+          </li>
+        </ul>
+      </li>
+      <li class="has-dropdown">
+        <a><%= t('views.menu.general') %></a>
+        <ul class="dropdown">
+          <li>
+            <%= link_to t("views.menu.incomes"), incomes_path %>
+          </li>
+          <li>
+            <%= link_to t("views.menu.new_income"), new_income_path %>
+          </li>
+          <%# <li class="divider"></li> %>
+          <li>
+            <%= link_to t("views.menu.expenses"), expenses_path %>
+          </li>
+          <li>
+            <%= link_to t("views.menu.new_expense"), new_expense_path %>
+          </li>
+          <%# <li class="divider"></li> %>
+          <li>
+            <%= link_to contacts_path do %>
+              <i class="icon-user"></i>
+              <%= t('views.menu.contacts') %>
+            <% end %>
+          </li>
+          <%# <li>
+            <%= link_to "Nuevo contacto", new_contact_path %>
+          <%# </li>
+          <li class="divider"></li> %>
+          <li>
+            <%= link_to loans_path, id: 'last-nav' do %>
+              <i class="icon-folder-open"></i>
+              <%= t('views.menu.prestamos') %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to tag_groups_path do %>
+              <i class="icon-tags"></i>
+              <%= t('views.menu.etiquetas') %>
+            <% end %>
+          </li>
+        </ul>
+      </li>
+      <li class="has-dropdown">
+        <a><%= t('views.menu.cuentas') %></a>
+        <ul class="dropdown">
+          <li>
+            <%= link_to t("views.menu.banks"), banks_path %>
+          </li>
+          <li>
+            <%= link_to t("views.menu.cash"), cashes_path %>
+          </li>
+          <%# <li>
+            <%= link_to t('views.menu.cuentas_personal'), staff_accounts_path %>
+          <%# </li> %>
+          <li>
+            <%= link_to t("views.menu.ledgers"), account_ledgers_path %>
+          </li>
+        </ul>
+      </li>
+
+      <li class="has-dropdown">
+        <a><%= t('views.menu.inventarios') %></a>
+        <ul class="dropdown">
+          <li>
+            <%= link_to t("views.menu.stores"), stores_path %>
+          </li>
+          <li>
+            <%= link_to t("views.menu.items"), items_path %>
+          </li>
+          <li>
+            <%= link_to t("views.menu.inventory_operations"), inventories_path %>
+          </li>
+          <li>
+            <%= link_to t("views.menu.units"), units_path %>
+          </li>
+        </ul>
+      </li>
+    </ul>
+
+    <ul class="right-menu fr">
+      <li>
+        <%= link_to configurations_path do %>
+          <i class="icon-cog"></i>
+          <%= t('views.menu.configuration') %>
+        <% end %>
+      </li>
+      <li class="user">
+        <%= link_to user_path(current_user.id) do %>
+          <i class="icon-user"></i>
+          <%= current_user %>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to logout_path do %>
+          <i class="icon-logout"></i>
+          <%= t('views.menu.logout') %>
+        <% end %>
+      </li>
+    </ul>
+  </section>
+</nav>

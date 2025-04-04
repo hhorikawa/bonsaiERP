@@ -1,73 +1,79 @@
 source 'https://rubygems.org'
 
-ruby '2.3.1'
-gem 'rails', '4.2.7.1'
+ruby '2.6.4'
+gem 'rails', '5.0.7.2'
 
 # Assets
-gem 'sass-rails', '~> 5.0.1'
-gem 'coffee-rails' , '~> 4.0.1'
-gem 'uglifier' , '>= 2.7.0'
+gem 'sass-rails', '~> 5.0.7'
+gem 'coffee-rails' , '~> 4.2.2'
+gem 'uglifier' , '>= 4.1.0'
 
-gem 'compass-rails', '~> 2.0.4'
-gem 'pg' # Postgresql adapter
+# Temporarily adding compass-rails for backward compatibility during upgrade
+gem 'compass-rails', '~> 3.1.0'
+gem 'pg', '~> 0.21.0' # Postgresql adapter - last version for Rails 5.0
 gem 'virtus' # Model generation in simple way
 #gem 'squeel' # Better SQL queries
 
-gem 'simple_form'
-gem 'haml', '>= 4.0.5'
-gem 'kaminari' # Pagination
-gem 'bcrypt-ruby', require: 'bcrypt'
-gem 'active_model_serializers' # ActiveRecord Classes to encode in JSON
+gem 'simple_form', '~> 4.1.0'  # Compatible with Rails 5.0
+# Template engines
+# gem 'haml', '~> 5.1.2'
+gem 'erubis', '~> 2.7.0'
+# gem 'erb', '~> 2.2.0'
+gem 'kaminari', '~> 1.2.1' # Pagination
+gem 'bcrypt', '~> 3.1.16', require: 'bcrypt'
+gem 'active_model_serializers', '~> 0.10.12' # ActiveRecord Classes to encode in JSON
 gem 'resubject' # Cool presenter
 
 gem 'validates_email_format_of'#, '~> 1.5.3'
 gem 'validates_lengths_from_database'
 # Hstore accessor
 gem 'hstore_accessor'
-gem 'jsonb_accessor'
+gem 'jsonb_accessor', '~> 1.0.0'  # Compatible with Rails 5.0
 
-gem 'dragonfly'
+gem 'dragonfly', '~> 1.4.0'
 
-gem "rack-cors", require: "rack/cors"
+gem "rack-cors", '~> 1.1.1', require: "rack/cors"
 
-gem "responders", "~> 2.0"
+gem "responders", "~> 2.4.1"  # Compatible with Rails 5.0
 
 group :production do
-  gem 'newrelic_rpm'
-  gem 'bugsnag' # Report of errors
-  gem 'rack-cache', require: 'rack/cache'
+  gem 'newrelic_rpm', '~> 6.15.0'  # Compatible with Rails 5.0
+  gem 'bugsnag', '~> 6.24.0' # Report of errors
+  gem 'rack-cache', '~> 1.13.0', require: 'rack/cache'
 end
 
 group :development do
-  gem "better_errors"
-  gem "binding_of_caller"
-  gem "meta_request"
-  gem "rails_best_practices"
-  gem "quiet_assets"
-  gem "bullet"
-  gem "awesome_print"
+  gem "better_errors", '~> 2.9.1'
+  gem "binding_of_caller", '~> 1.0.0'
+  gem "meta_request", '~> 0.7.3'
+  gem "rails_best_practices", '~> 1.23.0'
+  # quiet_assets functionality is built into Rails 5+
+  gem "bullet", '~> 6.1.5'
+  gem "awesome_print", '~> 1.9.2'
 
-  gem "capistrano"#, '~> 3.2.0'
-  gem "capistrano-rails"#, '~> 1.1'
-  gem "capistrano-bundler"
-  gem "capistrano-rvm"
+  gem "capistrano", '~> 3.16.0'
+  gem "capistrano-rails", '~> 1.6.1'
+  gem "capistrano-bundler", '~> 2.0.1'
+  gem "capistrano-rvm", '~> 0.1.2'
+  gem 'web-console', '~> 3.7.0'
+  gem 'spring', '~> 2.1.1'
+  gem 'spring-commands-rspec', '~> 1.0.4'
 end
 
 group :development, :test do
-  gem "puma"# Web server
-  gem "spring-commands-rspec"
-  gem "rspec-rails"#, '2.99.0'
-  gem "ffaker"
-  gem "pry-byebug"
+  gem "puma", '~> 4.3.12' # Web server - compatible with Ruby 2.6
+  gem "rspec-rails", '~> 4.0.2'  # Compatible with Rails 5.0
+  gem "ffaker", '~> 2.20.0'
+  gem "pry-byebug", '~> 3.9.0'
 end
 
 # Test
 group :test do
-  gem "capybara"
-  gem "database_cleaner"
-  gem "factory_girl_rails"#, '~> 4.4.1'
-  gem "shoulda-matchers", require: false
-  gem "valid_attribute"
-  gem "watchr"
-  gem "launchy"
+  gem "capybara", '~> 3.32.2'  # Compatible with Ruby 2.6
+  gem "database_cleaner", '~> 1.8.5'  # Compatible with Rails 5.0
+  gem "factory_bot_rails", '~> 5.2.0' # Compatible with Rails 5.0
+  gem "shoulda-matchers", '~> 4.5.1', require: false  # Compatible with Rails 5.0
+  gem "valid_attribute", '~> 2.0.0'
+  gem "watchr", '~> 0.7'
+  gem "launchy", '~> 2.5.0'
 end

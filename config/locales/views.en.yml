@@ -10,12 +10,22 @@ en:
       expenses: Expenses
       new_expense: New Expense
       banks: Banks
-      banks: Cash Accounts
+      cash: Cash Accounts
       ledgers: Ledgers
       stores: Stores
       items: Items
       inventory_operations: Inventory Operations
       units: Mesuasure Units
+      title: Menu
+      general: General
+      incomes: Incomes
+      contacts: Contacts
+      prestamos: Loans
+      etiquetas: Tags
+      cuentas: Accounts
+      inventarios: Inventory
+      configuration: Configuration
+      logout: Logout
     footer:
       slogan:
         The simple ERP to manage your company.
@@ -33,6 +43,7 @@ en:
         submit: Login
         forgot_your_password: Forgot your password?
     dashboard:
+      flow: Income Flow
       home:
         title:
           "Welcome to <i>bonsaiERP</i> we start with this recomendations"

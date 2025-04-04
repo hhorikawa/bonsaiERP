@@ -60,12 +60,12 @@ class PaymentsController < ApplicationController
     def check_income
       @payment.income.is_a?(Income)
     rescue
-      render text: 'Error'
+      render plain: 'Error'
     end
 
     def check_expense
       @payment.expense.is_a?(Expense)
     rescue
-      render text: 'Error'
+      render plain: 'Error'
     end
 end

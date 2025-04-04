@@ -9,15 +9,13 @@ class Account < ActiveRecord::Base
 
   ########################################
   # Relationships
-  belongs_to :contact
+belongs_to :contact, optional: true
   has_many :account_ledgers, -> { order('date desc, id desc') }
-
-  belongs_to :approver, class_name: 'User'
-  belongs_to :nuller,   class_name: 'User'
+belongs_to :approver, class_name: 'User'
+belongs_to :nuller,   class_name: 'User'
   belongs_to :creator,  class_name: 'User'
   belongs_to :updater,  class_name: 'User'
-  belongs_to :tax
-
+belongs_to :tax, optional: true
   ########################################
   # Validations
   validates_presence_of :currency, :name
@@ -30,7 +28,7 @@ class Account < ActiveRecord::Base
   serialize :error_messages, JSON
 
   ########################################
-  # Scopes
+  # Scopes, optional: true, optional: true
   scope :to_pay, -> { where('amount < 0') }
   scope :to_recieve, -> { where('amount > 0') }
   scope :active, -> { where(active: true) }

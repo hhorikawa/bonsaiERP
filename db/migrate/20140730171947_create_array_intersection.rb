@@ -12,8 +12,6 @@ SELECT ARRAY(
 $BODY$
   LANGUAGE sql VOLATILE
   COST 100;
-ALTER FUNCTION public.array_intersection(anyarray, anyarray)
-  OWNER TO postgres;
     SQL
   end
 

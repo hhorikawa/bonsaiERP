@@ -57,12 +57,12 @@ class DevolutionsController < ApplicationController
     def check_income
       raise 'Error'  unless @devolution.income.is_a?(Income)
     rescue
-      render text: 'Error'
+      render plain: 'Error'
     end
 
     def check_expense
       raise 'Error'  unless @devolution.expense.is_a?(Expense)
     rescue
-      render text: 'Error'
+      render plain: 'Error'
     end
 end

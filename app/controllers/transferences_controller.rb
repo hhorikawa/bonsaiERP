@@ -2,7 +2,7 @@
 # author: Boris Barroso
 # email: boriscyber@gmail.com
 class TransferencesController < ApplicationController
-  before_filter :find_account
+  before_action :find_account
 
   # GET /transferences?account_id
   def new
@@ -25,12 +25,13 @@ class TransferencesController < ApplicationController
       @account = Accounts::Query.new.money.where(id: params[:account_id]).first
 
       unless @account
-        redirect_to :back, alert: 'Debe seleccionar una cuenta activa'
+        redirect_back(fallback_location: root_path, alert: 'Debe seleccionar una cuenta activa')
       end
     end
 
     def transference_params
-      params[:transference][:account_id] = @account.id
-      params.require(:transference).permit(:account_id, :account_to_id, :amount, :date, :exchange_rate, :reference, :verification)
+      transference_attrs = params.require(:transference).permit(:account_to_id, :amount, :date, :exchange_rate, :reference, :verification)
+      transference_attrs[:account_id] = @account.id
+      transference_attrs
     end
 end

@@ -1,0 +1,21 @@
+<h1 class="c login">Recuperar contraseña</h1>
+
+<div class="initial c">
+  <%= simple_form_for(@reset_password, url: reset_passwords_path) do |f| %>
+
+    <div class="large">
+      <i class="muted icon-envelope icon" title="Email" data-toggle="tooltip"></i>
+      <%= f.text_field :email, placeholder: 'Email' %>
+    </div>
+
+    <%= f.submit "Recuperar contraseña", class: 'btn btn-success b' %>
+
+    <div class="link fs110">
+      <%= link_to login_path, class: 'white' do %>
+        <i class="icon-off"></i>
+        Entrar al sistema
+      <% end %>
+    </div>
+
+  <% end %>
+</div>

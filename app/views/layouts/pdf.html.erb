@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+    <link rel="shortcut icon" href="/assets/bonsai.ico" type="image/x-icon">
+
+    <%= wicked_pdf_stylesheet_link_tag "application", media: 'all' %>
+  </head>
+  <body>
+    <div id="main_wrap">
+      <div id="wrapper">
+        <div id="wrap_in">
+          <div id="cont">
+            <div id="cont-in">
+              <%= yield %>
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div id="foot"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

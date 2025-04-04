@@ -1,0 +1,22 @@
+<ul id="usersettings">
+  <li id="conf">
+    <%= link_to configurations_path, title: 'Configuración', 'data-toggle' => 'tooltip', data: {placement: 'bottom'} do %>
+      <i class="icon-cog"></i>
+      Conf.
+    <% end %>
+  </li>
+
+  <li id="current_user">
+    <%= link_to current_user do %>
+      <i class="icon-user"></i>
+      <%= current_user %>
+    <% end %>
+  </li>
+
+  <li id="logout">
+    <%= link_to logout_path do %>
+      <i class="icon-off"></i>
+      Salir
+    <% end %>
+  </li>
+</ul>

@@ -1,0 +1,6 @@
+<% flash.each do |name, msg| %>
+  <div class="flash alert <%= flash_class(name) %>" id="flash<%= name.to_s.capitalize %>">
+    <a class="close">x</a>
+    <h4 class="inline"><%= msg %></h4>
+  </div>
+<% end %>

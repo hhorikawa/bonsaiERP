@@ -42,11 +42,10 @@ class AccountLedger < ActiveRecord::Base
   # Relationships
   belongs_to :account
   belongs_to :account_to, class_name: 'Account'
-  belongs_to :contact
+belongs_to :contact, optional: true
   #belongs_to :project
-
-  belongs_to :approver, class_name: 'User'
-  belongs_to :nuller,   class_name: 'User'
+belongs_to :approver, class_name: 'User'
+belongs_to :nuller,   class_name: 'User'
   belongs_to :creator,  class_name: 'User'
   belongs_to :updater,  class_name: 'User'
 
@@ -66,7 +65,7 @@ class AccountLedger < ActiveRecord::Base
   validates_lengths_from_database
 
   ########################################
-  # scopes
+  # scopes, optional: true, optional: true
   scope :pendent, -> { where(status: 'pendent') }
   scope :nulled,  -> { where(status: 'nulled') }
   scope :approved, -> { where(status: 'approved') }
