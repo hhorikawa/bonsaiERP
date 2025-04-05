@@ -3,7 +3,7 @@ class Select2Input < SimpleForm::Inputs::Base
   #enable :placeholder
 
   # User the input_options[:value_field for the value of the relation Model
-  def input
+  def input(wrapper_options)
     if object.respond_to? :reflections
       hid_name = object.reflections[attribute_name].foreign_key || :"#{attribute_name}_id"
       relation = attribute_name
@@ -21,11 +21,11 @@ class Select2Input < SimpleForm::Inputs::Base
 
     raise 'input_html_options data-source required' unless input_html_options['data-source'].present?
     input_html_options[:placeholder] = input_html_options[:placeholder] || I18n.t('bonsai.autocomplete_placeholder')
-    input_html_options[:size] ||= SimpleForm.default_input_size
+    # Remove the reference to SimpleForm.default_input_size which is no longer supported in Rails 5
+    # input_html_options[:size] ||= SimpleForm.default_input_size
     input_html_options['data-value'] = object.send(relation).to_s
     input_html_options[:class] = 'select2-autocomplete'
 
     @builder.text_field hid_name, input_html_options
   end
 end
-

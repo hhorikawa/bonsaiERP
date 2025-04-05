@@ -5,7 +5,7 @@ class Api::V1::BaseController < ActionController::Base
 
     def authenticate_user
       if user_link.blank? || current_user.blank?
-        render(text: 'Invalid token', status: 401) and return
+        render(plain: 'Invalid token', status: 401) and return
       end
     end
 

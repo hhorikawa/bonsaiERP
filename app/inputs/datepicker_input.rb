@@ -2,7 +2,7 @@ class DatepickerInput < SimpleForm::Inputs::Base
   include ActionView::Helpers::FormTagHelper
 
   # User the input_options[:value_field for the value of the relation Model
-  def input
+  def input(wrapper_options)
     input_html_options[:size] ||= 10
 
     out = @builder.hidden_field attribute_name, input_html_options

@@ -16,8 +16,8 @@ en:
     date_start: Start date
     date_end: End date
     search: Search
-
-
+    help: Help
+    state: State
   allowed_errors:
     movement:
       negative_balance: "<a href='javascript:;' id='negative-balance-link'>Let's fix the negative balance</a>, you should make a devolution"

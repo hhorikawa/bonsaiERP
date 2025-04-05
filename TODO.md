@@ -7,7 +7,7 @@
 
 ## Rails Upgrade Path
 - [x] Upgrade from Rails 4.2.7.1 to Rails 5.0.7.2
-- [ ] Upgrade from Rails 5.0 to Rails 5.1
+- [x] Upgrade from Rails 5.0 to Rails 5.1
 - [ ] Upgrade from Rails 5.1 to Rails 5.2
 - [ ] Upgrade from Rails 5.2 to Rails 6.0
 - [ ] Upgrade from Rails 6.0 to Rails 6.1
@@ -93,5 +93,8 @@
 - [x] Successfully upgraded from Ruby 2.3.1 to Ruby 2.6.4
 - [x] Successfully upgraded from Rails 4.2.7.1 to Rails 5.0.7.2
 - [x] Updated deprecated code patterns like before_filter to before_action
+- [x] Updated deprecated render text: to render plain:
+- [x] Updated deprecated config.serve_static_files to config.public_file_server.enabled
+- [x] Updated Rails to version 5.1.7 and updated gem dependencies
 - [ ] Following incremental upgrade approach as outlined in this document
-- [ ] Next steps: Continue updating remaining deprecated code patterns and prepare for Rails 5.1 upgrade
+- [ ] Next steps: Continue updating remaining deprecated code patterns and prepare for Rails 5.2 upgrade

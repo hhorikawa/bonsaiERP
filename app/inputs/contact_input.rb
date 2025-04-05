@@ -2,7 +2,7 @@
 # author: Boris Barroso
 # email: boriscyber@gmail.com
 class ContactInput < SimpleForm::Inputs::Base
-  def input
+  def input(wrapper_options = {})
     klass = @builder.object.send(:"#{ attribute_name.to_s.gsub(/_id$/, "") }")
     if klass
       klass = klass.accountable if klass.class.to_s == "Account"
@@ -13,4 +13,3 @@ class ContactInput < SimpleForm::Inputs::Base
     @builder.text_field(attribute_name, input_html_options)
   end
 end
-

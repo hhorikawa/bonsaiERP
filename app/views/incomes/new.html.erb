@@ -1,0 +1,30 @@
+<% content_for :links do %>
+  <ul class="breadcrumbs span6">
+    <li>
+      <%= link_to t('views.incomes.index.title'), incomes_path %>
+    </li>
+    <li>
+      <i class="icon-caret-right"></i>
+    </li>
+    <li>
+      <span><%= t('views.incomes.new.title') %></span>
+    </li>
+  </ul>
+
+  <ul class="breadcrumbs r span6">
+    <a id="incomes-help-link" class="dark" href="javascript:;">
+      <i class="icon-question-sign"></i>
+      <%= t('general.help') %>
+    </a>
+  </ul>
+<% end %>
+
+<% inc_presenter = present @is.income %>
+
+<h1 class="title">
+  <span class="muted n"><%= t('views.incomes.new.title') %></span>
+  <span class="code" title="<%= t('views.incomes.new.code_tooltip') %>" data-toggle="tooltip"><%= @is.income %></span>
+  <small class="state" title="<%= t('general.state') %>" data-toggle="tooltip"><%= inc_presenter.state_tag %></small>
+</h1>
+
+<%= render 'incomes/form', income_service: @is %>

@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 ruby '2.6.4'
-gem 'rails', '5.0.7.2'
+gem 'rails', '5.1.7'
 
 # Assets
 gem 'sass-rails', '~> 5.0.7'
@@ -10,13 +10,13 @@ gem 'uglifier' , '>= 4.1.0'
 
 # Temporarily adding compass-rails for backward compatibility during upgrade
 gem 'compass-rails', '~> 3.1.0'
-gem 'pg', '~> 0.21.0' # Postgresql adapter - last version for Rails 5.0
+gem 'pg', '~> 1.0.0' # Postgresql adapter - compatible with Rails 5.1
 gem 'virtus' # Model generation in simple way
 #gem 'squeel' # Better SQL queries
 
 gem 'simple_form', '~> 4.1.0'  # Compatible with Rails 5.0
 # Template engines
-# gem 'haml', '~> 5.1.2'
+# gem 'haml', '~> 5.1.2'  # Compatible with Rails 5.0
 gem 'erubis', '~> 2.7.0'
 # gem 'erb', '~> 2.2.0'
 gem 'kaminari', '~> 1.2.1' # Pagination
@@ -28,16 +28,15 @@ gem 'validates_email_format_of'#, '~> 1.5.3'
 gem 'validates_lengths_from_database'
 # Hstore accessor
 gem 'hstore_accessor'
-gem 'jsonb_accessor', '~> 1.0.0'  # Compatible with Rails 5.0
-
+gem 'jsonb_accessor', '~> 1.1.0'  # Compatible with Rails 5.1
 gem 'dragonfly', '~> 1.4.0'
 
 gem "rack-cors", '~> 1.1.1', require: "rack/cors"
 
-gem "responders", "~> 2.4.1"  # Compatible with Rails 5.0
+gem "responders", "~> 2.4.1"  # Compatible with Rails 5.1
 
 group :production do
-  gem 'newrelic_rpm', '~> 6.15.0'  # Compatible with Rails 5.0
+  gem 'newrelic_rpm', '~> 6.15.0'  # Compatible with Rails 5.1
   gem 'bugsnag', '~> 6.24.0' # Report of errors
   gem 'rack-cache', '~> 1.13.0', require: 'rack/cache'
 end
@@ -62,7 +61,7 @@ end
 
 group :development, :test do
   gem "puma", '~> 4.3.12' # Web server - compatible with Ruby 2.6
-  gem "rspec-rails", '~> 4.0.2'  # Compatible with Rails 5.0
+  gem "rspec-rails", '~> 4.0.2'  # Compatible with Rails 5.1
   gem "ffaker", '~> 2.20.0'
   gem "pry-byebug", '~> 3.9.0'
 end
@@ -70,9 +69,9 @@ end
 # Test
 group :test do
   gem "capybara", '~> 3.32.2'  # Compatible with Ruby 2.6
-  gem "database_cleaner", '~> 1.8.5'  # Compatible with Rails 5.0
-  gem "factory_bot_rails", '~> 5.2.0' # Compatible with Rails 5.0
-  gem "shoulda-matchers", '~> 4.5.1', require: false  # Compatible with Rails 5.0
+  gem "database_cleaner", '~> 1.8.5'  # Compatible with Rails 5.1
+  gem "factory_bot_rails", '~> 5.2.0' # Compatible with Rails 5.1
+  gem "shoulda-matchers", '~> 4.5.1', require: false  # Compatible with Rails 5.1
   gem "valid_attribute", '~> 2.0.0'
   gem "watchr", '~> 0.7'
   gem "launchy", '~> 2.5.0'

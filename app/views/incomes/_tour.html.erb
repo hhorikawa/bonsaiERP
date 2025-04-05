@@ -1,0 +1,34 @@
+<ol id="income-tour" class="joyride-list hidden" data-joyride>
+  <li data-sel=".contact" data-text="<%= t('views.tour.next') %>" data-tip-location="bottom">
+    <p>
+      <%= t('views.incomes.tour.select_contact') %>
+    </p>
+  </li>
+
+  <li data-sel=".currency-input select" data-text="<%= t('views.tour.next') %>" data-tip-location="bottom">
+    <p>
+      <%= t('views.incomes.tour.select_currency_html') %>
+    </p>
+  </li>
+
+  <li data-sel="#add-item-link" data-text="<%= t('views.tour.next') %>">
+    <p>
+      <%= t('views.incomes.tour.add_items') %>
+    </p>
+  </li>
+
+  <li data-sel=".form-actions .btn-primary" data-text="<%= t('views.tour.end') %>">
+    <p>
+      <%= t('views.incomes.tour.save_options_html') %>
+    </p>
+  </li>
+</ol>
+
+<script type="text/javascript">
+  $(function() {
+    $('#incomes-help-link').click(function() {
+      var t = new Plugin.Bride('#income-tour');
+      t.init();
+    });
+  })
+</script>

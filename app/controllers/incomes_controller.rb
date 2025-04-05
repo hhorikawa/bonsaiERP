@@ -28,6 +28,11 @@ class IncomesController < ApplicationController
   def new
     #@is = params[:id].present? ? Incomes::Clone.new(params[:id]).clone : Incomes::Form.new_income(currency: currency)
     @is = Incomes::Form.new_income(currency: currency)
+    
+    respond_to do |format|
+      format.html { render :new }
+      format.js { render :new }
+    end
   end
 
   # GET /incomes/1/edit

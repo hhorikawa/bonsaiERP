@@ -1,0 +1,136 @@
+<h2 class="dark" id="items-header">
+  <%= t('views.movements.form_items.items') %>
+  <span class="n" style="font-size: 13px"><%= link_to t('views.movements.form_items.view_items'), items_path, target: '_blank' %></span>
+</h2>
+
+<input id="details" type="hidden" data-details="<%= movement.form_details_data.to_json %>">
+
+<ul class="unstyled movement-details listing">
+  <li class="header row-fluid">
+    <div class="span6">
+      <%= t('views.movements.form_items.item') %>
+    </div>
+    <div class="span2">
+      <%= t('views.movements.form_items.price') %>
+    </div>
+    <div class="span2">
+      <%= t('views.movements.form_items.quantity') %>
+      <br>
+      <%= t('views.movements.form_items.unit_of_measure') %>
+    </div>
+    <div class="span2">
+      <%= t('views.movements.form_items.line_total') %>
+    </div>
+  </li>
+
+  <li class="row-fluid detail" ng-repeat="detail in details" ng-hide="detail._destroy==1">
+    <div class="span6 item">
+      <input type="hidden" ng-model="detail.id" name="<%= movement.form_details_name %>[{{ $index }}][id]" value="{{ detail.id }}">
+      <input type="hidden" ng-model="detail._destroy" name="<%= movement.form_details_name %>[{{$index}}][_destroy]" value="{{detail._destroy}}">
+      <div class="input-append autocomp">
+        <input class="hide" type="text" ng-model="detail.item_id" name="<%= movement.form_details_name %>[{{$index}}][item_id]" size="2">
+        <input class="item-name autocomp" type="text" placeholder="<%= t('views.movements.form_items.search_item_placeholder') %>" data-source="<%= item_url %>" ng-model="detail.item" detail-autocomplete="true">
+        <a class="btn add-new-url add-new-item ajax" href="/items/new?for_sale=<%= movement.is_income? %>" tabindex="-1">
+          <i class="icon-plus-circle"></i>
+        </a>
+      </div>
+      <span class="error" ng-show="detail.hasError('item_id')">{{detail.errorsFor('item_id')}}</span>
+    </div>
+
+    <div class="span2 price r">
+      <label class="visible-phone"><%= t('views.movements.form_items.price_label') %></label>
+      <input class="r" type="number" ng-model="detail.price" name="<%= movement.form_details_name %>[{{$index}}][price]" value="10">
+      <span class="unit visible-phone"></span>
+    </div>
+
+    <div class="span2 quantity r">
+      <label class="visible-phone"><%= t('views.movements.form_items.quantity_label') %></label>
+      <input class="r" type="number" ng-model="detail.quantity" name="<%= movement.form_details_name %>[{{$index}}][quantity]">
+      <span class="unit" data-original-title="{{ detail.unit_name }}" data-toggle="tooltip">
+        {{detail.unit_symbol}}
+      </span>
+      <span class="error" ng-show="detail.hasError('quantity')">{{detail.errorsFor('quantity')}}</span>
+    </div>
+
+    <div class="span2 r">
+      <label class="visible-phone"><%= t('views.movements.form_items.line_total_label') %></label>
+      <div class="input total-line">
+        {{ detail.subtotal() | decimal }}
+      </div>
+      <span class="space">
+        <a class="dark" href="javascript:;" ng-click="destroy($index)" tabindex="-1">
+          <%= icon_delete %>
+        </a>
+      </span>
+    </div>
+  </li>
+
+  <li class="row-fluid subtotal">
+    <div class="span6">
+      &nbsp;
+      <a id="add-item-link" class="btn" ng-click="addDetail()">
+        <i class="icon-plus-sign"></i>
+        <%= t('views.movements.form_items.new_line') %>
+      </a>
+    </div>
+    <div class="span2">
+      &nbsp;
+    </div>
+    <div class="span2 r">
+      <%= t('views.movements.form_items.subtotal') %>
+      <span class="currency"></span>
+    </div>
+    <div class="span2 r">
+      <span class="subtotal">{{ subtotal() | decimal }}</span>
+      <span class="space">&nbsp;</span>
+    </div>
+  </li>
+
+  <li class="row-fluid taxes">
+    <div class="span10 r">
+      <label><%= t('views.movements.form_items.taxes') %></label>
+      <input id="taxes" type="hidden" data-taxes="<%= Tax.all.to_json(only: [:id, :name, :percentage]) %>">
+
+      <%= f.text_field :tax_id, 'ng-model' => 'tax_id', id: 'tax_id', class: 'hide', 'initial' => true %>
+      <div class="input-append">
+        <select id="tax-id" ng-model="tax" ng-change="setTaxId()" ng-options="[t.name, ' (', t.percentage, '%)' ].join('') for t in taxes track by t.id">
+          <option value=""></option>
+        </select>
+
+        <% if user_with_role.is_admin? || user_with_role.is_group? %>
+          <%= link_to icon('icon-plus-sign'), new_tax_path, title: t('views.movements.form_items.new_tax'),
+            class: 'btn ajax add-new-url add-new-tax', data: { width: 400 } %>
+        <% end %>
+      </div>
+
+      <a id="tax-in-out-btn" class="btn btn-small btn-info b" data-toggle="button" ng-click="tax_in_out=!tax_in_out">{{ taxLabel() }}</a>
+      <span class="hide"><%= f.check_box :tax_in_out, 'ng-model' => 'tax_in_out', id: 'tax_in_out' %></span>
+
+      <span class="currency"></span>
+    </div>
+
+    <div class="span2 r">
+      <span class="taxes">{{ taxTotal() | decimal }}</span>
+      <span class="space">&nbsp;</span>
+    </div>
+  </li>
+
+  <li class="row-fluid total">
+    <div class="span10 r">
+      <strong><%= t('views.movements.form_items.total') %></strong>
+      <span class="currency"></span>
+    </div>
+    <div class="span2 r">
+      <strong class="total">{{ total() | decimal }}</strong>
+      <span class="space">&nbsp;</span>
+    </div>
+  </li>
+</ul>
+
+<script type="text/javascript">
+  $(function() {
+    $('.movement-details').on('click', "input[type='number']", function(event) {
+      $(this).select();
+    });
+  })
+</script>

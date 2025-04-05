@@ -2,7 +2,7 @@ class AutocompleteInput < SimpleForm::Inputs::Base
   include ActionView::Helpers::FormTagHelper
 
   # User the input_options[:value_field for the value of the relation Model
-  def input
+  def input(wrapper_options)
     value_field = input_options[:value_field] || :to_s
 
     if object.respond_to? :reflections
@@ -25,7 +25,8 @@ class AutocompleteInput < SimpleForm::Inputs::Base
     value = object.send(relation)
     input_html_options['data-value'] = value
     input_html_options[:placeholder] = input_html_options[:placeholder] || I18n.t('bonsai.autocomplete_placeholder')
-    input_html_options[:size] ||= SimpleForm.default_input_size
+    # Remove the reference to SimpleForm.default_input_size which is no longer supported in Rails 5
+    # input_html_options[:size] ||= SimpleForm.default_input_size
 
     out = @builder.hidden_field hid_name
     out << text_field_tag("#{attribute_name}_autocomplete", value, input_html_options)

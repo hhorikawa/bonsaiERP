@@ -99,7 +99,8 @@ SimpleForm.setup do |config|
   # config.country_priority = nil
 
   # Default size for text inputs.
-  #config.default_input_size = 35
+  # config.default_input_size = 35  # This option is no longer supported in SimpleForm 4.1.0+
+  # Use input_html option in your forms instead, e.g., input_html: { class: 'span10' }
 
   # When false, do not use translations for labels, hints or placeholders.
   # config.translate = true

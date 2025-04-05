@@ -60,7 +60,7 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
   config.include Request::JsonHelpers, type: :controller
   config.include AuthMacros, type: :controller
 end

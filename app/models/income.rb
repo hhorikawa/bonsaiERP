@@ -19,8 +19,8 @@ class Income < Movement
     bill_number: :string,
     null_reason: :string,
     operation_type: :string,
-    nuller_datetime: :date_time,
-    approver_datetime: :date_time})
+    nuller_datetime: :datetime,
+    approver_datetime: :datetime})
 
   ########################################
   # Relationships

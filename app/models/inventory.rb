@@ -10,12 +10,12 @@ class Inventory < ActiveRecord::Base
   OPERATIONS = %w(in out inc_in inc_out exp_in exp_out trans).freeze
 
   belongs_to :store
-belongs_to :store_to, class_name: "Store"
-belongs_to :contact, optional: true
+  belongs_to :store_to, class_name: "Store"
+  belongs_to :contact, optional: true
   belongs_to :creator, class_name: "User"
-belongs_to :expense, foreign_key: :account_id
-belongs_to :income, foreign_key: :account_id
-belongs_to :project, optional: true
+  belongs_to :expense, foreign_key: :account_id
+  belongs_to :income, foreign_key: :account_id
+  belongs_to :project, optional: true
   #has_one    :transference, :class_name => 'InventoryOperation', :foreign_key => "transference_id"
 
   has_many :inventory_details, dependent: :destroy
@@ -41,7 +41,7 @@ belongs_to :project, optional: true
     #inv.validates_presence_of :store_to
   #end
 
-  def is_transference?, optional: true, optional: true, optional: true
+  def is_transference?
     %w(transin transout).include?(operation)
   end
 

@@ -1,20 +1,20 @@
 <h1 class="c login">
-  Cambio de contraseña
+  <%= t('views.reset_passwords.edit.title') %>
 </h1>
 
 <div class="initial c">
   <%= simple_form_for @reset_password, url: reset_password_path(params[:id]), method: 'put' do |f| %>
     <%= hidden_field_tag :id, params[:id] %>
     <div class="large">
-      <i class="muted icon-key icon" title="Nueva contraseña"></i>
-      <%= f.input :password, label: false, input_html: { placeholder: 'Nueva contraseña' } %>
+      <i class="muted icon-key icon" title="<%= t('views.reset_passwords.edit.new_password') %>"></i>
+      <%= f.input :password, label: false, input_html: { placeholder: t('views.reset_passwords.edit.new_password') } %>
     </div>
     <div class="large">
-      <i class="muted icon-key icon" title="Repetir contraseña"></i>
-      <%= f.input :password_confirmation, label: false, input_html: { placeholder: 'Confirmación de contraseña' } %>
+      <i class="muted icon-key icon" title="<%= t('views.reset_passwords.edit.confirm_password') %>"></i>
+      <%= f.input :password_confirmation, label: false, input_html: { placeholder: t('views.reset_passwords.edit.password_confirmation') } %>
     </div>
     <div class="form_actions">
-      <%= f.submit "Cambiar contraseña", class: 'btn btn-success' %>
+      <%= f.submit t('views.reset_passwords.edit.change_password'), class: 'btn btn-success' %>
     </div>
   <% end %>
 </div>

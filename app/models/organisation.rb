@@ -33,7 +33,7 @@ class Organisation < ActiveRecord::Base
 
   validate :valid_tenant_not_in_list
   validate :valid_header_css
-  validates_email_format_of :email, if: 'email.present?', message: I18n.t('errors.messages.email')
+  validates_email_format_of :email, if: -> { email.present? }, message: I18n.t('errors.messages.email')
 
   with_options if: :persisted? do |val|
     val.validates_presence_of :country_code, :currency

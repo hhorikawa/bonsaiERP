@@ -1,29 +1,28 @@
 en:
   views:
     menu:
+      title: Menu
+      reports: Reports
       home: Home
       dashboard: Dashboard
-      reports: Reports
-      inventory: Pendent inventory
-      income: Incomes
-      new_incoe: New Income
-      expenses: Expenses
-      new_expense: New Expense
-      banks: Banks
-      cash: Cash Accounts
-      ledgers: Ledgers
-      stores: Stores
-      items: Items
-      inventory_operations: Inventory Operations
-      units: Mesuasure Units
-      title: Menu
+      inventory: Inventory
       general: General
       incomes: Incomes
+      new_income: New Income
+      expenses: Expenses
+      new_expense: New Expense
       contacts: Contacts
       prestamos: Loans
       etiquetas: Tags
       cuentas: Accounts
+      banks: Banks
+      cash: Cash
+      ledgers: Ledgers
       inventarios: Inventory
+      stores: Stores
+      items: Items
+      inventory_operations: Inventory Operations
+      units: Units
       configuration: Configuration
       logout: Logout
     footer:
@@ -58,9 +57,62 @@ en:
       index:
         general_aspects: General aspects
 
+    tour:
+      next: Next
+      end: End
+
     incomes:
       index:
         title: Incomes
         new: New income
         search:
           search_placeholder: Contact or income
+      new:
+        title: New Income
+        code_tooltip: "Income code: Income-Year-Number"
+      tour:
+        select_contact: Select the contact or click the button on the right side to create a new one
+        select_currency_html: "Select the currency, if you change the currency the <strong>Exchange rate</strong> will be enabled"
+        add_items: Click on New line to add more items
+        save_options_html: "You can save or approve, <strong>Save</strong> creates an invalid proforma that can be approved later, <strong>Save and approve</strong> creates a valid income that can be charged"
+
+    movements:
+      form_items:
+        items: Items
+        view_items: view items
+        item: Item
+        price: Price
+        quantity: Quantity
+        unit_of_measure: Unit of measure
+        line_total: Line total
+        search_item_placeholder: Type to search for an item
+        price_label: "Price:"
+        quantity_label: "Quantity - Unit:"
+        line_total_label: "Line total:"
+        new_line: New line
+        subtotal: Subtotal
+        taxes: Taxes
+        new_tax: New tax
+        total: Total
+      shared_form:
+        search_contact_placeholder: Type to search for a contact
+        new_contact: New contact
+
+    contacts:
+      new:
+        title: New contact
+
+    reset_passwords:
+      edit:
+        title: Change password
+        new_password: New password
+        confirm_password: Repeat password
+        password_confirmation: Password confirmation
+        change_password: Change password
+        
+    pagination:
+      next: "&rsaquo;"
+      previous: "&lsaquo;"
+      first: "&laquo;"
+      last: "&raquo;"
+      truncate: "..."

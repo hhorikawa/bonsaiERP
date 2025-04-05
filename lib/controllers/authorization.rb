@@ -18,7 +18,7 @@ module Controllers::Authorization
         redir = request.referer.present? ? :back : home_path
 
         if request.xhr?
-          render text: '<div class="alert alert-warning flash"><h4 class="n">Usted no tiene los privilegios para ver esta página</h4><div>'
+          render plain: '<div class="alert alert-warning flash"><h4 class="n">Usted no tiene los privilegios para ver esta página</h4><div>'
         else
           flash[:alert] = "Usted ha sido redireccionado por que no tiene suficientes privilegios."
           redirect_to redir and return
