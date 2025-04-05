@@ -1,7 +1,7 @@
 # encoding: utf-8
 # author: Boris Barroso
 # email: boriscyber@gmail.com
-class InventoryDetail < ActiveRecord::Base
+class InventoryDetail < ApplicationRecord
   belongs_to :inventory
   belongs_to :item
 

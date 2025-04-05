@@ -38,7 +38,7 @@ class ExpensesController < ApplicationController
     end
   end
 
-  # PUT /expenses/:id
+  # PATCH /expenses/:id
   def update
     @es = Expenses::Form.find(params[:id])
 
@@ -50,7 +50,7 @@ class ExpensesController < ApplicationController
   end
 
 
-  # PUT /expenses/1/approve
+  # PATCH /expenses/1/approve
   # Method to approve an expense
   def approve
     @expense = Expense.find(params[:id])
@@ -65,7 +65,7 @@ class ExpensesController < ApplicationController
     redirect_to expense_path(@expense)
   end
 
-  # PUT /expenses/:id/approve
+  # PATCH /expenses/:id/approve
   # Method that nulls or enables inventory
   def inventory
     @expense.inventory = !@expense.inventory?
@@ -81,7 +81,7 @@ class ExpensesController < ApplicationController
     redirect_to expense_path(@expense.id, anchor: 'items')
   end
 
-  # PUT /incomes/:id/null
+  # PATCH /incomes/:id/null
   def null
     if @expense.null!
       redirect_to expense_path(@expense), notice: 'Se anulo correctamente el egreso.'

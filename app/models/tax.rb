@@ -1,7 +1,7 @@
 # encoding: utf-8
 # author: Boris Barroso
 # email: boriscyber@gmail.com
-class Tax < ActiveRecord::Base
+class Tax < ApplicationRecord
 
   has_many :accounts
   before_destroy :check_related_accounts

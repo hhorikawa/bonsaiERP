@@ -3,10 +3,13 @@
 # email: boriscyber@gmail.com
 class OrganisationUpdatesController < ApplicationController
   def edit
+    @organisation = current_organisation
   end
 
   def update
-    if current_organisation.update_attributes(organisation_params)
+    @organisation = current_organisation
+    
+    if @organisation.update(organisation_params)
       redirect_to configurations_path(anchor: 'organisation'), notice: 'Se actualizo correctamente los datos de su empresa.'
     else
       render :edit

@@ -23,7 +23,7 @@ class TagsController < ApplicationController
   def update
     @tag = Tag.find(params[:id])
 
-    if @tag.update_attributes(tag_params)
+    if @tag.update(tag_params)
       render json: @tag
     else
       render json: {errors: @tag.errors}, status: 409

@@ -1,4 +1,4 @@
-class AddAccountNameUniqueIndex < ActiveRecord::Migration
+class AddAccountNameUniqueIndex < ActiveRecord::Migration[5.2]
   def up
     # Migration already applied - index exists
     # No action needed

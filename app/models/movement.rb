@@ -127,7 +127,7 @@ belongs_to :project, optional: true
 
   def null!
     if can_null?
-      update_attributes(state: 'nulled', nuller_id: UserSession.id, nuller_datetime: Time.zone.now)
+      update(state: 'nulled', nuller_id: UserSession.id, nuller_datetime: Time.zone.now)
     end
   end
 

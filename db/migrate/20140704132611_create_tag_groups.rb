@@ -1,4 +1,4 @@
-class CreateTagGroups < ActiveRecord::Migration
+class CreateTagGroups < ActiveRecord::Migration[5.2]
   def up
     PgTools.with_schemas except: 'common' do
       create_table :tag_groups do |t|

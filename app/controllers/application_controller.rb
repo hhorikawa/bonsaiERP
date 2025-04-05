@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   include Controllers::Authorization
   include Controllers::RescueFrom
 
-  protect_from_forgery
+  protect_from_forgery with: :exception
 
   ########################################
   # Callbacks

@@ -1,4 +1,4 @@
-class AddOrganisationsSettings < ActiveRecord::Migration
+class AddOrganisationsSettings < ActiveRecord::Migration[5.2]
   def up
     PgTools.with_schemas %w(public common) do
       change_table :organisations do |t|

@@ -1,7 +1,7 @@
 # encoding: utf-8
 # author: Boris Barroso
 # email: boriscyber@gmail.com
-class AccountLedger < ActiveRecord::Base
+class AccountLedger < ApplicationRecord
 
   include ::Models::Updater
   extend Models::AccountCode

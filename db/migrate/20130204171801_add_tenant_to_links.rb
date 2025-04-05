@@ -1,4 +1,4 @@
-class AddTenantToLinks < ActiveRecord::Migration
+class AddTenantToLinks < ActiveRecord::Migration[5.2]
   def up
     PgTools.with_schemas only: ['common', 'public'] do
       change_table :links do |t|

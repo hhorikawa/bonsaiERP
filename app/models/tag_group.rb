@@ -1,4 +1,4 @@
-class TagGroup < ActiveRecord::Base
+class TagGroup < ApplicationRecord
 
   validates :name, presence: true, length: { within: 3..100 }, uniqueness: true
 

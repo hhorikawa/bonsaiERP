@@ -1,4 +1,4 @@
-class AddContactsTagIds < ActiveRecord::Migration
+class AddContactsTagIds < ActiveRecord::Migration[5.2]
   def up
     PgTools.with_schemas except: 'common' do
       add_column :contacts, :tag_ids, :integer, array: true, default: []

@@ -1,4 +1,4 @@
-class ChangeAccountsDescription < ActiveRecord::Migration
+class ChangeAccountsDescription < ActiveRecord::Migration[5.2]
   def up
     PgTools.with_schemas except: 'common' do
       change_column :accounts, :description, :text

@@ -1,4 +1,4 @@
-class History < ActiveRecord::Base
+class History < ApplicationRecord
 
   # Relationships
   belongs_to :historiable, polymorphic: true

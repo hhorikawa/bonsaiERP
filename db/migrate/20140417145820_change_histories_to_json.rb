@@ -1,4 +1,4 @@
-class ChangeHistoriesToJson < ActiveRecord::Migration
+class ChangeHistoriesToJson < ActiveRecord::Migration[5.2]
   def up
     PgTools.with_schemas except: 'common' do
       #change_column :histories, :history_data, :json

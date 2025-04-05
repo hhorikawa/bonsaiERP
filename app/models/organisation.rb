@@ -1,7 +1,7 @@
 # encoding: utf-8
 # author: Boris Barroso
 # email: boriscyber@gmail.com
-class Organisation < ActiveRecord::Base
+class Organisation < ApplicationRecord
 
   DATA_PATH = "db/defaults"
   self.table_name = 'common.organisations'
@@ -107,7 +107,7 @@ class Organisation < ActiveRecord::Base
 
   # Especial method that deletes the schema, users and all related stuff
   def drop_related!
-    ActiveRecord::Base.transaction do
+    ApplicationRecord.transaction do
       PgTools.drop_schema_if(tenant)
       User.where(id: links.map(&:user_id)).destroy_all
       self.destroy

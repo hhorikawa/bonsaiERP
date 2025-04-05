@@ -12,11 +12,20 @@ class CashesController < ApplicationController
   end
 
   # GET /cashs/1
-  def show; end
+  def show
+    respond_to do |format|
+      format.html
+      format.json { render json: @cash }
+    end
+  end
 
   # GET /cashs/new
   def new
     @cash = Cash.new
+    respond_to do |format|
+      format.html
+      format.json { render json: @cash }
+    end
   end
 
   # GET /cashs/1/edit
@@ -36,9 +45,13 @@ class CashesController < ApplicationController
 
   # PUT /cashs/1
   def update
-    if @cash.update_attributes(cash_params)
+    if @cash.update(cash_params)
       flash[:notice] = 'La cuenta efectivo fue actualizada.'
-      redirect_ajax @cash.to_model
+      respond_to do |format|
+        format.html { redirect_to @cash }
+        format.json { render json: { redirect: url_for(@cash) } }
+        format.js { render json: { redirect: url_for(@cash) } }
+      end
     else
       render :edit
     end
@@ -49,7 +62,7 @@ class CashesController < ApplicationController
     @cash.destroy
 
     respond_to do |format|
-      format.html { redirect_to(cashs_url) }
+      format.html { redirect_to(cashes_url) }
       format.xml  { head :ok }
     end
   end

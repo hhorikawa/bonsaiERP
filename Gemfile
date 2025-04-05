@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
 
 ruby '2.6.4'
-gem 'rails', '5.1.7'
+gem 'rails', '5.2.7'
+gem 'bootsnap', '~> 1.4.6', require: false
 
 # Assets
 gem 'sass-rails', '~> 5.0.7'
@@ -10,11 +11,11 @@ gem 'uglifier' , '>= 4.1.0'
 
 # Temporarily adding compass-rails for backward compatibility during upgrade
 gem 'compass-rails', '~> 3.1.0'
-gem 'pg', '~> 1.0.0' # Postgresql adapter - compatible with Rails 5.1
+gem 'pg', '~> 1.0.0' # Postgresql adapter - compatible with Rails 5.2
 gem 'virtus' # Model generation in simple way
 #gem 'squeel' # Better SQL queries
 
-gem 'simple_form', '~> 4.1.0'  # Compatible with Rails 5.0
+gem 'simple_form', '~> 5.0.0'  # Compatible with Rails 5.2
 # Template engines
 # gem 'haml', '~> 5.1.2'  # Compatible with Rails 5.0
 gem 'erubis', '~> 2.7.0'
@@ -28,15 +29,15 @@ gem 'validates_email_format_of'#, '~> 1.5.3'
 gem 'validates_lengths_from_database'
 # Hstore accessor
 gem 'hstore_accessor'
-gem 'jsonb_accessor', '~> 1.1.0'  # Compatible with Rails 5.1
+gem 'jsonb_accessor', '~> 1.1.0'  # Compatible with Rails 5.2
 gem 'dragonfly', '~> 1.4.0'
 
 gem "rack-cors", '~> 1.1.1', require: "rack/cors"
 
-gem "responders", "~> 2.4.1"  # Compatible with Rails 5.1
+gem "responders", "~> 3.0.0"  # Compatible with Rails 5.2
 
 group :production do
-  gem 'newrelic_rpm', '~> 6.15.0'  # Compatible with Rails 5.1
+  gem 'newrelic_rpm', '~> 6.15.0'  # Compatible with Rails 5.2
   gem 'bugsnag', '~> 6.24.0' # Report of errors
   gem 'rack-cache', '~> 1.13.0', require: 'rack/cache'
 end
@@ -57,22 +58,24 @@ group :development do
   gem 'web-console', '~> 3.7.0'
   gem 'spring', '~> 2.1.1'
   gem 'spring-commands-rspec', '~> 1.0.4'
+  gem 'listen', '~> 3.1.5' # Required for Rails 5.2 file watcher
 end
 
 group :development, :test do
   gem "puma", '~> 4.3.12' # Web server - compatible with Ruby 2.6
-  gem "rspec-rails", '~> 4.0.2'  # Compatible with Rails 5.1
+  gem "rspec-rails", '~> 4.0.2'  # Compatible with Rails 5.2
   gem "ffaker", '~> 2.20.0'
   gem "pry-byebug", '~> 3.9.0'
 end
 
 # Test
 group :test do
-  gem "capybara", '~> 3.32.2'  # Compatible with Ruby 2.6
-  gem "database_cleaner", '~> 1.8.5'  # Compatible with Rails 5.1
-  gem "factory_bot_rails", '~> 5.2.0' # Compatible with Rails 5.1
-  gem "shoulda-matchers", '~> 4.5.1', require: false  # Compatible with Rails 5.1
+  gem "capybara", '~> 3.35.3'  # Compatible with Rails 5.2
+  gem "database_cleaner", '~> 1.8.5'  # Compatible with Rails 5.2
+  gem "factory_bot_rails", '~> 6.2.0' # Compatible with Rails 5.2
+  gem "shoulda-matchers", '~> 5.0.0', require: false  # Compatible with Rails 5.2
   gem "valid_attribute", '~> 2.0.0'
   gem "watchr", '~> 0.7'
   gem "launchy", '~> 2.5.0'
+  gem 'rails-controller-testing', '~> 1.0.5'  # For assigns and assert_template in Rails 5.2
 end

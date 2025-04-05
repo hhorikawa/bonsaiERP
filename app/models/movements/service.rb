@@ -99,7 +99,7 @@ class Movements::Service < Struct.new(:movement)
     # Returns true if calls
     def commit_or_rollback(&b)
       res = true
-      ActiveRecord::Base.transaction do
+      ApplicationRecord.transaction do
         res = b.call
         raise ActiveRecord::Rollback unless res
       end

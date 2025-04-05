@@ -1,6 +1,6 @@
 # author: Boris Barroso
 # email: boriscyber@gmail.com
-class Tag < ActiveRecord::Base
+class Tag < ApplicationRecord
   validates :name, presence: true, uniqueness: true,
             format: { with: /\A[\w\s\ñ]+\z/ },
             length: { in: 3..20 }

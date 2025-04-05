@@ -31,6 +31,7 @@ module PgTools
   end
 
   def change_schema(schema_name)
+    return reset_search_path if schema_name.nil? || schema_name.to_s.empty?
     connection.schema_search_path = [schema_name, 'public'].join(', ')
   end
   alias_method :change_tenant, :change_schema

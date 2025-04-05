@@ -1,7 +1,7 @@
 # encoding: utf-8
 # author: Boris Barroso
 # email: boriscyber@gmail.com
-class Item < ActiveRecord::Base
+class Item < ApplicationRecord
 
   include ::Models::Tag
   include ::Models::Updater

@@ -47,7 +47,7 @@ class ContactsController < ApplicationController
 
   # PUT /contacts/1
   def update
-    if @contact.update_attributes(contact_params)
+    if @contact.update(contact_params)
       redirect_ajax(@contact)
     else
       render :edit

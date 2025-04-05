@@ -61,7 +61,7 @@ class ItemsController < ApplicationController
 
   # PUT /items/1
   def update
-    if @item.update_attributes(item_params)
+    if @item.update(item_params)
       flash[:notice] = "Se actualizo correctamente el ítem."
       redirect_ajax @item
     else

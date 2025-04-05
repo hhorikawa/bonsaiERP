@@ -1,4 +1,4 @@
-class SetOrganisationSettingsJsonb < ActiveRecord::Migration
+class SetOrganisationSettingsJsonb < ActiveRecord::Migration[5.2]
   def up
     PgTools.with_schemas only: 'common' do
       change_column :organisations, :settings, :hstore, :default => nil

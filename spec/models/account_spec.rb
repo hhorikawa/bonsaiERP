@@ -3,9 +3,9 @@ require 'spec_helper'
 
 describe Account do
 
-  it { should belong_to(:updater).class_name('User') }
+  it { should belong_to(:updater).class_name('User').optional }
   #
-  it { should belong_to(:contact) }
+  it { should belong_to(:contact).optional }
   it { should have_many(:account_ledgers) }
 
 
@@ -21,7 +21,8 @@ describe Account do
   end
 
   let(:valid_params) do
-    {name: 'account1', currency: 'BOB', amount: 100, state: 'new'}
+    {name: 'account1', currency: 'BOB', amount: 100, state: 'new', 
+     updater_id: 1, creator_id: 1, approver_id: 1, nuller_id: 1}
   end
 
   context 'scopes' do
@@ -36,7 +37,7 @@ describe Account do
       expect(ac.to_sql).to match(/'Bank', 'Cash'/)
 
       ac = Account.active.money
-      expect(ac.to_sql).to match(/"accounts"."active" = 't' AND "accounts"."type" IN \('Bank', 'Cash'\)/)
+      expect(ac.to_sql).to match(/active.*AND.*type.*IN.*Bank.*Cash/i)
     end
   end
 

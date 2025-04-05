@@ -44,7 +44,7 @@ class InventoryReportService
   end
 
   def sanitize_sql_array(arr)
-    ActiveRecord::Base.send(:sanitize_sql_array, arr)
+    ActiveRecord::Base.send(:sanitize_sql_for_conditions, arr)
   end
 
   def tag_group

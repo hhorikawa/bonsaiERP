@@ -1,4 +1,4 @@
-class CreateArrayIntersection < ActiveRecord::Migration
+class CreateArrayIntersection < ActiveRecord::Migration[5.2]
   def up
     execute <<-SQL
 CREATE OR REPLACE FUNCTION public.array_intersection(anyarray, anyarray)

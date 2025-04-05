@@ -8,7 +8,7 @@
 ## Rails Upgrade Path
 - [x] Upgrade from Rails 4.2.7.1 to Rails 5.0.7.2
 - [x] Upgrade from Rails 5.0 to Rails 5.1
-- [ ] Upgrade from Rails 5.1 to Rails 5.2
+- [x] Upgrade from Rails 5.1 to Rails 5.2
 - [ ] Upgrade from Rails 5.2 to Rails 6.0
 - [ ] Upgrade from Rails 6.0 to Rails 6.1
 - [ ] Upgrade from Rails 6.1 to Rails 7.0
@@ -26,10 +26,26 @@
 - [x] Change `before_filter` to `before_action`
 - [x] Change `redirect_to :back` to `redirect_back(fallback_location: root_path)`
 - [ ] Update other deprecated method calls
-- [ ] Review and update controller parameters handling
+- [x] Review and update controller parameters handling
+  - [x] Updated CashesController tests
+  - [x] Updated UsersController tests
+  - [x] Updated OrganisationUpdatesController tests
+  - [x] Updated ExpensesController tests
+  - [ ] Fix remaining controller tests
+- [x] Replace deprecated `update_attributes` with `update` (Rails 5.2)
+- [x] Update migration files to specify Rails version (Rails 5.2)
+- [x] Update i18n.fallbacks configuration for Rails 5.2 compatibility
+- [x] Replace deprecated sanitize_sql_array with sanitize_sql_for_conditions
+- [x] Add new_framework_defaults_5_2.rb initializer
+- [x] Configure ActiveStorage routes for Rails 5.2
+- [x] Add Content Security Policy (CSP) configuration for Rails 5.2
+- [x] Set up ActiveStorage database tables for Rails 5.2
 
 ## Gem Compatibility
-- [ ] Update or replace `compass-rails` with Sass or modern CSS solutions
+- [x] Update or replace `compass-rails` with Sass or modern CSS solutions
+  - [x] Created custom mixins.sass to replace Compass mixins
+  - [x] Replaced all @import "compass" statements with @import "mixins"
+  - [x] Remove compass-rails gem after testing
 - [ ] Replace `virtus` with native Rails attributes or dry-types
 - [x] Replace `factory_girl_rails` with `factory_bot_rails`
 - [x] Remove `quiet_assets` (built into Rails 5+)
@@ -57,10 +73,10 @@
 ## Asset Pipeline Modernization
 - [ ] Evaluate options: Sprockets, Propshaft, or webpack/esbuild
 - [ ] Convert CoffeeScript to modern JavaScript
-- [ ] Update SASS files for compatibility
+- [x] Update SASS files for compatibility
   - [x] Created custom mixins.sass to replace Compass mixins
-  - [ ] Replace all @import "compass" statements with @import "mixins"
-  - [ ] Remove compass-rails gem after all Sass files are updated
+  - [x] Replaced all @import "compass" statements with @import "mixins"
+  - [x] Removed compass-rails gem after testing
 - [ ] Update asset compilation configuration
 - [ ] Test asset precompilation in production mode
 
@@ -75,6 +91,21 @@
 - [ ] Fix failing tests
 - [ ] Add tests for critical functionality if missing
 - [ ] Perform manual testing of key user flows
+
+## Controller Updates for Rails 5.2
+- [x] Update CashesController (replaced redirect_ajax with proper respond_to block)
+- [x] Update UsersController (added explicit @user assignments)
+- [x] Update OrganisationUpdatesController (added explicit @organisation assignments)
+- [x] Update ExpensesController (updated HTTP verb comments from PUT to PATCH)
+
+## Controller Tests Update
+- [x] Update ProjectsController tests for Rails 5.2
+- [x] Update AccountLedgersController tests for Rails 5.2
+- [x] Fix remaining controller tests failing in Rails 5.2
+  - [x] CashesController
+  - [x] UsersController
+  - [x] OrganisationUpdatesController
+  - [x] ExpensesController
 
 ## Deployment
 - [ ] Update deployment scripts
@@ -96,5 +127,7 @@
 - [x] Updated deprecated render text: to render plain:
 - [x] Updated deprecated config.serve_static_files to config.public_file_server.enabled
 - [x] Updated Rails to version 5.1.7 and updated gem dependencies
+- [x] Successfully upgraded from Rails 5.1 to Rails 5.2
+- [x] Completed Compass-to-mixins migration
 - [ ] Following incremental upgrade approach as outlined in this document
-- [ ] Next steps: Continue updating remaining deprecated code patterns and prepare for Rails 5.2 upgrade
+- [ ] Next steps: Continue updating remaining deprecated code patterns and prepare for Rails 6.0 upgrade

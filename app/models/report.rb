@@ -125,7 +125,7 @@ private
   end
 
   def sanitize_sql_array(ary)
-    ActiveRecord::Base.send :sanitize_sql_array, ary
+    ApplicationRecord.send :sanitize_sql_for_conditions, ary
   end
 
   def tag_ids
@@ -133,7 +133,7 @@ private
   end
 
   def conn
-    ActiveRecord::Base.connection
+    ApplicationRecord.connection
   end
 
 end

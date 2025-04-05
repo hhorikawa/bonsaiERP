@@ -1,4 +1,4 @@
-class AddOrganisationDueOnAndPlan < ActiveRecord::Migration
+class AddOrganisationDueOnAndPlan < ActiveRecord::Migration[5.2]
   def up
     PgTools.with_schemas only: 'common' do
       add_column :organisations, :due_on, :date

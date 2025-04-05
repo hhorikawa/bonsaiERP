@@ -33,7 +33,7 @@ class BanksController < ApplicationController
 
   # PUT /banks/1
   def update
-    if @bank.update_attributes(update_bank_params)
+    if @bank.update(update_bank_params)
       redirect_to @bank, notice: 'Se actualizo  correctamente la cuenta de banco.'
     else
       render action: 'edit'

@@ -44,7 +44,7 @@ class UnitsController < ApplicationController
   # PUT /units/1
   def update
     @unit = Unit.find(params[:id])
-    @unit.update_attributes(unit_params)
+    @unit.update(unit_params)
 
     respond_with @unit
   end

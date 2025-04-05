@@ -2,6 +2,8 @@
 # email: boriscyber@gmail.com
 class UsersController < ApplicationController
 
+  before_action :set_user, only: [:show, :edit]
+
   # GET /users/:id
   def show
   end
@@ -12,14 +14,20 @@ class UsersController < ApplicationController
 
   # PUT /users/:id
   def update
-    if current_user.update_attributes(user_params)
-      redirect_to current_user, notice: "Se ha actualizado correctamente sus datos."
+    @user = current_user
+    
+    if @user.update(user_params)
+      redirect_to user_path(@user), notice: "Se ha actualizado correctamente sus datos."
     else
       render 'edit'
     end
   end
 
   private
+
+    def set_user
+      @user = current_user
+    end
 
     def user_params
       params.require(:user).permit(

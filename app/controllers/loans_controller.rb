@@ -48,7 +48,7 @@ class LoansController < ApplicationController
   def update
     @loan = Loan.find(params[:id])
 
-    if @loan.update_attributes(loan_update_params)
+    if @loan.update(loan_update_params)
       render json: { success: true }
     else
       render json: @loan.errors.messages

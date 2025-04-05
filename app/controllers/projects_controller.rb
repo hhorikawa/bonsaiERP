@@ -36,7 +36,7 @@ class ProjectsController < ApplicationController
   # PUT /projects/1
   # PUT /projects/1.xml
   def update
-    if @project.update_attributes(project_params)
+    if @project.update(project_params)
       redirect_to(@project, :notice => 'El project fue actualizado.')
     else
       render :action => "edit"

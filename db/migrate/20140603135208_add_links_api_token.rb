@@ -1,4 +1,4 @@
-class AddLinksApiToken < ActiveRecord::Migration
+class AddLinksApiToken < ActiveRecord::Migration[5.2]
   def up
     PgTools.with_schemas only: ['common', 'public'] do
       add_column :links, :api_token, :string

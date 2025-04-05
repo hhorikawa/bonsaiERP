@@ -1,4 +1,4 @@
-class DropTransactionsTable < ActiveRecord::Migration
+class DropTransactionsTable < ActiveRecord::Migration[5.2]
   def up
     PgTools.with_schemas except: 'common' do
       drop_table :transactions

@@ -1,7 +1,7 @@
 # encoding: utf-8
 # author: Boris Barroso
 # email: boriscyber@gmail.com
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   self.table_name = 'common.users'
 
   # Includes
@@ -53,7 +53,7 @@ class User < ActiveRecord::Base
 
   # Updates the priviledges of a user
   def update_user_role(params)
-    self.link.update_attributes(role: params[:rolname], active: params[:active_link])
+    self.link.update(role: params[:rolname], active: params[:active_link])
   end
 
   def set_auth_token

@@ -1,4 +1,4 @@
-class AddGinIdexesAccountsAccountLedgers < ActiveRecord::Migration
+class AddGinIdexesAccountsAccountLedgers < ActiveRecord::Migration[5.2]
   def up
     PgTools.with_schemas except: 'common' do
       # account_ledgers

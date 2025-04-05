@@ -5,7 +5,7 @@ module Models::Updater
       before_create :set_creator
       before_save :set_updater
 
-      belongs_to :updater, class_name: 'User'
+      belongs_to :updater, class_name: 'User', optional: true
     end
   end
 

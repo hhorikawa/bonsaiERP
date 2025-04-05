@@ -31,7 +31,7 @@ class StaffAccountsController < ApplicationController
 
   # PUT /staff_accounts/1
   def update
-      if @staff_account.update_attributes(staff_account_params)
+      if @staff_account.update(staff_account_params)
         redirect_to(@staff_account, notice: 'La cuenta personal fue actualizada.')
       else
         render :edit
