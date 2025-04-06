@@ -1,69 +1,69 @@
 require File.expand_path('../boot', __FILE__)
 
-# Pick the frameworks you want:
+require 'logger'
 
-require 'rails/all'
+# Pick the frameworks you want:
+require "active_record/railtie"
+require "active_storage/engine"
+require "action_controller/railtie"
+require "action_view/railtie"
+require "action_mailer/railtie"
+require "active_job/railtie"
+require "action_cable/engine"
+require "rails/test_unit/railtie"
+require "sprockets/railtie"
+# require "action_mailbox/engine"
+# require "action_text/engine"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module Bonsaierp
+module BonsaiErp
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.2
-    
+    config.load_defaults 6.0
+
     # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration should go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded.
+    # Application configuration can go into files in config/initializers
+    # -- all .rb files in that directory are automatically loaded after loading
+    # the framework and any gems in your application.
 
-    # Custom directories with classes and modules you want to be autoloadable.
-    config.autoload_paths = %W(#{config.root}/lib #{config.root}/app/forms)
-
-    config.assets.paths << Rails.root.join('vendor', 'assets')
+    # Add lib directory to autoload paths for Rails 6
+    config.autoload_paths += %W(#{config.root}/lib)
+    config.eager_load_paths += %W(#{config.root}/lib)
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     config.time_zone = 'La Paz'
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
+    # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :en
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
+    # Configure sensitive parameters which will be filtered from the log file.
+    config.filter_parameters += [:password]
+
     # Enable escaping HTML in JSON.
     config.active_support.escape_html_entities_in_json = true
 
-    config.assets.precompile += %w(angular/angular-file-upload-shim.min.js email.css)
-
+    # Use SQL instead of Active Record's schema dumper when creating the database.
+    # This is necessary if your schema can't be completely dumped by the schema dumper,
+    # like if you have constraints or database-specific column types
     config.active_record.schema_format = :sql
 
-    # Generators
+    # ActiveStorage configuration
+    config.active_storage.service = :local
+    config.active_storage.queues.analysis = :active_storage_analysis
+    config.active_storage.queues.purge    = :active_storage_purge
+
     config.generators do |g|
-      g.template_engine :haml
-      g.helper = false
-      g.stylesheet_engine = :sass
-      g.stylesheets = false
-      g.javascripts = false
+      g.test_framework :rspec, fixture: true
+      g.fixture_replacement :factory_bot
+      g.orm :active_record
     end
-
-    # Error pages exceptions
-    # config.exceptions_app = self.routes
-
-    # Configure Sass to use both Compass and SassC
-    config.sass.preferred_syntax = :sass
-    config.sass.load_paths << "#{Rails.root}/app/assets/stylesheets"
-
-    # Update Rack::Cors middleware for Rails 5
-    config.middleware.insert_before 0, Rack::Cors do
-      allow do
-        origins '*'
-        resource '*', :headers => :any, :methods => [:get, :post, :options]
-      end
-    end
-
   end
 end
-
-I18n.enforce_available_locales = false

@@ -11,17 +11,17 @@
 init = ($) ->
   # Regional settings for jquery-ui datepicker
   $.datepicker.regional['es'] = {
-    closeText: 'Cerrar',
+    closeText: 'Close',
     prevText: '',#&#x3c;',
     nextText: '',#&#x3e;',
-    currentText: 'Hoy',
-    monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
-    'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
-    monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun',
-    'Jul','Ago','Sep','Oct','Nov','Dic'],
-    dayNames: ['Domingo','Lunes','Martes','Mi&eacute;rcoles','Jueves','Viernes','S&aacute;bado'],
-    dayNamesShort: ['Dom','Lun','Mar','Mi&eacute;','Juv','Vie','S&aacute;b'],
-    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','S&aacute;'],
+    currentText: 'Today',
+    monthNames: ['January','February','March','April','May','June',
+    'July','August','September','October','November','December'],
+    monthNamesShort: ['Jan','Feb','Mar','Apr','May','Jun',
+    'Jul','Aug','Sep','Oct','Nov','Dec'],
+    dayNames: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+    dayNamesShort: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
+    dayNamesMin: ['Su','Mo','Tu','We','Th','Fr','Sa'],
     weekHeader: 'Sm',
     dateFormat: 'dd/mm/yy',
     firstDay: 1,
@@ -49,7 +49,7 @@ init = ($) ->
 
   # Ajax preloader content
   AjaxLoadingHTML = ->
-    "<h4 class='c'><img src='/assets/ajax-loader.gif' alt='Cargando..' /> Cargando...</h4>"
+    "<h4 class='c'><img src='/assets/ajax-loader.gif' alt='Loading..' /> Loading...</h4>"
 
   # Width for dialog
   getWidth = (width) ->
@@ -93,7 +93,7 @@ init = ($) ->
     $(self).parents("tr:first, li:first").addClass('marked')
     trigger = $(self).data('trigger') || 'ajax:delete'
 
-    conf = $(self).data('confirm') || 'Esta seguro de borrar el item seleccionado'
+    conf = $(self).data('confirm') || 'Are you sure you want to delete the selected item?'
 
     if(confirm(conf))
       url = $(this).attr('href')
@@ -111,14 +111,14 @@ init = ($) ->
             else
               $(self).parents("tr:first, li:first").removeClass('marked')
               error = resp.errors || ""
-              alert("Error no se pudo borrar: #{error}")
+              alert("Error could not delete: #{error}")
           else if resp.match(/^\/\/\s?javascript/)
             $(self).parents("tr:first, li:first").removeClass('marked')
           else
-            alert('Existio un error al borrar')
+            alert('There was an error deleting')
         'error': ->
           $(self).parents("tr:first, li:first").removeClass('marked')
-          alert('Existio un error al borrar')
+          alert('There was an error deleting')
       )
     else
       $(this).parents("tr:first, li:first").removeClass('marked')
@@ -132,7 +132,7 @@ init = ($) ->
   $('body').on('click', 'a.delete', (event) ->
     return false if $(this).attr("data-remote")
 
-    txt = $(this).data("confirm") || "Esta seguro de borrar"
+    txt = $(this).data("confirm") || "Are you sure you want to delete?"
     unless confirm(txt)
       false
     else
@@ -170,7 +170,7 @@ init = ($) ->
   dataNewUrl = ->
     $(this).find('[data-new-url]').each((i, el) ->
       data = $.extend({width: 800}, $(el).data() )
-      title = data.title || "Nuevo"
+      title = data.title || "New"
       trigger = data.trigger || 'ajax-call'
 
       $a = $('<a/>', {
@@ -235,7 +235,7 @@ init = ($) ->
   # @param String: HTML to insert inside the message div
   # @param Object
   createMessageCont = (text, options)->
-    "<div class='message'><a class='close' href='javascript:'>Cerrar</a>#{text}</div>"
+    "<div class='message'><a class='close' href='javascript:'>Close</a>#{text}</div>"
 
   window.createMessageCont = createMessageCont
 

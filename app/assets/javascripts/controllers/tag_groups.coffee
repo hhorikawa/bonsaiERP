@@ -8,7 +8,7 @@ myApp.controller('TagGroupsController', ['$scope', '$window', '$http', '$rootSco
 
   #
   setEdit = ->
-    $scope.title = 'Editar grupo de etiquetas'
+    $scope.title = 'Edit tag group'
     $scope.edit = true
     $scope.id = $window.tag_group.id
     $scope.name = $window.tag_group.name
@@ -26,7 +26,7 @@ myApp.controller('TagGroupsController', ['$scope', '$window', '$http', '$rootSco
   if $window.tag_group and $window.tag_group.id
     setEdit()
   else
-    $scope.title = 'Nuevo grupo de etiquetas'
+    $scope.title = 'New tag group'
 
   # End of set for edit
 
@@ -59,15 +59,15 @@ myApp.controller('TagGroupsController', ['$scope', '$window', '$http', '$rootSco
     $http.post("/tag_groups", { tag_group: getData()})
     .success( (resp) ->
       $scope.submit = false
-      $window.history.pushState({resp: resp}, "Grupos de etiquetas", "/tag_groups/#{ resp.id }/edit")
-      $scope.title = 'Editar grupo de etiquetas'
+      $window.history.pushState({resp: resp}, "Tag groups", "/tag_groups/#{ resp.id }/edit")
+      $scope.title = 'Edit tag group'
 
-      $('#tag-group-button').notify('Se creo correctamente.',
+      $('#tag-group-button').notify('Created successfully.',
         {className: 'success', position: 'right', autoHideDelay: 3000})
     )
     .error( (resp) ->
       $scope.submit = false
-      $('#tag-group-button').notify('Existió un error, por favor intente de nuevo.',
+      $('#tag-group-button').notify('There was an error, please try again.',
         {className: 'error', position: 'right', autoHideDelay: 3000})
     )
 
@@ -77,12 +77,12 @@ myApp.controller('TagGroupsController', ['$scope', '$window', '$http', '$rootSco
     $http.put("/tag_groups/#{$scope.id}", { tag_group: getData()})
     .success( (resp) ->
       $scope.submit = false
-      $('#tag-group-button').notify('Se actualizo correctamente.',
+      $('#tag-group-button').notify('Updated successfully.',
         {className: 'success', position: 'right', autoHideDelay: 3000})
     )
     .error( (resp) ->
       $scope.submit = false
-      $('#tag-group-button').notify('Existió un error, por favor intente de nuevo.',
+      $('#tag-group-button').notify('There was an error, please try again.',
         {className: 'error', position: 'right', autoHideDelay: 3000})
     )
 

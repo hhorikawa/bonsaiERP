@@ -15,6 +15,10 @@ class SessionsController < ApplicationController
 
     case
     when @session.authenticate?
+      # Clear any existing session data first
+      reset_session
+      
+      # Set new session data
       session[:user_id] = @session.user_id
       session[:tenant] = @session.tenant
 

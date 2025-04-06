@@ -1,0 +1,88 @@
+<ol id="tour" class="joyride-list hidden" data-joyride>
+  <li data-sel="#help-link-general" data-text="Next" data-tip-location='right'>
+    <h4>
+      Let's start with bonsaiERP
+    </h4>
+    <p>
+      If you don't know what to do, click on
+      the <strong>help</strong> which will show you step by step
+      how to perform an operation
+    </p>
+  </li>
+
+  <li data-sel="h1.n:first" data-text="End">
+    <h4>
+      General aspects
+    </h4>
+    <p>
+      Read the general aspects carefully as they will help you
+      better understand the system
+    </p>
+  </li>
+</ol>
+
+<ol id="tour-graph" class="joyride-list hidden" data-joyride>
+  <li data-sel='#general-aspects-title' data-text='Next' data-tip-location='bottom'>
+    <h4>
+      General aspects
+    </h4>
+    <p>
+      Read the general aspects carefully as they will help you
+      better understand the system
+    </p>
+  </li>
+  <li data-sel='h4.graph' data-text='Next'>
+    <h4>Graph</h4>
+    <p>
+      The graph shows your
+      <span class="text-success">income</span>
+      and your
+      <span class="text-error">expenses</span>
+      over a period of time
+    </p>
+  </li>
+
+  <li data-sel='#date_start_picker' data-text='Next'>
+    <h4>Time range</h4>
+    <p>
+      You can enter a date range for the graph
+      to update with the range you have selected
+    </p>
+  </li>
+
+  <li data-sel='.incomes-total' data-text='End' data-tip-location='bottom'>
+    <h4>Totals</h4>
+    <p>
+      This is the total income that existed in your company
+      during the specified time range
+    </p>
+  </li>
+</ol>
+
+<script type="text/javascript">
+  $(function() {
+    function generalTour() {
+      $('#general-aspects').show();
+      var t = new Plugin.Bride('#tour');
+      t.init();
+    }
+
+    /*
+    if($.cookie('bonsai-new-user-<%= current_user.id %>') ) {
+      var val = $.cookie('bonsai-new-user-<%= current_user.id %>') * 1;
+      if(val < 2) {
+        generalTour();
+        $.cookie('bonsai-new-user-<%= current_user.id %>', val + 1);
+      }
+    }else {
+      $.cookie('bonsai-new-user-<%= current_user.id %>', 0);
+    }
+    */
+
+    $('#help-link-general').click(function() {
+      $('#general-aspects').show();
+      var t = new Plugin.Bride('#tour-graph');
+      t.init();
+    });
+  })
+</script>

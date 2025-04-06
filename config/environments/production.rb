@@ -21,13 +21,18 @@ Rails.application.configure do
   # Disable Rails's static asset server (Apache or nginx will already do this)
   config.public_file_server.enabled = false
 
+  # Compress CSS using a preprocessor.
+  config.assets.css_compressor = :sass
+  
   # Compress JavaScripts and CSS
   # config.assets.compress = true  # Deprecated in Rails 5.1
   config.assets.js_compressor = Uglifier.new(mangle: false)
-  config.assets.css_compressor = :sass
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = false
+
+  # Enable serving of assets by ActionDispatch (used by default in Rails 6)
+  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Generate digests for assets URLs
   config.assets.digest = true
@@ -60,10 +65,7 @@ Rails.application.configure do
   config.log_level = :info
 
   # Prepend all log lines with the following tags
-  # config.log_tags = [ :subdomain, :uuid ]
-
-  # Use a different logger for distributed setups
-  # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
+  config.log_tags = [ :request_id ]
 
   # Use a different cache store in production
   # config.cache_store = :mem_cache_store
@@ -82,6 +84,16 @@ Rails.application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
+  # Use a different logger for distributed setups.
+  # require 'syslog/logger'
+  # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
+
+  if ENV["RAILS_LOG_TO_STDOUT"].present?
+    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger.formatter = config.log_formatter
+    config.logger    = ActiveSupport::TaggedLogging.new(logger)
+  end
+
   # Do not dump schema after migrations.
   # config.active_record.dump_schema_after_migration = false
 
@@ -97,6 +109,31 @@ Rails.application.configure do
     password: Rails.application.secrets.mandrill_api_key
     #ENV['MANDRILL_API_KEY']
   }
+
+  # Inserts middleware to perform automatic connection switching.
+  # The `database_selector` hash is used to pass options to the DatabaseSelector
+  # middleware. The `delay` is used to determine how long to wait after a write
+  # to send a subsequent read to the primary.
+  #
+  # The `database_resolver` class is used by the middleware to determine which
+  # database is appropriate to use based on the time delay.
+  #
+  # The `database_resolver_context` class is used by the middleware to set
+  # timestamps for the last write to the primary. The resolver uses the context
+  # class timestamps to determine how long to wait before reading from the
+  # replica.
+  #
+  # By default Rails will store a last write timestamp in the session. The
+  # DatabaseSelector middleware is designed as such you can define your own
+  # strategy for connection switching and pass that into the middleware through
+  # these configuration options.
+  # config.active_record.database_selector = { delay: 2.seconds }
+  # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
+  # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
+
+  # Enable/disable action mailbox and action text
+  config.action_mailbox.enabled = false
+  config.action_text.enabled = false
 
   #config.exceptions_app = self.routes
 end

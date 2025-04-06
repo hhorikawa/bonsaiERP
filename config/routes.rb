@@ -4,7 +4,7 @@ class ActionDispatch::Routing::Mapper
   end
 end
 
-Bonsaierp::Application.routes.draw do
+BonsaiErp::Application.routes.draw do
   draw :api
   draw :app
 

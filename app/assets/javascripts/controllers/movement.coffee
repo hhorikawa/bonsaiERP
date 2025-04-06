@@ -6,7 +6,7 @@ MovementController = ($scope, $window, MovementDetail) ->
   $scope.details = []
   $scope.direct_payment = $('#direct_payment').prop('checked')
   $scope.tax_in_out = $('#tax_in_out').prop('checked')
-  $scope.tax_label = 'Por fuera'
+  $scope.tax_label = 'Outside'
   $scope.taxes = angular.element('#taxes').data('taxes')
   $scope._destroy = '0'
   #$scope.exchange_rate = $('#exchange_rate').val() * 1
@@ -72,7 +72,7 @@ MovementController = ($scope, $window, MovementDetail) ->
 
   # Tax label
   $scope.taxLabel = ->
-    if $scope.tax_in_out is true then 'Por dentro' else 'Por fuera'
+    if $scope.tax_in_out is true then 'Inside' else 'Outside'
 
 
   # Subtotal
@@ -108,7 +108,7 @@ MovementController = ($scope, $window, MovementDetail) ->
       true
     else
       event.preventDefault()
-      $.notify('Debe seleccionar al menos un ítem', { className: 'error', position: 'top right' })
+      $.notify('You must select at least one item', { className: 'error', position: 'top right' })
 
   # Add new item with add button
   $('body').on 'ajax-call', '.movement-details a.add-new-item', (event, resp) ->

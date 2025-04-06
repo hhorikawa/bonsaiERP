@@ -1,5 +1,5 @@
 @import 'colors';
-@import 'compass';
+@import 'compatibility';
 
 h1{
   font-size: 30px;
@@ -38,10 +38,12 @@ a:hover{
     font-size: 110%;
   }
   ul > li:first-child > a{
-    @include border-left-radius(2px);
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
   }
   ul > li:last-child > a{
-    @include border-right-radius(2px);
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
   }
 }
 
@@ -56,7 +58,7 @@ a:hover{
   }
 }
 .select2-container .select2-choice {
-  @include border-radius(2px);
+  border-radius: 2px;
   div b {
     background: none;
   }
@@ -69,14 +71,16 @@ a:hover{
 ////////////////////////////////////////
 // Bootstrap
 .btn{
-  @include border-radius(2px)
+  border-radius: 2px;
 }
 
 .btn-group > .btn:first-child{
-  @include border-left-radius(2px)
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
 }
 .btn-group > .btn:last-child{
-  @include border-right-radius(2px)
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
 }
 
 select,
@@ -96,7 +100,7 @@ input[type="search"],
 input[type="tel"],
 input[type="color"],
 .uneditable-input{
-  @include border-radius(2px)
+  border-radius: 2px;
 }
 
 .btn{

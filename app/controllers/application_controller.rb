@@ -104,7 +104,13 @@ class ApplicationController < ActionController::Base
     end
 
     def current_tenant
-      session[:tenant]
+      return nil unless session.id
+      begin
+        session[:tenant]
+      rescue JSON::ParserError
+        reset_session
+        nil
+      end
     end
 
     # Uses the helper methods from devise to made them available in the models

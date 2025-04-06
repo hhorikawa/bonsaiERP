@@ -1,5 +1,6 @@
 @import "mixins"
 @import colors
+@import "compatibility"
 
 // Header
 .session-header
@@ -18,7 +19,7 @@
  * .lonely Login form, registration form
  *************************************/
 .initial
-  +border-radius(8px)
+  border-radius: 8px
   max-width: 450px
   margin: 30px auto 70px
   background: rgba(0, 0, 0, 0.5)
@@ -46,7 +47,8 @@
 
   .input-append > .large
     input
-      +border-right-radius(0px)
+      border-top-right-radius: 0px
+      border-bottom-right-radius: 0px
     .add-on.append
       margin-left: -10px
       height: 35px
@@ -59,15 +61,14 @@
     margin-top: 4px
 
   .btn
-    +border-radius(4px)
-    +border-radius(4px)
+    border-radius: 4px
     font-size: 22px
     padding: 16px 50px
     margin: 24px 0px 10px
     width: 356px
 
 h1.login
-  +text-shadow(1px 1px white)
+  text-shadow: 1px 1px white
   font-size: 40px
   margin: 20px 0px
   color: $dark

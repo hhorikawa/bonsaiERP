@@ -1,0 +1,81 @@
+<% content_for :links do %>
+  <ul class="breadcrumbs span6">
+    <li></li>
+  </ul>
+
+  <div class="span6">
+    <ul class="breadcrumbs r">
+      <a id="help-link-general" class="dark" href="javascript:;">
+        <i class="icon-question-sign">
+          Help
+        </i>
+      </a>
+    </ul>
+  </div>
+<% end %>
+
+<h2 id="title">
+  Summary
+  <i class="fs80 n"><%= present_date_range @date_range %></i>
+</h2>
+
+<%= render partial: "dashboard/general_aspects" %>
+
+<h5 class="n"><%= @dashboard.pendent_ledgers %></h5>
+
+<div class="well">
+  <%= form_for dashboard_path, method: :get, html: {id: "form_graph", class: 'form-inline'} do %>
+    <%= render 'layouts/date_range', dr: @date_range %>
+    <%= submit_tag 'Generate', class: 'btn' %>
+  <% end %>
+</div>
+
+<%= render 'dashboard/graph', data: @dashboard %>
+
+<div class="row-fluid">
+  <div class="span6 well well-small">
+    <%#<div class="alert alert-success inline-block"></div>%>
+    <div class="row-fluid">
+      <div class="span6">
+        <h4 class="incomes-total muted ib n">
+          Income:
+        </h4>
+        <h4 class="bonsai-dark ib">
+          %
+          <%= ntc @dashboard.incomes_percentage %>
+        </h4>
+      </div>
+      <div class="span6">
+        <h4 class="n ib">
+          <i class="icon-plus bonsai-dark"></i>
+          <%= ntc @dashboard.total_incomes %>
+          <%= currency_label currency %>
+        </h4>
+      </div>
+    </div>
+  </div>
+
+  <div class="span6 well well-small">
+    <%#<div class="alert alert-error inline-block"></div>%>
+    <div class="row-fluid">
+      <div class="span6">
+        <h4 class="expenses-total ib n muted">
+          Expenses:
+        </h4>
+        <h4 class="ib text-error">
+          %
+          <%= ntc @dashboard.expenses_pecentage %>
+        </h4>
+      </div>
+      <div class="span6">
+        <h4 class="n inline-block">
+          <i class="icon-minus text-error"></i>
+          <%= ntc @dashboard.total_expenses %>
+          <%= currency_label currency %>
+        </h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render "dashboard/tour_general" %>

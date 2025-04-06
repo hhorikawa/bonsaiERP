@@ -131,5 +131,9 @@
 - [x] Completed Compass-to-mixins migration
 - [x] Updated deprecated find_by_* dynamic finders to find_by(attribute: value)
 - [x] Updated deprecated update_attributes and update_attributes! to update and update!
+- [x] Converted views from Spanish to English for improved localization
+- [x] Translated JavaScript messages from Spanish to English
+- [x] Converted HAML templates to ERB format for better Rails 6 compatibility
+- [x] Updated controllers to explicitly render templates for Rails 6 compatibility
 - [ ] Following incremental upgrade approach as outlined in this document
 - [ ] Next steps: Update Rails version to 6.0 and update gem dependencies

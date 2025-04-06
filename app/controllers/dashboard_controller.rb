@@ -11,11 +11,13 @@ class DashboardController < ApplicationController
 
   # GET /home
   def home
+    render template: 'dashboard/home'
   end
 
   # GET /dashboard
   def index
     @dashboard = DashboardPresenter.new(view_context, @date_range)
+    render template: 'dashboard/index'
   end
 
   private

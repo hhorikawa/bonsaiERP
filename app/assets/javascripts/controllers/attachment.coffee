@@ -37,7 +37,7 @@ AttachmentController = ($scope, $http, $timeout, $upload) ->
   $scope.delete = (attch, index) ->
     return  if attch.process
 
-    if confirm('Esta segur@ de eliminar el adjunto?')
+    if confirm('Are you sure you want to delete the attachment?')
 
       attch.process = true
 
@@ -46,7 +46,7 @@ AttachmentController = ($scope, $http, $timeout, $upload) ->
         $scope.attachments.splice(index, 1)
       )
       .error(->
-        alert('Existio un error al eliminar el adjunto')
+        alert('There was an error deleting the attachment')
       )
       .finally(->
         attch.process = false

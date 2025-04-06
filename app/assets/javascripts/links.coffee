@@ -4,7 +4,7 @@ $(->
     return  if $div.find('.cancel').length > 0
 
     $cancel = $('<a/>', {
-      class: 'btn cancel', href: 'javascript:;', text: 'Cancelar'
+      class: 'btn cancel', href: 'javascript:;', text: 'Cancel'
       click: ->
         if $div.attr('ng-controller')
           $scope = $div.scope()
@@ -55,7 +55,7 @@ $(->
         $this.show('medium')
         $('.top-left').notify({
           type: 'error',
-          message: { text: 'Exisiton un error' }
+          message: { text: 'An error occurred' }
         }).show()
 
       else
@@ -134,7 +134,7 @@ $(->
       else
         $div = $('<div>').html(resp)
 
-      $this.find('.form-actions').append('<a class="btn cancel" href="javascript:;">Cancelar</a>')
+      $this.find('.form-actions').append('<a class="btn cancel" href="javascript:;">Cancel</a>')
 
       $tit = $this.dialog('widget').find('.ui-dialog-title')
       .text($div.find('h1').text())
@@ -174,9 +174,9 @@ $(->
           $parent.remove()
         else
           $parent.removeClass('marked')
-          alert "El registro no puede ser eliminado debe tener relaciones."
+          alert "The record cannot be deleted because it has relationships."
       )
-      .fail -> alert('Existion un error al borrar')
+      .fail -> alert('There was an error deleting')
 
     else
       $parent.removeClass('marked')
@@ -187,9 +187,9 @@ $(->
       when $this.data('confirm')
         $this.data('confirm')
       when $this.data('method') is 'delete' and $this.data('remote')
-        'Esta segur@ de eliminar el registro?'
+        'Are you sure you want to delete the record?'
       when $this.data('method') is 'delete'
-        'Esta segur@ de eliminar el registro?'
+        'Are you sure you want to delete the record?'
       else
         null
 

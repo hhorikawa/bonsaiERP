@@ -63,7 +63,7 @@ $( ->
         # Trigger that form has been reloaded
         $div.trigger('reload:ajax-modal')
     .error (resp) ->
-      alert('Existio errores, por favor intente de nuevo.')
+      alert('There were errors, please try again.')
   )
   # End submit ajax form
 
@@ -123,7 +123,7 @@ $( ->
           $input.removeClass('loading')
 
           if ui.content.length is 0
-            $input.popoverNotitle({content: 'No se encontraron resultados'})
+            $input.popoverNotitle({content: 'No results found'})
             $input.popover('show')
             $input.on('focusout', -> $input.popover('destroy'))
           else
@@ -182,22 +182,22 @@ $( ->
   ########################################
   # Select2
   $.fn.select2.defaults = _.merge($.fn.select2.defaults, {
-    numCars: (n) -> if n == 1 then "" else "es"
+    numCars: (n) -> if n == 1 then "" else "s"
     formatResultCssClass: -> undefined
-    formatNoMatches: -> "No se encontro"
+    formatNoMatches: -> "No matches found"
     formatInputTooShort: (input, min) ->
       n = min - input.length
-      "Ingrese #{n} caracter#{@numCars(n)} mas"
+      "Enter #{n} more character#{@numCars(n)}"
     formatInputTooLong: (input, max) ->
       n = input.length - max
-      "Ingrese #{n} caracter#{@numCars(n)} menos"
+      "Enter #{n} fewer character#{@numCars(n)}"
     ###
     formatSelectionTooBig: ->
       #function (limit) { return "You can only select " + limit + " item" + (limit == 1 ? "" : "s"); },
     ###
-    formatLoadMore: -> "Cargando resultados..."
+    formatLoadMore: -> "Loading results..."
       #function (pageNumber) { return "Loading more results..."; },
-    formatSearching: -> "Buscando..."
+    formatSearching: -> "Searching..."
   })
 
   select2Autocomplete = (el) ->
