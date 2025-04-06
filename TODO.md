@@ -129,5 +129,7 @@
 - [x] Updated Rails to version 5.1.7 and updated gem dependencies
 - [x] Successfully upgraded from Rails 5.1 to Rails 5.2
 - [x] Completed Compass-to-mixins migration
+- [x] Updated deprecated find_by_* dynamic finders to find_by(attribute: value)
+- [x] Updated deprecated update_attributes and update_attributes! to update and update!
 - [ ] Following incremental upgrade approach as outlined in this document
-- [ ] Next steps: Continue updating remaining deprecated code patterns and prepare for Rails 6.0 upgrade
+- [ ] Next steps: Update Rails version to 6.0 and update gem dependencies

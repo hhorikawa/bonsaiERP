@@ -130,7 +130,7 @@ class IncomesController < ApplicationController
     end
 
     def set_income
-      @income = Income.find_by_id(params[:id])
+      @income = Income.find_by(id: params[:id])
     end
 
     # Method to search incomes on the index

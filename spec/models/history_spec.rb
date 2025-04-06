@@ -46,7 +46,7 @@ describe History do
       expect(i.histories.last).to be_new_item
       expect(i.histories.last.user_id).to eq(1)
 
-      expect(i.update_attributes(active: false)).to eq(true)
+      expect(i.update(active: false)).to eq(true)
       i.histories.size.should eq(3)
       h = i.histories.first
       expect( h.history_attributes.sort ).to eq(['active', 'updated_at'])
@@ -146,7 +146,7 @@ describe History do
       det[2]['_destroy'] = '1'
 
       at = e.attributes.except('created_at', 'updated_at').merge(expense_details_attributes: det)
-      e.update_attributes(at).should eq(true)
+      e.update(at).should eq(true)
 
       expect(e.histories.size).to eq(4)
       expect(e.expense_details.size).to eq(2)

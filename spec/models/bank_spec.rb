@@ -30,7 +30,7 @@ describe Bank do
     b.should be_persisted
 
     h = {:website => "www.bnb.com.bo", :address => "Very near", :phone => "2798888"}
-    b.update_attributes(h).should eq(true)
+    b.update(h).should eq(true)
 
     b.reload
 

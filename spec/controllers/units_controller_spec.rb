@@ -75,18 +75,18 @@ describe UnitsController do
     describe "with valid params" do
       it "updates the requested unit" do
         Unit.should_receive(:find).with("37") { mock_unit }
-        mock_unit.should_receive(:update_attributes).with({'these' => 'params'})
+        mock_unit.should_receive(:update).with({'these' => 'params'})
         put :update, :id => "37", :unit => {'these' => 'params'}
       end
 
       it "assigns the requested unit as @unit" do
-        Unit.stub(:find) { mock_unit(:update_attributes => true) }
+        Unit.stub(:find) { mock_unit(:update => true) }
         put :update, :id => "1"
         assigns(:unit).should be(mock_unit)
       end
 
       it "redirects to the unit" do
-        Unit.stub(:find) { mock_unit(:update_attributes => true) }
+        Unit.stub(:find) { mock_unit(:update => true) }
         put :update, :id => "1"
         response.should redirect_to(unit_url(mock_unit))
       end
@@ -94,13 +94,13 @@ describe UnitsController do
 
     describe "with invalid params" do
       it "assigns the unit as @unit" do
-        Unit.stub(:find) { mock_unit(:update_attributes => false) }
+        Unit.stub(:find) { mock_unit(:update => false) }
         put :update, :id => "1"
         assigns(:unit).should be(mock_unit)
       end
 
       it "re-renders the 'edit' template" do
-        Unit.stub(:find) { mock_unit(:update_attributes => false) }
+        Unit.stub(:find) { mock_unit(:update => false) }
         put :update, :id => "1"
         response.should render_template('edit')
       end

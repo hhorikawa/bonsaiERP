@@ -28,7 +28,7 @@ class Expenses::Payment < PaymentService
   end
 
   def expense
-    @movement = @expense ||= Expense.find_by_id(account_id)
+    @movement = @expense ||= Expense.find_by(id: account_id)
   end
   alias_method :movement, :expense
 

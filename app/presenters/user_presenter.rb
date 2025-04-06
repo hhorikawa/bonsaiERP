@@ -39,7 +39,7 @@ class UserPresenter < BasePresenter
 
   # Returns the link with the organissation one is logged in
   def link
-    @link ||= links.find_by_organisation_id(context.current_organisation.id)
+    @link ||= links.find_by(organisation_id: context.current_organisation.id)
   end
 
   def delete_link

@@ -40,7 +40,7 @@ describe User do
     u = User.create!(email: 'test@mail.com', password: 'Demo12234')
 
     u = User.find(u.id)
-    u.update_attributes(password: 'Demo12234', ).should eq(true)
+    u.update(password: 'Demo12234').should eq(true)
   end
 
   it '#set_confirmation_token' do
@@ -106,15 +106,15 @@ describe User do
     expect(u).to be_persisted
     expect(u.old_emails).to eq([])
 
-    expect(u.update_attributes(email: 'second@mail.com')).to eq(true)
+    expect(u.update(email: 'second@mail.com')).to eq(true)
     u = User.find u.id
     expect(u.old_emails).to eq(['first@mail.com'])
 
-    expect(u.update_attributes(email: 'second@mail.com', first_name: 'Juan other')).to eq(true)
-    expect(u.update_attributes(email: 'second@mail.com')).to eq(true)
+    expect(u.update(email: 'second@mail.com', first_name: 'Juan other')).to eq(true)
+    expect(u.update(email: 'second@mail.com')).to eq(true)
     expect(u.old_emails).to eq(['first@mail.com'])
 
-    expect(u.update_attributes(email: 'third@mail.com', first_name: 'Juan other')).to eq(true)
+    expect(u.update(email: 'third@mail.com', first_name: 'Juan other')).to eq(true)
     u = User.find u.id
     expect(u.old_emails).to eq(%w(second@mail.com first@mail.com))
   end

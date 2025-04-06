@@ -32,11 +32,11 @@ class Transference < BaseForm
   end
 
   def account
-    @account ||= Account.active.find_by_id(account_id)
+    @account ||= Account.active.find_by(id: account_id)
   end
 
   def account_to
-    @account_to ||= Accounts::Query.new.money.find_by_id(account_to_id)
+    @account_to ||= Accounts::Query.new.money.find_by(id: account_to_id)
   end
 
   def transfer
@@ -113,4 +113,3 @@ class Transference < BaseForm
     end
 
 end
-

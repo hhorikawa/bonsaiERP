@@ -21,7 +21,7 @@ class Stock < ApplicationRecord
 
   # Sets the minimun for an Stock
   def self.new_minimum(item_id, store_id)
-    Stock.find_by_item_id_and_store_id(item_id, store_id)
+    Stock.find_by(item_id: item_id, store_id: store_id)
   end
 
   def self.minimum_list

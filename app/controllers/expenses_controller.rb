@@ -122,7 +122,7 @@ class ExpensesController < ApplicationController
     end
 
     def set_expense
-      @expense = Expense.find_by_id(params[:id])
+      @expense = Expense.find_by(id: params[:id])
     end
 
     # Method to search expenses on the index

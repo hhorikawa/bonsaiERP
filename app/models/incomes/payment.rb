@@ -26,7 +26,7 @@ class Incomes::Payment < PaymentService
   end
 
   def income
-    @movement = @income ||= Income.find_by_id(account_id)
+    @movement = @income ||= Income.find_by(id: account_id)
   end
   alias :movement :income
 

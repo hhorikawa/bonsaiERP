@@ -16,7 +16,7 @@ class RegistrationsController < ApplicationController
   # GET /registrations/:id
   def show
     reset_session
-    @user = current_organisation.users.find_by_confirmation_token(params[:id])
+    @user = current_organisation.users.find_by(confirmation_token: params[:id])
 
     if @user && @user.confirm_registration
       session[:user_id] = @user.id

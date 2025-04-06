@@ -27,7 +27,7 @@ class QuickForm < BaseForm
 
 private
   def account_to
-    @account_to ||= Accoun.find_by_id(account_to_id)
+    @account_to ||= Account.find_by(id: account_to_id)
   end
 
   def transaction_attributes
@@ -50,13 +50,13 @@ private
     }
   end
 
-  # Use method find_by_id to prevent exception
+  # Use method find_by to prevent exception
   def account_to
-    @account_to ||= Account.find_by_id(account_to_id)
+    @account_to ||= Account.find_by(id: account_to_id)
   end
 
   def contact
-    @contact ||= Contact.find_by_id(contact_id)
+    @contact ||= Contact.find_by(id: contact_id)
   end
 
   def valid_account_to

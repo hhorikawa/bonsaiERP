@@ -138,7 +138,7 @@ describe Item do
 
       i = Item.find i.id
 
-      i.update_attributes!(name: 'Sojooj', unit_id: unit.id)
+      i.update!(name: 'Sojooj', unit_id: unit.id)
       i.unit_name.should eq(unit.name)
       i.unit_symbol.should eq(unit.symbol)
     end

@@ -162,7 +162,7 @@ describe AccountLedger do
       al.should be_persisted
       al.name.should eq("T-#{y}-0002")
 
-      al.update_attributes(reference: 'Changed ref')
+      al.update(reference: 'Changed ref')
 
       AccountLedger.order('name').pluck(:name).should eq(["T-#{y}-0001", "T-#{y}-0002"])
     end

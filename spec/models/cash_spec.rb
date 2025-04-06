@@ -49,7 +49,7 @@ describe Cash do
 
     c.should be_persisted
 
-    c.update_attributes(address: 'Another address', email: 'caja1@mail.com').should eq(true)
+    c.update(address: 'Another address', email: 'caja1@mail.com').should eq(true)
 
     c = Cash.find(c.id)
 
