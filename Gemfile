@@ -10,6 +10,7 @@ gem 'logger', '~> 1.4'
 gem 'sass-rails', '~> 6.0.0'  # Updated for Rails 6.0 compatibility
 gem 'coffee-rails' , '~> 5.0.0'
 gem 'uglifier' , '>= 4.1.0'
+gem 'webpacker', '~> 5.4.3'  # Required for Rails 6.0
 
 # Temporarily adding compass-rails for backward compatibility during upgrade
 # Removed compass-rails as it's not compatible with sass-rails 6.0
@@ -38,6 +39,11 @@ gem 'dragonfly', '~> 1.4.0'
 gem "rack-cors", '~> 1.1.1', require: "rack/cors"
 
 gem "responders", "~> 3.0.0"  # Compatible with Rails 6.0
+gem 'zeitwerk', '~> 2.6.0'  # Required for Rails 6.0 autoloading
+
+# Active Storage
+gem 'image_processing', '~> 1.12.2'  # For Active Storage variants
+gem 'mini_magick', '~> 4.11.0'  # For image processing
 
 group :production do
   gem 'newrelic_rpm', '~> 6.15.0'  # Compatible with Rails 6.0
@@ -81,4 +87,6 @@ group :test do
   gem "watchr", '~> 0.7'
   gem "launchy", '~> 2.5.0'
   gem 'rails-controller-testing', '~> 1.0.5'  # For assigns and assert_template in Rails 6.0
+  gem 'webdrivers', '~> 5.0.0'  # For system tests in Rails 6.0
+  gem 'actiontext', '~> 6.0.6'
 end

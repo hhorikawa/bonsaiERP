@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Testing - BonsaiERP</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .test-section { margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+    h2 { margin-top: 0; }
+    .success { color: green; }
+    .error { color: red; }
+    .result { margin-top: 10px; padding: 10px; background-color: #f5f5f5; border-radius: 3px; }
+    button { padding: 5px 10px; margin-right: 5px; }
+  </style>
+</head>
+<body>
+  <h1>JavaScript Testing for BonsaiERP</h1>
+  <p>This page tests the JavaScript files that were converted from CoffeeScript.</p>
+
+  <div class="test-section">
+    <h2>Base.js Testing</h2>
+    <button id="test-ajax-setup">Test AJAX Setup</button>
+    <button id="test-create-dialog">Test Create Dialog</button>
+    <div id="base-result" class="result">Results will appear here</div>
+  </div>
+
+  <div class="test-section">
+    <h2>Forms.js Testing</h2>
+    <button id="test-parse-date">Test Parse Date</button>
+    <button id="test-datepicker">Test Datepicker</button>
+    <div id="forms-result" class="result">Results will appear here</div>
+  </div>
+
+  <div class="test-section">
+    <h2>Links.js Testing</h2>
+    <button id="test-row-check">Test Row Check</button>
+    <button id="test-confirm-message">Test Confirm Message</button>
+    <div id="links-result" class="result">Results will appear here</div>
+  </div>
+
+  <div class="test-section">
+    <h2>Application.js Testing</h2>
+    <button id="test-application">Test Application Loading</button>
+    <div id="application-result" class="result">Results will appear here</div>
+  </div>
+
+  <script>
+    // Helper function to display test results
+    function showResult(elementId, success, message) {
+      const element = document.getElementById(elementId);
+      element.innerHTML = `
+        <span class="${success ? 'success' : 'error'}">
+          ${success ? '✓ Success' : '✗ Error'}: ${message}
+        </span>
+      `;
+    }
+
+    // Load JavaScript files dynamically
+    function loadScript(url) {
+      return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = url;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+      });
+    }
+
+    // Test functions
+    async function testBaseJS() {
+      try {
+        await loadScript('app/assets/javascripts/base.js');
+        // Check if key functions exist
+        if (typeof window.createDialog === 'function') {
+          showResult('base-result', true, 'Base.js loaded successfully. createDialog function exists.');
+        } else {
+          showResult('base-result', false, 'Base.js loaded but createDialog function is missing.');
+        }
+      } catch (error) {
+        showResult('base-result', false, `Failed to load Base.js: ${error.message}`);
+      }
+    }
+
+    async function testFormsJS() {
+      try {
+        await loadScript('app/assets/javascripts/forms.js');
+        showResult('forms-result', true, 'Forms.js loaded successfully.');
+      } catch (error) {
+        showResult('forms-result', false, `Failed to load Forms.js: ${error.message}`);
+      }
+    }
+
+    async function testLinksJS() {
+      try {
+        await loadScript('app/assets/javascripts/links.js');
+        showResult('links-result', true, 'Links.js loaded successfully.');
+      } catch (error) {
+        showResult('links-result', false, `Failed to load Links.js: ${error.message}`);
+      }
+    }
+
+    async function testApplicationJS() {
+      try {
+        await loadScript('app/assets/javascripts/application.js');
+        showResult('application-result', true, 'Application.js loaded successfully.');
+      } catch (error) {
+        showResult('application-result', false, `Failed to load Application.js: ${error.message}`);
+      }
+    }
+
+    // Event listeners
+    document.getElementById('test-ajax-setup').addEventListener('click', testBaseJS);
+    document.getElementById('test-create-dialog').addEventListener('click', testBaseJS);
+    document.getElementById('test-parse-date').addEventListener('click', testFormsJS);
+    document.getElementById('test-datepicker').addEventListener('click', testFormsJS);
+    document.getElementById('test-row-check').addEventListener('click', testLinksJS);
+    document.getElementById('test-confirm-message').addEventListener('click', testLinksJS);
+    document.getElementById('test-application').addEventListener('click', testApplicationJS);
+  </script>
+</body>
+</html>

@@ -1,196 +1,234 @@
-# Bonsai installation with passenger on Ubuntu 14.04
-```
-sudo apt-get update
-sudo apt-get install git-core curl tmux
-sudo a2enmode rewrite
-sudo a2enmode headers
-sudo a2enmode expires
-sudo apt-get install libapache2-mod-upload-progress
-sudo apt-get install libapache2-mod-xsendfile
-sudo apt-get install imagemagick
-sudo apt-get install libgmp-dev
-```
+# BonsaiERP Installation Guide (Updated April 2025)
 
-## Set ssh
-Login to the server and edit `/etc/ssh/sshd_config`
+## System Requirements
 
-```
-Port <ENTER YOUR PORT>
-Protocol 2
-PermitRootLogin no
-```
+### Ruby Version
+- Ruby 2.6.4 (current)
+- Ruby 3.3.0 (for Rails 8.0 upgrade)
 
-Then reload ssh
-```
-sudo reload ssh
-```
+### Rails Version
+- Rails 6.0.6 (current)
+- Rails 8.0 (future upgrade)
 
+### Database
+- PostgreSQL 14.0 or higher
+- PostgreSQL development headers (libpq-dev)
 
-```
-sudo apt-get upgrade
-```
+### JavaScript Runtime
+- Node.js 14.0 or higher
+- Yarn 1.22 or higher
 
-## Instaling Ruby (RVM)
-Install the following, when running `rvm requirements` will ask password
-to install required
+### Other Dependencies
+- ImageMagick (for image processing)
+- Git
 
-```
+## Development Environment Setup
+
+### 1. Install Ruby using RVM or rbenv
+
+```bash
+# Using RVM
 \curl -sSL https://get.rvm.io | bash -s stable
-rvm requirements
+rvm install ruby-2.6.4
+rvm use ruby-2.6.4 --default
+
+# Using rbenv
+brew install rbenv ruby-build
+rbenv install 2.6.4
+rbenv global 2.6.4
 ```
 
-Install first ruby 2.0.0 and then create gemset
+### 2. Install PostgreSQL
 
-```
-rvm install ruby-2.2.3
-rvm ruby-2.2.3
-rvm gemset create rails-4.2
-rvm ruby-2.2.3@rails-4.2 --default
-```
-
-## Locales if needed
-
-```
-sudo apt-get install language-pack-en-base
-sudo locale-gen en_US.UTF-8
-sudo dpkg-reconfigure locales
+#### macOS
+```bash
+brew install postgresql@14
+brew services start postgresql@14
 ```
 
-### In case that this locale can't be set
-
-Go to /etc/environment and add this
-
-```
-LANG="en_US.UTF-8"
-LANGUAGE="en_US.UTF-8"
-LC_ALL="en_US.UTF-8"
+#### Ubuntu
+```bash
+sudo apt update
+sudo apt install postgresql-14 postgresql-contrib-14 libpq-dev
 ```
 
-## Database installation
-Install **PostgreSQL 9.4**
+### 3. Install Node.js and Yarn
 
-Create `/etc/apt/sources.list.d/pgdg.list` and add
-
-```
-deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main
-```
-Then update and install
-
-```
-wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-sudo apt-get update
-sudo apt-get install postgresql-9.4 libpq-dev postgresql-contrib-9.4
+#### macOS
+```bash
+brew install node yarn
 ```
 
-
-To upgrate
-`sudo apt-get update`
-`sudo apt-get --only-upgrade install postgresql-9.4 postgresql-client-9.4`
-
-### Create a user for the database
-
-```
-sudo -u postgres createuser --superuser $USER
-sudo -u postgres psql postgres
+#### Ubuntu
+```bash
+curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+sudo apt-get install -y nodejs
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt update && sudo apt install yarn
 ```
 
-### Inside postgreSQL
+### 4. Install ImageMagick
 
-```
-\passsword <user>
-CREATE DATABASE bonsai_prod OWNER <user>
-```
-
-Edit `/etc/postgresql/9.4/main/postgresql.conf` and check that you have:
-
-```
-listen_addresses = 'localhost'
+#### macOS
+```bash
+brew install imagemagick
 ```
 
-Restart the database `sudo service postgresql restart` and then create
-the database `bonsai_prod` login with user **bonsai_data**
-
-
-
-## Install node.js, mod_xsendfile apache
-
-```
-sudo apt-get install nodejs nodejs-dev
+#### Ubuntu
+```bash
+sudo apt-get install imagemagick
 ```
 
-## Install phantomjs for PDF generation
-Download phantomjs from http://phantomjs.org/, decompress file and put
-the `bin/phantomjs` to `/usr/bin`
+## Application Setup
 
-## Passenger installation
-```
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7
-sudo apt-get install apt-transport-https ca-certificates
+### 1. Clone the repository
+```bash
+git clone https://github.com/Kintsugi-Design/bonsaiERP.git
+cd bonsaiERP
 ```
 
-Create a file `/etc/apt/sources.list.d/passenger.list` and insert
-
-```
-# 14.04
-deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main
-# 12.04
-deb https://oss-binaries.phusionpassenger.com/apt/passenger precise main
-```
-Save and then install passenger
-
-```
-sudo chown root: /etc/apt/sources.list.d/passenger.list
-sudo chmod 600 /etc/apt/sources.list.d/passenger.list
-sudo apt-get update
-
-sudo apt-get install libapache2-mod-passenger
-sudo a2enmod passenger
-sudo service apache2 restart
+### 2. Install dependencies
+```bash
+bundle install
+yarn install
 ```
 
+### 3. Configure the database
+Create a file `config/database.yml` with the following content:
 
-## Bonsai installation
-Now you need to download and install bonsai cloning from the repository, this creates the bonsai folder
-
-```
-git clone git@bitbucket.org:boriscyber/bonsaierp.git
-cd bonsaierp
-bundle
-```
-
-**Create a file in your  `config/app_environment_variables.rb` and put
-your env variables**
-
-```
-- ENV['SECRET_TOKEN']
-- ENV['MANDRILL_API_KEY']
-```
-
-**Create the file `config/database.yml` in bonsai directory add this:**
-
-```
-development:
+```yaml
+default: &default
   adapter: postgresql
   encoding: unicode
-  database: bonsai_prod
-  username: bonsai_data
-  password: PASS
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: bonsai_development
+  username: your_postgres_username
+  password: your_postgres_password
   host: localhost
-  pool: 5
+
+test:
+  <<: *default
+  database: bonsai_test
+  username: your_postgres_username
+  password: your_postgres_password
+  host: localhost
 
 production:
-  adapter: postgresql
-  encoding: unicode
-  database: bonsai_prod
+  <<: *default
+  database: bonsai_production
   username: bonsai_data
-  password: PASS
+  password: <%= ENV['BONSAI_DATABASE_PASSWORD'] %>
   host: localhost
-  pool: 5
 ```
 
-Run the database setup with
+### 4. Set up environment variables
+Create a file `config/app_environment_variables.rb` with the following content:
 
+```ruby
+ENV['SECRET_KEY_BASE'] = 'your_secret_key_base'
+ENV['MANDRILL_API_KEY'] = 'your_mandrill_api_key'
 ```
-rake db:setup RAILS_ENV=production
-rake bonsai:create_data RAILS_ENV=production
+
+### 5. Initialize the database
+```bash
+rails db:create
+rails db:migrate
+rails db:seed
 ```
+
+### 6. Precompile assets (for production)
+```bash
+rails assets:precompile
+```
+
+### 7. Start the development server
+```bash
+rails server
+```
+
+## Production Deployment
+
+### 1. Configure the web server (Nginx or Apache)
+
+#### Nginx with Passenger
+Install Passenger and Nginx:
+
+```bash
+gem install passenger
+passenger-install-nginx-module
+```
+
+Configure Nginx:
+
+```nginx
+server {
+  listen 80;
+  server_name your-domain.com;
+  root /path/to/bonsaiERP/public;
+  passenger_enabled on;
+  passenger_ruby /path/to/ruby;
+  
+  # Rails asset pipeline
+  location ~ ^/assets/ {
+    expires max;
+    add_header Cache-Control public;
+  }
+}
+```
+
+#### Apache with Passenger
+Install Passenger for Apache:
+
+```bash
+gem install passenger
+passenger-install-apache2-module
+```
+
+Configure Apache:
+
+```apache
+<VirtualHost *:80>
+  ServerName your-domain.com
+  DocumentRoot /path/to/bonsaiERP/public
+  
+  PassengerRuby /path/to/ruby
+  
+  <Directory /path/to/bonsaiERP/public>
+    Allow from all
+    Options -MultiViews
+    Require all granted
+  </Directory>
+</VirtualHost>
+```
+
+### 2. Set up environment variables for production
+Make sure to set all required environment variables in your production environment.
+
+### 3. Database setup for production
+```bash
+RAILS_ENV=production rails db:setup
+RAILS_ENV=production rails bonsai:create_data
+```
+
+## Upgrading to Rails 8.0 (Future)
+
+When upgrading to Rails 8.0, the following additional requirements will be needed:
+
+1. Ruby 3.3.0 or higher
+2. Node.js 16.0 or higher
+3. Propshaft for asset pipeline (replacing Sprockets)
+4. Tailwind CSS for styling
+5. PostgreSQL 16.0 or higher (recommended)
+
+The upgrade process will involve:
+1. Updating Ruby version
+2. Updating Rails version incrementally (6.0 → 6.1 → 7.0 → 7.1 → 8.0)
+3. Replacing Sprockets with Propshaft
+4. Migrating from existing CSS to Tailwind CSS
+5. Converting CoffeeScript to modern JavaScript
+
+See the TODO.md file for a detailed upgrade plan.

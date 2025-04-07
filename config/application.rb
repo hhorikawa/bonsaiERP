@@ -40,6 +40,9 @@ module BonsaiErp
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :en
+    
+    # Configure i18n fallbacks for Rails 6.0
+    config.i18n.fallbacks = [I18n.default_locale]
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
@@ -59,6 +62,9 @@ module BonsaiErp
     config.active_storage.service = :local
     config.active_storage.queues.analysis = :active_storage_analysis
     config.active_storage.queues.purge    = :active_storage_purge
+
+    # Configure Zeitwerk autoloader for Rails 6.0
+    config.autoloader = :zeitwerk
 
     config.generators do |g|
       g.test_framework :rspec, fixture: true

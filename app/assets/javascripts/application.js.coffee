@@ -12,14 +12,14 @@
 #= require jquery/jquery.minicolors.js
 #= require jquery/jquery.scrollTo.js
 #= require jquery/jquery.placeholder.js
-#= require jquery/jquery.extras.coffee
+#= require jquery/jquery.extras.js
 #= require jquery/notify.js
 
-#= require namespace.coffee
+#= require namespace.js
 
 #= require plugins/money.min.js
-#= require plugins/_b.coffee
-#= require plugins/payment.coffee
+#= require plugins/_b.js
+#= require plugins/payment.js
 
 #= require bootstrap/bootstrap-dropdown.js
 #= require bootstrap/bootstrap-tooltip.js
@@ -32,9 +32,9 @@
 #= require foundation/foundation.js
 #= require foundation/foundation.topbar.js
 
-#= require app/graph_report.coffee
+#= require app/graph_report.js
 
-#=require app/inline_edit.coffee
+#= require app/inline_edit.js
 
 ## Angular
 #= require angular/angular-file-upload.min.js
@@ -44,10 +44,10 @@
 #= require_tree ./services
 #= require_tree ./directives
 
-#= require plugins/bride.coffee
-#= require plugins/color.coffee
-#= require plugins/tag.coffee
+#= require plugins/bride.js
+#= require plugins/color.js
+#= require plugins/tag.js
 
-#= require forms
-#= require links
-#= require base
+#= require forms.js
+#= require links.js
+#= require base.js

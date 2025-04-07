@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Bonsaierp::Application.load_tasks
+BonsaiErp::Application.load_tasks

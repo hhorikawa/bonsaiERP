@@ -1,0 +1,154 @@
+// JavaScript version of _b.coffee.erb
+// Part of the CoffeeScript to JavaScript migration
+
+window._b = {
+  numSeparator: ',',
+  numDelimiter: '.',
+  numPresicion: 2,
+  currencyDefaults: {'separator': this.numSeparator, 'delimiter': this.numDelimiter, 'precision': this.numPresicion},
+  
+  // Format date
+  dateFormat: function(date, format) {
+    format = format || $.datepicker._defaults.dateFormat;
+    if (date) {
+      const d = $.datepicker.parseDate('yy-mm-dd', date);
+      return $.datepicker.formatDate($.datepicker._defaults.dateFormat, d);
+    } else {
+      return "";
+    }
+  },
+  
+  // Returns the value with decimals
+  roundVal: function(val, dec) {
+    dec = dec || 0;
+    if (dec === 0) {
+      return Math.round(val);
+    } else {
+      return Math.round(val * Math.pow(10, dec)) / Math.pow(10, dec);
+    }
+  },
+
+  // ntc similar function to Ruby on rails number_to_currency
+  // @param [String, Decimal, Integer] val
+  ntc: function(val, precision) {
+    precision = precision >= 0 ? precision : this.numPresicion;
+
+    val = typeof val === 'string' ? (1 * val) : val;
+
+    const sign = val < 0 ? "-" : "";
+
+    const vals = val.toFixed(precision).replace(/^-/, "").split(".");
+    const val_str = vals[0];
+    const l = val_str.length - 1;
+    const ar = val_str.split("");
+    const arr = [];
+    let tmp = "";
+    let c = 0;
+    
+    for (let i = l; i >= 0; i--) {
+      tmp = ar[i] + tmp;
+      if ((l - i + 1) % 3 === 0 && i < l) {
+        arr.push(tmp);
+        tmp = '';
+      }
+      c++;
+    }
+
+    let t = arr.reverse().join(this.numDelimiter);
+    if (tmp !== "") {
+      const sep = t.length > 0 ? this.numDelimiter : "";
+      t = tmp + sep + t;
+    }
+
+    if (precision === 0) {
+      return sign + t;
+    } else {
+      return sign + t + this.numSeparator + vals[1];
+    }
+  },
+
+  // presents the dimension in bytes
+  toByteSize: function(bytes, dec) {
+    dec = dec || this.numPresicion;
+    switch (true) {
+      case bytes < 1024:
+        return bytes + " bytes";
+      case bytes < Math.pow(1024, 2):
+        return this.ntc(bytes/Math.pow(1024, 1)) + " Kb";
+      case bytes < Math.pow(1024, 3):
+        return this.ntc(bytes/Math.pow(1024, 2)) + " MB";
+      case bytes < Math.pow(1024, 4):
+        return this.ntc(bytes/Math.pow(1024, 3)) + " GB";
+      case bytes < Math.pow(1024, 5):
+        return this.ntc(bytes/Math.pow(1024, 4)) + " TB";
+      case bytes < Math.pow(1024, 6):
+        return this.ntc(bytes/Math.pow(1024, 5)) + " PB";
+      default:
+        return this.roundVal(bytes/Math.pow(1024, 6)) + " EB";
+    }
+  },
+
+  notEnter: function(event) {
+    return (event.type === "keyup" || event.type === "keypress") && event.keyCode !== 13;
+  },
+
+  // creates Image tag
+  createImagetag: function(path, image, options = {}) {
+    if(image) {
+      options = $.extend(options, {src: path});
+      const $img = $('<img />').attr(options);
+      return $('<div/>').append($img).html();
+    } else {
+      let ext = path.replace(/\?[0-9]+$/, '').split(".");
+      ext = "." + ext[ext.length - 1].toLowerCase();
+      options = $.extend(options, {src: this.getExtnameImage(ext)});
+
+      const img = $('<img />').attr(options);
+      return $('<div/>').append(img).html();
+    }
+  },
+
+  // Returns an image with the correct file extension
+  getExtnameImage: function(file) {
+    const parts = file.split('.');
+    const ext = parts[parts.length - 1];
+    switch (ext.toLowerCase()) {
+      case "pdf":
+        return "<%= asset_path 'programs/pdf.png' %>";
+      case "xls":
+      case "xlsx":
+      case "xlsm":
+        return "<%= asset_path 'programs/excel.png' %>";
+      case "doc":
+      case "docx":
+        return "<%= asset_path 'programs/word.png' %>";
+      case "html":
+      case "htm":
+        return "<%= asset_path 'programs/html.png' %>";
+      case "pps":
+      case "ppt":
+      case "pptx":
+        return "<%= asset_path 'programs/powerpoint.png' %>";
+      case "psd":
+        return "<%= asset_path 'programs/photoshop.png' %>";
+      default:
+        return "<%= asset_path 'programs/file.png' %>";
+    }
+  },
+
+  currencyLabel: function(val) {
+    if (val != null) {
+      return ['<span class="label bg-black" title=',
+        '"', currencies[val]['name'], '"', ' data-toggle="tooltip">',
+        val, '</span>'].join('');
+    }
+  },
+
+  nl2br: function(val) {
+    return val.toString().replace(/\n/g, '<br>');
+  },
+
+  isNumber: function(val) {
+    return !(isNaN(val)) && isFinite(val);
+  }
+};

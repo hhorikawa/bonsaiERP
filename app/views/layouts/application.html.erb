@@ -8,10 +8,16 @@
 
     <title>bonsaiERP - <%= current_organisation %></title>
 
-    <%= stylesheet_link_tag "application", media: 'all' %>
-    <%= javascript_include_tag asset_path('angular/angular-file-upload-shim.min.js') %>
-    <%= cdn_scripts 'jquery', 'angular' %>
-    <%= javascript_include_tag "application" %>
+    <%= stylesheet_link_tag "application", media: 'all', 'data-turbolinks-track': 'reload' %>
+    
+    <!-- Load jQuery and other libraries from CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <%= cdn_scripts 'angular' %>
+    <%= javascript_include_tag "application", 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <% if Rails.env.production? %>
       <script src="//d2wy8f7a9ursnm.cloudfront.net/bugsnag-2.min.js" data-apikey="5764f05c4e7d87832059e096471f9bc9"></script>
       <%= render 'layouts/google_analytics' %>
