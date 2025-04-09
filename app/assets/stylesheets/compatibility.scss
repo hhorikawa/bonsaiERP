@@ -1,0 +1,58 @@
+// Compass compatibility mixins for Rails 6
+// This file provides replacements for Compass mixins that were used in the application
+
+// Border radius mixins
+@mixin border-radius($radius: 4px) {
+  border-radius: $radius;
+}
+
+@mixin border-top-radius($radius: 4px) {
+  border-top-left-radius: $radius;
+  border-top-right-radius: $radius;
+}
+
+@mixin border-bottom-radius($radius: 4px) {
+  border-bottom-left-radius: $radius;
+  border-bottom-right-radius: $radius;
+}
+
+@mixin border-left-radius($radius: 4px) {
+  border-top-left-radius: $radius;
+  border-bottom-left-radius: $radius;
+}
+
+@mixin border-right-radius($radius: 4px) {
+  border-top-right-radius: $radius;
+  border-bottom-right-radius: $radius;
+}
+
+// Box shadow mixin
+@mixin box-shadow($shadow: 0 1px 3px rgba(0,0,0,0.2)) {
+  box-shadow: $shadow;
+}
+
+// Background image mixin
+@mixin background-image($images...) {
+  background-image: $images;
+}
+
+// Transition mixin
+@mixin transition($transition...) {
+  transition: $transition;
+}
+
+// Transform mixin
+@mixin transform($transform) {
+  transform: $transform;
+}
+
+// Opacity mixin
+@mixin opacity($opacity: 1) {
+  opacity: $opacity;
+  filter: alpha(opacity=$opacity * 100);
+}
+
+// Linear gradient mixin
+@mixin linear-gradient($direction, $color-stops...) {
+  background: linear-gradient($direction, $color-stops);
+}

@@ -68,7 +68,7 @@ SET default_table_access_method = heap;
 --
 
 CREATE TABLE common.links (
-    id integer NOT NULL,
+    id bigint NOT NULL,
     organisation_id integer,
     user_id integer,
     settings character varying,
@@ -76,8 +76,8 @@ CREATE TABLE common.links (
     master_account boolean DEFAULT false,
     role character varying(50),
     active boolean DEFAULT true,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     tenant character varying(100),
     api_token character varying
 );
@@ -88,7 +88,6 @@ CREATE TABLE common.links (
 --
 
 CREATE SEQUENCE common.links_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -108,7 +107,7 @@ ALTER SEQUENCE common.links_id_seq OWNED BY common.links.id;
 --
 
 CREATE TABLE common.organisations (
-    id integer NOT NULL,
+    id bigint NOT NULL,
     country_id integer,
     name character varying(100),
     address character varying,
@@ -124,8 +123,8 @@ CREATE TABLE common.organisations (
     time_zone character varying(100),
     tenant character varying(50),
     currency character varying(10),
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     country_code character varying(5),
     inventory_active boolean DEFAULT true,
     settings jsonb,
@@ -139,7 +138,6 @@ CREATE TABLE common.organisations (
 --
 
 CREATE SEQUENCE common.organisations_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -159,7 +157,7 @@ ALTER SEQUENCE common.organisations_id_seq OWNED BY common.organisations.id;
 --
 
 CREATE TABLE common.users (
-    id integer NOT NULL,
+    id bigint NOT NULL,
     email character varying NOT NULL,
     first_name character varying(80),
     last_name character varying(80),
@@ -182,8 +180,8 @@ CREATE TABLE common.users (
     active boolean DEFAULT true,
     auth_token character varying,
     rol character varying(50),
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     old_emails text[] DEFAULT '{}'::text[],
     locale character varying DEFAULT 'en'::character varying
 );
@@ -194,7 +192,6 @@ CREATE TABLE common.users (
 --
 
 CREATE SEQUENCE common.users_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -214,7 +211,7 @@ ALTER SEQUENCE common.users_id_seq OWNED BY common.users.id;
 --
 
 CREATE TABLE public.account_ledgers (
-    id integer NOT NULL,
+    id bigint NOT NULL,
     reference text,
     currency character varying,
     account_id integer,
@@ -235,8 +232,8 @@ CREATE TABLE public.account_ledgers (
     error_messages character varying,
     status character varying(50) DEFAULT 'approved'::character varying,
     project_id integer,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     updater_id integer,
     name character varying,
     contact_id integer
@@ -248,7 +245,6 @@ CREATE TABLE public.account_ledgers (
 --
 
 CREATE SEQUENCE public.account_ledgers_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -268,7 +264,7 @@ ALTER SEQUENCE public.account_ledgers_id_seq OWNED BY public.account_ledgers.id;
 --
 
 CREATE TABLE public.accounts (
-    id integer NOT NULL,
+    id bigint NOT NULL,
     name character varying,
     currency character varying(10),
     exchange_rate numeric(14,4) DEFAULT 1.0,
@@ -282,13 +278,13 @@ CREATE TABLE public.accounts (
     state character varying(30),
     has_error boolean DEFAULT false,
     error_messages character varying(400),
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     tag_ids integer[] DEFAULT '{}'::integer[],
     updater_id integer,
-    tax_percentage numeric(5,2) DEFAULT 0,
+    tax_percentage numeric(5,2) DEFAULT 0.0,
     tax_id integer,
-    total numeric(14,2) DEFAULT 0,
+    total numeric(14,2) DEFAULT 0.0,
     tax_in_out boolean DEFAULT false,
     extras jsonb,
     creator_id integer,
@@ -303,7 +299,6 @@ CREATE TABLE public.accounts (
 --
 
 CREATE SEQUENCE public.accounts_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -393,8 +388,8 @@ ALTER SEQUENCE public.active_storage_blobs_id_seq OWNED BY public.active_storage
 CREATE TABLE public.ar_internal_metadata (
     key character varying NOT NULL,
     value character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
 );
 
 
@@ -403,7 +398,7 @@ CREATE TABLE public.ar_internal_metadata (
 --
 
 CREATE TABLE public.attachments (
-    id integer NOT NULL,
+    id bigint NOT NULL,
     attachment_uid character varying,
     name character varying,
     attachable_id integer,
@@ -413,8 +408,8 @@ CREATE TABLE public.attachments (
     image boolean DEFAULT false,
     size integer,
     image_attributes json,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     publish boolean DEFAULT false
 );
 
@@ -424,7 +419,6 @@ CREATE TABLE public.attachments (
 --
 
 CREATE SEQUENCE public.attachments_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -444,7 +438,7 @@ ALTER SEQUENCE public.attachments_id_seq OWNED BY public.attachments.id;
 --
 
 CREATE TABLE public.contacts (
-    id integer NOT NULL,
+    id bigint NOT NULL,
     matchcode character varying,
     first_name character varying(100),
     last_name character varying(100),
@@ -462,8 +456,8 @@ CREATE TABLE public.contacts (
     staff boolean DEFAULT false,
     client boolean DEFAULT false,
     supplier boolean DEFAULT false,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     incomes_status character varying(300) DEFAULT '{}'::character varying,
     expenses_status character varying(300) DEFAULT '{}'::character varying,
     tag_ids integer[] DEFAULT '{}'::integer[]
@@ -475,7 +469,6 @@ CREATE TABLE public.contacts (
 --
 
 CREATE SEQUENCE public.contacts_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -495,7 +488,7 @@ ALTER SEQUENCE public.contacts_id_seq OWNED BY public.contacts.id;
 --
 
 CREATE TABLE public.histories (
-    id integer NOT NULL,
+    id bigint NOT NULL,
     user_id integer,
     historiable_id integer,
     new_item boolean DEFAULT false,
@@ -513,7 +506,6 @@ CREATE TABLE public.histories (
 --
 
 CREATE SEQUENCE public.histories_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -533,7 +525,7 @@ ALTER SEQUENCE public.histories_id_seq OWNED BY public.histories.id;
 --
 
 CREATE TABLE public.inventories (
-    id integer NOT NULL,
+    id bigint NOT NULL,
     contact_id integer,
     store_id integer,
     account_id integer,
@@ -541,15 +533,15 @@ CREATE TABLE public.inventories (
     ref_number character varying,
     operation character varying(10),
     description character varying,
-    total numeric(14,2) DEFAULT 0,
+    total numeric(14,2) DEFAULT 0.0,
     creator_id integer,
     transference_id integer,
     store_to_id integer,
     project_id integer,
     has_error boolean DEFAULT false,
     error_messages character varying,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     updater_id integer
 );
 
@@ -559,7 +551,6 @@ CREATE TABLE public.inventories (
 --
 
 CREATE SEQUENCE public.inventories_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -579,13 +570,13 @@ ALTER SEQUENCE public.inventories_id_seq OWNED BY public.inventories.id;
 --
 
 CREATE TABLE public.inventory_details (
-    id integer NOT NULL,
+    id bigint NOT NULL,
     inventory_id integer,
     item_id integer,
     store_id integer,
     quantity numeric(14,2) DEFAULT 0.0,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -594,7 +585,6 @@ CREATE TABLE public.inventory_details (
 --
 
 CREATE SEQUENCE public.inventory_details_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -614,7 +604,7 @@ ALTER SEQUENCE public.inventory_details_id_seq OWNED BY public.inventory_details
 --
 
 CREATE TABLE public.items (
-    id integer NOT NULL,
+    id bigint NOT NULL,
     unit_id integer,
     price numeric(14,2) DEFAULT 0.0,
     name character varying(255),
@@ -623,8 +613,8 @@ CREATE TABLE public.items (
     for_sale boolean DEFAULT true,
     stockable boolean DEFAULT true,
     active boolean DEFAULT true,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     buy_price numeric(14,2) DEFAULT 0.0,
     unit_symbol character varying(20),
     unit_name character varying(255),
@@ -639,7 +629,6 @@ CREATE TABLE public.items (
 --
 
 CREATE SEQUENCE public.items_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -659,7 +648,7 @@ ALTER SEQUENCE public.items_id_seq OWNED BY public.items.id;
 --
 
 CREATE TABLE public.links (
-    id integer NOT NULL,
+    id bigint NOT NULL,
     organisation_id integer,
     user_id integer,
     settings character varying,
@@ -667,8 +656,8 @@ CREATE TABLE public.links (
     master_account boolean DEFAULT false,
     role character varying(50),
     active boolean DEFAULT true,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     tenant character varying(100),
     api_token character varying
 );
@@ -679,7 +668,6 @@ CREATE TABLE public.links (
 --
 
 CREATE SEQUENCE public.links_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -699,7 +687,7 @@ ALTER SEQUENCE public.links_id_seq OWNED BY public.links.id;
 --
 
 CREATE TABLE public.movement_details (
-    id integer NOT NULL,
+    id bigint NOT NULL,
     account_id integer,
     item_id integer,
     quantity numeric(14,2) DEFAULT 0.0,
@@ -708,8 +696,8 @@ CREATE TABLE public.movement_details (
     discount numeric(14,2) DEFAULT 0.0,
     balance numeric(14,2) DEFAULT 0.0,
     original_price numeric(14,2) DEFAULT 0.0,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -718,7 +706,6 @@ CREATE TABLE public.movement_details (
 --
 
 CREATE SEQUENCE public.movement_details_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -738,7 +725,7 @@ ALTER SEQUENCE public.movement_details_id_seq OWNED BY public.movement_details.i
 --
 
 CREATE TABLE public.organisations (
-    id integer NOT NULL,
+    id bigint NOT NULL,
     country_id integer,
     name character varying(100),
     address character varying,
@@ -754,8 +741,8 @@ CREATE TABLE public.organisations (
     time_zone character varying(100),
     tenant character varying(50),
     currency character varying(10),
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     country_code character varying(5),
     settings public.hstore DEFAULT '"inventory"=>"true"'::public.hstore
 );
@@ -766,7 +753,6 @@ CREATE TABLE public.organisations (
 --
 
 CREATE SEQUENCE public.organisations_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -786,14 +772,14 @@ ALTER SEQUENCE public.organisations_id_seq OWNED BY public.organisations.id;
 --
 
 CREATE TABLE public.projects (
-    id integer NOT NULL,
+    id bigint NOT NULL,
     name character varying,
     active boolean DEFAULT true,
     date_start date,
     date_end date,
     description text,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -802,7 +788,6 @@ CREATE TABLE public.projects (
 --
 
 CREATE SEQUENCE public.projects_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -831,15 +816,15 @@ CREATE TABLE public.schema_migrations (
 --
 
 CREATE TABLE public.stocks (
-    id integer NOT NULL,
+    id bigint NOT NULL,
     store_id integer,
     item_id integer,
     unitary_cost numeric(14,2) DEFAULT 0.0,
     quantity numeric(14,2) DEFAULT 0.0,
     minimum numeric(14,2) DEFAULT 0.0,
     user_id integer,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     active boolean DEFAULT true
 );
 
@@ -849,7 +834,6 @@ CREATE TABLE public.stocks (
 --
 
 CREATE SEQUENCE public.stocks_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -869,14 +853,14 @@ ALTER SEQUENCE public.stocks_id_seq OWNED BY public.stocks.id;
 --
 
 CREATE TABLE public.stores (
-    id integer NOT NULL,
+    id bigint NOT NULL,
     name character varying,
     address character varying,
     phone character varying(40),
     active boolean DEFAULT true,
     description character varying,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -885,7 +869,6 @@ CREATE TABLE public.stores (
 --
 
 CREATE SEQUENCE public.stores_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -905,12 +888,12 @@ ALTER SEQUENCE public.stores_id_seq OWNED BY public.stores.id;
 --
 
 CREATE TABLE public.tag_groups (
-    id integer NOT NULL,
+    id bigint NOT NULL,
     name character varying,
     bgcolor character varying,
     tag_ids integer[] DEFAULT '{}'::integer[],
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -919,7 +902,6 @@ CREATE TABLE public.tag_groups (
 --
 
 CREATE SEQUENCE public.tag_groups_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -939,11 +921,11 @@ ALTER SEQUENCE public.tag_groups_id_seq OWNED BY public.tag_groups.id;
 --
 
 CREATE TABLE public.tags (
-    id integer NOT NULL,
+    id bigint NOT NULL,
     name character varying,
     bgcolor character varying(10),
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -952,7 +934,6 @@ CREATE TABLE public.tags (
 --
 
 CREATE SEQUENCE public.tags_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -972,12 +953,12 @@ ALTER SEQUENCE public.tags_id_seq OWNED BY public.tags.id;
 --
 
 CREATE TABLE public.taxes (
-    id integer NOT NULL,
+    id bigint NOT NULL,
     name character varying(100),
     abreviation character varying(20),
     percentage numeric(5,2) DEFAULT 0.0,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -986,7 +967,6 @@ CREATE TABLE public.taxes (
 --
 
 CREATE SEQUENCE public.taxes_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1006,13 +986,13 @@ ALTER SEQUENCE public.taxes_id_seq OWNED BY public.taxes.id;
 --
 
 CREATE TABLE public.units (
-    id integer NOT NULL,
+    id bigint NOT NULL,
     name character varying(100),
     symbol character varying(20),
     "integer" boolean DEFAULT false,
     visible boolean DEFAULT true,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -1021,7 +1001,6 @@ CREATE TABLE public.units (
 --
 
 CREATE SEQUENCE public.units_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1041,7 +1020,7 @@ ALTER SEQUENCE public.units_id_seq OWNED BY public.units.id;
 --
 
 CREATE TABLE public.users (
-    id integer NOT NULL,
+    id bigint NOT NULL,
     email character varying NOT NULL,
     first_name character varying(80),
     last_name character varying(80),
@@ -1064,8 +1043,8 @@ CREATE TABLE public.users (
     active boolean DEFAULT true,
     auth_token character varying,
     rol character varying(50),
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     old_emails text[] DEFAULT '{}'::text[],
     locale character varying DEFAULT 'en'::character varying
 );
@@ -1076,7 +1055,6 @@ CREATE TABLE public.users (
 --
 
 CREATE SEQUENCE public.users_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
