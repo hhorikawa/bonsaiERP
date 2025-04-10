@@ -410,7 +410,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  actiontext (~> 6.1.7.7)
   active_model_serializers (~> 0.10.12)
   awesome_print (~> 1.9.2)
   bcrypt (~> 3.1.16)

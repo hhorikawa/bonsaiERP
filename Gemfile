@@ -88,5 +88,4 @@ group :test do
   gem "launchy", '~> 2.5.0'
   gem 'rails-controller-testing', '~> 1.0.5'  # For assigns and assert_template in Rails 6.0
   gem 'webdrivers', '~> 5.0.0'  # For system tests in Rails 6.0
-  gem 'actiontext', '~> 6.1.7.7'
 end

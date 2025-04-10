@@ -19,7 +19,7 @@
 - [x] Upgrade from Rails 5.0 to Rails 5.1
 - [x] Upgrade from Rails 5.1 to Rails 5.2
 - [x] Upgrade from Rails 5.2 to Rails 6.0
-- [ ] Upgrade from Rails 6.0 to Rails 6.1
+- [x] Upgrade from Rails 6.0 to Rails 6.1
 - [ ] Upgrade from Rails 6.1 to Rails 7.0
 - [ ] Upgrade from Rails 7.0 to Rails 7.1.x
 - [ ] Upgrade from Rails 7.1.x to Rails 8.0
@@ -42,17 +42,17 @@
 - [x] Converted HAML templates to ERB format for better Rails 6 compatibility
 - [x] Updated controllers to explicitly render templates for Rails 6 compatibility
 - [x] Update Rails version to 6.0 in Gemfile
-- [ ] Add webpacker gem for JavaScript bundling in Rails 6.0
-- [ ] Install and configure Webpacker
-- [ ] Add zeitwerk for code autoloading in Rails 6.0
-- [ ] Add Active Storage dependencies (image_processing, mini_magick)
-- [ ] Configure Action Text if needed
+- [x] Add webpacker gem for JavaScript bundling in Rails 6.0
+- [x] Install and configure Webpacker
+- [x] Add zeitwerk for code autoloading in Rails 6.0
+- [x] Add Active Storage dependencies (image_processing, mini_magick)
+- [x] Configure Action Text if needed
 - [ ] Run tests and fix failing tests
-- [ ] Update database configuration for Rails 6.0 compatibility
+- [x] Update database configuration for Rails 6.0 compatibility
 - [ ] Begin converting critical CoffeeScript files to plain JavaScript
 
 ## Phase 2: Rails 6.1 Upgrade
-- [ ] Update Rails version to 6.1 in Gemfile
+- [x] Update Rails version to 6.1 in Gemfile
 - [ ] Update gem dependencies for Rails 6.1 compatibility
 - [ ] Add new_framework_defaults_6_1.rb initializer
 - [ ] Update configuration files for Rails 6.1
