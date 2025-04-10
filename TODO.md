@@ -9,7 +9,8 @@
 
 ## Ruby Upgrade Path
 - [x] Upgrade from Ruby 2.3.1 to Ruby 2.6.4 (skipped 2.5 as 2.6.4 was available)
-- [ ] Upgrade from Ruby 2.6.4 to Ruby 3.0.6
+- [x] Upgrade from Ruby 2.6.4 to Ruby 2.7.8
+- [ ] Upgrade from Ruby 2.7.8 to Ruby 3.0.6
 - [ ] Upgrade from Ruby 3.0.6 to Ruby 3.2.3
 - [ ] Upgrade from Ruby 3.2.3 to Ruby 3.3.0 (for Rails 8 compatibility)
 
@@ -17,7 +18,7 @@
 - [x] Upgrade from Rails 4.2.7.1 to Rails 5.0.7.2
 - [x] Upgrade from Rails 5.0 to Rails 5.1
 - [x] Upgrade from Rails 5.1 to Rails 5.2
-- [ ] Upgrade from Rails 5.2 to Rails 6.0
+- [x] Upgrade from Rails 5.2 to Rails 6.0
 - [ ] Upgrade from Rails 6.0 to Rails 6.1
 - [ ] Upgrade from Rails 6.1 to Rails 7.0
 - [ ] Upgrade from Rails 7.0 to Rails 7.1.x
@@ -40,7 +41,7 @@
 - [x] Translated JavaScript messages from Spanish to English
 - [x] Converted HAML templates to ERB format for better Rails 6 compatibility
 - [x] Updated controllers to explicitly render templates for Rails 6 compatibility
-- [ ] Update Rails version to 6.0 in Gemfile
+- [x] Update Rails version to 6.0 in Gemfile
 - [ ] Add webpacker gem for JavaScript bundling in Rails 6.0
 - [ ] Install and configure Webpacker
 - [ ] Add zeitwerk for code autoloading in Rails 6.0

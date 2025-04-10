@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
-ruby '2.6.4'
-gem 'rails', '6.0.6'
+ruby '2.7.8'
+gem 'rails', '6.1.7.7'
 gem 'bootsnap', '~> 1.7.0', require: false
 gem 'concurrent-ruby', '1.3.4'  # Pin to avoid Logger issues with newer versions
 gem 'logger', '~> 1.4'
@@ -88,5 +88,5 @@ group :test do
   gem "launchy", '~> 2.5.0'
   gem 'rails-controller-testing', '~> 1.0.5'  # For assigns and assert_template in Rails 6.0
   gem 'webdrivers', '~> 5.0.0'  # For system tests in Rails 6.0
-  gem 'actiontext', '~> 6.0.6'
+  gem 'actiontext', '~> 6.1.7.7'
 end
