@@ -21,7 +21,7 @@ gem 'virtus' # Model generation in simple way
 
 gem 'simple_form', '~> 5.1.0'  # Compatible with Rails 6.0
 # Template engines
-# gem 'haml', '~> 5.1.2'  # Compatible with Rails 5.0
+gem 'haml', '~> 5.1.2'  # Compatible with Rails 5.0
 gem 'erubis', '~> 2.7.0'
 # gem 'erb', '~> 2.2.0'
 gem 'kaminari', '~> 1.2.1' # Pagination

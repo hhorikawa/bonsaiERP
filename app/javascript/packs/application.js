@@ -15,10 +15,6 @@ Rails.start();
 import * as ActiveStorage from '@rails/activestorage';
 ActiveStorage.start();
 
-// Import Action Text
-import "trix"
-import "@rails/actiontext"
-
 // Import Action Cable for WebSockets
 import '@rails/actioncable';
 
