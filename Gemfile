@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 ruby '2.7.8'
-gem 'rails', '6.1.7.7'
+gem 'rails', '7.0.0'
 gem 'bootsnap', '~> 1.7.0', require: false
 gem 'concurrent-ruby', '1.3.4'  # Pin to avoid Logger issues with newer versions
 gem 'logger', '~> 1.4'
@@ -57,7 +57,7 @@ group :development do
   gem "meta_request", '~> 0.7.3'
   gem "rails_best_practices", '~> 1.23.0'
   # quiet_assets functionality is built into Rails 5+
-  gem "bullet", '~> 6.1.5'
+  # gem "bullet", '~> 6.1.5'
   gem "awesome_print", '~> 1.9.2'
 
   gem "capistrano", '~> 3.16.0'
