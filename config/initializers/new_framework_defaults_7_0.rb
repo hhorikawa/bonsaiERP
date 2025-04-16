@@ -23,12 +23,12 @@ Rails.application.config.action_view.apply_stylesheet_media_default = false
 #
 # See upgrading guide for more information on how to build a rotator.
 # https://guides.rubyonrails.org/v7.0/upgrading_ruby_on_rails.html
-# Rails.application.config.active_support.key_generator_hash_digest_class = OpenSSL::Digest::SHA256
+Rails.application.config.active_support.key_generator_hash_digest_class = OpenSSL::Digest::SHA256
 
 # Change the digest class for ActiveSupport::Digest.
 # Changing this default means that for example Etags change and
 # various cache keys leading to cache invalidation.
-# Rails.application.config.active_support.hash_digest_class = OpenSSL::Digest::SHA256
+Rails.application.config.active_support.hash_digest_class = OpenSSL::Digest::SHA256
 
 # Don't override ActiveSupport::TimeWithZone.name and use the default Ruby
 # implementation.
@@ -45,7 +45,7 @@ Rails.application.config.active_support.cache_format_version = 7.0
 # This makes test cases behave closer to an actual request or job.
 # Several features that are normally disabled in test, such as Active Record query cache
 # and asynchronous queries will then be enabled.
-# Rails.application.config.active_support.executor_around_test_case = true
+Rails.application.config.active_support.executor_around_test_case = true
 
 # Define the isolation level of most of Rails internal state.
 # If you use a fiber based server or job processor, you should set it to `:fiber`.
@@ -58,19 +58,19 @@ Rails.application.config.action_mailer.smtp_timeout = 5
 # The ActiveStorage video previewer will now use scene change detection to generate
 # better preview images (rather than the previous default of using the first frame
 # of the video).
-# Rails.application.config.active_storage.video_preview_arguments =
-#   "-vf 'select=eq(n\\,0)+eq(key\\,1)+gt(scene\\,0.015),loop=loop=-1:size=2,trim=start_frame=1' -frames:v 1 -f image2"
+Rails.application.config.active_storage.video_preview_arguments =
+  "-vf 'select=eq(n\\,0)+eq(key\\,1)+gt(scene\\,0.015),loop=loop=-1:size=2,trim=start_frame=1' -frames:v 1 -f image2"
 
 # Automatically infer `inverse_of` for associations with a scope.
 Rails.application.config.active_record.automatic_scope_inversing = true
 
 # Raise when running tests if fixtures contained foreign key violations
-# Rails.application.config.active_record.verify_foreign_keys_for_fixtures = true
+Rails.application.config.active_record.verify_foreign_keys_for_fixtures = true
 
 # Disable partial inserts.
 # This default means that all columns will be referenced in INSERT queries
 # regardless of whether they have a default or not.
-# Rails.application.config.active_record.partial_inserts = false
+Rails.application.config.active_record.partial_inserts = false
 #
 # Protect from open redirect attacks in `redirect_back_or_to` and `redirect_to`.
 Rails.application.config.action_controller.raise_on_open_redirects = true
@@ -80,7 +80,7 @@ Rails.application.config.action_controller.raise_on_open_redirects = true
 # generate variants to use image processing macros and ruby-vips
 # operations. See the upgrading guide for detail on the changes required.
 # The `:mini_magick` option is not deprecated; it's fine to keep using it.
-# Rails.application.config.active_storage.variant_processor = :vips
+Rails.application.config.active_storage.variant_processor = :vips
 
 # If you're upgrading and haven't set `cookies_serializer` previously, your cookie serializer
 # was `:marshal`. Convert all cookies to JSON, using the `:hybrid` formatter.
@@ -104,14 +104,14 @@ Rails.application.config.action_controller.wrap_parameters_by_default = true
 #
 # See https://guides.rubyonrails.org/configuring.html#config-active-support-use-rfc4122-namespaced-uuids for
 # more information.
-# Rails.application.config.active_support.use_rfc4122_namespaced_uuids = true
+Rails.application.config.active_support.use_rfc4122_namespaced_uuids = true
 
 # Change the default headers to disable browsers' flawed legacy XSS protection.
-# Rails.application.config.action_dispatch.default_headers = {
-#   "X-Frame-Options" => "SAMEORIGIN",
-#   "X-XSS-Protection" => "0",
-#   "X-Content-Type-Options" => "nosniff",
-#   "X-Download-Options" => "noopen",
-#   "X-Permitted-Cross-Domain-Policies" => "none",
-#   "Referrer-Policy" => "strict-origin-when-cross-origin"
-# }
+Rails.application.config.action_dispatch.default_headers = {
+  "X-Frame-Options" => "SAMEORIGIN",
+  "X-XSS-Protection" => "0",
+  "X-Content-Type-Options" => "nosniff",
+  "X-Download-Options" => "noopen",
+  "X-Permitted-Cross-Domain-Policies" => "none",
+  "Referrer-Policy" => "strict-origin-when-cross-origin"
+}
