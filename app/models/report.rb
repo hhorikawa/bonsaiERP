@@ -35,19 +35,21 @@ class Report
 
   def incomes_dayli
     data = params(type: 'Income')
-    @incomes_dayli ||= conn.select_rows(dayli_sql(data)).map {|v| DayliReport.new(*v)}
+    @incomes_dayli ||= conn.select_rows(dayli_sql(data)).map {|v| DailyReport.new(*v)}
   end
 
   def expenses_dayli
     data = params(type: 'Expense')
-    @expenses_dayli ||= conn.select_rows(dayli_sql(data)).map {|v| DayliReport.new(*v)}
+    @expenses_dayli ||= conn.select_rows(dayli_sql(data)).map {|v| DailyReport.new(*v)}
   end
 
   def expenses_pecentage
+    return 0 if total == 0
     @expenses_pecentage ||= 100 * (total_expenses / total)
   end
 
   def incomes_percentage
+    return 0 if total == 0
     @incomes_pecentage ||= 100 * (total_incomes / total)
   end
 
@@ -63,101 +65,78 @@ class Report
     @contacts_expenses ||= conn.select_rows(contacts_sql params(type: 'Expense')).map {|v| ContactReport.new(*v)}
   end
 
-private
-  def offset
-    @offset ||= attrs[:offset].to_i >= 0 ? attrs[:offset].to_i : 0
-  end
-
-  def limit
-    @limit ||= attrs[:limit].to_i > 0 ? attrs[:limit].to_i : 10
-  end
-
-  def params(extra = {})
-   ReportParams.new({offset: offset, limit: limit}.merge(extra))
-  end
-
-  def sum_movement_details_sql(data)
-    <<-SQL
-      SELECT i.id, i.name, SUM(d.price * d.quantity * a.exchange_rate) AS total
-      FROM movement_details d JOIN items i ON (i.id = d.item_id)
-      JOIN accounts a ON (a.id = d.account_id)
-      WHERE a.type = '#{data.type}'
-      AND a.state IN ('approved', 'paid')
-      AND a.date BETWEEN '#{date_range.date_start}' AND '#{date_range.date_end}'
-      #{ tags_sql('i') }
-      GROUP BY (i.id)
-      ORDER BY total DESC
-      OFFSET #{data.offset} LIMIT #{data.limit}
-    SQL
-  end
-
-  def tags_sql(table)
-    if any_tags?
-      sanitize_sql_array ["AND #{table}.tag_ids @> ARRAY[?]", tag_ids]
-    else
-      ""
+  private
+    def offset
+      @offset ||= attrs[:offset].to_i >= 0 ? attrs[:offset].to_i : 0
     end
-  end
 
-  def dayli_sql(data)
-    <<-SQL
-      SELECT SUM((a.total - a.amount) * a.exchange_rate) AS tot, a.date
-      FROM accounts a
-      WHERE a.type = '#{data.type}' and a.state IN ('approved', 'paid')
-      AND a.date BETWEEN '#{date_range.date_start}' AND '#{date_range.date_end}'
-      GROUP BY a.date
-      ORDER BY a.date
-    SQL
-  end
+    def limit
+      @limit ||= attrs[:limit].to_i > 0 ? attrs[:limit].to_i : 10
+    end
 
-  def contacts_sql(data)
-    <<-SQL
-    SELECT c.matchcode, SUM((a.total - a.amount) * a.exchange_rate) AS tot
-    FROM contacts c JOIN accounts a ON (a.contact_id=c.id and a.type='#{data.type}')
-    WHERE a.date BETWEEN '#{ date_range.date_start }' AND '#{ date_range.date_end }'
-    GROUP BY c.id
-    ORDER BY tot DESC OFFSET #{data.offset} LIMIT #{data.limit}
-    SQL
-  end
+    def params(extra = {})
+    ReportParams.new({offset: offset, limit: limit}.merge(extra))
+    end
 
-  def any_tags?
-    tag_ids.is_a?(Array) && tag_ids.any?
-  end
+    def sum_movement_details_sql(data)
+      <<-SQL
+        SELECT i.id, i.name, SUM(d.price * d.quantity * a.exchange_rate) AS total
+        FROM movement_details d JOIN items i ON (i.id = d.item_id)
+        JOIN accounts a ON (a.id = d.account_id)
+        WHERE a.type = '#{data.type}'
+        AND a.state IN ('approved', 'paid')
+        AND a.date BETWEEN '#{date_range.date_start}' AND '#{date_range.date_end}'
+        #{ tags_sql('i') }
+        GROUP BY (i.id)
+        ORDER BY total DESC
+        OFFSET #{data.offset} LIMIT #{data.limit}
+      SQL
+    end
 
-  def sanitize_sql_array(ary)
-    ApplicationRecord.send :sanitize_sql_for_conditions, ary
-  end
+    def tags_sql(table)
+      if any_tags?
+        sanitize_sql_array ["AND #{table}.tag_ids @> ARRAY[?]", tag_ids]
+      else
+        ""
+      end
+    end
 
-  def tag_ids
-    attrs[:tag_ids]
-  end
+    def dayli_sql(data)
+      <<-SQL
+        SELECT SUM((a.total - a.amount) * a.exchange_rate) AS tot, a.date
+        FROM accounts a
+        WHERE a.type = '#{data.type}' and a.state IN ('approved', 'paid')
+        AND a.date BETWEEN '#{date_range.date_start}' AND '#{date_range.date_end}'
+        GROUP BY a.date
+        ORDER BY a.date
+      SQL
+    end
 
-  def conn
-    ApplicationRecord.connection
-  end
+    def contacts_sql(data)
+      <<-SQL
+      SELECT c.matchcode, SUM((a.total - a.amount) * a.exchange_rate) AS tot
+      FROM contacts c JOIN accounts a ON (a.contact_id=c.id and a.type='#{data.type}')
+      WHERE a.date BETWEEN '#{ date_range.date_start }' AND '#{ date_range.date_end }'
+      GROUP BY c.id
+      ORDER BY tot DESC OFFSET #{data.offset} LIMIT #{data.limit}
+      SQL
+    end
 
+    def any_tags?
+      tag_ids.is_a?(Array) && tag_ids.any?
+    end
+
+    def sanitize_sql_array(ary)
+      ApplicationRecord.send :sanitize_sql_for_conditions, ary
+    end
+
+    def tag_ids
+      attrs[:tag_ids]
+    end
+
+    def conn
+      ApplicationRecord.connection
+    end
 end
 
 class ReportParams < OpenStruct; end
-
-class ItemTransReport < Struct.new(:id, :name, :tot)
-  def total
-    tot.to_f
-  end
-end
-
-class ContactReport < Struct.new(:contact, :tot)
-  def to_s
-    contact
-  end
-
-  def total
-    tot.to_f
-  end
-end
-
-class DayliReport < Struct.new(:tot, :date)
-  def total
-    tot.to_f
-  end
-end

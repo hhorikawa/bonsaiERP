@@ -61,7 +61,7 @@
 - [ ] Continue CoffeeScript to JavaScript conversion
 
 ## Phase 3: Rails 7.0 Upgrade
-- [ ] Update Rails version to 7.0 in Gemfile
+- [x] Update Rails version to 7.0 in Gemfile
 - [ ] Update gem dependencies for Rails 7.0 compatibility
 - [ ] Add new_framework_defaults_7_0.rb initializer
 - [ ] Replace Webpacker with importmaps or jsbundling-rails
