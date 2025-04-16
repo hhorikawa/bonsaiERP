@@ -60,10 +60,6 @@ group :development do
   # gem "bullet", '~> 6.1.5'
   gem "awesome_print", '~> 1.9.2'
 
-  gem "capistrano", '~> 3.16.0'
-  gem "capistrano-rails", '~> 1.6.1'
-  gem "capistrano-bundler", '~> 2.0.1'
-  gem "capistrano-rvm", '~> 0.1.2'
   gem 'web-console', '~> 4.1.0'  # Updated for Rails 6.0
   gem 'spring', '~> 2.1.1'
   gem 'spring-commands-rspec', '~> 1.0.4'
