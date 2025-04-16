@@ -71,7 +71,7 @@ myApp.directive('tags', ['$compile', '$timeout', function($compile, $timeout) {
     template: 
       '<a href="javascript:;" class="btn tags-button">' +
       '  <i class="icon-tags"></i>' +
-      '  Etiquetas' +
+      '  Tags' +
       '  <i class="icon-caret-down"></i>' +
       '</a>'
   };

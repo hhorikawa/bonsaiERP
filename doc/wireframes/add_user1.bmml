@@ -58,7 +58,7 @@
       <controlProperties>
         <bold>false</bold>
         <borderStyle>none</borderStyle>
-        <text>*Nombre*%2C%20*Email*%2C%20*Rol*%2C%20*Activo*%2C%0AAmaru%20Barroso%2C%20amaru.barroso@gmail.com%2C%20Administrador%2C%20SI%2C%20%5Beditar%5D%0AJuan%20Perez%2C%20juan@mail.com%2C%20Vendedor%2C%20SI%2C%20%5Beditar%5D%0ARosa%20Lina%2C%20rosalina@gmail.com%2C%20Gerencia%2C%20SI%2C%20%5Beditar%5D</text>
+        <text>*Name*%2C%20*Email*%2C%20*Rol*%2C%20*Activo*%2C%0AAmaru%20Barroso%2C%20amaru.barroso@gmail.com%2C%20Administrador%2C%20SI%2C%20%5Beditar%5D%0AJuan%20Perez%2C%20juan@mail.com%2C%20Vendedor%2C%20SI%2C%20%5Beditar%5D%0ARosa%20Lina%2C%20rosalina@gmail.com%2C%20Gerencia%2C%20SI%2C%20%5Beditar%5D</text>
         <vLines>false</vLines>
       </controlProperties>
     </control>

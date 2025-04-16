@@ -29,7 +29,7 @@
         <align>right</align>
         <color>16777215</color>
         <size>11</size>
-        <text>Cuenta%20%20Configuraci%F3n%20%20Ayuda</text>
+        <text>Cuenta%20%20Configuraci%F3n%20%20Help</text>
       </controlProperties>
     </control>
     <control controlID="163" controlTypeID="com.balsamiq.mockups::PointyButton" x="758" y="667" w="113" h="-1" measuredW="39" measuredH="28" zOrder="6" locked="false" isInGroup="-1">
@@ -129,7 +129,7 @@
     <control controlID="239" controlTypeID="com.balsamiq.mockups::Label" x="247" y="267" w="171" h="25" measuredW="146" measuredH="25" zOrder="12" locked="false" isInGroup="-1">
       <controlProperties>
         <color>6710886</color>
-        <text>Nombre%20de%20la%20empresa</text>
+        <text>Name%20de%20la%20empresa</text>
       </controlProperties>
     </control>
     <control controlID="240" controlTypeID="com.balsamiq.mockups::Label" x="617" y="314" w="146" h="25" measuredW="59" measuredH="25" zOrder="13" locked="false" isInGroup="-1">
@@ -141,7 +141,7 @@
     <control controlID="241" controlTypeID="com.balsamiq.mockups::Label" x="617" y="267" w="109" h="25" measuredW="86" measuredH="25" zOrder="14" locked="false" isInGroup="-1">
       <controlProperties>
         <color>6710886</color>
-        <text>Moneda%20base</text>
+        <text>Currency%20base</text>
       </controlProperties>
     </control>
     <control controlID="242" controlTypeID="com.balsamiq.mockups::Label" x="248" y="318" w="109" h="25" measuredW="29" measuredH="25" zOrder="15" locked="false" isInGroup="-1">
@@ -220,7 +220,7 @@
     <control controlID="253" controlTypeID="com.balsamiq.mockups::Label" x="248" y="488" w="171" h="25" measuredW="94" measuredH="25" zOrder="26" locked="false" isInGroup="-1">
       <controlProperties>
         <color>4144959</color>
-        <text>Nombre%20Banco</text>
+        <text>Name%20Banco</text>
       </controlProperties>
     </control>
     <control controlID="255" controlTypeID="com.balsamiq.mockups::Label" x="597" y="489" w="171" h="26" measuredW="120" measuredH="25" zOrder="27" locked="false" isInGroup="-1">
@@ -238,7 +238,7 @@
     <control controlID="260" controlTypeID="com.balsamiq.mockups::Label" x="248" y="544" w="171" h="25" measuredW="52" measuredH="25" zOrder="29" locked="false" isInGroup="-1">
       <controlProperties>
         <color>4144959</color>
-        <text>Moneda</text>
+        <text>Currency</text>
       </controlProperties>
     </control>
     <control controlID="261" controlTypeID="com.balsamiq.mockups::Label" x="248" y="507" w="-1" h="-1" measuredW="38" measuredH="29" zOrder="30" locked="false" isInGroup="-1">

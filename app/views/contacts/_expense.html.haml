@@ -8,7 +8,7 @@
       %i.icon-minus.red
       Egreso
       .clearfix
-      %span(title='Estado')= expense.state_tag
+      %span(title='Status')= expense.state_tag
       %i= l expense.date
       - if expense.tax
         %strong.gray
@@ -28,7 +28,7 @@
     = expense.due_date_tag
 
     .clear-both
-    %i(class='icon-file muted' title='Descripción')
+    %i(class='icon-file muted' title='Description')
     = expense.description
   .span3
     .span6.r

@@ -249,7 +249,7 @@
       <controlProperties>
         <color>13369344</color>
         <size>20</size>
-        <text>Egresos</text>
+        <text>Expenses</text>
       </controlProperties>
     </control>
     <control controlID="46" controlTypeID="com.balsamiq.mockups::Title" x="178" y="464" w="-1" h="-1" measuredW="48" measuredH="25" zOrder="19" locked="false" isInGroup="-1">

@@ -19,13 +19,13 @@
   = bonsai_form_error(f)
   .row-fluid
     .span6
-      = f.input :name, label: 'Nombre', input_html: { class: 'span10' }
+      = f.input :name, label: 'Name', input_html: { class: 'span10' }
     .span6.form-inline
       = f.input :active, label: 'Visible', hint: 'Visible para poder realizar operaciones'
 
   .row-fluid
     .span6
-      %label Moneda
+      %label Currency
       = @bank.curr_name
       = currency_label @bank.currency
     .span6
@@ -35,9 +35,9 @@
 
   .row-fluid
     .span6
-      = f.input :address, :label => 'Dirección', :as => :text, :input_html => {:rows => 4, :cols => 35}, :required => false
+      = f.input :address, :label => 'Address', :as => :text, :input_html => {:rows => 4, :cols => 35}, :required => false
     .span6
-      = f.input :phone, :label => 'Teléfono', :required => false, :wrapper_html => {:class => "_100"}
+      = f.input :phone, :label => 'Phone', :required => false, :wrapper_html => {:class => "_100"}
       = f.input :website, :label => 'Sitio web', :wrapper_html => {:class => "_100"}
   .form-actions
-    = f.submit 'Salvar', class: 'btn btn-primary b'
+    = f.submit 'Save', class: 'btn btn-primary b'

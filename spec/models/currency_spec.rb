@@ -5,7 +5,7 @@ describe Currency do
 
   it "options" do
     Currency.options('BOB', 'PEN', 'ARS').should eq([
-      ['BOB Boliviano', 'BOB'],['PEN Nuevo Sol Peruano', 'PEN'], ['ARS Peso Argentino', 'ARS']
+      ['BOB Boliviano', 'BOB'],['PEN New Sol Peruano', 'PEN'], ['ARS Peso Argentino', 'ARS']
     ])
   end
 

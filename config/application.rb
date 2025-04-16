@@ -20,5 +20,7 @@ module BonsaiErp
     # config.eager_load_paths << Rails.root.join("extras")
     config.eager_load_paths << Rails.root.join('lib')
     config.autoload_paths << Rails.root.join('lib')
+
+    config.i18n.default_locale = :en
   end
 end

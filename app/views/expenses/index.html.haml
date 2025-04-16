@@ -6,7 +6,7 @@
 
 .row-fluid
   .span6
-    %h1.ib Egresos
+    %h1.ib Expenses
     = search_tag
   .span6.r.buttons
     %tags(model='Expense' tag-ids='#{ tag_ids }' url='#{ expenses_path }')
@@ -14,11 +14,11 @@
     .btn-group
       = link_to export_expenses_path, class: 'btn' do
         %i.icon-download-alt
-        Exportar
+        Export
 
       = link_to new_expense_path, class: 'btn' do
         %i.icon-plus-sign
-        Nuevo egreso
+        New Expense
 
 
 = render 'search'

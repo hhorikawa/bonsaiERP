@@ -36,7 +36,7 @@
         <align>right</align>
         <color>16777215</color>
         <size>11</size>
-        <text>Cuenta%20%20Configuraci%F3n%20%20Ayuda</text>
+        <text>Cuenta%20%20Configuraci%F3n%20%20Help</text>
       </controlProperties>
     </control>
     <control controlID="44" controlTypeID="com.balsamiq.mockups::Title" x="175" y="7" w="-1" h="-1" measuredW="134" measuredH="51" zOrder="6" locked="false" isInGroup="-1">
@@ -169,7 +169,7 @@
         <rowHeight>27</rowHeight>
         <selectedIndex>-1</selectedIndex>
         <size>12</size>
-        <text>*Cliente*%2C%20*Referencia*%2C%20*Fecha*%2C%20*Vence%20el*%2C%20*Total*%2C%20*Saldo*%2C%20*Dinero%5Cratrasado*%2C%20*Estado*%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%5BAntalis%5D%2C%202010-0002%2C%2029%20Dic%202009%2C%20%2C12000.00%2C%2C%2C%20Borrador%2C%20%0A%5BPapirus%5D%2C%202009-0125%2C12%20Dic%202009%2C%20%2C%2012500.00%2C%2C%2C%20Borrador</text>
+        <text>*Cliente*%2C%20*Reference*%2C%20*Fecha*%2C%20*Vence%20el*%2C%20*Total*%2C%20*Saldo*%2C%20*Dinero%5Cratrasado*%2C%20*Status*%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%5BAntalis%5D%2C%202010-0002%2C%2029%20Dic%202009%2C%20%2C12000.00%2C%2C%2C%20Borrador%2C%20%0A%5BPapirus%5D%2C%202009-0125%2C12%20Dic%202009%2C%20%2C%2012500.00%2C%2C%2C%20Borrador</text>
         <underline>false</underline>
         <verticalScrollbar>false</verticalScrollbar>
         <vLines>false</vLines>

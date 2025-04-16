@@ -20,7 +20,7 @@ class ContactBalance {
     
     // Render expenses
     this.$expenses.append([
-      this.data.expenses.TOTAL ? "<div class='b text-error'>Egresos por pagar</div>" : "",
+      this.data.expenses.TOTAL ? "<div class='b text-error'>Expenses por pagar</div>" : "",
       this.renderDetail(this.data.expenses)
     ].join(''));
 
@@ -75,7 +75,7 @@ class ContactBalance {
   }
 
   createPopoverExpenses(event) {
-    const title = '<span class="text-error b">Detalle egresos por pagar</span>';
+    const title = '<span class="text-error b">Detalle Expenses por pagar</span>';
     const html = this.createCurrenciesDetail(this.data.expenses);
 
     return $(event.target).popover({title: title, html: true, content: html, placement: 'top'});

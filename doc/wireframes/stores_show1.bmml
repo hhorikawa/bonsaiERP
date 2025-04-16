@@ -39,7 +39,7 @@
         <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="18" y="0" w="-1" h="-1" measuredW="44" measuredH="25" zOrder="1" locked="false" isInGroup="39">
           <controlProperties>
             <color>3700253</color>
-            <text>Nuevo</text>
+            <text>New</text>
           </controlProperties>
         </control>
       </groupChildrenDescriptors>
@@ -192,7 +192,7 @@
         <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="18" y="0" w="-1" h="-1" measuredW="44" measuredH="25" zOrder="1" locked="false" isInGroup="57">
           <controlProperties>
             <color>3700253</color>
-            <text>Nuevo</text>
+            <text>New</text>
           </controlProperties>
         </control>
       </groupChildrenDescriptors>
@@ -202,12 +202,12 @@
         <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="0" w="148" h="93" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="62"/>
         <control controlID="1" controlTypeID="com.balsamiq.mockups::Link" x="7" y="14" w="-1" h="-1" measuredW="93" measuredH="25" zOrder="1" locked="false" isInGroup="62">
           <controlProperties>
-            <text>Nuevo%20ingreso</text>
+            <text>New%20ingreso</text>
           </controlProperties>
         </control>
         <control controlID="2" controlTypeID="com.balsamiq.mockups::Link" x="7" y="37" w="-1" h="-1" measuredW="90" measuredH="25" zOrder="2" locked="false" isInGroup="62">
           <controlProperties>
-            <text>Nuevo%20egreso</text>
+            <text>New%20egreso</text>
           </controlProperties>
         </control>
         <control controlID="3" controlTypeID="com.balsamiq.mockups::Link" x="7" y="59" w="-1" h="-1" measuredW="135" measuredH="25" zOrder="3" locked="false" isInGroup="62">

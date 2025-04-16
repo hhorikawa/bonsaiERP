@@ -15,10 +15,10 @@
   = bonsai_form_error(f)
   .row-fluid
     .span6
-      = f.input :name, label: 'Nombre completo', input_html: { size: INPUT_SIZE }
+      = f.input :name, label: 'Name completo', input_html: { size: INPUT_SIZE }
 
     .span3
-      %label Moneda
+      %label Currency
       = @staff_account.currency
 
     .span3.form-inline
@@ -26,16 +26,16 @@
 
   .row-fluid
     .span3
-      = f.input :phone, label: 'Teléfono'
+      = f.input :phone, label: 'Phone'
     .span3
-      = f.input :mobile, label: 'Móvil'
+      = f.input :mobile, label: 'Mobile'
     .span6
       = f.input :email, label: 'Email', input_html: { size: INPUT_SIZE }
 
   .row-fluid
     .span6
-      = f.input :address, label: 'Dirección', as: :text, input_html: { rows: 4, cols: INPUT_SIZE }
+      = f.input :address, label: 'Address', as: :text, input_html: { rows: 4, cols: INPUT_SIZE }
 
   .form-actions
-    = f.submit 'Salvar', class: 'btn btn-primary b'
+    = f.submit 'Save', class: 'btn btn-primary b'
 

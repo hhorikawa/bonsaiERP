@@ -19,7 +19,7 @@ es:
           "Bienvenid@ a <i>bonsaiERP</i> comenzamos con estas recomendaciones"
         help_recomendation:
           "
-          Siempre encontrará <a class='dark b'><i class='icon-question-sign'></i> Ayuda</a>
+          Siempre encontrará <a class='dark b'><i class='icon-question-sign'></i> Help</a>
           en la parte superior derecha de la página
           "
         users_recomendation:
@@ -31,7 +31,7 @@ es:
     incomes:
       index:
         title: Ingresos
-        new: Nuevo ingreso
+        new: New ingreso
       pagination:
         next: "&rsaquo;"
         previous: "&lsaquo;"
@@ -54,4 +54,4 @@ es:
       incomes:
         index:
           title: "Ingresos"
-          new: "Nuevo ingreso"
+          new: "New ingreso"

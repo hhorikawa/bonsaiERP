@@ -16,13 +16,13 @@
         <align>right</align>
         <color>16777215</color>
         <size>11</size>
-        <text>Cuenta%20%20Configuraci%F3n%20%20Ayuda</text>
+        <text>Cuenta%20%20Configuraci%F3n%20%20Help</text>
       </controlProperties>
     </control>
     <control controlID="5" controlTypeID="com.balsamiq.mockups::Title" x="208" y="117" w="-1" h="-1" measuredW="179" measuredH="51" zOrder="3" locked="false" isInGroup="-1">
       <controlProperties>
         <size>32</size>
-        <text>Nuevo%20item</text>
+        <text>New%20item</text>
       </controlProperties>
     </control>
     <control controlID="6" controlTypeID="com.balsamiq.mockups::Canvas" x="207" y="228" w="771" h="637" measuredW="100" measuredH="70" zOrder="4" locked="false" isInGroup="-1">
@@ -44,12 +44,12 @@
     <control controlID="11" controlTypeID="com.balsamiq.mockups::TextInput" x="254" y="256" w="297" h="-1" measuredW="86" measuredH="29" zOrder="7" locked="false" isInGroup="-1">
       <controlProperties>
         <bold>false</bold>
-        <text>Nuevo%20Item</text>
+        <text>New%20Item</text>
       </controlProperties>
     </control>
     <control controlID="12" controlTypeID="com.balsamiq.mockups::Label" x="254" y="233" w="-1" h="-1" measuredW="53" measuredH="25" zOrder="8" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Nombre</text>
+        <text>Name</text>
       </controlProperties>
     </control>
     <control controlID="13" controlTypeID="com.balsamiq.mockups::ComboBox" x="253" y="318" w="277" h="-1" measuredW="122" measuredH="25" zOrder="9" locked="false" isInGroup="-1">
@@ -81,7 +81,7 @@
         <color>2848996</color>
         <direction>center</direction>
         <size>18</size>
-        <text>Salvar</text>
+        <text>Save</text>
       </controlProperties>
     </control>
     <control controlID="29" controlTypeID="com.balsamiq.mockups::Label" x="603" y="505" w="-1" h="-1" measuredW="74" measuredH="25" zOrder="14" locked="false" isInGroup="-1">
@@ -249,7 +249,7 @@
     </control>
     <control controlID="70" controlTypeID="com.balsamiq.mockups::Label" x="259" y="505" w="-1" h="-1" measuredW="63" measuredH="25" zOrder="36" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Etiquetas</text>
+        <text>Tags</text>
       </controlProperties>
     </control>
   </controls>

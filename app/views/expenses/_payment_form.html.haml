@@ -7,7 +7,7 @@
   = render 'payments/default_form', f: f, transaction: expense
   .form-actions
     = f.submit "Pagar", class: 'btn btn-danger b'
-    %a#cancel-payment-link.btn(href="javascript:;") Cancelar
+    %a#cancel-payment-link.btn(href="javascript:;") Cancel
 
 :javascript
   $(function() {

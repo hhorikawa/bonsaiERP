@@ -27,7 +27,7 @@
         <selectedIndex>-1</selectedIndex>
         <alternateRowColor>15594478</alternateRowColor>
         <verticalScrollbar>false</verticalScrollbar>
-        <text>Nombre%2C%20Direcci%F3n%2C%20Registrado%20el%2C%20Comprado%2C%20Deuda%0AJuan%20Perez%2C%20Las%20Lomas%20Calle%204%20N%BA%2025%2C%202%20Ene%202008%2C20500.00%2C%201200.00%2C%20%5Bver%5D%20%5Beditar%5D%20%5Bborrar%5D%0ACorte%20Nacional%20Electoral%2C%20Av.%20Arce%20N%BA%201234%2C%2010%20Ene%202010%2C%20120000.00%2C%201500.00%2C%20%5Bver%5D%20%5Beditar%5D%20%5Bborrar%5D%0AMapex%2C%20Calle%20Juariste%20Eguino%20N%BA%2025%2C%2014%20Ene%202010%2C%2012500.00%2C%200.00%2C%20%5Bver%5D%20%5Beditar%5D%20%5Bborrar%5D</text>
+        <text>Name%2C%20Direcci%F3n%2C%20Registrado%20el%2C%20Comprado%2C%20Deuda%0AJuan%20Perez%2C%20Las%20Lomas%20Calle%204%20N%BA%2025%2C%202%20Ene%202008%2C20500.00%2C%201200.00%2C%20%5Bver%5D%20%5Beditar%5D%20%5Bborrar%5D%0ACorte%20Nacional%20Electoral%2C%20Av.%20Arce%20N%BA%201234%2C%2010%20Ene%202010%2C%20120000.00%2C%201500.00%2C%20%5Bver%5D%20%5Beditar%5D%20%5Bborrar%5D%0AMapex%2C%20Calle%20Juariste%20Eguino%20N%BA%2025%2C%2014%20Ene%202010%2C%2012500.00%2C%200.00%2C%20%5Bver%5D%20%5Beditar%5D%20%5Bborrar%5D</text>
         <vLines>false</vLines>
         <hLines>false</hLines>
         <underline>false</underline>
@@ -64,7 +64,7 @@
     </control>
     <control controlID="29" controlTypeID="com.balsamiq.mockups::Paragraph" x="780" y="19" w="220" h="26" measuredW="200" measuredH="140" zOrder="9" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Cuenta%20%20Configuraci%F3n%20%20Ayuda</text>
+        <text>Cuenta%20%20Configuraci%F3n%20%20Help</text>
         <align>right</align>
         <size>11</size>
         <color>16777215</color>

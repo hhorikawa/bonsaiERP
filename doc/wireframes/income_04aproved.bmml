@@ -16,7 +16,7 @@
         <align>right</align>
         <color>16777215</color>
         <size>11</size>
-        <text>Cuenta%20%20Configuraci%F3n%20%20Ayuda</text>
+        <text>Cuenta%20%20Configuraci%F3n%20%20Help</text>
       </controlProperties>
     </control>
     <control controlID="5" controlTypeID="com.balsamiq.mockups::Title" x="242" y="252" w="-1" h="-1" measuredW="200" measuredH="46" zOrder="5" locked="false" isInGroup="-1">
@@ -271,7 +271,7 @@
       <controlProperties>
         <bold>false</bold>
         <borderStyle>none</borderStyle>
-        <text>Fecha%2C%20Descripci%F3n%2C%20Advertir%20el%2C%20Cantidad%2C%20Intereses%5CrPenalidades%2CEstado%2C%20Enviar%5Cr%20E-mail%0A-10%20Ene%202010-%2C%20-Cobro%20con%20intereses-%2C%20-5%20Feb%202010-%2C%20-2000.00-%2C%20-100.00-%2CCobrado%2C%20-%5Bx%5D-%2C%20%20%20%20%20%20%20%20%20%0A10%20Feb%202010%2C%20Cobro%20con%20intereses%2C%205%20Feb%202010%2C%202000.00%2C%20100.00%2C%20Pendiente%2C%5Bx%5D%2C%20%20%20%20%20%20%20%20%20%0A10%20Mar%202010%2C%20Cobro%20con%20intereses%2C%205%20Mar%202010%2C%202000.00%2C%2090.00%2C%20Pendiente%2C%5Bx%5D%2C%20%20%20%20%20%20%20%20%20%0A%7BL%2C%20L%2C%20L%2C%20R%2C%20R%2C%20L%2CC%7D</text>
+        <text>Fecha%2C%20Descripci%F3n%2C%20Advertir%20el%2C%20Cantidad%2C%20Intereses%5CrPenalidades%2CStatus%2C%20Enviar%5Cr%20E-mail%0A-10%20Ene%202010-%2C%20-Cobro%20con%20intereses-%2C%20-5%20Feb%202010-%2C%20-2000.00-%2C%20-100.00-%2CCobrado%2C%20-%5Bx%5D-%2C%20%20%20%20%20%20%20%20%20%0A10%20Feb%202010%2C%20Cobro%20con%20intereses%2C%205%20Feb%202010%2C%202000.00%2C%20100.00%2C%20Pendiente%2C%5Bx%5D%2C%20%20%20%20%20%20%20%20%20%0A10%20Mar%202010%2C%20Cobro%20con%20intereses%2C%205%20Mar%202010%2C%202000.00%2C%2090.00%2C%20Pendiente%2C%5Bx%5D%2C%20%20%20%20%20%20%20%20%20%0A%7BL%2C%20L%2C%20L%2C%20R%2C%20R%2C%20L%2CC%7D</text>
         <vLines>false</vLines>
       </controlProperties>
     </control>
@@ -350,7 +350,7 @@
             <direction>center</direction>
             <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22222%2C804%2C335%2C832%22%20href%3D%22income_aprove.bmml%22%20alt%3D%22income_aprove%22%20id%3D%2286%22/%3E</map>
             <size>13</size>
-            <text>Salvar</text>
+            <text>Save</text>
           </controlProperties>
         </control>
         <control controlID="7" controlTypeID="com.balsamiq.mockups::Paragraph" x="27" y="136" w="263" h="44" measuredW="200" measuredH="140" zOrder="6" locked="false" isInGroup="136">
@@ -367,7 +367,7 @@
             <direction>center</direction>
             <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22225%2C804%2C338%2C839%22%20href%3D%22sale_aprove_credit.bmml%22%20alt%3D%22sale_aprove_credit%22%20id%3D%2286%22/%3E</map>
             <size>13</size>
-            <text>Cancelar</text>
+            <text>Cancel</text>
           </controlProperties>
         </control>
       </groupChildrenDescriptors>
@@ -441,7 +441,7 @@
             <direction>center</direction>
             <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22222%2C804%2C335%2C832%22%20href%3D%22income_aprove.bmml%22%20alt%3D%22income_aprove%22%20id%3D%2286%22/%3E</map>
             <size>13</size>
-            <text>Salvar</text>
+            <text>Save</text>
           </controlProperties>
         </control>
         <control controlID="6" controlTypeID="com.balsamiq.mockups::PointyButton" x="154" y="318" w="113" h="-1" measuredW="75" measuredH="28" zOrder="6" locked="false" isInGroup="159">
@@ -450,7 +450,7 @@
             <direction>center</direction>
             <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22225%2C804%2C338%2C839%22%20href%3D%22sale_aprove_credit.bmml%22%20alt%3D%22sale_aprove_credit%22%20id%3D%2286%22/%3E</map>
             <size>13</size>
-            <text>Cancelar</text>
+            <text>Cancel</text>
           </controlProperties>
         </control>
         <control controlID="7" controlTypeID="com.balsamiq.mockups::TextInput" x="196" y="58" w="151" h="-1" measuredW="45" measuredH="29" zOrder="7" locked="false" isInGroup="159">
@@ -526,7 +526,7 @@
             <direction>center</direction>
             <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22222%2C804%2C335%2C832%22%20href%3D%22income_aprove.bmml%22%20alt%3D%22income_aprove%22%20id%3D%2286%22/%3E</map>
             <size>13</size>
-            <text>Salvar</text>
+            <text>Save</text>
           </controlProperties>
         </control>
         <control controlID="2" controlTypeID="com.balsamiq.mockups::PointyButton" x="164" y="243" w="113" h="-1" measuredW="75" measuredH="28" zOrder="2" locked="false" isInGroup="178">
@@ -535,7 +535,7 @@
             <direction>center</direction>
             <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22225%2C804%2C338%2C839%22%20href%3D%22sale_aprove_credit.bmml%22%20alt%3D%22sale_aprove_credit%22%20id%3D%2286%22/%3E</map>
             <size>13</size>
-            <text>Cancelar</text>
+            <text>Cancel</text>
           </controlProperties>
         </control>
         <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="26" y="171" w="100" h="25" measuredW="37" measuredH="25" zOrder="3" locked="false" isInGroup="178">
@@ -701,7 +701,7 @@
             <direction>center</direction>
             <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22222%2C804%2C335%2C832%22%20href%3D%22income_aprove.bmml%22%20alt%3D%22income_aprove%22%20id%3D%2286%22/%3E</map>
             <size>13</size>
-            <text>Salvar</text>
+            <text>Save</text>
           </controlProperties>
         </control>
         <control controlID="6" controlTypeID="com.balsamiq.mockups::PointyButton" x="154" y="358" w="113" h="-1" measuredW="75" measuredH="28" zOrder="6" locked="false" isInGroup="188">
@@ -710,7 +710,7 @@
             <direction>center</direction>
             <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22225%2C804%2C338%2C839%22%20href%3D%22sale_aprove_credit.bmml%22%20alt%3D%22sale_aprove_credit%22%20id%3D%2286%22/%3E</map>
             <size>13</size>
-            <text>Cancelar</text>
+            <text>Cancel</text>
           </controlProperties>
         </control>
         <control controlID="7" controlTypeID="com.balsamiq.mockups::TextInput" x="196" y="98" w="151" h="-1" measuredW="45" measuredH="29" zOrder="7" locked="false" isInGroup="188">

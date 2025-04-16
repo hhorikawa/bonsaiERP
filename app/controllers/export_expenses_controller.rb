@@ -15,7 +15,7 @@ class ExportExpensesController < ApplicationController
     exp = Expenses::Export.new(@date_range)
 
     respond_to do |format|
-      format.xls { send_data StringEncoder.encode("UTF-8", "ISO-8859-1", exp.export(col_sep: "\t") ), filename: 'egresos.xls' }
+      format.xls { send_data StringEncoder.encode("UTF-8", "ISO-8859-1", exp.export(col_sep: "\t") ), filename: 'Expenses.xls' }
     end
   end
 end

@@ -232,7 +232,7 @@ es:
         payments: "Extisten pagos que se han afectado al balance"
       expenses:
         batch_payment:
-          invalid_expenses: 'Uno o mas de los egresos seleccionados no son válidos'
+          invalid_expenses: 'Uno o mas de los Expenses seleccionados no son válidos'
         not_draft: "El estado del ingreso no es borrador"
         payments: "Extisten cobros que se han afectado al balance"
       incomes:
@@ -354,7 +354,7 @@ es:
       mark: "*"
 
   common:
-    new: 'Nuevo'
+    new: 'New'
     edit: 'Editar'
     delete: 'Borrar'
     show: 'Ver'
@@ -397,14 +397,14 @@ es:
     incomes:
       index:
         title: "Ingresos"
-        new: "Nuevo ingreso"
+        new: "New ingreso"
 
   general:
     approved_by: Aprobado por
     created_by: Creado por
     modified_by: Modificado por
     nulled_by: Anulado por
-    export: Exportar
+    export: Export
     contact: Contacto
     code: Código
     fix_errors: Corrija los errores
@@ -431,7 +431,7 @@ es:
       unit_id: Unidad
       price: Precio de VENTA
       buy_price: Precio de COMPRA
-      name: Nombre
+      name: Name
       code: Código
 
   movement_attributes: &movement_attributes
@@ -507,7 +507,7 @@ es:
           contact_expense: "Buscar por contacto o egreso"
           date_start: "Fecha inicio"
           date_end: "Fecha fin"
-          state: "Estado"
+          state: "Status"
 
     expenses:
       reference: "Cobro egreso %{name}"
@@ -516,7 +516,7 @@ es:
           contact_expense: "Buscar por contacto o egreso"
           date_start: "Fecha inicio"
           date_end: "Fecha fin"
-          state: "Estado"
+          state: "Status"
 
 
     incomes:
@@ -528,7 +528,7 @@ es:
           contact_income: "Buscar por contacto o ingreso"
           date_start: "Fecha inicio"
           date_end: "Fecha fin"
-          state: "Estado"
+          state: "Status"
 
     loans:
       index:
@@ -552,7 +552,7 @@ es:
         date: "Fecha"
         verify_bank: "Verificar (solo bank)"
         verify_bank_hint: "Verificar a futuro. Ej.: (Cheque)"
-        reference: "Referencia"
+        reference: "Reference"
 
     registrations:
       create_notice: "Ha creado correctamente su empresa"

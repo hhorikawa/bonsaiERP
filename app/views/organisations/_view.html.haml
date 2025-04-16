@@ -14,14 +14,14 @@
     = session[:org].country
   .input
     .input
-      %label Teléfono
+      %label Phone
       = session[:org].phone
     .input
-      %label Móvil
+      %label Mobile
       = session[:org].mobile
   .clear
   .input
-    %label Dirección
+    %label Address
     = nl2br session[:org].address
   .input
     %label Email
@@ -33,7 +33,7 @@
 
   -if session[:account].is_a? Bank
     .input
-      %label Nombre de banco
+      %label Name de banco
       = session[:account].name
     .input
       %label Número de cuenta
@@ -42,7 +42,7 @@
     .clear
 
     .input
-      %label Moneda
+      %label Currency
       = session[:account].currency
     .input
       %label Total en cuenta
@@ -51,12 +51,12 @@
   -else
 
     .input
-      %label Nombre de caja
+      %label Name de caja
       = session[:account].name
 
     .input
       .input
-        %label Moneda
+        %label Currency
         = session[:account].currency
       .input
         %label Total en cuenta

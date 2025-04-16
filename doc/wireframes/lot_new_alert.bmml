@@ -20,7 +20,7 @@
     </control>
     <control controlID="3" controlTypeID="com.balsamiq.mockups::Paragraph" x="780" y="19" w="220" h="26" measuredW="200" measuredH="140" zOrder="3" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Cuenta%20%20Configuraci%F3n%20%20Ayuda</text>
+        <text>Cuenta%20%20Configuraci%F3n%20%20Help</text>
         <align>right</align>
         <color>16777215</color>
         <size>11</size>
@@ -36,7 +36,7 @@
     </control>
     <control controlID="5" controlTypeID="com.balsamiq.mockups::Title" x="208" y="117" w="-1" h="-1" measuredW="171" measuredH="51" zOrder="5" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Nuevo%20lote</text>
+        <text>New%20lote</text>
         <size>32</size>
       </controlProperties>
     </control>
@@ -64,7 +64,7 @@
     </control>
     <control controlID="10" controlTypeID="com.balsamiq.mockups::Button" x="540" y="579" w="-1" h="-1" measuredW="63" measuredH="28" zOrder="10" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Salvar</text>
+        <text>Save</text>
       </controlProperties>
     </control>
     <control controlID="11" controlTypeID="com.balsamiq.mockups::DateChooser" x="329" y="219" w="-1" h="-1" measuredW="150" measuredH="29" zOrder="11" locked="false" isInGroup="-1">

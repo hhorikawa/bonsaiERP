@@ -14,24 +14,24 @@
 
     <div class="row-fluid">
       <div class="span6">
-        <%= f.input :description, label: 'Descripción', as: 'text', input_html: {rows: 2, class: 'span10', placeholder: 'Descripción del Ingreso'} %>
+        <%= f.input :description, label: 'Description', as: 'text', input_html: {rows: 2, class: 'span10', placeholder: 'Description del Ingreso'} %>
       </div>
     </div>
 
     <div class="form-actions">
       <% if income_service.is_draft? %>
         <div class="ib" ng-hide="direct_payment">
-          <%= f.submit 'Salvar borrador', class: 'btn b btn-large trans', name: 'commit_save' %>
+          <%= f.submit 'Save borrador', class: 'btn b btn-large trans', name: 'commit_save' %>
           <br>
           <small class="muted">Salva un borrador o proforma</small>
         </div>
         <div class="ib">
-          <%= f.submit value: 'Salvar y aprobar', class: 'btn b btn-large btn-primary', name: 'commit_approve' %>
+          <%= f.submit value: 'Save y aprobar', class: 'btn b btn-large btn-primary', name: 'commit_approve' %>
           <br>
           <small class="muted">Salva y permite cobros</small>
         </div>
       <% else %>
-        <%= f.submit 'Salvar', class: 'btn btn-primary btn-large b' %>
+        <%= f.submit 'Save', class: 'btn btn-primary btn-large b' %>
       <% end %>
     </div>
   <% end %>

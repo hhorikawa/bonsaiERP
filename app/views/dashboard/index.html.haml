@@ -6,7 +6,7 @@
     %ul.breadcrumbs.r
       %a#help-link-general.dark(href="javascript:;")
         %i.icon-question-sign
-          Ayuda
+          Help
 
 %h2#title
   Resumen
@@ -20,7 +20,7 @@
 .well
   = form_for dashboard_path, method: :get, html: {id: "form_graph", class: 'form-inline'} do
     = render 'layouts/date_range', dr: @date_range
-    = submit_tag 'Generar', class: 'btn'
+    = submit_tag 'Generate', class: 'btn'
 
 
 = render 'dashboard/graph', data: @dashboard
@@ -46,7 +46,7 @@
     .row-fluid
       .span6
         %h4.expenses-total.ib.n.muted
-          Egresos:
+          Expenses:
         %h4.ib.text-error
           \%
           = ntc @dashboard.expenses_pecentage

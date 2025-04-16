@@ -12,7 +12,7 @@
       = select_tag :store_id, options_for_select(Store.active.map {|v| [v.to_s, v.id] })
     .form-actions
       = submit_tag "Siguiente", class: 'btn btn-primary'
-      %a.btn.cancel(href='javascript:;') Cancelar
+      %a.btn.cancel(href='javascript:;') Cancel
 
 #inventory-devolution(style='display:none;background-color: white')
   = form_tag new_expenses_inventory_out_path, method: :get do
@@ -24,7 +24,7 @@
       = select_tag :store_id, options_for_select(Store.active.map {|v| [v.to_s, v.id] })
     .form-actions
       = submit_tag 'Siguiente', class: 'btn btn-primary'
-      %a.btn.cancel(href='javascript:;') Cancelar
+      %a.btn.cancel(href='javascript:;') Cancel
 
 :javascript
   $(function() {

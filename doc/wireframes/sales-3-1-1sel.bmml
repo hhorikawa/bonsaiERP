@@ -118,7 +118,7 @@
         <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="18" y="0" w="-1" h="-1" measuredW="83" measuredH="25" zOrder="1" locked="false" isInGroup="100">
           <controlProperties>
             <color>40463</color>
-            <text>Nuevo%20cobro</text>
+            <text>New%20cobro</text>
           </controlProperties>
         </control>
       </groupChildrenDescriptors>
@@ -202,7 +202,7 @@
             <control controlID="0" controlTypeID="com.balsamiq.mockups::TitleWindow" x="0" y="0" w="749" h="345" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="0">
               <controlProperties>
                 <bottomheight>0</bottomheight>
-                <text>Nuevo%20cobro</text>
+                <text>New%20cobro</text>
               </controlProperties>
             </control>
           </groupChildrenDescriptors>
@@ -241,12 +241,12 @@
         <control controlID="9" controlTypeID="com.balsamiq.mockups::Label" x="17" y="141" w="-1" h="-1" measuredW="147" measuredH="25" zOrder="5" locked="false" isInGroup="107">
           <controlProperties>
             <color>6710886</color>
-            <text>Referencia/N%BA%20Cheque</text>
+            <text>Reference/N%BA%20Cheque</text>
           </controlProperties>
         </control>
         <control controlID="11" controlTypeID="com.balsamiq.mockups::Button" x="23" y="254" w="-1" h="-1" measuredW="63" measuredH="28" zOrder="6" locked="false" isInGroup="107">
           <controlProperties>
-            <text>Salvar</text>
+            <text>Save</text>
           </controlProperties>
         </control>
         <control controlID="12" controlTypeID="com.balsamiq.mockups::TextArea" x="17" y="159" w="200" h="71" measuredW="200" measuredH="140" zOrder="7" locked="false" isInGroup="107">

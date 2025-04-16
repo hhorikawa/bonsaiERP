@@ -69,7 +69,7 @@
 <tr>
 	<td>type</td>
 	<td>id=item_description</td>
-	<td>Teléfono celular (Smartphone)</td>
+	<td>Phone celular (Smartphone)</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -79,11 +79,11 @@
 <tr>
 	<td>assertElementPresent</td>
 	<td>//div[@id='cont']/div/div[5]/div</td>
-	<td>Descripción Teléfono celular (Smartphone)</td>
+	<td>Description Phone celular (Smartphone)</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Nuevo</td>
+	<td>link=New</td>
 	<td></td>
 </tr>
 <tr>

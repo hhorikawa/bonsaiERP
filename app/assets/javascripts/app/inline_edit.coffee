@@ -31,8 +31,8 @@ class TextareaEdit extends InlineEdit
   <div class="inline-form-edit">
     <textarea cols="[:cols:]" rows="[:rows:]">[:value:]</textarea>
     <div>
-      <button class="btn btn-primary btn-small save">Salvar</button>
-      <button class="btn btn-small cancel">Cancelar</button>
+      <button class="btn btn-primary btn-small save">Save</button>
+      <button class="btn btn-small cancel">Cancel</button>
     </div>
   </div>
   """
@@ -79,8 +79,8 @@ class DateEdit extends InlineEdit
       <input type="hidden"/>
       <input type="text" value="[:value:]" size="10"/>
       <div class="ib nw">
-        <button class="btn btn-primary btn-small save">Salvar</button>
-        <button class="btn btn-small cancel">Cancelar</button>
+        <button class="btn btn-primary btn-small save">Save</button>
+        <button class="btn btn-small cancel">Cancel</button>
       </div>
     </div>
   </div>
@@ -140,8 +140,8 @@ class NumberEdit extends InlineEdit
   <div class="inline-form-edit">
     <input type="text" value="[:value:]" size="10" class="r" />
     <div class="nw ib">
-      <button class="btn btn-primary btn-small save">Salvar</button>
-      <button class="btn btn-small cancel">Cancelar</button>
+      <button class="btn btn-primary btn-small save">Save</button>
+      <button class="btn btn-small cancel">Cancel</button>
     </div>
   </div>
   """

@@ -31,7 +31,7 @@
         <hLines>false</hLines>
         <rowHeight>27</rowHeight>
         <selectedIndex>-1</selectedIndex>
-        <text>*C%F3digo*%2C%20*Nombre*%2C%20*Unidad*%2C%20*Producto*%2C%20*Precio*%2C%20*Descuento*%0APMMCL1%2C%20%5BParlantes%20multimedia%20Creative%5D%2C%20Unid.%2C%20SI%2C%2030.55%2C%2010%25%2C%20%5Beditar%5D%20%5Bborrar%5D%0AMS20F%2C%20%5BMonitor%20de%2020%22%20Samsumg%5D%2C%20Unid.%2C%20SI%2C%20300.00%2C%200%25%2C%20%5Beditar%5D%20%5Bborrar%5D%0ASMDTK232%2C%20%5BMicroprocesador%20Intel%20Core2%20Quad%202.6%20Gz%5D%2C%20Unid.%2C%20SI%2C%20120.00%2C5%25%2C%20%5Beditar%5D%20%5Bborrar%5D%0ACPEC%2C%20%5BPegamento%20Industrial%5D%2C%20Kg.%2C%20SI%2C%2012.50%2C%200%25%2C%20%5Beditar%5D%20%5Bborrar%5D%20%0ADGTR23%2C%20%5BL%EDquido%20limpiador%20de%20monitores%5D%2C%20Lts.%2C%20SI%2C%202.50%2C%200%25%2C%5Beditar%5D%20%5Bborrar%5D</text>
+        <text>*C%F3digo*%2C%20*Name*%2C%20*Unidad*%2C%20*Producto*%2C%20*Precio*%2C%20*Descuento*%0APMMCL1%2C%20%5BParlantes%20multimedia%20Creative%5D%2C%20Unid.%2C%20SI%2C%2030.55%2C%2010%25%2C%20%5Beditar%5D%20%5Bborrar%5D%0AMS20F%2C%20%5BMonitor%20de%2020%22%20Samsumg%5D%2C%20Unid.%2C%20SI%2C%20300.00%2C%200%25%2C%20%5Beditar%5D%20%5Bborrar%5D%0ASMDTK232%2C%20%5BMicroprocesador%20Intel%20Core2%20Quad%202.6%20Gz%5D%2C%20Unid.%2C%20SI%2C%20120.00%2C5%25%2C%20%5Beditar%5D%20%5Bborrar%5D%0ACPEC%2C%20%5BPegamento%20Industrial%5D%2C%20Kg.%2C%20SI%2C%2012.50%2C%200%25%2C%20%5Beditar%5D%20%5Bborrar%5D%20%0ADGTR23%2C%20%5BL%EDquido%20limpiador%20de%20monitores%5D%2C%20Lts.%2C%20SI%2C%202.50%2C%200%25%2C%5Beditar%5D%20%5Bborrar%5D</text>
         <underline>false</underline>
         <verticalScrollbar>false</verticalScrollbar>
         <vLines>false</vLines>
@@ -52,7 +52,7 @@
         <align>right</align>
         <color>16777215</color>
         <size>11</size>
-        <text>Cuenta%20%20Configuraci%F3n%20%20Ayuda</text>
+        <text>Cuenta%20%20Configuraci%F3n%20%20Help</text>
       </controlProperties>
     </control>
     <control controlID="44" controlTypeID="com.balsamiq.mockups::Label" x="175" y="70" w="-1" h="-1" measuredW="76" measuredH="25" zOrder="9" locked="false" isInGroup="-1">
@@ -200,7 +200,7 @@
     <control controlID="65" controlTypeID="com.balsamiq.mockups::Label" x="255" y="198" w="-1" h="-1" measuredW="44" measuredH="25" zOrder="27" locked="false" isInGroup="-1">
       <controlProperties>
         <color>545684</color>
-        <text>Nuevo</text>
+        <text>New</text>
       </controlProperties>
     </control>
     <control controlID="66" controlTypeID="com.balsamiq.mockups::List" x="234" y="221" w="148" h="94" measuredW="100" measuredH="126" zOrder="28" locked="false" isInGroup="-1">
@@ -209,7 +209,7 @@
         <borderStyle>none</borderStyle>
         <hrefs>item_new%26bm%3Bitem_new.bmml%26bm%3Bitem_new.bmml%26bm%3Bitem_new.bmml%2C%2Citem_product_new%26bm%3Bitem_product_new.bmml%26bm%3Bitem_product_new.bmml%26bm%3Bitem_product_new.bmml%2Citem_service_new%26bm%3Bitem_service_new.bmml%26bm%3Bitem_service_new.bmml%26bm%3Bitem_service_new.bmml</hrefs>
         <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22232%2C221%2C380%2C242%22%20href%3D%22item_new.bmml%22%20alt%3D%22item_new%22%20id%3D%2266_0%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22232%2C263%2C380%2C284%22%20href%3D%22item_product_new.bmml%22%20alt%3D%22item_product_new%22%20id%3D%2266_1%22/%3E%0A%3Carea%20shape%3D%22rect%22%20coords%3D%22232%2C284%2C380%2C305%22%20href%3D%22item_service_new.bmml%22%20alt%3D%22item_service_new%22%20id%3D%2266_2%22/%3E%0A</map>
-        <text>%5BNuevo%20item%5D%0A%5BNuevo%20item%20de%20gasto%5D%0A%5BNuevo%20producto%5D%0A%5BNuevo%20servicio%5D</text>
+        <text>%5BNew%20item%5D%0A%5BNew%20item%20de%20gasto%5D%0A%5BNew%20producto%5D%0A%5BNew%20servicio%5D</text>
       </controlProperties>
     </control>
     <control controlID="67" controlTypeID="com.balsamiq.mockups::StickyNote" x="2" y="231" w="187" h="123" measuredW="109" measuredH="123" zOrder="29" locked="false" isInGroup="-1">

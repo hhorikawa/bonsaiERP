@@ -6,7 +6,7 @@
   %ul.span6.breadcrumbs.r
     %a#help.dark(href='javascript:;')
       %i.icon-question-sign
-      Ayuda
+      Help
 
 .row-fluid
   .span6
@@ -17,15 +17,15 @@
 
     = link_to new_item_path, class: 'btn', id: 'new-item-link' do
       %i.icon-plus-sign
-      Nuevo ítem
+      New Item
 
 %ul.unstyled.inline
   %li
-    = link_to "Todos", items_path, class: params_bold(:all)
+    = link_to "All", items_path, class: params_bold(:all)
   %li
-    = link_to "Venta", items_path(for_sale: true), class: param_bold_for(:for_sale, 'true')
+    = link_to "Sales", items_path(for_sale: true), class: param_bold_for(:for_sale, 'true')
   %li
-    = link_to "No venta", items_path(for_sale: false), class: param_bold_for(:for_sale, 'false')
+    = link_to "No Sale", items_path(for_sale: false), class: param_bold_for(:for_sale, 'false')
   %li
     = link_to "Visibles", items_path(active: true), class: param_bold_for(:active, 'true')
   %li

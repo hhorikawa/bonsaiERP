@@ -13,7 +13,7 @@
     .span2
       Cantidad
       %br
-      Unidad de medida
+      Unit of Measure
     .span2
       Total línea
 
@@ -76,7 +76,7 @@
           %option(value='')
 
         - if user_with_role.is_admin? || user_with_role.is_group?
-          = link_to icon('icon-plus-sign'), new_tax_path, title: 'Nuevo impuesto',
+          = link_to icon('icon-plus-sign'), new_tax_path, title: 'New impuesto',
             class: 'btn ajax add-new-url add-new-tax', data: { width: 400 }
 
       %a#tax-in-out-btn.btn.btn-small.btn-info.b(data-toggle='button' ng-click='tax_in_out=!tax_in_out') {{ taxLabel() }}

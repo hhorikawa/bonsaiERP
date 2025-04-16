@@ -31,7 +31,7 @@
 
     .row-fluid
       .span12
-        = f.input :description, :as => :text, :input_html => {:rows => 4, :cols => 40}, :label => 'Descripción'
+        = f.input :description, :as => :text, :input_html => {:rows => 4, :cols => 40}, :label => 'Description'
 
     %table.table.table-striped#items_table
       %tr
@@ -44,7 +44,7 @@
       = render "form_details_transaction", :f => f, :stocks => @inventory_operation.hash_of_items
 
     .clear
-    = f.submit 'Salvar', :class => 'btn btn-success b'
+    = f.submit 'Save', :class => 'btn btn-success b'
 
 :javascript
   $(function() {

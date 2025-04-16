@@ -18,7 +18,7 @@
     %ul.unstyled.listing.users
       %li.row-fluid
         .span4
-          %strong.muted Nombre Completo
+          %strong.muted Name Completo
         .span4
           %strong.muted Email
         .span2
@@ -36,7 +36,7 @@
 
 
     %h3.n
-      %span.muted Nombre:
+      %span.muted Name:
       = current_organisation
 
     .well.well-small
@@ -45,7 +45,7 @@
       .row-fluid
         .span6
           %h5.n
-            %span.muted Moneda base:
+            %span.muted Currency base:
             = current_organisation.currency_to_s
         .span6
           %h5.n
@@ -64,7 +64,7 @@
 
     .row-fluid
       .span3
-        %i.icon-phone.muted(title='Teléfono' data-toggle='tooltip')
+        %i.icon-phone.muted(title='Phone' data-toggle='tooltip')
         = current_organisation.phone
       .span3
         %i.icon-mobile.muted(title='Movil' data-toggle='tooltip')
@@ -77,7 +77,7 @@
           =link_to current_organisation.website, current_organisation.website, target: '_blank'
     .row-fluid
       .span6
-        %i.icon-building.muted(title='Dirección' data-toggle='tooltip')
+        %i.icon-building.muted(title='Address' data-toggle='tooltip')
         = nl2br current_organisation.address
 
 :javascript

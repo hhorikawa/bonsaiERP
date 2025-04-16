@@ -16,7 +16,7 @@
       %label Cliente o Nº de referencia
       =text_field_tag 'search', params[:search], :size => 40
     .input
-      %label Estado
+      %label Status
       =select_tag "option", options_for_select(list_income_states, params[:option])
     %div
     =submit_tag 'Buscar', :class => 'btn btn-success'
@@ -28,14 +28,14 @@
 %table{ :class => 'decorated nwl' }
   %thead
     %tr
-      %th.tip{:title => 'Estado'} Est.
+      %th.tip{:title => 'Status'} Est.
       %th.tip{ :title => 'Número de referencia' } Nº Ref.
       /%th Cliente
       %th Vence el
       %th Total<br/>#{currency_symbol}
       %th Saldo<br/>#{currency_symbol}
       %th.tip{:title => 'Saldo Inventario'} Saldo<br/>Inv. #{currency_symbol}
-      %th.tip{:title => 'Moneda'} Mon.
+      %th.tip{:title => 'Currency'} Mon.
       %th.tip{:title => "Contado Crédito"} Tipo
       %th Fecha Hora
       %th

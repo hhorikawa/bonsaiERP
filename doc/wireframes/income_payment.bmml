@@ -75,7 +75,7 @@
         <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="18" y="0" w="-1" h="-1" measuredW="44" measuredH="25" zOrder="1" locked="false" isInGroup="39">
           <controlProperties>
             <color>3700253</color>
-            <text>Nuevo</text>
+            <text>New</text>
           </controlProperties>
         </control>
       </groupChildrenDescriptors>
@@ -287,7 +287,7 @@
         <control controlID="9" controlTypeID="com.balsamiq.mockups::Label" x="17" y="204" w="-1" h="-1" measuredW="147" measuredH="25" zOrder="9" locked="false" isInGroup="121">
           <controlProperties>
             <color>6710886</color>
-            <text>Referencia/N%BA%20Cheque</text>
+            <text>Reference/N%BA%20Cheque</text>
           </controlProperties>
         </control>
         <control controlID="10" controlTypeID="com.balsamiq.mockups::TextInput" x="17" y="225" w="133" h="-1" measuredW="69" measuredH="29" zOrder="10" locked="false" isInGroup="121">

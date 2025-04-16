@@ -39,7 +39,7 @@
         <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="18" y="0" w="-1" h="-1" measuredW="93" measuredH="25" zOrder="1" locked="false" isInGroup="39">
           <controlProperties>
             <color>3700253</color>
-            <text>Nuevo%20ingreso</text>
+            <text>New%20ingreso</text>
           </controlProperties>
         </control>
       </groupChildrenDescriptors>
@@ -109,7 +109,7 @@
         <direction>center</direction>
         <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2266%2C804%2C179%2C832%22%20href%3D%22income_aprove.bmml%22%20alt%3D%22income_aprove%22%20id%3D%2286%22/%3E</map>
         <size>13</size>
-        <text>Salvar</text>
+        <text>Save</text>
       </controlProperties>
     </control>
     <control controlID="90" controlTypeID="com.balsamiq.mockups::Canvas" x="159" y="240" w="917" h="81" measuredW="100" measuredH="70" zOrder="9" locked="false" isInGroup="-1">

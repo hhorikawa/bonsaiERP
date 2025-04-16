@@ -48,13 +48,13 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Egresos</td>
+	<td>link=Expenses</td>
 	<td></td>
 </tr>
 <tr>
 	<td>assertElementPresent</td>
 	<td>css=h1.ib</td>
-	<td>Egresos</td>
+	<td>Expenses</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>

@@ -20,7 +20,7 @@
     </control>
     <control controlID="3" controlTypeID="com.balsamiq.mockups::Paragraph" x="780" y="19" w="220" h="26" measuredW="200" measuredH="140" zOrder="3" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Cuenta%20%20Configuraci%F3n%20%20Ayuda</text>
+        <text>Cuenta%20%20Configuraci%F3n%20%20Help</text>
         <align>right</align>
         <color>16777215</color>
         <size>11</size>
@@ -36,7 +36,7 @@
     </control>
     <control controlID="5" controlTypeID="com.balsamiq.mockups::Title" x="208" y="117" w="-1" h="-1" measuredW="187" measuredH="51" zOrder="5" locked="true" isInGroup="-1">
       <controlProperties>
-        <text>Nuevo%20Item</text>
+        <text>New%20Item</text>
         <size>32</size>
       </controlProperties>
     </control>
@@ -70,13 +70,13 @@
     </control>
     <control controlID="11" controlTypeID="com.balsamiq.mockups::TextInput" x="357" y="267" w="268" h="-1" measuredW="86" measuredH="29" zOrder="11" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Nuevo%20Item</text>
+        <text>New%20Item</text>
         <bold>false</bold>
       </controlProperties>
     </control>
     <control controlID="12" controlTypeID="com.balsamiq.mockups::Label" x="289" y="270" w="-1" h="-1" measuredW="53" measuredH="25" zOrder="12" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Nombre</text>
+        <text>Name</text>
       </controlProperties>
     </control>
     <control controlID="13" controlTypeID="com.balsamiq.mockups::ComboBox" x="358" y="370" w="161" h="-1" measuredW="36" measuredH="72" zOrder="13" locked="false" isInGroup="-1">
@@ -92,7 +92,7 @@
     </control>
     <control controlID="15" controlTypeID="com.balsamiq.mockups::Button" x="562" y="638" w="-1" h="-1" measuredW="63" measuredH="28" zOrder="15" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Salvar</text>
+        <text>Save</text>
         <color>65280</color>
       </controlProperties>
     </control>
@@ -184,7 +184,7 @@
     </control>
     <control controlID="31" controlTypeID="com.balsamiq.mockups::Label" x="407" y="352" w="53" h="25" measuredW="53" measuredH="25" zOrder="30" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Nombre</text>
+        <text>Name</text>
       </controlProperties>
     </control>
     <control controlID="32" controlTypeID="com.balsamiq.mockups::TextInput" x="477" y="390" w="268" h="-1" measuredW="34" measuredH="29" zOrder="31" locked="false" isInGroup="-1">
@@ -200,7 +200,7 @@
     </control>
     <control controlID="34" controlTypeID="com.balsamiq.mockups::Button" x="543" y="451" w="63" h="-1" measuredW="63" measuredH="28" zOrder="33" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Salvar</text>
+        <text>Save</text>
       </controlProperties>
     </control>
     <control controlID="35" controlTypeID="com.balsamiq.mockups::ModalScreen" x="159" y="8" w="867" h="738" measuredW="320" measuredH="240" zOrder="26" locked="false" isInGroup="-1"/>

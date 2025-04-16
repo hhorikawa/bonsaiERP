@@ -20,7 +20,7 @@
     </control>
     <control controlID="3" controlTypeID="com.balsamiq.mockups::Paragraph" x="780" y="19" w="220" h="26" measuredW="200" measuredH="140" zOrder="3" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Cuenta%20%20Configuraci%F3n%20%20Ayuda</text>
+        <text>Cuenta%20%20Configuraci%F3n%20%20Help</text>
         <align>right</align>
         <size>11</size>
         <color>16777215</color>
@@ -169,7 +169,7 @@
     </control>
     <control controlID="145" controlTypeID="com.balsamiq.mockups::PointyButton" x="541" y="897" w="113" h="-1" measuredW="76" measuredH="35" zOrder="44" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Salvar</text>
+        <text>Save</text>
         <direction>center</direction>
         <size>18</size>
         <color>2848996</color>

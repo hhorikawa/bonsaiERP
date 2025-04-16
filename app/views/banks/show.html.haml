@@ -26,12 +26,12 @@
         = currency_label @bank.currency
 
   .span6
-    %i.muted.icon-phone(title='Teléfono' data-toggle='tooltip')
+    %i.muted.icon-phone(title='Phone' data-toggle='tooltip')
     = @bank.phone
     %i.muted.icon-globe(title='Website' data-toggle='tooltip')
     = @bank.website
     .clearfix
-    %i.muted.icon-building(title="Dirección" data-toggle='tooltip')
+    %i.muted.icon-building(title="Address" data-toggle='tooltip')
     = nl2br(@bank.address)
 
 

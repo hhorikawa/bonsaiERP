@@ -1,7 +1,7 @@
 - content_for :links do
   %ul.breadcrumbs.span6
     %li
-      = link_to "Egresos", expenses_path
+      = link_to "Expenses", expenses_path
 
 %header
   - if @expense.has_error
@@ -17,7 +17,7 @@
   .span6
     %h1.ib
       %strong(title='Código ingreso, Ingreso-Año-Número' data-toggle='tooltip')= @expense
-      %small(title='Estado' data-toggle='tooltip')= @expense.state_tag
+      %small(title='Status' data-toggle='tooltip')= @expense.state_tag
 
     %h4.ib.n
       = link_to @expense.contact, @expense.contact, title: 'Contacto', data: {toggle: 'tooltip'}
@@ -80,7 +80,7 @@
 
   .span6
     - if @expense.description.present?
-      %i.icon-file.muted(data-toggle='tooltip' title='Descripción')
+      %i.icon-file.muted(data-toggle='tooltip' title='Description')
       = @expense.description
 
 %h2.n

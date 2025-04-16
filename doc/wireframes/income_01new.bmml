@@ -50,7 +50,7 @@
         <align>right</align>
         <color>16777215</color>
         <size>11</size>
-        <text>Cuenta%20%20Configuraci%F3n%20%20Ayuda</text>
+        <text>Cuenta%20%20Configuraci%F3n%20%20Help</text>
       </controlProperties>
     </control>
     <control controlID="129" controlTypeID="com.balsamiq.mockups::Label" x="179" y="72" w="-1" h="-1" measuredW="76" measuredH="25" zOrder="9" locked="false" isInGroup="-1">
@@ -189,7 +189,7 @@
     <control controlID="160" controlTypeID="com.balsamiq.mockups::Label" x="617" y="297" w="76" h="25" measuredW="52" measuredH="25" zOrder="36" locked="false" isInGroup="-1">
       <controlProperties>
         <color>4144959</color>
-        <text>Moneda</text>
+        <text>Currency</text>
       </controlProperties>
     </control>
     <control controlID="161" controlTypeID="com.balsamiq.mockups::ComboBox" x="617" y="316" w="204" h="-1" measuredW="117" measuredH="25" zOrder="37" locked="false" isInGroup="-1">
@@ -213,7 +213,7 @@
         <href>income_aprove%26bm%3Bincome_aprove.bmml%26bm%3Bincome_aprove.bmml%26bm%3Bincome_aprove.bmml</href>
         <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22225%2C804%2C338%2C832%22%20href%3D%22income_aprove.bmml%22%20alt%3D%22income_aprove%22%20id%3D%22163%22/%3E</map>
         <size>13</size>
-        <text>Salvar</text>
+        <text>Save</text>
       </controlProperties>
     </control>
     <control controlID="164" controlTypeID="com.balsamiq.mockups::PointyButton" x="348" y="807" w="113" h="-1" measuredW="75" measuredH="28" zOrder="40" locked="false" isInGroup="-1">
@@ -222,7 +222,7 @@
         <direction>center</direction>
         <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22225%2C804%2C338%2C839%22%20href%3D%22sale_aprove_credit.bmml%22%20alt%3D%22sale_aprove_credit%22%20id%3D%2286%22/%3E</map>
         <size>13</size>
-        <text>Cancelar</text>
+        <text>Cancel</text>
       </controlProperties>
     </control>
     <control controlID="172" controlTypeID="com.balsamiq.mockups::CheckBox" x="625" y="387" w="-1" h="-1" measuredW="86" measuredH="22" zOrder="41" locked="false" isInGroup="-1">
@@ -390,7 +390,7 @@
     <control controlID="205" controlTypeID="com.balsamiq.mockups::Label" x="247" y="207" w="100" h="25" measuredW="96" measuredH="25" zOrder="26" locked="false" isInGroup="-1">
       <controlProperties>
         <color>4144959</color>
-        <text>N%BA%20Referencia</text>
+        <text>N%BA%20Reference</text>
       </controlProperties>
     </control>
     <control controlID="206" controlTypeID="com.balsamiq.mockups::TextInput" x="246" y="226" w="127" h="-1" measuredW="64" measuredH="29" zOrder="27" locked="false" isInGroup="-1">

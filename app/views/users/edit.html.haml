@@ -6,7 +6,7 @@
       %i.icon-caret-right
     %li #{link_to current_user, user_path(current_user)}
 
-%h1 Editar datos perfil
+%h1 Edit Profile Data
 
 = simple_form_for(current_user) do |f|
   .row-fluid
@@ -14,17 +14,17 @@
       = f.input :email, label: 'Email', input_html: { size: INPUT_SIZE }
   .row-fluid
     .span6
-      = f.input :first_name, label: 'Nombres', input_html: { size: INPUT_SIZE }
+      = f.input :first_name, label: 'First Name', input_html: { size: INPUT_SIZE }
     .span6
-      = f.input :last_name, label: 'Apellidos', input_html: { size: INPUT_SIZE }
+      = f.input :last_name, label: 'Last Name', input_html: { size: INPUT_SIZE }
   .row-fluid
     .span6
-      = f.input :phone, label: 'Teléfono', input_html: { size: INPUT_SIZE }
+      = f.input :phone, label: 'Phone', input_html: { size: INPUT_SIZE }
     .span6
-      = f.input :mobile, label: 'Móvil', input_html: { size: INPUT_SIZE }
+      = f.input :mobile, label: 'Mobile', input_html: { size: INPUT_SIZE }
   .row-fluid
     .span6
-      = f.input :address, label: 'Dirección', as: :text, input_html: { rows: 4, cols: INPUT_SIZE }
+      = f.input :address, label: 'Address', as: :text, input_html: { rows: 4, cols: INPUT_SIZE }
 
   .form-actions
-    = f.submit "Actualizar datos", class: 'btn btn-success b'
+    = f.submit "Update Profile", class: 'btn btn-success b'

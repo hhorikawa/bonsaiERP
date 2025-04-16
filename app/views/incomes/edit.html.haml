@@ -10,15 +10,15 @@
   %ul.breadcrumbs.r.span6
     %a#incomes-help-link.dark(href='javascript:;')
       %i.icon-question-sign
-      Ayuda
+      Help
 
 - inc_presenter = present @is.income
 .row-fluid
   .span6
     %h1
-      %span.muted.n Nuevo Ingreso
+      %span.muted.n New Ingreso
       %span.code(title="Código del ingreso: Ingreso-Año-Número" data-toggle='tooltip')= @is.income
-      %small.state(title='Estado' data-toggle='tooltip')= inc_presenter.state_tag
+      %small.state(title='Status' data-toggle='tooltip')= inc_presenter.state_tag
   .span6.r
     = link_to icon_show_text, income_path(@is.income_id), class: 'btn'
 

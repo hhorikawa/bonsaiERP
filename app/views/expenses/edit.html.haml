@@ -1,7 +1,7 @@
 - content_for :links do
   %ul.breadcrumbs.span6
     %li
-      =link_to 'Egresos', expenses_path
+      =link_to 'Expenses', expenses_path
     %li
       %i.icon-caret-right
     %li
@@ -10,14 +10,14 @@
   %ul.breadcrumbs.r.span6
     %a#expenses-help-link.dark(href='javascript:;')
       %i.icon-question-sign
-      Ayuda
+      Help
 - exp_presenter = present @es.expense
 .row-fluid
   .span6
     %h1
-      %span.muted.n Nuevo Egreso
+      %span.muted.n New Expense
       %span.code(title='Código egreso: Egreso-Año-Número' data-toggle='tooltip')= @es.expense
-      %small.state(title='Estado' data-toggle='tooltip')= exp_presenter.state_tag
+      %small.state(title='Status' data-toggle='tooltip')= exp_presenter.state_tag
   .span6.r
     = link_to icon_show_text, expense_path(@es.expense_id), class: 'btn'
 

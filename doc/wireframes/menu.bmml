@@ -75,7 +75,7 @@
         <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="18" y="0" w="-1" h="-1" measuredW="44" measuredH="25" zOrder="1" locked="false" isInGroup="39">
           <controlProperties>
             <color>3700253</color>
-            <text>Nuevo</text>
+            <text>New</text>
           </controlProperties>
         </control>
       </groupChildrenDescriptors>
@@ -126,7 +126,7 @@
     <control controlID="74" controlTypeID="com.balsamiq.mockups::Label" x="648" y="323" w="-1" h="-1" measuredW="312" measuredH="25" zOrder="15" locked="false" isInGroup="-1">
       <controlProperties>
         <bold>false</bold>
-        <text>-Moneda%20%7C%20Tipo%20de%20cambio%3A-%20*Dolar*%20%7C%20*%24us%201*%20%3D%20*Bs.%206.98*</text>
+        <text>-Currency%20%7C%20Tipo%20de%20cambio%3A-%20*Dolar*%20%7C%20*%24us%201*%20%3D%20*Bs.%206.98*</text>
       </controlProperties>
     </control>
     <control controlID="81" controlTypeID="com.balsamiq.mockups::PointyButton" x="514" y="158" w="-1" h="-1" measuredW="80" measuredH="28" zOrder="18" locked="false" isInGroup="-1">
@@ -303,7 +303,7 @@
           <controlProperties>
             <color>6710886</color>
             <size>11</size>
-            <text>Egresos</text>
+            <text>Expenses</text>
           </controlProperties>
         </control>
         <control controlID="4" controlTypeID="com.balsamiq.mockups::Link" x="17" y="99" w="-1" h="-1" measuredW="54" measuredH="25" zOrder="4" locked="false" isInGroup="117">

@@ -41,7 +41,7 @@ class Movements::Export
     end
 
     def csv_header
-      %W(#{movement_name} Estado Fecha Contacto Descripción Total\ #{currency} Saldo\ #{currency} Tipo\ de\ Cambio Moneda)
+      %W(#{movement_name} Status Fecha Contacto Description Total\ #{currency} Saldo\ #{currency} Tipo\ de\ Cambio Currency)
     end
 
     def movement_name

@@ -29,7 +29,7 @@
     </control>
     <control controlID="5" controlTypeID="com.balsamiq.mockups::Title" x="208" y="127" w="-1" h="-1" measuredW="243" measuredH="51" zOrder="1" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Nuevo%20contacto</text>
+        <text>New%20contacto</text>
         <size>32</size>
       </controlProperties>
     </control>
@@ -69,7 +69,7 @@
     </control>
     <control controlID="72" controlTypeID="com.balsamiq.mockups::PointyButton" x="524" y="569" w="113" h="-1" measuredW="76" measuredH="35" zOrder="36" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Salvar</text>
+        <text>Save</text>
         <direction>center</direction>
         <size>18</size>
         <color>2848996</color>
@@ -95,7 +95,7 @@
     </control>
     <control controlID="29" controlTypeID="com.balsamiq.mockups::Paragraph" x="780" y="19" w="220" h="26" measuredW="200" measuredH="140" zOrder="6" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Cuenta%20%20Configuraci%F3n%20%20Ayuda</text>
+        <text>Cuenta%20%20Configuraci%F3n%20%20Help</text>
         <align>right</align>
         <size>11</size>
         <color>16777215</color>
@@ -193,7 +193,7 @@
     </control>
     <control controlID="49" controlTypeID="com.balsamiq.mockups::Label" x="265" y="229" w="-1" h="-1" measuredW="53" measuredH="25" zOrder="20" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Nombre</text>
+        <text>Name</text>
       </controlProperties>
     </control>
     <control controlID="52" controlTypeID="com.balsamiq.mockups::TextInput" x="262" y="316" w="302" h="-1" measuredW="93" measuredH="29" zOrder="21" locked="false" isInGroup="-1">

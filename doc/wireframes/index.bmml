@@ -64,7 +64,7 @@
           <controlProperties>
             <color>3700253</color>
             <size>16</size>
-            <text>Nuevo%20item</text>
+            <text>New%20item</text>
           </controlProperties>
         </control>
         <control controlID="1" controlTypeID="com.balsamiq.mockups::Image" x="0" y="5" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="1" locked="false" isInGroup="39">

@@ -76,7 +76,7 @@ class MovementPresenter < BasePresenter
   end
 
   def description_tag
-    "#{ icon 'icon-file muted', 'Descripción'} #{ sanitize description }".html_safe if description.present?
+    "#{ icon 'icon-file muted', 'Description'} #{ sanitize description }".html_safe if description.present?
   end
 
   def enable_disable_inventory_text_tag

@@ -1,10 +1,10 @@
 %input(type='hidden' ng-model='base_currency' value='#{currency}' initial)
 .row-fluid.currency-input
   .span6
-    = f.input :currency, collection: currency_options, label: 'Moneda ', include_blank: false,
+    = f.input :currency, collection: currency_options, label: 'Currency ', include_blank: false,
       input_html: { id: 'currency', 'ng-model' => 'currency' }
   .span6
-    = f.input :exchange_rate, label: "Tipo de cambio de <span class='currency'></span> a #{currency_label} ".html_safe,
+    = f.input :exchange_rate, label: "Exchange rate of <span class='currency'></span> a #{currency_label} ".html_safe,
       input_html: { id: 'exchange_rate', type: 'number', class: 'span3',
       'ng-model' => 'exchange_rate', 'ng-disabled' => 'same_currency', 'ng-change' => 'setDetailsPrices()', 'initial' => true }
 
@@ -25,6 +25,6 @@
           label: "<strong>Cuenta</strong> a la cual se aplicara el <i>#{lbl} directo</i>".html_safe
 
       .span6
-        = f.input :reference, label: 'Referencia', as: :text,
+        = f.input :reference, label: 'Reference', as: :text,
           input_html: {rows: 2, placeholder: 'Número de recibo o documento', class: 'span10',
           'ng-disabled' => '!direct_payment' }

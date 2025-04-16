@@ -107,6 +107,6 @@ class ContactsController < ApplicationController
     end
 
     def csv_header
-      %w(Nombre Email Teléfono Móvil Dirección)
+      %w(Name Email Phone Mobile Address)
     end
 end

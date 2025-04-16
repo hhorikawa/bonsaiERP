@@ -111,7 +111,7 @@
     <control controlID="100" controlTypeID="com.balsamiq.mockups::Label" x="195" y="486" w="-1" h="-1" measuredW="71" measuredH="25" zOrder="16" locked="false" isInGroup="-1">
       <controlProperties>
         <color>3355443</color>
-        <text>Referencia</text>
+        <text>Reference</text>
       </controlProperties>
     </control>
     <control controlID="101" controlTypeID="com.balsamiq.mockups::TextArea" x="195" y="511" w="244" h="65" measuredW="200" measuredH="140" zOrder="17" locked="false" isInGroup="-1">

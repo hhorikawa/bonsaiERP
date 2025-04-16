@@ -35,7 +35,7 @@
         <vLines>false</vLines>
         <hLines>false</hLines>
         <rowHeight>27</rowHeight>
-        <text>Nombre%2C%20Datos%20%20%20%20%20%20%20%2C%20Tel%E9fono%2C%20Por%20pagar%2C%20Por%20cobrar%0AJuan%20Perez%2C%20%5Bver%20datos%5D%2C%202743378%2C%200.00%2C%201200.00%2C%20%5Bver%5D%20%5Beditar%5D%20%5Bborrar%5D%0ACorte%20Nacional%20Electoral%2C%20%5Bver%20datos%5D%2C%202763233%2C%200.00%2C%201500.00%2C%20%5Bver%5D%20%5Beditar%5D%20%5Bborrar%5D%0AMapex%2C%20%5Bver%20datos%5D%2C%20232333%2C%2012500.00%2C%201200.00%2C%20%5Bver%5D%20%5Beditar%5D%20%5Bborrar%5D</text>
+        <text>Name%2C%20Datos%20%20%20%20%20%20%20%2C%20Tel%E9fono%2C%20Por%20pagar%2C%20Por%20cobrar%0AJuan%20Perez%2C%20%5Bver%20datos%5D%2C%202743378%2C%200.00%2C%201200.00%2C%20%5Bver%5D%20%5Beditar%5D%20%5Bborrar%5D%0ACorte%20Nacional%20Electoral%2C%20%5Bver%20datos%5D%2C%202763233%2C%200.00%2C%201500.00%2C%20%5Bver%5D%20%5Beditar%5D%20%5Bborrar%5D%0AMapex%2C%20%5Bver%20datos%5D%2C%20232333%2C%2012500.00%2C%201200.00%2C%20%5Bver%5D%20%5Beditar%5D%20%5Bborrar%5D</text>
         <hasHeader>true</hasHeader>
         <borderStyle>none</borderStyle>
         <verticalScrollbar>false</verticalScrollbar>
@@ -77,7 +77,7 @@
     </control>
     <control controlID="29" controlTypeID="com.balsamiq.mockups::Paragraph" x="780" y="19" w="220" h="26" measuredW="200" measuredH="140" zOrder="7" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Cuenta%20%20Configuraci%F3n%20%20Ayuda</text>
+        <text>Cuenta%20%20Configuraci%F3n%20%20Help</text>
         <align>right</align>
         <size>11</size>
         <color>16777215</color>
@@ -169,7 +169,7 @@
         <direction>center</direction>
         <customID>create_new</customID>
         <size>16</size>
-        <text>%20%20Nuevo%20Contacto</text>
+        <text>%20%20New%20Contacto</text>
         <href>contact_new%26bm%3Bcontact_new.bmml%26bm%3Bcontact_new.bmml%26bm%3Bcontact_new.bmml</href>
         <bold>true</bold>
         <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2286%2C181%2C247%2C213%22%20href%3D%22contact_new.bmml%22%20alt%3D%22contact_new%22%20id%3D%2248%22/%3E</map>

@@ -31,10 +31,10 @@
       = f.input :contact_id, :as => :contact, :label => false
     .span6
       = f.association :project, :label => "Proyecto",
-        :input_html => {'data-new_url' => new_project_path, 'data-title' => "Nuevo proyecto", 'data-trigger' => 'new_project' }
+        :input_html => {'data-new_url' => new_project_path, 'data-title' => "New proyecto", 'data-trigger' => 'new_project' }
   .row-fluid
     .span6
-      = f.input :description, :as => :text, :input_html => {:rows => 4, :cols => 40}, :label => 'Descripción'
+      = f.input :description, :as => :text, :input_html => {:rows => 4, :cols => 40}, :label => 'Description'
 
   %table#items_table.table.table-striped
     %tr
@@ -59,7 +59,7 @@
       <a href="javascript:" id="add_item" class="btn btn-primary"><i class="icon-plus-sign icon-white"></i> Adicionar ítem</a>
   %br
   .clear
-  = f.submit 'Salvar', :class => 'btn btn-success b'
+  = f.submit 'Save', :class => 'btn btn-success b'
 
 :javascript
   $(function() {

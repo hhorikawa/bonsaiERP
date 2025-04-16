@@ -20,14 +20,14 @@
 
   .row-fluid
     .span6
-      = f.input :name, label: 'Nombre', input_html: { size: INPUT_SIZE }
+      = f.input :name, label: 'Name', input_html: { size: INPUT_SIZE }
     .span6
       = f.input :country_code, label: 'País', collection: Country.options
   .row-fluid
     .span6
-      =f.input :phone, label: 'Teléfono', input_html: { size: INPUT_SIZE }
+      =f.input :phone, label: 'Phone', input_html: { size: INPUT_SIZE }
     .span6
-      =f.input :mobile, label: 'Móvil', input_html: { size: INPUT_SIZE }
+      =f.input :mobile, label: 'Mobile', input_html: { size: INPUT_SIZE }
   .row-fluid
     .span6
       =f.input :email, label: 'Email', input_html: { size: INPUT_SIZE }
@@ -35,6 +35,6 @@
       =f.input :website, label: 'Sitio web', input_html: { size: INPUT_SIZE }
   .row-fluid
     .span6
-      =f.input :address, label: 'Dirección', as: :text, input_html: { rows: 5, cols: INPUT_SIZE }
+      =f.input :address, label: 'Address', as: :text, input_html: { rows: 5, cols: INPUT_SIZE }
   .form-actions
-    = f.submit 'Salvar', class: 'btn btn-success b'
+    = f.submit 'Save', class: 'btn btn-success b'

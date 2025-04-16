@@ -5,7 +5,7 @@
     %h1
       %strong.fs80= @ledger.operation_tag
       %strong(title='Código' data-toggle='tooltip')= @ledger
-      %small(title='Estado' data-toggle='tooltip')= @ledger.status_tag
+      %small(title='Status' data-toggle='tooltip')= @ledger.status_tag
       = render_if @ledger.account_contact do
         %small.dark
           = link_to @ledger.account_contact, @ledger.account_contact, title: 'Contacto', data: {toggle: 'tooltip'}

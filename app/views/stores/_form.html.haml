@@ -1,13 +1,13 @@
 =simple_form_for(@store) do |f|
   .row-fluid
     .span4
-      = f.input :name, label: 'Nombre', input_html: { size: 35 }
+      = f.input :name, label: 'Name', input_html: { size: 35 }
     .span2.form-inline
       = f.input :active, label: 'Activo'
     .span2
-      = f.input :phone, label: 'Teléfono', input_html: {size: 12}
+      = f.input :phone, label: 'Phone', input_html: {size: 12}
     .span4
-      = f.input :address, label: 'Dirección', as: :text, input_html: { rows: 3, cols: 45 }
+      = f.input :address, label: 'Address', as: :text, input_html: { rows: 3, cols: 45 }
 
   .form-actions
-    = f.submit 'Salvar', class: 'btn btn-success b'
+    = f.submit 'Save', class: 'btn btn-success b'

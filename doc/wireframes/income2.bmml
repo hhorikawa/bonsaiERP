@@ -75,7 +75,7 @@
         <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="18" y="0" w="-1" h="-1" measuredW="44" measuredH="25" zOrder="1" locked="false" isInGroup="39">
           <controlProperties>
             <color>3700253</color>
-            <text>Nuevo</text>
+            <text>New</text>
           </controlProperties>
         </control>
       </groupChildrenDescriptors>

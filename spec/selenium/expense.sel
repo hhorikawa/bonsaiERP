@@ -13,12 +13,12 @@
 </thead><tbody>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Egresos</td>
+	<td>link=Expenses</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=Nuevo egreso</td>
+	<td>link=New Expense</td>
 	<td></td>
 </tr>
 <tr>

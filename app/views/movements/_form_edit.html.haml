@@ -14,7 +14,7 @@
         = f.input :date, :label => "Fecha"
       .span4
         = f.association :project,  :label => 'Proyecto',
-          :input_html => {'data-new_url' => new_project_path, 'data-title' => "Nuevo proyecto", 'data-trigger' => 'new_project' }
+          :input_html => {'data-new_url' => new_project_path, 'data-title' => "New proyecto", 'data-trigger' => 'new_project' }
 
       .span4
         - unless transaction.currency_id == currency_id
@@ -40,7 +40,7 @@
     .row
 
       .span6
-        = f.input :description, :label => 'Descripción', :as => :text, :input_html => {:rows => 3, :cols => 40}
+        = f.input :description, :label => 'Description', :as => :text, :input_html => {:rows => 3, :cols => 40}
 
       -#=f.association :taxes, :as => :check_boxes, :label => 'Impuestos', :wrapper_html => {:id => 'taxes'},
         :label_method => lambda{|tax| "<span id='span#{tax.id}' class='tax' data-rate='#{tax.rate}' title ='#{tax.name}'>#{tax.abbreviation} (#{ntc tax.rate}%)</span>".html_safe }

@@ -20,7 +20,7 @@
     </control>
     <control controlID="3" controlTypeID="com.balsamiq.mockups::Paragraph" x="780" y="19" w="220" h="26" measuredW="200" measuredH="140" zOrder="3" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Cuenta%20%20Configuraci%F3n%20%20Ayuda</text>
+        <text>Cuenta%20%20Configuraci%F3n%20%20Help</text>
         <align>right</align>
         <size>11</size>
         <color>16777215</color>
@@ -116,7 +116,7 @@
     </control>
     <control controlID="18" controlTypeID="com.balsamiq.mockups::Label" x="627" y="248" w="-1" h="-1" measuredW="101" measuredH="25" zOrder="18" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>*Estado*%20Inactivo</text>
+        <text>*Status*%20Inactivo</text>
         <bold>false</bold>
       </controlProperties>
     </control>

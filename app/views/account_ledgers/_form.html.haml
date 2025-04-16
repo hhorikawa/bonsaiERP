@@ -16,10 +16,10 @@
 
   .row-fluid
     .span6
-      = f.input :reference, :as => :text, :label => 'Referencia', :input_html => {:rows => 2, :cols => 35}, :hint => 'Nº de cheque, razón, factura, etc.'
+      = f.input :reference, :as => :text, :label => 'Reference', :input_html => {:rows => 2, :cols => 35}, :hint => 'Nº de cheque, razón, factura, etc.'
     .span6
       = f.association :project, :label => 'Proyecto',
-        input_html: {'data-new_url' => new_project_path, 'data-trigger' => 'new_project', 'data-title' => "Nuevo proyecto"}
-  = f.input :description, :as => :text, :label => 'Descripción', :input_html => {:rows => 3, :cols => 35}
+        input_html: {'data-new_url' => new_project_path, 'data-trigger' => 'new_project', 'data-title' => "New proyecto"}
+  = f.input :description, :as => :text, :label => 'Description', :input_html => {:rows => 3, :cols => 35}
 
-  = f.submit "Salvar", :class => 'btn btn-success b'
+  = f.submit "Save", :class => 'btn btn-success b'

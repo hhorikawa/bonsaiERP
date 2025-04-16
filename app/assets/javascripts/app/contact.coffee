@@ -13,7 +13,7 @@ class ContactBalance
     ].join(''))
     # Render expenses
     @$expenses.append([
-      "<div class='b text-error'>Egresos por pagar</div>" if @data.expenses.TOTAL,
+      "<div class='b text-error'>Expenses por pagar</div>" if @data.expenses.TOTAL,
       @renderDetail(@data.expenses)
     ].join(''))
 
@@ -54,7 +54,7 @@ class ContactBalance
     $(event.target).popover(title: title, html: true, content: html, placement: 'top')
   #
   createPopoverExpenses: (event) ->
-    title = '<span class="text-error b">Detalle egresos por pagar</span>'
+    title = '<span class="text-error b">Detalle Expenses por pagar</span>'
     html = @createCurrenciesDetail(@data.expenses)
 
     $(event.target).popover(title: title, html: true, content: html, placement: 'top')

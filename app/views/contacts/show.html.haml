@@ -44,7 +44,7 @@
   %li
     = link_to "Ingresos", contact_path(@contact, operation: :income), class: param_bold_for(:operation, 'income')
   %li
-    = link_to "Egresos", contact_path(@contact, operation: :expense), class: param_bold_for(:operation, 'expense')
+    = link_to "Expenses", contact_path(@contact, operation: :expense), class: param_bold_for(:operation, 'expense')
   %li
     = link_to "Prestamos otorgados", contact_path(@contact, operation: :loangive), class: param_bold_for(:operation, 'loangive')
   %li

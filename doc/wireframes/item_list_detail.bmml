@@ -20,7 +20,7 @@
     </control>
     <control controlID="3" controlTypeID="com.balsamiq.mockups::Paragraph" x="800" y="26" w="220" h="26" measuredW="200" measuredH="140" zOrder="3" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Cuenta%20%20Configuraci%F3n%20%20Ayuda</text>
+        <text>Cuenta%20%20Configuraci%F3n%20%20Help</text>
         <align>right</align>
         <color>16777215</color>
         <size>11</size>
@@ -54,7 +54,7 @@
         <selectedIndex>-1</selectedIndex>
         <underline>false</underline>
         <borderStyle>none</borderStyle>
-        <text>C%F3digo%2C%20Nombre%2C%20Activo%2C%20Unidad%2C%20%2C%20%20%20%0APMMCL1%2C%20Parlantes%20multimedia%20Creative%2C%20SI%2C%20Unid.%2C%5Bver%5D%20%5Beditar%5D%20%5Bborrar%5D%0AMS20F%2C%20Monitor%20de%2020%22%20Samsumg%2C%20SI%2C%20Unid.%2C%5Bver%5D%20%5Beditar%5D%20%5Bborrar%5D%0ASMDTK232%2C%20Microprocesador%20Intel%20Core2%20Quad%202.6%20Gz%2CSI%2C%20Unid.%2C%5Bver%5D%20%5Beditar%5D%20%5Bborrar%5D%0A%2C%2C%2C%2C%5Bver%5D%20%5Beditar%5D%20%5Bborrar%5D%0ACPEC%2C%20Pegamento%20Industrial%2C%20SI%2C%20Kg.%2C%20%5Bver%5D%20%5Beditar%5D%20%5Bborrar%5D%20%0A%20%0A%20%0A%20%0ADGTR23%2C%20L%EDquido%20limpiador%20de%20monitores%2C%20SI%2C%20Lts.%2C%20%5Bver%5D%20%5Beditar%5D%20%5Bborrar%5D</text>
+        <text>C%F3digo%2C%20Name%2C%20Activo%2C%20Unidad%2C%20%2C%20%20%20%0APMMCL1%2C%20Parlantes%20multimedia%20Creative%2C%20SI%2C%20Unid.%2C%5Bver%5D%20%5Beditar%5D%20%5Bborrar%5D%0AMS20F%2C%20Monitor%20de%2020%22%20Samsumg%2C%20SI%2C%20Unid.%2C%5Bver%5D%20%5Beditar%5D%20%5Bborrar%5D%0ASMDTK232%2C%20Microprocesador%20Intel%20Core2%20Quad%202.6%20Gz%2CSI%2C%20Unid.%2C%5Bver%5D%20%5Beditar%5D%20%5Bborrar%5D%0A%2C%2C%2C%2C%5Bver%5D%20%5Beditar%5D%20%5Bborrar%5D%0ACPEC%2C%20Pegamento%20Industrial%2C%20SI%2C%20Kg.%2C%20%5Bver%5D%20%5Beditar%5D%20%5Bborrar%5D%20%0A%20%0A%20%0A%20%0ADGTR23%2C%20L%EDquido%20limpiador%20de%20monitores%2C%20SI%2C%20Lts.%2C%20%5Bver%5D%20%5Beditar%5D%20%5Bborrar%5D</text>
         <vLines>false</vLines>
         <alternateRowColor>15594478</alternateRowColor>
         <rowHeight>27</rowHeight>

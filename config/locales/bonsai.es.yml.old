@@ -2,7 +2,7 @@ es:
   tax: 
     name: Impuesto
     attributes: 
-      name: Nombre
+      name: Name
       rate: Porcentaje
       abbreviation: "Abreviaci\xC3\xB3n"
     plural: Impuestos
@@ -12,13 +12,13 @@ es:
       UGHDrXM=
 
     attributes: 
-      name: Nombre
+      name: Name
       abreviation: "Abreviaci\xC3\xB3n"
     plural: Paises
   destroy: Eliminar
   organisation: 
     attributes: 
-      name: Nombre
+      name: Name
       address: "Direcci\xC3\xB3n"
       country: !binary |
         UGHDrXM=
@@ -35,10 +35,10 @@ es:
   index: Lista
   show: Ver
   user: 
-    new_user: Nuevo usuario
+    new_user: New usuario
     attributes: 
-      first_name: Nombres
-      last_name: Apellidos
+      first_name: First Name
+      last_name: Last Name
       email: Email
       password: "Contaseña"
   flash: 

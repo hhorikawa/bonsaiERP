@@ -118,7 +118,7 @@
         <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="18" y="0" w="-1" h="-1" measuredW="83" measuredH="25" zOrder="1" locked="false" isInGroup="100">
           <controlProperties>
             <color>40463</color>
-            <text>Nuevo%20cobro</text>
+            <text>New%20cobro</text>
           </controlProperties>
         </control>
       </groupChildrenDescriptors>

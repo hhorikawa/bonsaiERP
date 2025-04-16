@@ -89,7 +89,7 @@
     <control controlID="49" controlTypeID="com.balsamiq.mockups::Label" x="173" y="208" w="100" h="25" measuredW="96" measuredH="25" zOrder="13" locked="false" isInGroup="-1">
       <controlProperties>
         <color>4144959</color>
-        <text>N%BA%20Referencia</text>
+        <text>N%BA%20Reference</text>
       </controlProperties>
     </control>
     <control controlID="50" controlTypeID="com.balsamiq.mockups::TextInput" x="172" y="227" w="127" h="-1" measuredW="64" measuredH="29" zOrder="14" locked="false" isInGroup="-1">
@@ -138,7 +138,7 @@
     <control controlID="59" controlTypeID="com.balsamiq.mockups::Label" x="648" y="295" w="76" h="25" measuredW="52" measuredH="25" zOrder="20" locked="false" isInGroup="-1">
       <controlProperties>
         <color>4144959</color>
-        <text>Moneda</text>
+        <text>Currency</text>
       </controlProperties>
     </control>
     <control controlID="60" controlTypeID="com.balsamiq.mockups::ComboBox" x="648" y="314" w="204" h="-1" measuredW="117" measuredH="25" zOrder="21" locked="false" isInGroup="-1">
@@ -156,7 +156,7 @@
         <href>sale1%26bm%3Bsale1.bmml%26bm%3Bsale1.bmml%26bm%3Bsale1.bmml</href>
         <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22131%2C828%2C244%2C856%22%20href%3D%22sale1.bmml%22%20alt%3D%22sale1%22%20id%3D%2261%22/%3E</map>
         <size>13</size>
-        <text>Salvar</text>
+        <text>Save</text>
       </controlProperties>
     </control>
     <control controlID="63" controlTypeID="com.balsamiq.mockups::CheckBox" x="656" y="387" w="-1" h="-1" measuredW="86" measuredH="22" zOrder="23" locked="false" isInGroup="-1">

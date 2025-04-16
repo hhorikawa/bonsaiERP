@@ -13,7 +13,7 @@
     </control>
     <control controlID="3" controlTypeID="com.balsamiq.mockups::Paragraph" x="780" y="19" w="220" h="26" measuredW="200" measuredH="140" zOrder="2" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Cuenta%20%20Configuraci%F3n%20%20Ayuda</text>
+        <text>Cuenta%20%20Configuraci%F3n%20%20Help</text>
         <align>right</align>
         <size>11</size>
         <color>16777215</color>
@@ -40,7 +40,7 @@
     </control>
     <control controlID="40" controlTypeID="com.balsamiq.mockups::Label" x="248" y="224" w="-1" h="-1" measuredW="169" measuredH="25" zOrder="6" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Nombre%20de%20la%20orgahizaci%F3n</text>
+        <text>Name%20de%20la%20orgahizaci%F3n</text>
         <size>13</size>
       </controlProperties>
     </control>
@@ -64,7 +64,7 @@
     </control>
     <control controlID="46" controlTypeID="com.balsamiq.mockups::Label" x="653" y="224" w="-1" h="-1" measuredW="52" measuredH="25" zOrder="10" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Moneda</text>
+        <text>Currency</text>
         <size>13</size>
       </controlProperties>
     </control>
@@ -79,7 +79,7 @@
         <direction>center</direction>
         <color>2848996</color>
         <size>18</size>
-        <text>Salvar</text>
+        <text>Save</text>
         <href>dashboard%26bm%3Bdashboard.bmml%26bm%3Bdashboard.bmml%26bm%3Bdashboard.bmml</href>
         <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22378%2C434%2C491%2C469%22%20href%3D%22dashboard.bmml%22%20alt%3D%22dashboard%22%20id%3D%2248%22/%3E</map>
       </controlProperties>

@@ -38,7 +38,7 @@
     <control controlID="11" controlTypeID="com.balsamiq.mockups::Label" x="524" y="325" w="236" h="25" measuredW="222" measuredH="25" zOrder="6" locked="false" isInGroup="-1">
       <controlProperties>
         <color>0</color>
-        <text>-Referencia/N%BA%20Cheque%3A-%2023742546</text>
+        <text>-Reference/N%BA%20Cheque%3A-%2023742546</text>
       </controlProperties>
     </control>
     <control controlID="14" controlTypeID="com.balsamiq.mockups::PointyButton" x="161" y="418" w="-1" h="-1" measuredW="149" measuredH="28" zOrder="7" locked="false" isInGroup="-1">

@@ -43,13 +43,13 @@
             %span#payment_total_currency.b.fs110
 
       .row-fluid
-        .span12= f.input :reference, :label => 'Referencia/Nº Cheque', :input_html => {:rows => 3, :cols => 35}, :as => :text
+        .span12= f.input :reference, :label => 'Reference/Nº Cheque', :input_html => {:rows => 3, :cols => 35}, :as => :text
 
 
-      -#= f.input :description, :label => 'Descripción', :as => :text, :input_html => {:rows => 4, :cols => 35}
+      -#= f.input :description, :label => 'Description', :as => :text, :input_html => {:rows => 4, :cols => 35}
       .clear
 
-      = f.submit 'Salvar', :class => 'btn btn-success b'
+      = f.submit 'Save', :class => 'btn btn-success b'
     %br
     %br
 

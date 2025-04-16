@@ -38,7 +38,7 @@ class GraphReport {
     $.plot(this.sel,
       [
         {label: 'Ingresos', data: this.parseData(this.incomes), color: this.incColor},
-        {label: 'Egresos', data: this.parseData(this.expenses), color: this.expColor}
+        {label: 'Expenses', data: this.parseData(this.expenses), color: this.expColor}
       ],
       this.options
     );

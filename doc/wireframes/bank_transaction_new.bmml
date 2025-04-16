@@ -64,7 +64,7 @@
     <control controlID="22" controlTypeID="com.balsamiq.mockups::Label" x="904" y="254" w="162" h="25" measuredW="147" measuredH="25" zOrder="10" locked="false" isInGroup="-1">
       <controlProperties>
         <color>4144959</color>
-        <text>Referencia/N%BA%20Cheque</text>
+        <text>Reference/N%BA%20Cheque</text>
       </controlProperties>
     </control>
     <control controlID="23" controlTypeID="com.balsamiq.mockups::TextInput" x="677" y="274" w="147" h="-1" measuredW="64" measuredH="29" zOrder="11" locked="false" isInGroup="-1">
@@ -77,7 +77,7 @@
     <control controlID="26" controlTypeID="com.balsamiq.mockups::PointyButton" x="154" y="421" w="-1" h="-1" measuredW="60" measuredH="28" zOrder="13" locked="false" isInGroup="-1">
       <controlProperties>
         <direction>center</direction>
-        <text>Salvar</text>
+        <text>Save</text>
       </controlProperties>
     </control>
     <control controlID="27" controlTypeID="__group__" x="154" y="254" w="109" h="65" measuredW="109" measuredH="65" zOrder="12" locked="false" isInGroup="-1">

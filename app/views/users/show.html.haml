@@ -12,7 +12,7 @@
     .btn-group
       = link_to edit_user_path(current_user), class: 'btn' do
         %i.icon-user
-        Editar datos perfil
+        Edit Profile Data
 
       = link_to new_user_password_path, class: 'btn' do
         %i.icon-key
@@ -21,17 +21,17 @@
 <br/><br/>
 .row-fluid
   .span3
-    %span.muted Nombres:
+    %span.muted First Name:
     = current_user.first_name
   .span3
-    %span.muted Apellidos:
+    %span.muted Last Name:
     = current_user.last_name
 
   .span3
-    %i.icon-phone.muted(title="Teléfono" data-toggle="tooltip")
+    %i.icon-phone.muted(title="Phone" data-toggle="tooltip")
     = current_user.phone
   .span3
-    %i.icon-mobile.muted(title="Móvil" data-toggle="tooltip")
+    %i.icon-mobile.muted(title="Mobile" data-toggle="tooltip")
     = current_user.mobile
 
 .row-fluid
@@ -39,5 +39,5 @@
     %i.icon-envelope.muted(title="E-mail" data-toggle="tooltip")
     = mail_to current_user.email unless current_user.email.blank?
   .span6
-    %i.icon-building.muted(title="Dirección" data-toggle="tooltip")
+    %i.icon-building.muted(title="Address" data-toggle="tooltip")
     = nl2br current_user.address

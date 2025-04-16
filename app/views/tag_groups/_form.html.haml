@@ -1,12 +1,12 @@
 %form(name='tag-group')
   .row-fluid
     .span6
-      %label Nombre
+      %label Name
       %input(type='text' size='45' ng-model='name')
   .row-fluid
     .span6
       %label
-        Etiquetas
+        Tags
 
       %div.tags-for
         %span(ng-repeat='tag in selected_tags')
@@ -31,4 +31,4 @@
 
 
   .form-actions
-    %button#tag-group-button.btn.btn-primary(ng-click='save()' ng-disabled='submit') Salvar
+    %button#tag-group-button.btn.btn-primary(ng-click='save()' ng-disabled='submit') Save

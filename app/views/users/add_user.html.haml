@@ -23,15 +23,15 @@
       = f.input :email,
         :hint => "<span class='warning bicon'></span> <span class='dark-yellow'>No es posible modificar después</span>".html_safe
   .row-fluid
-    .span6= f.input :first_name, label: 'Nombres'
-    .span6= f.input :last_name, label: 'Apellidos'
+    .span6= f.input :first_name, label: 'First Name'
+    .span6= f.input :last_name, label: 'Last Name'
 
   .row-fluid
-    .span6= f.input :phone, :label => 'Teléfono'
-    .span6= f.input :mobile, :label => 'Móvil'
+    .span6= f.input :phone, :label => 'Phone'
+    .span6= f.input :mobile, :label => 'Mobile'
 
   .row-fluid
-    .span6= f.input :address, :label => 'Dirección', :as => :text, :input_html => {:rows => 4, :cols => 35}
+    .span6= f.input :address, :label => 'Address', :as => :text, :input_html => {:rows => 4, :cols => 35}
   
     .span6= f.input :rolname, :collection => User.get_roles.slice(1, 3), :label => 'Rol'
 

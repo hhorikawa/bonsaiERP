@@ -16,7 +16,7 @@
         <align>right</align>
         <color>16777215</color>
         <size>11</size>
-        <text>Cuenta%20%20Configuraci%F3n%20%20Ayuda</text>
+        <text>Cuenta%20%20Configuraci%F3n%20%20Help</text>
       </controlProperties>
     </control>
     <control controlID="5" controlTypeID="com.balsamiq.mockups::Title" x="242" y="188" w="-1" h="-1" measuredW="485" measuredH="51" zOrder="4" locked="false" isInGroup="-1">
@@ -233,7 +233,7 @@
       <controlProperties>
         <bold>false</bold>
         <borderStyle>none</borderStyle>
-        <text>Fecha%2C%20Descripci%F3n%2C%20Advertir%20el%2C%20Cantidad%2C%20Intereses%5CrPenalidades%2C%20Estado%2C%20Enviar%5Cr%20E-mail%0A%7BL%2C%20L%2C%20L%2C%20R%2C%20R%2C%20L%2CC%7D</text>
+        <text>Fecha%2C%20Descripci%F3n%2C%20Advertir%20el%2C%20Cantidad%2C%20Intereses%5CrPenalidades%2C%20Status%2C%20Enviar%5Cr%20E-mail%0A%7BL%2C%20L%2C%20L%2C%20R%2C%20R%2C%20L%2CC%7D</text>
         <vLines>false</vLines>
       </controlProperties>
     </control>

@@ -46,7 +46,7 @@
           msg = [];
       if(err && err.length > 0) {
         $('#unit_name').parents('span').addClass('field_with_errors');
-        msg.push('Nombre: ' + err.join(","))
+        msg.push('Name: ' + err.join(","))
       }
       err = resp.symbol;
       if(err && err.length > 0) {

@@ -39,7 +39,7 @@
         <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="18" y="0" w="-1" h="-1" measuredW="97" measuredH="25" zOrder="1" locked="false" isInGroup="39">
           <controlProperties>
             <color>3700253</color>
-            <text>Nuevo%20almacen</text>
+            <text>New%20almacen</text>
           </controlProperties>
         </control>
       </groupChildrenDescriptors>
@@ -50,7 +50,7 @@
         <borderStyle>none</borderStyle>
         <hasHeader>true</hasHeader>
         <selectedIndex>-1</selectedIndex>
-        <text>*Nombre*%2C%20*Direcci%F3n*%2C*Valor%5CrInventario*%0A*%5BAlmacen%20el%20alto%5D*%2C%20Av.%20Juan%20pablo%20segundo%5CrN%BA123%2C15.000%5C%2C00%0A*%5BAlmacen%20central%5D*%2C%20Calle%20la%20esperanza%5CrEdificio%20Je%20piso%202%20N%BA%201200%20%2C45.000%5C%2C00%0A%7BL%2C%20L%2C%20R%7D</text>
+        <text>*Name*%2C%20*Direcci%F3n*%2C*Valor%5CrInventario*%0A*%5BAlmacen%20el%20alto%5D*%2C%20Av.%20Juan%20pablo%20segundo%5CrN%BA123%2C15.000%5C%2C00%0A*%5BAlmacen%20central%5D*%2C%20Calle%20la%20esperanza%5CrEdificio%20Je%20piso%202%20N%BA%201200%20%2C45.000%5C%2C00%0A%7BL%2C%20L%2C%20R%7D</text>
         <vLines>false</vLines>
       </controlProperties>
     </control>

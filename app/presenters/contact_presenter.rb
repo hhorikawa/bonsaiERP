@@ -3,11 +3,11 @@
 # email: boriscyber@gmail.com
 class ContactPresenter < BasePresenter
   def address_tag
-    "#{ icon 'icon-building muted', 'Dirección' } #{sanitize address}".html_safe if address.present?
+    "#{ icon 'icon-building muted', 'Address' } #{sanitize address}".html_safe if address.present?
   end
 
   def phone_tag
-    "#{ icon 'icon-phone muted', 'Teléfono' } #{sanitize phone}".html_safe if phone.present?
+    "#{ icon 'icon-phone muted', 'Phone' } #{sanitize phone}".html_safe if phone.present?
   end
 
   def email_tag
@@ -19,7 +19,7 @@ class ContactPresenter < BasePresenter
   end
 
   def mobile_tag
-    "#{ icon 'icon-mobile muted', 'Móvil' } #{sanitize mobile}".html_safe if mobile.present?
+    "#{ icon 'icon-mobile muted', 'Mobile' } #{sanitize mobile}".html_safe if mobile.present?
   end
 
   def tot_in_tag

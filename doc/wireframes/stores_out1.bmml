@@ -20,7 +20,7 @@
       <controlProperties>
         <color>4144959</color>
         <size>28</size>
-        <text>Nuevo</text>
+        <text>New</text>
       </controlProperties>
     </control>
     <control controlID="6" controlTypeID="com.balsamiq.mockups::Canvas" x="120" y="101" w="990" h="41" measuredW="100" measuredH="70" zOrder="3" locked="false" isInGroup="-1">
@@ -39,7 +39,7 @@
         <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="18" y="0" w="-1" h="-1" measuredW="93" measuredH="25" zOrder="1" locked="false" isInGroup="39">
           <controlProperties>
             <color>3700253</color>
-            <text>Nuevo%20ingreso</text>
+            <text>New%20ingreso</text>
           </controlProperties>
         </control>
       </groupChildrenDescriptors>
@@ -165,7 +165,7 @@
         <direction>center</direction>
         <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2266%2C804%2C179%2C832%22%20href%3D%22income_aprove.bmml%22%20alt%3D%22income_aprove%22%20id%3D%2286%22/%3E</map>
         <size>13</size>
-        <text>Salvar</text>
+        <text>Save</text>
       </controlProperties>
     </control>
     <control controlID="90" controlTypeID="com.balsamiq.mockups::Canvas" x="159" y="240" w="917" h="81" measuredW="100" measuredH="70" zOrder="11" locked="false" isInGroup="-1">
@@ -201,7 +201,7 @@
     <control controlID="95" controlTypeID="com.balsamiq.mockups::Label" x="179" y="252" w="100" h="25" measuredW="96" measuredH="25" zOrder="16" locked="false" isInGroup="-1">
       <controlProperties>
         <color>4144959</color>
-        <text>N%BA%20Referencia</text>
+        <text>N%BA%20Reference</text>
       </controlProperties>
     </control>
     <control controlID="96" controlTypeID="com.balsamiq.mockups::TextInput" x="178" y="271" w="127" h="-1" measuredW="64" measuredH="29" zOrder="17" locked="false" isInGroup="-1">

@@ -31,7 +31,7 @@
         <hLines>false</hLines>
         <rowHeight>27</rowHeight>
         <selectedIndex>-1</selectedIndex>
-        <text>*C%F3digo*%2C%20*Nombre*%2C%20*Unidad*%2C%20Producto%2C%20%0APMMCL1%2C%20Parlantes%20multimedia%20Creative%2C%20Unid.%2C%20X%2C%20%5E%2C%5Bver%5D%20%5Beditar%5D%20%5Bborrar%5D%0AMS20F%2C%20Monitor%20de%2020%22%20Samsumg%2C%20Unid.%2C%20SI%2C%20NO%2C%5Bver%5D%20%5Beditar%5D%20%5Bborrar%5D%0ASMDTK232%2C%20Microprocesador%20Intel%20Core2%20Quad%202.6%20Gz%2C%20Unid.%2C%20SI%2C%20SI%2C%20%5Bver%5D%20%5Beditar%5D%20%5Bborrar%5D%0ACPEC%2C%20Pegamento%20Industrial%2C%20Kg.%2C%20SI%2C%20SI%2C%20%5Bver%5D%20%5Beditar%5D%20%5Bborrar%5D%20%0ADGTR23%2C%20L%EDquido%20limpiador%20de%20monitores%2C%20Lts.%2C%20SI%2C%20SI%2C%5Bver%5D%20%5Beditar%5D%20%5Bborrar%5D</text>
+        <text>*C%F3digo*%2C%20*Name*%2C%20*Unidad*%2C%20Producto%2C%20%0APMMCL1%2C%20Parlantes%20multimedia%20Creative%2C%20Unid.%2C%20X%2C%20%5E%2C%5Bver%5D%20%5Beditar%5D%20%5Bborrar%5D%0AMS20F%2C%20Monitor%20de%2020%22%20Samsumg%2C%20Unid.%2C%20SI%2C%20NO%2C%5Bver%5D%20%5Beditar%5D%20%5Bborrar%5D%0ASMDTK232%2C%20Microprocesador%20Intel%20Core2%20Quad%202.6%20Gz%2C%20Unid.%2C%20SI%2C%20SI%2C%20%5Bver%5D%20%5Beditar%5D%20%5Bborrar%5D%0ACPEC%2C%20Pegamento%20Industrial%2C%20Kg.%2C%20SI%2C%20SI%2C%20%5Bver%5D%20%5Beditar%5D%20%5Bborrar%5D%20%0ADGTR23%2C%20L%EDquido%20limpiador%20de%20monitores%2C%20Lts.%2C%20SI%2C%20SI%2C%5Bver%5D%20%5Beditar%5D%20%5Bborrar%5D</text>
         <underline>false</underline>
         <verticalScrollbar>false</verticalScrollbar>
         <vLines>false</vLines>
@@ -47,7 +47,7 @@
         <align>right</align>
         <color>16777215</color>
         <size>11</size>
-        <text>Cuenta%20%20Configuraci%F3n%20%20Ayuda</text>
+        <text>Cuenta%20%20Configuraci%F3n%20%20Help</text>
       </controlProperties>
     </control>
     <control controlID="12" controlTypeID="com.balsamiq.mockups::Label" x="175" y="70" w="-1" h="-1" measuredW="76" measuredH="25" zOrder="7" locked="false" isInGroup="-1">

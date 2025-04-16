@@ -10,7 +10,7 @@
 
   .row-fluid
     .span6
-      = f.input :name, label: 'Nombre', input_html: { class: 'span11' }
+      = f.input :name, label: 'Name', input_html: { class: 'span11' }
     .span3.form-inline
       = f.input :active, label: 'Visible', hint: 'Visible en operaciones'
 
@@ -21,40 +21,39 @@
     .span6
       .unit-control.input(class="#{field_with_errors(f, :unit_id)}")
         = f.association :unit do
-          = f.label 'Unidad de medida'
+          = f.label 'Unit of Measure'
           = f.select :unit_id, Unit.order('name asc').map { |v| [v.to_s, v.id] },
             { include_blank: true }, { class: 'span8' }
 
-          %a#new-unit-link.btn.add-new-url(title='Nueva unidad de medida' data-toggle='tooltip')
+          %a#new-unit-link.btn.add-new-url(title='New Unit of Measure' data-toggle='tooltip')
             %i.icon-plus-circle
           = error_message f, :unit_id
 
       .unit-form(style='display:none')
         .form-inline
           %span
-            %input(type='text' id='unit_name' size='15' placeholder='Nombre' title='Nombre')
+            %input(type='text' id='unit_name' size='15' placeholder='Name' title='Name')
           %span
             %input(type='text' id='unit_symbol' size='7' placeholder='Símbolo' title='Símbolo')
-          %btn#save-button.btn.btn-small.btn-primary Salvar
-          %btn#cancel-button.btn.btn-small Cancelar
+          %btn#save-button.btn.btn-small.btn-primary Save
+          %btn#cancel-button.btn.btn-small Cancel
         %br
 
     .span6
-      = f.input :description, label: 'Descripción', input_html: {class: 'span12'}
+      = f.input :description, label: 'Description', input_html: {class: 'span12'}
 
   .row-fluid
     .span6.well.well-small
-      = f.input :buy_price,
-        label: "Precio de <strong>Compra</strong> #{currency_label}".html_safe, input_html: {size: 12, type: 'decimal'}
+      = f.input :buy_price, label: "<strong>Buy</strong> Price #{currency_label}".html_safe, input_html: {size: 12, type: 'decimal'}
 
     .span6.well.well-small
       .row-fluid
         = f.hidden_field :for_sale
         .span6
-          = f.input :price, label: "Precio de <strong>Venta</strong> #{currency_label}".html_safe,
+          = f.input :price, label: "<strong>Sell</strong> Price #{currency_label}".html_safe,
             input_html: {size: 12, type: 'decimal'}
 
   .form-actions
-    = f.submit 'Salvar', class: 'btn btn-primary b'
+    = f.submit 'Save', class: 'btn btn-primary b'
 
 = render 'items/js'

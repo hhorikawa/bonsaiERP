@@ -20,7 +20,7 @@
     </control>
     <control controlID="3" controlTypeID="com.balsamiq.mockups::Paragraph" x="780" y="19" w="220" h="26" measuredW="200" measuredH="140" zOrder="3" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Cuenta%20%20Configuraci%F3n%20%20Ayuda</text>
+        <text>Cuenta%20%20Configuraci%F3n%20%20Help</text>
         <align>right</align>
         <color>16777215</color>
         <size>11</size>
@@ -36,7 +36,7 @@
     </control>
     <control controlID="5" controlTypeID="com.balsamiq.mockups::Title" x="208" y="117" w="-1" h="-1" measuredW="232" measuredH="51" zOrder="5" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Nuevo%20almacen</text>
+        <text>New%20almacen</text>
         <size>32</size>
       </controlProperties>
     </control>
@@ -53,7 +53,7 @@
     </control>
     <control controlID="8" controlTypeID="com.balsamiq.mockups::Label" x="283" y="231" w="-1" h="-1" measuredW="53" measuredH="25" zOrder="8" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Nombre</text>
+        <text>Name</text>
       </controlProperties>
     </control>
     <control controlID="33" controlTypeID="com.balsamiq.mockups::TextArea" x="281" y="323" w="307" h="78" measuredW="200" measuredH="140" zOrder="13" locked="false" isInGroup="-1">
@@ -111,7 +111,7 @@
     </control>
     <control controlID="24" controlTypeID="com.balsamiq.mockups::PointyButton" x="537" y="443" w="113" h="-1" measuredW="76" measuredH="35" zOrder="11" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Salvar</text>
+        <text>Save</text>
         <direction>center</direction>
         <size>18</size>
         <color>2848996</color>

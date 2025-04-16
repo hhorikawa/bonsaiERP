@@ -22,7 +22,7 @@
       .span3
         = f.input :date, label: 'Fecha', as: :datepicker
       .span6
-        = f.input :description, as: :text, label: 'Descripción' ,input_html: { rows: 3, cols: 55 }
+        = f.input :description, as: :text, label: 'Description' ,input_html: { rows: 3, cols: 55 }
 
     %input#details(type='hidden' data-details='#{@inv.details_serialized.to_json}')
 

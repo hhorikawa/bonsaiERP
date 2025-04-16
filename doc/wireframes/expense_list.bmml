@@ -81,7 +81,7 @@
         <align>right</align>
         <color>16777215</color>
         <size>11</size>
-        <text>Cuenta%20%20Configuraci%F3n%20%20Ayuda</text>
+        <text>Cuenta%20%20Configuraci%F3n%20%20Help</text>
       </controlProperties>
     </control>
     <control controlID="31" controlTypeID="com.balsamiq.mockups::PointyButton" x="228" y="191" w="145" h="-1" measuredW="130" measuredH="32" zOrder="13" locked="false" isInGroup="-1">
@@ -91,7 +91,7 @@
         <customID>create_new</customID>
         <direction>center</direction>
         <size>16</size>
-        <text>%20%20Nuevo%20Gasto</text>
+        <text>%20%20New%20Gasto</text>
       </controlProperties>
     </control>
     <control controlID="32" controlTypeID="com.balsamiq.mockups::Image" x="237" y="199" w="16" h="16" measuredW="16" measuredH="16" zOrder="14" locked="false" isInGroup="-1">

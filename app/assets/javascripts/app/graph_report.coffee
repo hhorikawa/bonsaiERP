@@ -31,7 +31,7 @@ class GraphReport
     $.plot(@sel,
       [
         {label: 'Inresos', data: @parseData(@incomes), color: @incColor},
-        {label: 'Egresos', data: @parseData(@expenses), color: @expColor}
+        {label: 'Expenses', data: @parseData(@expenses), color: @expColor}
       ],
     @options)
   #

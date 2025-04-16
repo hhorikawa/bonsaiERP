@@ -126,7 +126,7 @@
     </control>
     <control controlID="16" controlTypeID="com.balsamiq.mockups::Button" x="920" y="400" w="-1" h="-1" measuredW="79" measuredH="28" zOrder="16" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Cancelar</text>
+        <text>Cancel</text>
       </controlProperties>
     </control>
     <control controlID="17" controlTypeID="com.balsamiq.mockups::Button" x="1063" y="400" w="-1" h="-1" measuredW="74" measuredH="28" zOrder="17" locked="false" isInGroup="-1">
