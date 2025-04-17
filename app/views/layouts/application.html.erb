@@ -16,8 +16,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
     <%= cdn_scripts 'angular' %>
-    <%= javascript_include_tag "application", 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <% if Rails.env.production? %>
       <script src="//d2wy8f7a9ursnm.cloudfront.net/bugsnag-2.min.js" data-apikey="5764f05c4e7d87832059e096471f9bc9"></script>
       <%= render 'layouts/google_analytics' %>
@@ -32,6 +30,7 @@
       this.exchangeRates = <%= set_exchange_rates %>;
       this.currencies = <%= File.read Rails.root.join 'public', 'currencies.json' %>;
     </script>
+    <%= javascript_importmap_tags %>
   </head>
 
   <body ng-app="myApp">

@@ -8,9 +8,7 @@ gem 'logger', '~> 1.4'
 
 # Assets
 gem 'sass-rails', '~> 6.0.0'  # Updated for Rails 6.0 compatibility
-gem 'coffee-rails' , '~> 5.0.0'
-gem 'uglifier' , '>= 4.1.0'
-gem 'webpacker', '~> 5.4.3'  # Required for Rails 6.0
+gem 'importmap-rails'
 
 # Temporarily adding compass-rails for backward compatibility during upgrade
 # Removed compass-rails as it's not compatible with sass-rails 6.0

@@ -95,7 +95,7 @@
 
     async function testLinksJS() {
       try {
-        await loadScript('app/assets/javascripts/links.js');
+        await loadScript('app/javascripts/links.js');
         showResult('links-result', true, 'Links.js loaded successfully.');
       } catch (error) {
         showResult('links-result', false, `Failed to load Links.js: ${error.message}`);
@@ -104,7 +104,7 @@
 
     async function testApplicationJS() {
       try {
-        await loadScript('app/assets/javascripts/application.js');
+        await loadScript('app/javascripts/application.js');
         showResult('application-result', true, 'Application.js loaded successfully.');
       } catch (error) {
         showResult('application-result', false, `Failed to load Application.js: ${error.message}`);

@@ -5,7 +5,7 @@
 - [ ] Maintain all existing business logic and user journeys
 - [ ] Modernize frontend with Tailwind CSS
 - [ ] Replace Sprockets with Propshaft for asset pipeline
-- [ ] Convert CoffeeScript to modern JavaScript (Priority)
+- [x] Convert CoffeeScript to modern JavaScript (Priority)
 
 ## Ruby Upgrade Path
 - [x] Upgrade from Ruby 2.3.1 to Ruby 2.6.4 (skipped 2.5 as 2.6.4 was available)
@@ -20,7 +20,7 @@
 - [x] Upgrade from Rails 5.1 to Rails 5.2
 - [x] Upgrade from Rails 5.2 to Rails 6.0
 - [x] Upgrade from Rails 6.0 to Rails 6.1
-- [ ] Upgrade from Rails 6.1 to Rails 7.0
+- [x] Upgrade from Rails 6.1 to Rails 7.0
 - [ ] Upgrade from Rails 7.0 to Rails 7.1.x
 - [ ] Upgrade from Rails 7.1.x to Rails 8.0
 
@@ -49,9 +49,9 @@
 - [x] Configure Action Text if needed
 - [ ] Run tests and fix failing tests
 - [x] Update database configuration for Rails 6.0 compatibility
-- [ ] Begin converting critical CoffeeScript files to plain JavaScript
+- [x] Begin converting critical CoffeeScript files to plain JavaScript
 
-## Phase 2: Rails 6.1 Upgrade
+## Phase 2: Rails 6.1 Upgrade (Skipped)
 - [x] Update Rails version to 6.1 in Gemfile
 - [ ] Update gem dependencies for Rails 6.1 compatibility
 - [ ] Add new_framework_defaults_6_1.rb initializer
@@ -62,10 +62,10 @@
 
 ## Phase 3: Rails 7.0 Upgrade
 - [x] Update Rails version to 7.0 in Gemfile
-- [ ] Update gem dependencies for Rails 7.0 compatibility
-- [ ] Add new_framework_defaults_7_0.rb initializer
-- [ ] Replace Webpacker with importmaps or jsbundling-rails
-- [ ] Update configuration files for Rails 7.0
+- [x] Update gem dependencies for Rails 7.0 compatibility
+- [x] Add new_framework_defaults_7_0.rb initializer
+- [x] Replace Webpacker with importmaps or jsbundling-rails
+- [x] Update configuration files for Rails 7.0
 - [ ] Run tests and fix failing tests
 - [ ] Complete CoffeeScript to JavaScript conversion
 
@@ -111,6 +111,7 @@
   - [ ] React for more complex UI components
 - [ ] Set up JavaScript bundling with esbuild or Vite
 - [ ] Migrate jQuery-dependent code to modern JavaScript
+- [ ] Migrate Angular to modern JavaScript
 - [ ] Update AJAX calls to use fetch API or Turbo
 - [ ] Implement Turbo for SPA-like experience
 
@@ -196,7 +197,7 @@
 - [x] Translated JavaScript messages from Spanish to English
 - [x] Converted HAML templates to ERB format for better Rails 6 compatibility
 - [x] Updated controllers to explicitly render templates for Rails 6 compatibility
-- [ ] Currently working on Rails 6.0 upgrade
+- [x] Currently working on Rails 6.0 upgrade
 - [x] Completed replacing CoffeeScript with plain JavaScript
 - [ ] Testing JavaScript functionality after CoffeeScript migration
 - [ ] Address CSS/Sass compatibility issues with Rails 6
