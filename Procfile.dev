@@ -1,0 +1,4 @@
+
+vite: bin/vite dev
+web: bin/rails server
+worker: bundle exec sidekiq

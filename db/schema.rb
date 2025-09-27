@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_04_16_051351) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_16_051351) do
+  create_schema "common"
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
+  enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
-  enable_extension "plpgsql"
 
   create_table "account_ledgers", force: :cascade do |t|
     t.text "reference"
@@ -30,16 +31,16 @@ ActiveRecord::Schema.define(version: 2025_04_16_051351) do
     t.decimal "exchange_rate", precision: 14, scale: 4, default: "1.0"
     t.integer "creator_id"
     t.integer "approver_id"
-    t.datetime "approver_datetime"
+    t.datetime "approver_datetime", precision: nil
     t.integer "nuller_id"
-    t.datetime "nuller_datetime"
+    t.datetime "nuller_datetime", precision: nil
     t.boolean "inverse", default: false
     t.boolean "has_error", default: false
     t.string "error_messages"
     t.string "status", limit: 50, default: "approved"
     t.integer "project_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "updater_id"
     t.string "name"
     t.integer "contact_id"
@@ -71,8 +72,8 @@ ActiveRecord::Schema.define(version: 2025_04_16_051351) do
     t.string "state", limit: 30
     t.boolean "has_error", default: false
     t.string "error_messages", limit: 400
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "tag_ids", default: [], array: true
     t.integer "updater_id"
     t.decimal "tax_percentage", precision: 5, scale: 2, default: "0.0"
@@ -111,7 +112,7 @@ ActiveRecord::Schema.define(version: 2025_04_16_051351) do
     t.string "record_type", null: false
     t.bigint "record_id", null: false
     t.bigint "blob_id", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
@@ -123,7 +124,7 @@ ActiveRecord::Schema.define(version: 2025_04_16_051351) do
     t.text "metadata"
     t.bigint "byte_size", null: false
     t.string "checksum"
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.string "service_name", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
@@ -144,8 +145,8 @@ ActiveRecord::Schema.define(version: 2025_04_16_051351) do
     t.boolean "image", default: false
     t.integer "size"
     t.json "image_attributes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "publish", default: false
     t.index ["attachable_id", "attachable_type"], name: "index_attachments_on_attachable_id_and_attachable_type"
     t.index ["image"], name: "index_attachments_on_image"
@@ -171,8 +172,8 @@ ActiveRecord::Schema.define(version: 2025_04_16_051351) do
     t.boolean "staff", default: false
     t.boolean "client", default: false
     t.boolean "supplier", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "incomes_status", limit: 300, default: "{}"
     t.string "expenses_status", limit: 300, default: "{}"
     t.integer "tag_ids", default: [], array: true
@@ -192,7 +193,7 @@ ActiveRecord::Schema.define(version: 2025_04_16_051351) do
     t.boolean "new_item", default: false
     t.string "historiable_type"
     t.json "history_data", default: {}
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.string "klass_type"
     t.hstore "extras"
     t.json "all_data", default: {}
@@ -216,8 +217,8 @@ ActiveRecord::Schema.define(version: 2025_04_16_051351) do
     t.integer "project_id"
     t.boolean "has_error", default: false
     t.string "error_messages"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "updater_id"
     t.index ["account_id"], name: "index_inventories_on_account_id"
     t.index ["contact_id"], name: "index_inventories_on_contact_id"
@@ -235,8 +236,8 @@ ActiveRecord::Schema.define(version: 2025_04_16_051351) do
     t.integer "item_id"
     t.integer "store_id"
     t.decimal "quantity", precision: 14, scale: 2, default: "0.0"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["inventory_id"], name: "index_inventory_details_on_inventory_id"
     t.index ["item_id"], name: "index_inventory_details_on_item_id"
     t.index ["store_id"], name: "index_inventory_details_on_store_id"
@@ -251,8 +252,8 @@ ActiveRecord::Schema.define(version: 2025_04_16_051351) do
     t.boolean "for_sale", default: true
     t.boolean "stockable", default: true
     t.boolean "active", default: true
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.decimal "buy_price", precision: 14, scale: 2, default: "0.0"
     t.string "unit_symbol", limit: 20
     t.string "unit_name", limit: 255
@@ -276,8 +277,8 @@ ActiveRecord::Schema.define(version: 2025_04_16_051351) do
     t.boolean "master_account", default: false
     t.string "role", limit: 50
     t.boolean "active", default: true
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "tenant", limit: 100
     t.string "api_token"
     t.index ["api_token"], name: "index_links_on_api_token", unique: true
@@ -295,8 +296,8 @@ ActiveRecord::Schema.define(version: 2025_04_16_051351) do
     t.decimal "discount", precision: 14, scale: 2, default: "0.0"
     t.decimal "balance", precision: 14, scale: 2, default: "0.0"
     t.decimal "original_price", precision: 14, scale: 2, default: "0.0"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["account_id"], name: "index_movement_details_on_account_id"
     t.index ["item_id"], name: "index_movement_details_on_item_id"
   end
@@ -317,8 +318,8 @@ ActiveRecord::Schema.define(version: 2025_04_16_051351) do
     t.string "time_zone", limit: 100
     t.string "tenant", limit: 50
     t.string "currency", limit: 10
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "country_code", limit: 5
     t.hstore "settings", default: {"inventory"=>"true"}
     t.index ["country_code"], name: "index_organisations_on_country_code"
@@ -334,8 +335,8 @@ ActiveRecord::Schema.define(version: 2025_04_16_051351) do
     t.date "date_start"
     t.date "date_end"
     t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["active"], name: "index_projects_on_active"
   end
 
@@ -346,8 +347,8 @@ ActiveRecord::Schema.define(version: 2025_04_16_051351) do
     t.decimal "quantity", precision: 14, scale: 2, default: "0.0"
     t.decimal "minimum", precision: 14, scale: 2, default: "0.0"
     t.integer "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "active", default: true
     t.index ["active"], name: "index_stocks_on_active"
     t.index ["item_id"], name: "index_stocks_on_item_id"
@@ -363,16 +364,16 @@ ActiveRecord::Schema.define(version: 2025_04_16_051351) do
     t.string "phone", limit: 40
     t.boolean "active", default: true
     t.string "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "tag_groups", force: :cascade do |t|
     t.string "name"
     t.string "bgcolor"
     t.integer "tag_ids", default: [], array: true
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["name"], name: "index_tag_groups_on_name", unique: true
     t.index ["tag_ids"], name: "index_tag_groups_on_tag_ids", using: :gin
   end
@@ -380,8 +381,8 @@ ActiveRecord::Schema.define(version: 2025_04_16_051351) do
   create_table "tags", force: :cascade do |t|
     t.string "name"
     t.string "bgcolor", limit: 10
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["name"], name: "index_tags_on_name"
   end
 
@@ -389,8 +390,8 @@ ActiveRecord::Schema.define(version: 2025_04_16_051351) do
     t.string "name", limit: 100
     t.string "abreviation", limit: 20
     t.decimal "percentage", precision: 5, scale: 2, default: "0.0"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "units", force: :cascade do |t|
@@ -398,8 +399,8 @@ ActiveRecord::Schema.define(version: 2025_04_16_051351) do
     t.string "symbol", limit: 20
     t.boolean "integer", default: false
     t.boolean "visible", default: true
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -413,20 +414,20 @@ ActiveRecord::Schema.define(version: 2025_04_16_051351) do
     t.string "encrypted_password"
     t.string "password_salt"
     t.string "confirmation_token", limit: 60
-    t.datetime "confirmation_sent_at"
-    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at", precision: nil
+    t.datetime "confirmed_at", precision: nil
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "reseted_password_at"
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "reseted_password_at", precision: nil
     t.integer "sign_in_count", default: 0
-    t.datetime "last_sign_in_at"
+    t.datetime "last_sign_in_at", precision: nil
     t.boolean "change_default_password", default: false
     t.string "address"
     t.boolean "active", default: true
     t.string "auth_token"
     t.string "rol", limit: 50
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.text "old_emails", default: [], array: true
     t.string "locale", default: "en"
     t.index ["auth_token"], name: "index_users_on_auth_token", unique: true

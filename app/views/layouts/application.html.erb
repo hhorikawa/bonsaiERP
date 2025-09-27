@@ -1,23 +1,25 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-  <head>
-    <meta http-equiv="content-type" content="text/html;charset=UTF-8">
-    <meta content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
-    <link rel="shortcut icon" href="/bonsai.ico" type="image/x-icon">
-    <%= csrf_meta_tag %>
+<html >
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <title>bonsaiERP - <%= current_organisation %></title>
+  <title>bonsaiERP - <%= current_organisation %></title>
 
-    <%= stylesheet_link_tag "application", media: 'all', 'data-turbolinks-track': 'reload' %>
+  <link rel="shortcut icon" href="/bonsai.ico" type="image/x-icon">
+
+  <% # Includes all stylesheet files in `app/assets/stylesheets` %>
+  <%= stylesheet_link_tag :application, "data-turbo-track": "reload" %>
     
-    <!-- Load jQuery and other libraries from CDN -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- Load jQuery and other libraries from CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
-    <%= cdn_scripts 'angular' %>
-    <% if Rails.env.production? %>
-      <script src="//d2wy8f7a9ursnm.cloudfront.net/bugsnag-2.min.js" data-apikey="5764f05c4e7d87832059e096471f9bc9"></script>
+<% if Rails.env.production? %>
+  <script src="//d2wy8f7a9ursnm.cloudfront.net/bugsnag-2.min.js" data-apikey="5764f05c4e7d87832059e096471f9bc9"></script>
       <%= render 'layouts/google_analytics' %>
     <% end %>
 
@@ -30,10 +32,20 @@
       this.exchangeRates = <%= set_exchange_rates %>;
       this.currencies = <%= File.read Rails.root.join 'public', 'currencies.json' %>;
     </script>
-    <%= javascript_importmap_tags %>
-  </head>
+    <%= vite_client_tag %>
+    <%= vite_javascript_tag 'application' %>
+    <!--
+      If using a TypeScript entrypoint file:
+        vite_typescript_tag 'application'
 
-  <body ng-app="myApp">
+      If using a .jsx or .tsx entrypoint, add the extension:
+        vite_javascript_tag 'application.jsx'
+
+      Visit the guide for more information: https://vite-ruby.netlify.app/guide/rails
+    -->
+
+</head>
+<body ng-app="myApp">
     <%= render 'layouts/search_url' %>
 
     <%= render 'layouts/notifications' %>

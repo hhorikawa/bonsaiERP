@@ -25,7 +25,9 @@ class Account < ApplicationRecord
   validates_lengths_from_database
 
   # attribute
-  serialize :error_messages, JSON
+  # Rails 7.1 での非互換変更: 第2引数に `coder:` が必要.
+  # See https://techracho.bpsinc.jp/hachi8833/2023_03_14/128066
+  serialize :error_messages, coder: JSON
 
   ########################################
   # Scopes, optional: true, optional: true

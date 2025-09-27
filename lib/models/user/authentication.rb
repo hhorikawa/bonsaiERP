@@ -24,11 +24,13 @@ module Models::User::Authentication
     self.encrypted_password = ::BCrypt::Engine.hash_secret(peppered_password, password_salt)
   end
 
-  private
 
-    def pepper
-      Rails.application.secrets.pepper
-    end
+private
+
+  def pepper
+    "XXXX"
+    #Rails.application.secrets.pepper
+  end
 
     def set_confirmation_token
       self.confirmation_token = SecureRandom.urlsafe_base64(32)

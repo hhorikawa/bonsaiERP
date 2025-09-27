@@ -11,7 +11,7 @@
 puts "Creating seed data for BonsaiERP..."
 
 # Create organization with a unique tenant name
-org_name = "Kintsugi Design"
+org_name = "Kintsugi"
 org_tenant = "kintsugi#{Time.now.to_i.to_s[-5..-1]}" # Use timestamp to ensure uniqueness
 
 org = Organisation.new(

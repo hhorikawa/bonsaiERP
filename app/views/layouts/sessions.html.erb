@@ -1,17 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-  <head>
-    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-    <meta content="height=device-height; width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0; user-scalable=no; target-densitydpi=device-dpi" name="viewport" />
-    <link rel="shortcut icon" href="/bonsai.ico" type="image/x-icon" />
-    <%= csrf_meta_tag %>
+<html >
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <title>Bonsai</title>
-    <%= stylesheet_link_tag 'application' %>
-    <%= javascript_importmap_tags %>
+  <title>Bonsai</title>
+
+  <link rel="shortcut icon" href="/bonsai.ico" type="image/x-icon" />
+
+  <% # Includes all stylesheet files in `app/assets/stylesheets` %>
+  <%= stylesheet_link_tag :application, "data-turbo-track": "reload" %>
     
-    <%= cdn_scripts 'jquery', 'angular' %>
     <% if Rails.env.production? %>
       <script src="//d2wy8f7a9ursnm.cloudfront.net/bugsnag-2.min.js" data-apikey="5764f05c4e7d87832059e096471f9bc9"></script>
       <%= render 'layouts/google_analytics' %>
