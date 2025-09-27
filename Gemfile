@@ -80,6 +80,10 @@ gem 'sass-rails', '~> 6.0'
 # Attributes on Steroids for Plain Old Ruby Objects
 gem 'virtus', '~> 2.0'
 
+# v1.2.3: 2015年. 廃れた
+#   AR: Model.where('created_at < ?', 2.weeks.ago)
+#   squeel: Model.where { created_at < 2.weeks.ago }
+# ActiveRecord を大胆にモンキーパッチしているため, 対応バージョンが必要
 #gem 'squeel' # Better SQL queries
 
 gem 'simple_form', '~> 5.1'  # Compatible with Rails 6.0

@@ -1,49 +1,38 @@
-<nav class="top-bar" data-topbar>
-  <ul class="title-area">
-    <li class="name"></li>
-    <li class="toggle-topbar menu-icon">
-      <a href="#">
-        <%= t('views.menu.title') %>
-      </a>
-    </li>
-  </ul>
-  <section class="top-bar-section">
-    <ul class="left">
-      <li class="has-dropdown">
-        <a href='#'>
-          <%= t('views.menu.reports') %>
-        </a>
-        <ul class="dropdown">
-          <li>
-            <%= link_to t("views.menu.home"), home_path %>
-          </li>
-          <li>
-            <%= link_to t("views.menu.dashboard"), dashboard_path %>
-          </li>
-          <li>
-            <%= link_to t("views.menu.reports"), reports_path %>
-          </li>
+
+<% # See https://get.foundation/sites/docs/top-bar.html
+  %>
+
+<div class="title-bar" data-responsive-toggle="responsive-menu"
+     data-hide-for="medium">
+  <button class="menu-icon" type="button" data-toggle="responsive-menu"></button>
+  <div class="title-bar-title">Menu</div>
+</div>
+
+<nav class="top-bar" id="responsive-menu">
+  <div class="top-bar-left">
+    <ul class="dropdown menu" data-dropdown-menu>
+      <li class="menu-text">ぼんさいERP</li>
+
+      <li class="has-submenu">
+        <a ><%= t('views.menu.reports') %></a>
+        <ul class="submenu menu vertical" data-submenu>
+          <li><%= link_to t("views.menu.home"), home_path %></li>
+          <li><%= link_to t("views.menu.dashboard"), dashboard_path %></li>
+          <li><%= link_to t("views.menu.reports"), reports_path %></li>
           <li>
             <%= link_to t("views.menu.inventory"), inventory_report_path %>
           </li>
         </ul>
       </li>
-      <li class="has-dropdown">
-        <a><%= t('views.menu.general') %></a>
-        <ul class="dropdown">
-          <li>
-            <%= link_to t("views.menu.incomes"), incomes_path %>
-          </li>
-          <li>
-            <%= link_to t("views.menu.new_income"), new_income_path %>
-          </li>
+      
+      <li class="has-submenu">
+        <a ><%= t('views.menu.general') %></a>
+        <ul class="submenu menu vertical" data-submenu>
+          <li><%= link_to t("views.menu.incomes"), incomes_path %> </li>
+          <li><%= link_to t("views.menu.new_income"), new_income_path %></li>
           <%# <li class="divider"></li> %>
-          <li>
-            <%= link_to t("views.menu.expenses"), expenses_path %>
-          </li>
-          <li>
-            <%= link_to t("views.menu.new_expense"), new_expense_path %>
-          </li>
+          <li><%= link_to t("views.menu.expenses"), expenses_path %></li>
+          <li><%= link_to t("views.menu.new_expense"), new_expense_path %></li>
           <%# <li class="divider"></li> %>
           <li>
             <%= link_to contacts_path do %>
@@ -69,7 +58,8 @@
           </li>
         </ul>
       </li>
-      <li class="has-dropdown">
+      
+      <li class="has-submenu">
         <a><%= t('views.menu.cuentas') %></a>
         <ul class="dropdown">
           <li>
@@ -87,7 +77,7 @@
         </ul>
       </li>
 
-      <li class="has-dropdown">
+      <li class="has-submenu">
         <a><%= t('views.menu.inventarios') %></a>
         <ul class="dropdown">
           <li>

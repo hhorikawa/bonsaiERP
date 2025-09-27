@@ -4,7 +4,7 @@
 class Organisation < ApplicationRecord
 
   DATA_PATH = "db/defaults"
-  self.table_name = 'common.organisations'
+  self.table_name = 'public.organisations'
 
   HEADER_CSS = %w(bonsai-header red-header blue-header white-header violet-header orange-header dark-header)
 
