@@ -2,9 +2,9 @@ class AddOrganisationsSettings < ActiveRecord::Migration[5.2]
   def up
     PgTools.with_schemas %w(public common) do
       change_table :organisations do |t|
-        t.hstore :settings
+        t.text :settings
       end
-      change_column_default :organisations, :settings, inventory: true
+      #change_column_default :organisations, :settings, inventory: true
     end
   end
 

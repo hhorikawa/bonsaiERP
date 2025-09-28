@@ -5,8 +5,7 @@ class AddTagsToItems < ActiveRecord::Migration[5.2]
         t.integer :tag_ids, array: true, default: []
       end
       #execute "ALTER TABLE items ADD COLUMN tag_ids integer[] DEFAULT '{}'"
-
-      execute "CREATE INDEX index_items_on_tag_ids ON items USING GIN(tag_ids)"
+      #execute "CREATE INDEX index_items_on_tag_ids ON items USING GIN(tag_ids)"
     end
   end
 

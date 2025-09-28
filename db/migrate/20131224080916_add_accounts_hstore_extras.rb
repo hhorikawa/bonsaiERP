@@ -3,7 +3,7 @@ class AddAccountsHstoreExtras < ActiveRecord::Migration[5.2]
     PgTools.change_schema 'public'
     PgTools.all_schemas.each do |schema|
       next  if schema == 'common'
-      execute "ALTER TABLE #{schema}.accounts ADD COLUMN extras public.hstore"
+      execute "ALTER TABLE #{schema}.accounts ADD COLUMN extras TEXT"
     end
   end
 

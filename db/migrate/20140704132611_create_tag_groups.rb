@@ -10,7 +10,7 @@ class CreateTagGroups < ActiveRecord::Migration[5.2]
       end
 
       add_index :tag_groups, :name, unique: true
-      add_index :tag_groups, :tag_ids, using: :gin
+      add_index :tag_groups, :tag_ids #, using: :gin
     end
   end
 

@@ -6,13 +6,13 @@ class AddGinIdexesAccountsAccountLedgers < ActiveRecord::Migration[5.2]
       remove_column :account_ledgers, :old_reference
       remove_index :account_ledgers, :reference
       change_column :account_ledgers, :reference, :text
-      execute 'CREATE INDEX index_account_ledgers_on_reference ON account_ledgers USING gin (reference gin_trgm_ops)'
+      #execute 'CREATE INDEX index_account_ledgers_on_reference ON account_ledgers USING gin (reference gin_trgm_ops)'
 
       # accounts
       remove_index :accounts, :name
       remove_index :accounts, :description
-      execute 'CREATE INDEX index_accounts_on_name ON accounts USING gin (name gin_trgm_ops)'
-      execute 'CREATE INDEX index_accounts_on_description ON accounts USING gin (description gin_trgm_ops)'
+      #execute 'CREATE INDEX index_accounts_on_name ON accounts USING gin (name gin_trgm_ops)'
+      #execute 'CREATE INDEX index_accounts_on_description ON accounts USING gin (description gin_trgm_ops)'
 
     end
   end

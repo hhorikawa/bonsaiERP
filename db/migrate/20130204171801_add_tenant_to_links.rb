@@ -7,7 +7,7 @@ class AddTenantToLinks < ActiveRecord::Migration[5.2]
 
       add_index :links, :tenant
 
-      Link.connection.execute("UPDATE common.links AS l SET tenant=o.tenant FROM common.organisations AS o WHERE o.id=l.organisation_id")
+      #Link.connection.execute("UPDATE common.links AS l SET tenant=o.tenant FROM common.organisations AS o WHERE o.id=l.organisation_id")
     end
   end
 end

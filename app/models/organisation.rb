@@ -9,9 +9,9 @@ class Organisation < ApplicationRecord
   HEADER_CSS = %w(bonsai-header red-header blue-header white-header violet-header orange-header dark-header)
 
   ########################################
-  jsonb_accessor :settings,
-    inventory: :boolean,
-    header_css: :string
+  def settings
+    self[:settings] ? JSON.parse(self[:settings]) : {}
+  end
 
   # Callbacks
   before_validation :set_tenant
@@ -149,7 +149,7 @@ private
 
   # callback: `after_create()`
   def on_after_create
-    #Apartment::Tenant.create(self.tenant)
+    # Apartment::Tenant.create(self.tenant)
   end
   
     def tenant_pad(size = 5)

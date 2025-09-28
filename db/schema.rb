@@ -12,7 +12,6 @@
 
 ActiveRecord::Schema[8.0].define(version: 2025_04_16_051351) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "hstore"
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
 
@@ -51,7 +50,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_16_051351) do
     t.index ["name"], name: "index_account_ledgers_on_name", unique: true
     t.index ["operation"], name: "index_account_ledgers_on_operation"
     t.index ["project_id"], name: "index_account_ledgers_on_project_id"
-    t.index ["reference"], name: "index_account_ledgers_on_reference", opclass: :gin_trgm_ops, using: :gin
     t.index ["status"], name: "index_account_ledgers_on_status"
     t.index ["updater_id"], name: "index_account_ledgers_on_updater_id"
   end
@@ -90,15 +88,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_16_051351) do
     t.index ["creator_id"], name: "index_accounts_on_creator_id"
     t.index ["currency"], name: "index_accounts_on_currency"
     t.index ["date"], name: "index_accounts_on_date"
-    t.index ["description"], name: "index_accounts_on_description", opclass: :gin_trgm_ops, using: :gin
     t.index ["due_date"], name: "index_accounts_on_due_date"
-    t.index ["extras"], name: "index_accounts_on_extras", using: :gin
+    t.index ["extras"], name: "index_accounts_on_extras"
     t.index ["has_error"], name: "index_accounts_on_has_error"
-    t.index ["name"], name: "index_accounts_on_name", opclass: :gin_trgm_ops, using: :gin
     t.index ["nuller_id"], name: "index_accounts_on_nuller_id"
     t.index ["project_id"], name: "index_accounts_on_project_id"
     t.index ["state"], name: "index_accounts_on_state"
-    t.index ["tag_ids"], name: "index_accounts_on_tag_ids", using: :gin
+    t.index ["tag_ids"], name: "index_accounts_on_tag_ids"
     t.index ["tax_id"], name: "index_accounts_on_tax_id"
     t.index ["tax_in_out"], name: "index_accounts_on_tax_in_out"
     t.index ["type"], name: "index_accounts_on_type"
@@ -182,7 +178,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_16_051351) do
     t.index ["matchcode"], name: "index_contacts_on_matchcode"
     t.index ["staff"], name: "index_contacts_on_staff"
     t.index ["supplier"], name: "index_contacts_on_supplier"
-    t.index ["tag_ids"], name: "index_contacts_on_tag_ids", using: :gin
+    t.index ["tag_ids"], name: "index_contacts_on_tag_ids"
   end
 
   create_table "histories", force: :cascade do |t|
@@ -193,7 +189,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_16_051351) do
     t.json "history_data", default: {}
     t.datetime "created_at", precision: nil
     t.string "klass_type"
-    t.hstore "extras"
+    t.text "extras"
     t.json "all_data", default: {}
     t.index ["created_at"], name: "index_histories_on_created_at"
     t.index ["historiable_id", "historiable_type"], name: "index_histories_on_historiable_id_and_historiable_type"
@@ -262,7 +258,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_16_051351) do
     t.index ["creator_id"], name: "index_items_on_creator_id"
     t.index ["for_sale"], name: "index_items_on_for_sale"
     t.index ["stockable"], name: "index_items_on_stockable"
-    t.index ["tag_ids"], name: "index_items_on_tag_ids", using: :gin
     t.index ["unit_id"], name: "index_items_on_unit_id"
     t.index ["updater_id"], name: "index_items_on_updater_id"
   end
@@ -319,7 +314,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_16_051351) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "country_code", limit: 5
-    t.hstore "settings", default: {"inventory"=>"true"}
+    t.boolean "inventory_active", default: true
+    t.text "settings"
+    t.date "due_on"
+    t.string "plan", default: "2users"
     t.index ["country_code"], name: "index_organisations_on_country_code"
     t.index ["country_id"], name: "index_organisations_on_country_id"
     t.index ["currency"], name: "index_organisations_on_currency"
@@ -373,7 +371,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_16_051351) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["name"], name: "index_tag_groups_on_name", unique: true
-    t.index ["tag_ids"], name: "index_tag_groups_on_tag_ids", using: :gin
+    t.index ["tag_ids"], name: "index_tag_groups_on_tag_ids"
   end
 
   create_table "tags", force: :cascade do |t|

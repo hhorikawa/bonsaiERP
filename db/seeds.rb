@@ -21,7 +21,7 @@ org_tenant = "kintsugi#{Time.now.to_i.to_s[-5..-1]}" # Use timestamp to ensure u
 org = Organisation.new(
   name: org_name,
   tenant: org_tenant,
-  inventory: true,
+  inventory_active: true,
   country_code: 'US',
   currency: 'USD',
   email: 'admin@kintsugi.design'

@@ -1,6 +1,7 @@
 class UpdateIncomesExpensesHstoreTransactions < ActiveRecord::Migration[5.2]
   def up
     PgTools.with_schemas except: 'common' do
+=begin
       execute <<-SQL
 UPDATE accounts a SET extras = HSTORE('bill_number', t.bill_number) ||
 HSTORE('gross_total', t.gross_total::text) ||
@@ -16,6 +17,7 @@ HSTORE('no_inventory', t.no_inventory::text)
 FROM transactions t
 WHERE t.account_id = a.id AND a.type IN ('Income', 'Expense');
       SQL
+=end
     end
   end
 

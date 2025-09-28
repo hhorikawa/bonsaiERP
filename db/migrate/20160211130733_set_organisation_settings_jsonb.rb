@@ -1,7 +1,7 @@
 class SetOrganisationSettingsJsonb < ActiveRecord::Migration[5.2]
   def up
     PgTools.with_schemas only: 'common' do
-      change_column :organisations, :settings, :hstore, :default => nil
+      #change_column :organisations, :settings, :text, :default => nil
     end
   end
 

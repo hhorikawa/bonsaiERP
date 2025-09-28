@@ -73,7 +73,7 @@ Apartment.configure do |config|
   #
   # true だと, ERROR:  型"kintsugi.hstore"は存在しません (PG::UndefinedObject)
   # false でも ERROR:  アクセスメソッド"gin"用の演算子クラス"gin_trgm_ops"は存在しません (PG::UndefinedObject)
-  config.use_sql = false
+  config.use_sql = true
 
   # There are cases where you might want some schemas to always be in your search_path
   # e.g when using a PostgreSQL extension like hstore.

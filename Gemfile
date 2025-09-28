@@ -122,7 +122,7 @@ gem 'validates_lengths_from_database'
 #gem 'hstore_accessor'
 
 # Adds typed jsonb backed fields to your ActiveRecord models.
-gem 'jsonb_accessor', '~> 1.4'
+#gem 'jsonb_accessor', '~> 1.4'
 
 gem 'dragonfly', '~> 1.4'
 
