@@ -1,4 +1,6 @@
-# encoding: utf-8
+
+# 互換性のため, メソッドは殺さず, 特に何もしない
+
 module PgTools
   [:username, :database, :host, :password].each do |meth|
     class_eval <<-CODE, __FILE__, __LINE__ + 1
@@ -18,7 +20,9 @@ module PgTools
     res.getvalue(0,0) === "public"
   end
 
-  def with_schema(schema_name)
+  def with_schema(schema_name, &block)
+    block.call
+=begin    
     old_search_path = connection.schema_search_path
     set_search_path(schema_name)
     #set_schema_path(schema_name)
@@ -27,12 +31,13 @@ module PgTools
 
     connection.schema_search_path = old_search_path
     reset_search_path
-    result
+   result
+=end   
   end
 
   def change_schema(schema_name)
-    return reset_search_path if schema_name.nil? || schema_name.to_s.empty?
-    connection.schema_search_path = [schema_name, 'public'].join(', ')
+    #return reset_search_path if schema_name.nil? || schema_name.to_s.empty?
+    #connection.schema_search_path = [schema_name, 'public'].join(', ')
   end
   alias_method :change_tenant, :change_schema
 
@@ -52,8 +57,8 @@ module PgTools
   def create_schema(schema_name)
     raise "#{schema_name} already exists" if schema_exists?(schema_name)
 
-    ActiveRecord::Base.logger.info "Create #{schema_name}"
-    connection.execute "CREATE SCHEMA #{schema_name}"
+    #ActiveRecord::Base.logger.info "Create #{schema_name}"
+    #connection.execute "CREATE SCHEMA #{schema_name}"
   end
 
   def copy_migrations
@@ -66,12 +71,12 @@ module PgTools
   def drop_schema(schema_name)
     raise "#{schema_name} does not exists" unless schema_exists?(schema_name)
 
-    ActiveRecord::Base.logger.info "Drop schema #{schema_name}"
-    execute "DROP SCHEMA IF EXISTS #{schema_name} CASCADE"
+    #ActiveRecord::Base.logger.info "Drop schema #{schema_name}"
+    #execute "DROP SCHEMA IF EXISTS #{schema_name} CASCADE"
   end
 
   def drop_schema_if(schema_name)
-    connection.execute "DROP SCHEMA IF EXISTS #{schema_name} CASCADE"
+    #connection.execute "DROP SCHEMA IF EXISTS #{schema_name} CASCADE"
   end
 
   def migrate_schema(schema_name, version = nil)
@@ -214,7 +219,9 @@ BASH
     ActiveRecord::Base.connection.schema_search_path = 'public'
   end
 
-  def with_schemas(options = nil)
+  def with_schemas(options = nil, &block)
+    block.call
+=begin
     options = unify_type(options, Hash) { |items| {:only => items} }
 
     set_options(options)
@@ -228,7 +235,8 @@ BASH
       change_schema schema
       yield schema
     end
-    reset_schema_path
+   reset_schema_path
+=end
   end
 
   def with_schemas_list(options = nil)

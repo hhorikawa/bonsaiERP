@@ -1,4 +1,8 @@
-# encoding:utf-8
+
+# Apartment の使い方は、ここが詳しい
+#   https://qiita.com/kakipo/items/a584d24771dff019d3a9
+#   Apartment でマルチテナントサービスを作成する
+
 # Used to create sample data
 
 # NOTE: There are several issues with creating seed data:

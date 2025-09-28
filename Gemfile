@@ -12,9 +12,23 @@ ruby '>= 3.3.2'
 gem "rails", "~> 8.0.1"
 
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
-# 'sass-rails' gem が sprockets-rails に依存.
-gem "sprockets-rails"
-# gem "propshaft"  # Rails 8 標準
+# "propshaft" 単体ではトランスパイルを行わない。TypeScript, Sass を使う場合は,
+#   1) "sprockets-rails" か
+#   2) "propshaft" + jsbundling-rails と cssbundling-rails 
+# Rails 7: gem "sprockets-rails", "~> 3.5"  # Rails >=6.1
+gem "propshaft"
+
+# SASS 記法 (字下げを用いる) は廃れた. 今は SCSS 記法 (`{`〜`}` で囲む)。
+# ライブラリは併せて sass.
+# sass-rails 6.0.0 2019年8月
+# 依存 "sass-rails" -> sassc-rails --> sprockets-rails 3.5.2
+#                                  +-> sassc 2.4.0  # 中で LibSass を実行
+# 移行先 1. dartsass-rails  sass バイナリを含む。importmap-rails 下での利用
+#             依存 +-> sass-embedded -> google-protobuf
+#        2. cssbundling-rails  npm sass を呼び出す. これがよい.
+#        3. webpack の sass-loader
+#gem "sass-rails", "~> 6.0"
+gem "cssbundling-rails"
 
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
@@ -23,7 +37,8 @@ gem "pg", "~> 1.1"
 gem "puma", ">= 5.0"
 
 # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
-gem "jsbundling-rails"
+# vite を使う場合, 不要では?
+#gem "jsbundling-rails"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
@@ -67,11 +82,6 @@ gem "thruster", require: false
 
 #gem 'concurrent-ruby', '1.3.4'  # Pin to avoid Logger issues with newer versions
 #gem 'logger', '~> 1.4'
-
-# Assets
-# v6.0.0 2019年. 廃れているが, 全体的に .scss ファイルで作られている
-# 依存関係: sass-rails -> sassc-rails -> sprockets-rails 
-gem 'sass-rails', '~> 6.0'
 
 # Temporarily adding compass-rails for backward compatibility during upgrade
 # Removed compass-rails as it's not compatible with sass-rails 6.0
@@ -215,4 +225,8 @@ gem "rack-cors"
 
 # do `bundle exec vite install`
 gem "vite_rails"
+
+# 各テナントを PostgreSQL のスキーマを使って完全に分ける
+#   ros-apartment 3.2  rails >=6.1.0, < 8.1
+gem "ros-apartment", "~> 3.2", require: 'apartment'
 

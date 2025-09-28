@@ -16,6 +16,9 @@ class Organisation < ApplicationRecord
   # Callbacks
   before_validation :set_tenant
 
+  # PostgreSQL スキーマ分離
+  after_create :on_after_create
+  
   ########################################
   # Relationships
   has_many :links, dependent: :destroy, autosave: true
@@ -114,7 +117,8 @@ class Organisation < ApplicationRecord
     end
   end
 
-  private
+  
+private
 
     def set_user_errors(user)
       [:email, :password].each do |meth|
@@ -143,6 +147,11 @@ class Organisation < ApplicationRecord
       end
     end
 
+  # callback: `after_create()`
+  def on_after_create
+    #Apartment::Tenant.create(self.tenant)
+  end
+  
     def tenant_pad(size = 5)
       SecureRandom.urlsafe_base64(32).downcase
       .gsub(/[^A-Za-z]/, '')[0...size]
