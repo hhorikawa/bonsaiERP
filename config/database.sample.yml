@@ -1,14 +1,15 @@
+
 default: &default
   adapter: postgresql
   encoding: unicode
   pool: 5
-  username: <%= ENV['USER'] %>
-  # password: postgres  # Uncomment and set if your PostgreSQL requires a password
   host: localhost
 
 development:
   <<: *default
   database: bonsai_erp_development
+  username: <%= ENV['USER'] %>
+  password: postgres  # Uncomment and set if your PostgreSQL requires a password
 
 test:
   <<: *default

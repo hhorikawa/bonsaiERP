@@ -1,10 +1,18 @@
+
+# Rails 6.1 は 2020年12月.
+
 source 'https://rubygems.org'
 
-ruby '2.6.4'
-gem 'rails', '6.0.6'
+ruby '>= 3.1.0'
+
+gem 'rails', '~> 6.1.7'
+
 gem 'bootsnap', '~> 1.7.0', require: false
-gem 'concurrent-ruby', '1.3.4'  # Pin to avoid Logger issues with newer versions
-gem 'logger', '~> 1.4'
+# bootsnap が listen に依存
+gem 'listen', '~> 3.4.1' # Required for Rails 6.0 file watcher
+
+#gem 'concurrent-ruby', '1.3.4'  # Pin to avoid Logger issues with newer versions
+#gem 'logger', '~> 1.4'
 
 # Assets
 gem 'sass-rails', '~> 6.0.0'  # Updated for Rails 6.0 compatibility
@@ -15,16 +23,20 @@ gem 'webpacker', '~> 5.4.3'  # Required for Rails 6.0
 # Temporarily adding compass-rails for backward compatibility during upgrade
 # Removed compass-rails as it's not compatible with sass-rails 6.0
 # gem 'compass-rails', '~> 3.1.0'
-gem 'pg', '~> 1.2.3' # Postgresql adapter - compatible with Rails 6.0
+gem 'pg', '~> 1.2' # Postgresql adapter - compatible with Rails 6.0
 gem 'virtus' # Model generation in simple way
 #gem 'squeel' # Better SQL queries
 
 gem 'simple_form', '~> 5.1.0'  # Compatible with Rails 6.0
+
 # Template engines
-# gem 'haml', '~> 5.1.2'  # Compatible with Rails 5.0
-gem 'erubis', '~> 2.7.0'
+gem 'haml', '~> 5.1.2'  # Compatible with Rails 5.0
+#gem 'erubis', '~> 2.7.0'
 # gem 'erb', '~> 2.2.0'
-gem 'kaminari', '~> 1.2.1' # Pagination
+
+# Pagination
+gem 'kaminari', '~> 1.2.1'
+
 gem 'bcrypt', '~> 3.1.16', require: 'bcrypt'
 gem 'active_model_serializers', '~> 0.10.12' # ActiveRecord Classes to encode in JSON
 gem 'resubject' # Cool presenter
@@ -39,7 +51,7 @@ gem 'dragonfly', '~> 1.4.0'
 gem "rack-cors", '~> 1.1.1', require: "rack/cors"
 
 gem "responders", "~> 3.0.0"  # Compatible with Rails 6.0
-gem 'zeitwerk', '~> 2.6.0'  # Required for Rails 6.0 autoloading
+#gem 'zeitwerk', '~> 2.6.0'  # Required for Rails 6.0 autoloading
 
 # Active Storage
 gem 'image_processing', '~> 1.12.2'  # For Active Storage variants
@@ -67,14 +79,17 @@ group :development do
   gem 'web-console', '~> 4.1.0'  # Updated for Rails 6.0
   gem 'spring', '~> 2.1.1'
   gem 'spring-commands-rspec', '~> 1.0.4'
-  gem 'listen', '~> 3.2.1' # Required for Rails 6.0 file watcher
 end
 
 group :development, :test do
   gem "puma", '~> 4.3.12' # Web server - compatible with Ruby 2.6
-  gem "rspec-rails", '~> 4.1.0'  # Compatible with Rails 6.0
+
+  # rspec-rails 8.x for Rails 7.2/8.0
+  # rspec-rails 6.x for Rails 6.1, 7.0, 7.1
+  gem "rspec-rails", '~> 6.1.5'
+  
   gem "ffaker", '~> 2.20.0'
-  gem "pry-byebug", '~> 3.9.0'
+  #gem "pry-byebug", '~> 3.9.0'
 end
 
 # Test
@@ -88,5 +103,4 @@ group :test do
   gem "launchy", '~> 2.5.0'
   gem 'rails-controller-testing', '~> 1.0.5'  # For assigns and assert_template in Rails 6.0
   gem 'webdrivers', '~> 5.0.0'  # For system tests in Rails 6.0
-  gem 'actiontext', '~> 6.0.6'
 end
