@@ -1,27 +1,24 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-  <head>
-    <meta http-equiv="content-type" content="text/html;charset=UTF-8">
-    <meta content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
-    <link rel="shortcut icon" href="/bonsai.ico" type="image/x-icon">
-    <%= csrf_meta_tag %>
+<html >
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="shortcut icon" href="/bonsai.ico" type="image/x-icon">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <title>bonsaiERP - <%= current_organisation %></title>
+  <title>bonsaiERP - <%= current_organisation %></title>
 
-    <%= stylesheet_link_tag "application", media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag "application", media: 'all' %>
     
     <!-- Load jQuery and other libraries from CDN -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
-    <%= cdn_scripts 'angular' %>
-    <%= javascript_include_tag "application", 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <% if Rails.env.production? %>
+  <%= javascript_include_tag "application" %>
+<% if Rails.env.production? %>
       <script src="//d2wy8f7a9ursnm.cloudfront.net/bugsnag-2.min.js" data-apikey="5764f05c4e7d87832059e096471f9bc9"></script>
       <%= render 'layouts/google_analytics' %>
-    <% end %>
+<% end %>
 
     <script type="text/javascript">
       this.organisation = {
@@ -32,7 +29,8 @@
       this.exchangeRates = <%= set_exchange_rates %>;
       this.currencies = <%= File.read Rails.root.join 'public', 'currencies.json' %>;
     </script>
-  </head>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+</head>
 
   <body ng-app="myApp">
     <%= render 'layouts/search_url' %>

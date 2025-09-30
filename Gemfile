@@ -10,15 +10,27 @@ gem 'rails', '~> 6.1.7'
 gem 'bootsnap', '~> 1.7.0', require: false
 # bootsnap が listen に依存
 gem 'listen', '~> 3.4.1' # Required for Rails 6.0 file watcher
-
-#gem 'concurrent-ruby', '1.3.4'  # Pin to avoid Logger issues with newer versions
-#gem 'logger', '~> 1.4'
+# active_support が logger に依存. logger 1.7.0 では動かない.
+# 対策: uninitialized constant ActiveSupport::LoggerThreadSafeLevel::Logger (NameError)
+gem 'logger', '~> 1.4.4'
+gem 'concurrent-ruby', '~> 1.1.10'  # Pin to avoid Logger issues with newer versions
 
 # Assets
+# もし 'sass-rails' を使う場合は, 'sprockets-rails'.
+gem 'sprockets-rails'
+
+# Rails6 は 'sass-rails'.
+#   依存 sassc-rails -> sprockets-rails
 gem 'sass-rails', '~> 6.0.0'  # Updated for Rails 6.0 compatibility
+
 gem 'coffee-rails' , '~> 5.0.0'
+
 gem 'uglifier' , '>= 4.1.0'
-gem 'webpacker', '~> 5.4.3'  # Required for Rails 6.0
+
+# webpacker は, openssl 3.0 で動かない。生の webpack を使う.
+# See https://www.nslabs.jp/rails-switch-from-webpacker-to-jsbundling-rails.rhtml
+#gem 'webpacker', '~> 5.4.3'  # Required for Rails 6.0
+gem "jsbundling-rails"
 
 # Temporarily adding compass-rails for backward compatibility during upgrade
 # Removed compass-rails as it's not compatible with sass-rails 6.0
