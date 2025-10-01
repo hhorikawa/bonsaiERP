@@ -1,7 +1,7 @@
 [![Code Climate](https://codeclimate.com/github/boriscy/bonsaiERP/badges/gpa.svg)](https://codeclimate.com/github/boriscy/bonsaiERP)
 [![License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/boriscy/bonsaiERP/blob/dev/MIT-LICENSE.md)
 
-> This project is no longer mantained you can fork it and continue development
+
 
 # *bonsaiERP*
 
@@ -18,31 +18,57 @@
 
 The system allows to use multiple currencies and make exchange rates.
 
+
+
 ## Installation
 
 ### bonsaiERP requires
 
-- Ruby 2.2.2
-- PostgreSQL 9.4 and postgresql-contrib to enable **hstore**
+- Ruby 3.x
+- PostgreSQL 14 and `postgresql-contrib` to enable **hstore**
 - Nodejs for compiling assets
-- imagemagick
-- phantomjs
+
 
 ### Installing *bonsaiERP*
 
 After installing the required (ruby, postgresql, etc.) you can begin with *bonsaiERP*, run
 
-`rake db:migrate`
+By `postgres` user,
+```shell
+$ createdb --owner rails --encoding UTF-8 bonsai_erp_development
+```
 
-this will create all neccessary tables, if you are in ubuntu
-or debian edit yor `/etc/hosts` file and add something like this
+```shell
+$ `bundle`
+```
 
+Copy `config/database.yml.sample` to `database.yaml` and edit it.
+
+$ `rails db:migrate`
+$ `rails db:seed`
+```
+
+Sample login email and password are generated.
+
+On another terminal,
+```shell
+$ `redis-server`
+```
+
+If you are in Ubuntu or Debian, add something like this to your `/etc/hosts`
+file.
 ```
 127.0.0.1	app.localhost.bom
 127.0.0.1	bonsai.localhost.bom
 127.0.0.1	mycompany.localhost.bom
-
 ```
+
+And run!
+```shell
+$ `yarn`
+$ `foreman start -f Procfile.dev`
+```
+
 in development you will need to edit but in production you can configure
 so you won't need to edit the `/etc/hosts` file for each new subdomain, start the app `rails s` and go to
 http://app.localhost.bom:3000/sign_up to create a new account,

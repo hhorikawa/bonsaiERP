@@ -23,8 +23,13 @@ class Bank < Account
     name
   end
 
-  private
+  def pendent_ledgers_tag
+    # 内容不明
+  end
 
+  
+private
+  
     def set_defaults
       self.total_amount ||= 0.0
     end

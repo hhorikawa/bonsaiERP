@@ -6,7 +6,7 @@ class BanksController < ApplicationController
 
   # GET /banks
   def index
-    @banks = present Bank.order('name asc'), MoneyAccountPresenter
+    @banks = Bank.order('name asc')
   end
 
   # GET /banks/1
@@ -19,7 +19,9 @@ class BanksController < ApplicationController
   end
 
   # GET /banks/1/edit
-
+  def edit
+  end
+  
   # POST /banks
   def create
     @bank = Bank.new(create_bank_params)
@@ -49,16 +51,17 @@ class BanksController < ApplicationController
 
   # DELETE /banks/1
   # DELETE /banks/1.xml
-  #def destroy
-  #  @bank.destroy
-  #  respond_ajax @bank
-  #end
+  def destroy
+    @bank.destroy
+    respond_ajax @bank
+  end
 
-  private
+  
+private
 
-    def find_bank
-      @bank = present Bank.find(params[:id]), MoneyAccountPresenter
-    end
+  def find_bank
+    @bank = Bank.find(params[:id])
+  end
 
     def update_bank_params
       params.require(:bank).permit(:name, :number, :active, :address, :phone, :website)
