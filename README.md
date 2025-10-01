@@ -1,4 +1,4 @@
-[![Code Climate](https://codeclimate.com/github/boriscy/bonsaiERP/badges/gpa.svg)](https://codeclimate.com/github/boriscy/bonsaiERP)
+
 [![License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/boriscy/bonsaiERP/blob/dev/MIT-LICENSE.md)
 
 
@@ -34,16 +34,20 @@ The system allows to use multiple currencies and make exchange rates.
 After installing the required (ruby, postgresql, etc.) you can begin with *bonsaiERP*, run
 
 By `postgres` user,
+
 ```shell
 $ createdb --owner rails --encoding UTF-8 bonsai_erp_development
 ```
+
+At the application directory,
 
 ```shell
 $ `bundle`
 ```
 
-Copy `config/database.yml.sample` to `database.yaml` and edit it.
+Copy `config/database.yml.sample` to `database.yaml` and edit it. Then,
 
+```shell
 $ `rails db:migrate`
 $ `rails db:seed`
 ```
@@ -51,6 +55,7 @@ $ `rails db:seed`
 Sample login email and password are generated.
 
 On another terminal,
+
 ```shell
 $ `redis-server`
 ```
@@ -64,6 +69,7 @@ file.
 ```
 
 And run!
+
 ```shell
 $ `yarn`
 $ `foreman start -f Procfile.dev`
