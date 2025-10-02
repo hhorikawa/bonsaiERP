@@ -3,11 +3,9 @@
 ## System Requirements
 
 ### Ruby Version
-- Ruby 2.6.4 (current)
 - Ruby 3.3.0 (for Rails 8.0 upgrade)
 
 ### Rails Version
-- Rails 6.0.6 (current)
 - Rails 8.0 (future upgrade)
 
 ### Database
@@ -21,6 +19,8 @@
 ### Other Dependencies
 - ImageMagick (for image processing)
 - Git
+
+
 
 ## Development Environment Setup
 

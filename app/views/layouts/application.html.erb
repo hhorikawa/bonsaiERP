@@ -50,24 +50,14 @@
 
 </head>
 <body ng-app="myApp">
-    <%= render 'layouts/search_url' %>
+  
+<% # `cache()` は Rails のフラグメントキャッシュの仕組み. %>      
+<% cache [current_user, 'menu'] do %>
+  <%= render 'layouts/menus' %>
+<% end %>
 
+  
     <%= render 'layouts/notifications' %>
-
-    <!-- Header -->
-    <div id="head">
-      <% cache [current_user, 'menu'] do %>
-        <div class="cont"><%= render 'layouts/menus' %></div>
-      <% end %>
-    </div>
-
-    <div id="head2" class="<%= current_organisation.header_css %>">
-      <div class="row-fluid cont">
-        <div class="span12">
-          <h3 class="organisation"><%= organisation_name %></h3>
-        </div>
-      </div>
-    </div>
 
     <div id="wrapper" class="cont">
       <div id="topbar">
