@@ -5,14 +5,13 @@
 %h1 Nueva cuenta bancaria
 
 = simple_form_for(@bank, html: {id: 'bank-form' }) do |f|
-  = bonsai_form_error(f)
   .row-fluid
     .span6
       = f.input :name, label: 'Name', input_html: { class: 'span10' }
 
   .row-fluid
     .span6
-      = f.input :currency, collection: currency_options,
+      = f.input :currency, collection: Currency.options(*Currency::FILTER),
         input_html: {placeholder: 'Escriba para poder buscar', class: 'span10' },
         label: 'Currency (<i>No es posible modificar</i>)'.html_safe
 

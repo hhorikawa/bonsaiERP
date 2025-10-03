@@ -1,6 +1,9 @@
-# encoding: utf-8
+
 # author: Boris Barroso
 # email: boriscyber@gmail.com
+
+# 組織
+# PostgreSQL スキーマと 1:1
 class Organisation < ApplicationRecord
 
   DATA_PATH = "db/defaults"
@@ -13,11 +16,9 @@ class Organisation < ApplicationRecord
     self[:settings] ? JSON.parse(self[:settings]) : {}
   end
 
-  # Callbacks
-  before_validation :set_tenant
-
   # PostgreSQL スキーマ分離
-  after_create :on_after_create
+  # `Organisation` が保存された後に実行
+  after_commit :on_after_create, on: :create
   
   ########################################
   # Relationships
@@ -31,10 +32,14 @@ class Organisation < ApplicationRecord
 
   ########################################
   # Validations
-  validates_presence_of   :name, :tenant
-  validates :tenant, uniqueness: true, format: { with: /\A[a-z0-9]+\z/ }, length: { in: 3...15 }
+  
+  validates_presence_of   :name
 
+  # そのままドメイン名になるので, 英数のみ.
+  validates :tenant, uniqueness: true, format: { with: /\A[a-z][a-z0-9]+\z/ },
+                     length: { in: 3...15 }
   validate :valid_tenant_not_in_list
+  
   validate :valid_header_css
   validates_email_format_of :email, if: -> { email.present? }, message: I18n.t('errors.messages.email')
 
@@ -133,29 +138,21 @@ private
       self.due_date = 30.days.from_now.to_date
     end
 
-    def valid_tenant_not_in_list
-      if INVALID_TENANTS.include?(tenant)
-        self.errors[:tenant] << I18n.t('organisation.errors.tenant.list')
-      end
+  # For `validate()`
+  def valid_tenant_not_in_list
+    if INVALID_TENANTS.include?(tenant)
+      errors.add :tenant, I18n.t('organisation.errors.tenant.list')
     end
+  end
 
-    def set_tenant
-      if new_record?
-        t_name = name.to_s.downcase.gsub(/[^A-Za-z]/, '')[0...15]
-        self.tenant = t_name
-        self.tenant = "#{t_name[0...10]}#{tenant_pad(5)}"  if Organisation.where(tenant: tenant).any?
-      end
-    end
-
-  # callback: `after_create()`
+  # callback: `after_commit`
+  # `Organisation` を作るだけで, 自動的にテナントの生成が走るっぽい.
   def on_after_create
-    # Apartment::Tenant.create(self.tenant)
+    #puts "Here, creating tenant..."
+    #Apartment::Tenant.create(self.tenant)
+    #puts "Creating tenant was done!"
   end
   
-    def tenant_pad(size = 5)
-      SecureRandom.urlsafe_base64(32).downcase
-      .gsub(/[^A-Za-z]/, '')[0...size]
-    end
 
     def currency_klass
       @currency_klass ||= Currency.find(currency)

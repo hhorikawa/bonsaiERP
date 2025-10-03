@@ -230,3 +230,6 @@ gem "vite_rails"
 #   ros-apartment 3.2  rails >=6.1.0, < 8.1
 gem "ros-apartment", "~> 3.2", require: 'apartment'
 
+# 依存: "countries" gem
+# `Money::Currency` と組み合わせる.
+gem "country_select"

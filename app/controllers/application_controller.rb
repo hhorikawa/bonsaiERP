@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
   # Callbacks
   before_action :set_user_session, if: :user_signed_in?
   before_action :set_organisation_session # Must go before :check_authorization!
-  before_action :set_page, :set_tenant, :check_authorization!
+  before_action :set_page,  :check_authorization!
   before_action :set_locale, if: :user_signed_in?
 
   # especial redirect for ajax requests
@@ -48,7 +48,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_organisation
-    @organisation ||= Organisation.find_by(tenant: current_tenant)
+    @organisation ||= Organisation.find_by(tenant: Apartment::Tenant.current)
   end
   helper_method :current_organisation
 
@@ -106,6 +106,7 @@ class ApplicationController < ActionController::Base
       @page = params[:page] || 1
     end
 
+=begin
     def current_tenant
       return nil unless session.id
       begin
@@ -115,7 +116,8 @@ class ApplicationController < ActionController::Base
         nil
       end
     end
-
+=end
+  
     # Uses the helper methods from devise to made them available in the models
     def set_user_session
       UserSession.user = current_user
@@ -127,10 +129,12 @@ class ApplicationController < ActionController::Base
     end
     helper_method :organisation?
 
+=begin
     def set_tenant
       PgTools.change_schema current_tenant
     end
-
+=end
+  
     def set_organisation_session
       if current_organisation
         OrganisationSession.organisation = current_organisation

@@ -2,7 +2,7 @@
 # email: boriscyber@gmail.com
 class SessionsController < ApplicationController
   #before_action :redirect_www
-  skip_before_action :set_tenant, :check_authorization!
+  skip_before_action  :check_authorization!
   before_action :check_logged_in, only: %i(new create)
   layout "sessions"
 

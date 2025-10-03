@@ -296,8 +296,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_16_051351) do
   end
 
   create_table "organisations", force: :cascade do |t|
-    t.integer "country_id"
-    t.string "name", limit: 100
+    t.string "name", limit: 100, null: false
     t.string "address"
     t.string "address_alt"
     t.string "phone", limit: 40
@@ -305,23 +304,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_16_051351) do
     t.string "mobile", limit: 40
     t.string "email"
     t.string "website"
-    t.integer "user_id"
     t.date "due_date"
     t.text "preferences"
     t.string "time_zone", limit: 100
-    t.string "tenant", limit: 50
-    t.string "currency", limit: 10
+    t.string "tenant", limit: 50, null: false
+    t.string "currency", limit: 3, null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.string "country_code", limit: 5
+    t.string "country_code", limit: 2, null: false
     t.boolean "inventory_active", default: true
     t.text "settings"
     t.date "due_on"
     t.string "plan", default: "2users"
-    t.index ["country_code"], name: "index_organisations_on_country_code"
-    t.index ["country_id"], name: "index_organisations_on_country_id"
-    t.index ["currency"], name: "index_organisations_on_currency"
-    t.index ["due_date"], name: "index_organisations_on_due_date"
     t.index ["tenant"], name: "index_organisations_on_tenant", unique: true
   end
 

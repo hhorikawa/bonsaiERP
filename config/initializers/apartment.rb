@@ -72,8 +72,9 @@ Apartment.configure do |config|
   # (Note: this option doesn't use db/structure.sql, it creates SQL dump by executing pg_dump)
   #
   # true だと, ERROR:  型"kintsugi.hstore"は存在しません (PG::UndefinedObject)
+  #                    `pg_dump` コマンドでエラー
   # false でも ERROR:  アクセスメソッド"gin"用の演算子クラス"gin_trgm_ops"は存在しません (PG::UndefinedObject)
-  config.use_sql = true
+  config.use_sql = false
 
   # There are cases where you might want some schemas to always be in your search_path
   # e.g when using a PostgreSQL extension like hstore.
@@ -117,3 +118,15 @@ end
 Rails.application.config.middleware.use Apartment::Elevators::Subdomain
 # Rails.application.config.middleware.use Apartment::Elevators::FirstSubdomain
 # Rails.application.config.middleware.use Apartment::Elevators::Host
+
+# 除外: `Organisation` クラスでもチェックする.
+INVALID_TENANTS = %w(www public common demo app test)
+Apartment::Elevators::Subdomain.excluded_subdomains = INVALID_TENANTS
+
+Rails.application.config.hosts << "kintsugi97890.localhost.localdomain:5100"
+# ログイン画面 `/sessions/new` と `/sign_in` の 2ヶ所か?
+# as-is `app.*` にリダイレクトし, ログイン後にテナントのドメインに戻らない.
+#       これはダメ.
+# TODO: IdP にリダイレクトする場合でも、セッションは共用されない。
+#       テナントのドメイン内でログインできるようにする
+Rails.application.config.hosts << "app.localhost.localdomain:5100"
