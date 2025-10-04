@@ -4,8 +4,10 @@
 class Item < ApplicationRecord
 
   include ::Models::Tag
-  include ::Models::Updater
-  include ::Models::History
+  #include ::Models::Updater
+
+  # TODO: マスタと価格変動を兼ねている。分離が必要.
+  #include ::Models::History
 
   ##########################################
   # Callbacks

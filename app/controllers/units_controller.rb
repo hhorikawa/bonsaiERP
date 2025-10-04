@@ -2,7 +2,7 @@
 # author: Boris Barroso
 # email: boriscyber@gmail.com
 class UnitsController < ApplicationController
-  respond_to :html, :json
+  #respond_to :html, :json
 
   # GET /units
   def index

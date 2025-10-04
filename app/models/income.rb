@@ -8,6 +8,7 @@ class Income < Movement
 
   self.code_name = 'I'
 
+=begin  いったんコメントアウト. 後で表にする
   jsonb_accessor(:extras,
     {delivered: :boolean,
     discounted: :boolean,
@@ -21,7 +22,8 @@ class Income < Movement
     operation_type: :string,
     nuller_datetime: :datetime,
     approver_datetime: :datetime})
-
+=end
+  
   ########################################
   # Relationships
   has_many :income_details, -> { order('id asc') }, foreign_key: :account_id, dependent: :destroy

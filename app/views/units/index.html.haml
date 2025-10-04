@@ -5,16 +5,14 @@
 
 .row-fluid
   .span6
-    %h1 Unidades de medida
+    %h1 Unit of Measure
   .span6.r
-    = link_to new_unit_path, class: 'btn' do
-      %i.icon-plus-sign
-      Nueva unidad
+    = link_to "New UoM...", new_unit_path, class: 'btn btn-secondary' 
 
 %table.table.table-striped
   %tr
     %th Name
-    %th Símbolo
+    %th Symbol
     %th
 
   - @units.each do |unit|

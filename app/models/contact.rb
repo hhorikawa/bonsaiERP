@@ -43,8 +43,8 @@ class Contact < ApplicationRecord
   #default_scope -> { where(staff: false) }
 
   # Serialization
-  serialize :incomes_status, JSON
-  serialize :expenses_status, JSON
+  serialize :incomes_status, coder: JSON
+  serialize :expenses_status, coder: JSON
 
   delegate :total_in, :total_out, to: :calculation
 

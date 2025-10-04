@@ -18,7 +18,8 @@ class UserSessionsController < ApplicationController
     @user = login(params[:email], params[:password])
     if @user
       # TODO: テナントが一つだけのときは, テナントに転送
-      redirect_back_or_to(:organisations, notice: 'Login successful')
+      flash.now[:notice] = 'Login successful'
+      redirect_to "/organisations/"
     else
       flash.now[:alert] = 'Login failed'
       render action: 'new', status: :unprocessable_entity

@@ -238,26 +238,24 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_16_051351) do
   end
 
   create_table "items", force: :cascade do |t|
-    t.integer "unit_id"
-    t.decimal "price", precision: 14, scale: 2, default: "0.0"
-    t.string "name", limit: 255
-    t.string "description"
-    t.string "code", limit: 100
-    t.boolean "for_sale", default: true
-    t.boolean "stockable", default: true
-    t.boolean "active", default: true
+    t.bigint "unit_id", null: false
+    t.decimal "price", precision: 14, scale: 2, default: "0.0", null: false
+    t.string "name", limit: 255, null: false
+    t.string "description", null: false
+    t.string "code", limit: 100, null: false
+    t.boolean "for_sale", default: true, null: false
+    t.boolean "stockable", default: true, null: false
+    t.boolean "active", default: true, null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.decimal "buy_price", precision: 14, scale: 2, default: "0.0"
+    t.decimal "buy_price", precision: 14, scale: 2, default: "0.0", null: false
     t.string "unit_symbol", limit: 20
     t.string "unit_name", limit: 255
     t.integer "tag_ids", default: [], array: true
     t.integer "updater_id"
     t.integer "creator_id"
-    t.index ["code"], name: "index_items_on_code"
+    t.index ["code"], name: "index_items_on_code", unique: true
     t.index ["creator_id"], name: "index_items_on_creator_id"
-    t.index ["for_sale"], name: "index_items_on_for_sale"
-    t.index ["stockable"], name: "index_items_on_stockable"
     t.index ["unit_id"], name: "index_items_on_unit_id"
     t.index ["updater_id"], name: "index_items_on_updater_id"
   end
@@ -425,6 +423,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_16_051351) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "items", "units"
   add_foreign_key "links", "organisations"
   add_foreign_key "links", "users"
 end

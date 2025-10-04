@@ -24,6 +24,7 @@ class ApplicationController < ActionController::Base
 
   # Sorcery core module
   # ポカ避けのため、ログイン不要なコントローラで `skip_before_action` すること.
+  # 未ログインのときは `not_authenticated()`
   before_action :require_login
   
   before_action :set_organisation_session # Must go before :check_authorization!
@@ -63,6 +64,7 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_organisation
 
+  
   def current_link
     @link ||= current_user.links.org_links(current_organisation.id).first!
   end
@@ -89,8 +91,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  private
+  
+private
 
+  # Sorcery: 未ログインの状態で要ログインのページにアクセスした時に呼び出される
+  def not_authenticated
+    flash[:alert] = "ログインしてください。"
+    redirect_to new_user_session_url(subdomain:"app"), allow_other_host:true 
+  end
+
+  
     # Creates the flash messages when an item is deleted
     def set_redirect_options(klass, options)
       if klass.destroyed?

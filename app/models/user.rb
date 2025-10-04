@@ -3,6 +3,7 @@
 # email: boriscyber@gmail.com
 class User < ApplicationRecord
   authenticates_with_sorcery!
+  
   self.table_name = 'public.users'
 
   ROLES = %w(admin group other demo).freeze
@@ -22,8 +23,10 @@ class User < ApplicationRecord
   validates_email_format_of :email, message: I18n.t("errors.messages.user.email")
   validates :email, presence: true, uniqueness: {if: :email_changed?, message: I18n.t('errors.messages.email_taken')}
 
-  with_options if: :change_password? do |u|
+  with_options if: -> { new_record? || changes[:crypted_password] } do |u|
     u.validates :password, length: {within: PASSWORD_LENGTH..100 }
+    u.validates :password, confirmation: true 
+    u.validates :password_confirmation, presence: true 
   end
 
   # Scopes
@@ -66,17 +69,10 @@ class User < ApplicationRecord
     self.confirmation_token = SecureRandom.urlsafe_base64(32)
   end
 
-  private
+  
+private
 
-    def change_password?
-      new_record? || !password.nil?
-    end
-
-    def valid_password_confirmation
-      self.errors.add(:password, I18n.t('errors.messages.confirmation')) unless password === password_confirmation
-    end
-
-    def store_old_emails
+  def store_old_emails
       self.old_emails = [email_was] + old_emails
     end
 

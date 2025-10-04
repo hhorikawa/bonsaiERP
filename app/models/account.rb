@@ -5,7 +5,7 @@ class Account < ApplicationRecord
 
   include ActionView::Helpers::NumberHelper
   include ::Models::Tag
-  include ::Models::Updater
+  #include ::Models::Updater
 
   ########################################
   # Relationships

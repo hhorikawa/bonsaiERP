@@ -15,9 +15,8 @@
   .span6.r.buttons
     %tags(model='Item' tag-ids='#{ tag_ids }' url='#{ items_path }')
 
-    = link_to new_item_path, class: 'btn', id: 'new-item-link' do
-      %i.icon-plus-sign
-      New Item
+    = link_to "New Item...", new_item_path, class: 'btn btn-secondary'
+      
 
 %ul.unstyled.inline
   %li

@@ -3,7 +3,7 @@
 # email: boriscyber@gmail.com
 class Inventory < ApplicationRecord
 
-  include ::Models::Updater
+  #include ::Models::Updater
 
   before_create { self.creator_id = UserSession.id }
 
@@ -29,7 +29,7 @@ class Inventory < ApplicationRecord
   validates_lengths_from_database
 
   # attribute
-  serialize :error_messages, JSON
+  serialize :error_messages, coder: JSON
 
   OPERATIONS.each do |_op|
     define_method :"is_#{_op}?" do

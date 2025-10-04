@@ -7,7 +7,7 @@ class DashboardController < ApplicationController
   before_action :set_date_range, only: [:index]
 
   skip_before_action :check_authorization!, only: [:home]
-  before_action :check_user_session
+  #before_action :check_user_session
 
   # GET /home
   def home
@@ -22,9 +22,12 @@ class DashboardController < ApplicationController
 
   private
 
-    def check_user_session
+=begin
+   def check_user_session
       unless current_user
         redirect_to logout_path and return
       end
     end
+=end
+  
 end

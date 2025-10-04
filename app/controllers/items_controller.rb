@@ -55,10 +55,11 @@ class ItemsController < ApplicationController
     if @item.save
       render_or_redirect_item
     else
-      render :new
+      render 'new', status: :unprocessable_entity
     end
   end
 
+  
   # PUT /items/1
   def update
     if @item.update(item_params)

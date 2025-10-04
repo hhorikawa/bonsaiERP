@@ -3,7 +3,7 @@
 # email: boriscyber@gmail.com
 class AccountLedger < ApplicationRecord
 
-  include ::Models::Updater
+  #include ::Models::Updater
   extend Models::AccountCode
 
   self.code_name = 'T'

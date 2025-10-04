@@ -96,6 +96,7 @@ gem 'virtus', '~> 2.0'
 # ActiveRecord を大胆にモンキーパッチしているため, 対応バージョンが必要
 #gem 'squeel' # Better SQL queries
 
+# Bootstrap5 で作るなら, `bootstrap_form` のほうがだいぶいい. 入れ替えるか?
 gem 'simple_form', '~> 5.1'  # Compatible with Rails 6.0
 
 # Template engines
