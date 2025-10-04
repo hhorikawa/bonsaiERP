@@ -3,16 +3,31 @@
 # module to handle all authorization task
 module Controllers::Authorization
 
-  private
+  # `current_user` が現在のテナントへのアクセス権を持っているかどうか
+  def check_authorization!
+    tenant = Apartment::Tenant.current
 
-    # general method to check authorization
-    def check_authorization!
-      #check_current_user!
-      #authorized = current_user.present? && valid_organisation_date?
+    # このメソッドが呼び出されて, テナントが特定されていないのはオカシイ
+    if tenant == "public"
+      render plain: "Tenant missing.", status: 403
+      return
+    end
+    
+    # TODO: check due_date
+    if !current_user || !current_user.active
+      render plain: "User missing.", status: 403
+      return
+    end
 
-      # TODO check due_date
-      if !current_user
-        flash[:alert] = "Por favor ingrese."
+    # テナントを確認
+    if !(org = Organisation.where(tenant:tenant).take) ||
+       !Link.where(organisation_id: org.id, user_id: current_user.id, active:true).take
+      render plain: "Forbidden to access the organisation.", status: 403
+    end
+  end
+
+=begin    
+      flash[:alert] = "Por favor ingrese."
         redirect_to new_session_url(subdomain: 'app'), allow_other_host: true and return
       elsif !current_user.present?# || current_organisation.dued_with_extension? || !authorized_user?
         redir = request.referer.present? ? :back : home_path
@@ -23,8 +38,8 @@ module Controllers::Authorization
           flash[:alert] = "Usted ha sido redireccionado por que no tiene suficientes privilegios."
           redirect_to redir and return
         end
-      end
-    end
+=end
+
 
     def valid_organisation_date?
       (current_organisation.due_on + 3.days) < today
@@ -58,14 +73,6 @@ module Controllers::Authorization
       else
         !!h[controller_sym]
       end
-    end
-
-    def controller_sym
-      controller_name.to_sym
-    end
-
-    def action_sym
-      action_name.to_sym
     end
 
     #Hashes of priviledges

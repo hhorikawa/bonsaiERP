@@ -71,8 +71,8 @@ Apartment.configure do |config|
   # schema.rb, like materialized views etc. (only applies with use_schemas set to true).
   # (Note: this option doesn't use db/structure.sql, it creates SQL dump by executing pg_dump)
   #
-  # true だと, ERROR:  型"kintsugi.hstore"は存在しません (PG::UndefinedObject)
-  #                    `pg_dump` コマンドでエラー
+  # true だと, - ERROR: 型"kintsugi.hstore"は存在しません (PG::UndefinedObject)
+  #            - PostgreSQL v17.6: `pg_dump` コマンドでエラー \restrict and \unrestrict
   # false でも ERROR:  アクセスメソッド"gin"用の演算子クラス"gin_trgm_ops"は存在しません (PG::UndefinedObject)
   config.use_sql = false
 
@@ -123,10 +123,16 @@ Rails.application.config.middleware.use Apartment::Elevators::Subdomain
 INVALID_TENANTS = %w(www public common demo app test)
 Apartment::Elevators::Subdomain.excluded_subdomains = INVALID_TENANTS
 
-Rails.application.config.hosts << "kintsugi97890.localhost.localdomain:5100"
-# ログイン画面 `/sessions/new` と `/sign_in` の 2ヶ所か?
-# as-is `app.*` にリダイレクトし, ログイン後にテナントのドメインに戻らない.
-#       これはダメ.
-# TODO: IdP にリダイレクトする場合でも、セッションは共用されない。
-#       テナントのドメイン内でログインできるようにする
-Rails.application.config.hosts << "app.localhost.localdomain:5100"
+if Rails.env.development? || Rails.env.test?
+  DOMAIN = "bonsai.test"   # TODO: production 環境
+
+  Rails.application.config.hosts << "kintsugi97890.#{DOMAIN}:5100"
+
+  # ログイン画面 `/sessions/new` と `/sign_in` の 2ヶ所か?
+  # as-is `app.*` にリダイレクトし, ログイン後にテナントのドメインに戻らない.
+  #       これはダメ.
+  #
+  # TODO: sign_in / sign_up, organisation 作成を `app` ドメインでおこなう.
+  #       -> `config/initializers/session_store.rb` で設定
+  Rails.application.config.hosts << "app.#{DOMAIN}:5100"
+end

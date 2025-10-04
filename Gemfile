@@ -56,7 +56,7 @@ gem "redis", "~> 5.4.0"
 # gem "kredis"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
-gem "bcrypt", "~> 3.1.7"
+#gem "bcrypt", "~> 3.1.7"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
@@ -122,6 +122,7 @@ gem 'validates_lengths_from_database'
 #gem 'hstore_accessor'
 
 # Adds typed jsonb backed fields to your ActiveRecord models.
+# 固定フィールドを JSON にするのは本末転倒.
 #gem 'jsonb_accessor', '~> 1.4'
 
 gem 'dragonfly', '~> 1.4'
@@ -233,3 +234,5 @@ gem "ros-apartment", "~> 3.2", require: 'apartment'
 # 依存: "countries" gem
 # `Money::Currency` と組み合わせる.
 gem "country_select"
+
+gem "sorcery", ">= 0.17.0"

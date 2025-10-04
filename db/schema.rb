@@ -263,20 +263,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_16_051351) do
   end
 
   create_table "links", force: :cascade do |t|
-    t.integer "organisation_id"
-    t.integer "user_id"
+    t.bigint "organisation_id", null: false
+    t.bigint "user_id", null: false
     t.string "settings"
-    t.boolean "creator", default: false
-    t.boolean "master_account", default: false
-    t.string "role", limit: 50
-    t.boolean "active", default: true
+    t.boolean "creator", default: false, null: false
+    t.boolean "master_account", default: false, null: false
+    t.string "role", limit: 50, null: false
+    t.boolean "active", default: true, null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.string "tenant", limit: 100
     t.string "api_token"
     t.index ["api_token"], name: "index_links_on_api_token", unique: true
     t.index ["organisation_id"], name: "index_links_on_organisation_id"
-    t.index ["tenant"], name: "index_links_on_tenant"
     t.index ["user_id"], name: "index_links_on_user_id"
   end
 
@@ -395,14 +393,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_16_051351) do
 
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
-    t.string "first_name", limit: 80
-    t.string "last_name", limit: 80
+    t.string "first_name", limit: 80, null: false
+    t.string "last_name", limit: 80, null: false
     t.string "phone", limit: 40
     t.string "mobile", limit: 40
     t.string "website", limit: 200
     t.string "description", limit: 255
-    t.string "encrypted_password"
-    t.string "password_salt"
+    t.string "crypted_password"
+    t.string "salt"
     t.string "confirmation_token", limit: 60
     t.datetime "confirmation_sent_at", precision: nil
     t.datetime "confirmed_at", precision: nil
@@ -413,7 +411,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_16_051351) do
     t.datetime "last_sign_in_at", precision: nil
     t.boolean "change_default_password", default: false
     t.string "address"
-    t.boolean "active", default: true
+    t.boolean "active", default: true, null: false
     t.string "auth_token"
     t.string "rol", limit: 50
     t.datetime "created_at", precision: nil, null: false
@@ -423,10 +421,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_16_051351) do
     t.index ["auth_token"], name: "index_users_on_auth_token", unique: true
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["first_name"], name: "index_users_on_first_name"
-    t.index ["last_name"], name: "index_users_on_last_name"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "links", "organisations"
+  add_foreign_key "links", "users"
 end

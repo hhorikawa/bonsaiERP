@@ -4,7 +4,7 @@
 %ul#organisations_list
   -@organisations.each do |organisation|
     %li
-      %h2= link_to organisation.name, select_organisation_path(organisation), :id => organisation.id
+      %h2= link_to organisation.name, organisation_url(organisation, subdomain: organisation.tenant), :id => organisation.id
       =raw bonsai_links(organisation)
 
 :javascript

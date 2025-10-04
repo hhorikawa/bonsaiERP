@@ -1,5 +1,5 @@
 
-[![License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/boriscy/bonsaiERP/blob/dev/MIT-LICENSE.md)
+[![License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/hhorikawa/bonsaiERP/blob/main/MIT-LICENSE.md)
 
 
 
@@ -22,58 +22,8 @@ The system allows to use multiple currencies and make exchange rates.
 
 ## Installation
 
-### bonsaiERP requires
+See <a href="INSTALL.md">INSTALL.md</a>
 
-- Ruby 3.x
-- PostgreSQL 14 and `postgresql-contrib` to enable **hstore**
-- Nodejs for compiling assets
-
-
-### Installing *bonsaiERP*
-
-After installing the required (ruby, postgresql, etc.) you can begin with *bonsaiERP*, run
-
-By `postgres` user,
-
-```shell
-$ createdb --owner rails --encoding UTF-8 bonsai_erp_development
-```
-
-At the application directory,
-
-```shell
-$ `bundle`
-```
-
-Copy `config/database.yml.sample` to `database.yaml` and edit it. Then,
-
-```shell
-$ `rails db:migrate`
-$ `rails db:seed`
-```
-
-Sample login email and password are generated.
-
-On another terminal,
-
-```shell
-$ `redis-server`
-```
-
-If you are in Ubuntu or Debian, add something like this to your `/etc/hosts`
-file.
-```
-127.0.0.1	app.localhost.bom
-127.0.0.1	bonsai.localhost.bom
-127.0.0.1	mycompany.localhost.bom
-```
-
-And run!
-
-```shell
-$ `yarn`
-$ `foreman start -f Procfile.dev`
-```
 
 in development you will need to edit but in production you can configure
 so you won't need to edit the `/etc/hosts` file for each new subdomain, start the app `rails s` and go to

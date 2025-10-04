@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
     end
   }
 
-  include Controllers::Authentication
+  #include Controllers::Authentication
   include Controllers::Authorization
   include Controllers::RescueFrom
 
@@ -21,10 +21,19 @@ class ApplicationController < ActionController::Base
 
   ########################################
   # Callbacks
-  before_action :set_user_session, if: :user_signed_in?
+
+  # Sorcery core module
+  # ポカ避けのため、ログイン不要なコントローラで `skip_before_action` すること.
+  before_action :require_login
+  
   before_action :set_organisation_session # Must go before :check_authorization!
-  before_action :set_page,  :check_authorization!
-  before_action :set_locale, if: :user_signed_in?
+  before_action :set_page
+
+  # `current_user` がテナントのアクセス権を持っているかどうか
+  # サブクラスで不要な場合は, `skip_before_action` すること.
+  before_action :check_authorization!
+  
+  before_action :set_locale, if: :current_user
 
   # especial redirect for ajax requests
   def redirect_ajax(klass, options = {})
@@ -47,8 +56,10 @@ class ApplicationController < ActionController::Base
     Helper.instance
   end
 
+  # @return [Organisation | nil] 組織
   def current_organisation
-    @organisation ||= Organisation.find_by(tenant: Apartment::Tenant.current)
+    # つど確認が必要
+    return Organisation.find_by(tenant: Apartment::Tenant.current)
   end
   helper_method :current_organisation
 
@@ -62,11 +73,13 @@ class ApplicationController < ActionController::Base
   end
   helper_method :user_with_role
 
+=begin
   def tenant
     @tenant ||= current_organisation.try(:tenant)
   end
   helper_method :tenant
-
+=end
+  
   def path_sub(path, extras = {})
     if USE_SUBDOMAIN
       send(path, {host: DOMAIN, subdomain: session[:tenant]}.merge(extras))
@@ -106,22 +119,6 @@ class ApplicationController < ActionController::Base
       @page = params[:page] || 1
     end
 
-=begin
-    def current_tenant
-      return nil unless session.id
-      begin
-        session[:tenant]
-      rescue JSON::ParserError
-        reset_session
-        nil
-      end
-    end
-=end
-  
-    # Uses the helper methods from devise to made them available in the models
-    def set_user_session
-      UserSession.user = current_user
-    end
 
      # Checks if is set the organisation session
     def organisation?
@@ -129,11 +126,6 @@ class ApplicationController < ActionController::Base
     end
     helper_method :organisation?
 
-=begin
-    def set_tenant
-      PgTools.change_schema current_tenant
-    end
-=end
   
     def set_organisation_session
       if current_organisation

@@ -8,5 +8,6 @@ BonsaiErp::Application.routes.draw do
   draw :api
   draw :app
 
-  root to: 'sessions#new'
+  # `draw` 内で実行時分岐は書けない.
+  root to: "home#index"
 end

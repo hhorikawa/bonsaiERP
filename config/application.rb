@@ -25,7 +25,8 @@ module BonsaiErp
 
     # Default: 自動的にすべての helpers が `include` される.
     # 次の設定でコントローラと同名のヘルパに限定できる
-    config.action_controller.include_all_helpers = false
+    #  -> helper ファイルが細切れで, false では上手くいかない.
+    # config.action_controller.include_all_helpers = false
     
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.

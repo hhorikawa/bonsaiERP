@@ -105,7 +105,8 @@
                             class:"dropdown-item" %>
             <li><%= link_to "Profile", user_path(current_user.id),
                             class:"dropdown-item" %>
-            <li><%= link_to t('views.menu.logout'), logout_path ,
+            <li><%= link_to t('views.menu.logout'), "/user_session",
+                            data:{"turbo-method": :delete},
                             class:"dropdown-item" %>
           </ul>
         </li>

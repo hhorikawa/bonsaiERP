@@ -1,14 +1,32 @@
-# encoding: utf-8
+
 # author: Boris Barroso
 # email: boriscyber@gmail.com
-class OrganisationsController < ApplicationController
-  before_action :check_tenant_creation, :check_user_master_account
-  skip_before_action :set_tenant, :check_authorization!
 
+# 組織. テナントと 1:1
+class OrganisationsController < ApplicationController
+  # `current_user` がテナントのアクセス権を持っているかどうか
+  skip_before_action :check_authorization!, only: [:index, :new, :create]
+
+  before_action :check_user_master_account, except: [:index, :new, :create]
+
+
+  def index
+    # TODO: superuser の場合は, 全部を表示
+    @organisations = Organisation.joins(:links)
+                       .where('user_id = ? AND links.active = TRUE',
+                              current_user.id)
+  end
+
+  
   # GET /organisations/new
   def new
   end
 
+  
+  def create
+  end
+
+  
   # POST /organisations
   def update
     current_organisation.attributes = organisation_params
@@ -28,6 +46,7 @@ class OrganisationsController < ApplicationController
 
   private
 
+=begin
     def check_tenant_creation
       unless current_organisation
         redirect_to new_registration_path, alert: "Debe confirmar su registro o registrarse." and return
@@ -37,11 +56,8 @@ class OrganisationsController < ApplicationController
         redirect_to  dashboard_url(host: request.domain, subdomain: org.tenant, auth_token: user.auth_token) and return
       end
     end
-
-    def check_tenant_exists
-
-    end
-
+=end
+  
     def organisation_params
       params.require(:organisation).permit(:name, :currency, :country_code,
                                           :time_zone,:phone, :mobile, :email,

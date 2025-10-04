@@ -2,10 +2,8 @@
 # author: Boris Barroso
 # email: boriscyber@gmail.com
 class User < ApplicationRecord
+  authenticates_with_sorcery!
   self.table_name = 'public.users'
-
-  # Includes
-  include Models::User::Authentication
 
   ROLES = %w(admin group other demo).freeze
 

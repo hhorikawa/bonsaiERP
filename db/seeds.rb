@@ -48,7 +48,7 @@ def make_org_and_admin_user()
   # Create link between user and organization
   link = user.active_links.build(
     organisation_id: org.id,
-    tenant: org.tenant,
+    #tenant: org.tenant,
     role: 'admin',
     master_account: true,
     active: true,

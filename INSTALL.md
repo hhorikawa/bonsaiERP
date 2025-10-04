@@ -1,20 +1,15 @@
+
 # BonsaiERP Installation Guide (Updated April 2025)
+
 
 ## System Requirements
 
-### Ruby Version
-- Ruby 3.3.0 (for Rails 8.0 upgrade)
+ - Ruby 3.3.x (for Rails 8.0 upgrade)
+ - Rails 8.0.x 
+ - PostgreSQL 14.0 or higher
+ - PostgreSQL development headers (`libpq-dev`), `postgresql-contrib` to enable **hstore**
+ - Node.js v18.19 or higher
 
-### Rails Version
-- Rails 8.0 (future upgrade)
-
-### Database
-- PostgreSQL 14.0 or higher
-- PostgreSQL development headers (libpq-dev)
-
-### JavaScript Runtime
-- Node.js 14.0 or higher
-- Yarn 1.22 or higher
 
 ### Other Dependencies
 - ImageMagick (for image processing)
@@ -80,22 +75,24 @@ brew install imagemagick
 sudo apt-get install imagemagick
 ```
 
+
+
 ## Application Setup
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/Kintsugi-Design/bonsaiERP.git
+git clone https://github.com/hhorikawa/bonsaiERP.git
 cd bonsaiERP
 ```
 
 ### 2. Install dependencies
 ```bash
-bundle install
-yarn install
+bundle 
+yarn 
 ```
 
 ### 3. Configure the database
-Create a file `config/database.yml` with the following content:
+Copy `config/database.yml.sample` to `database.yaml` and edit it with the following content:
 
 ```yaml
 default: &default
@@ -128,27 +125,60 @@ production:
 ### 4. Set up environment variables
 Create a file `config/app_environment_variables.rb` with the following content:
 
+●●これ, どこで使われている?
+
 ```ruby
 ENV['SECRET_KEY_BASE'] = 'your_secret_key_base'
 ENV['MANDRILL_API_KEY'] = 'your_mandrill_api_key'
 ```
 
 ### 5. Initialize the database
+
+By `postgres` user,
+
+```shell
+$ createdb --owner rails --encoding UTF-8 bonsai_erp_development
+```
+
 ```bash
-rails db:create
 rails db:migrate
 rails db:seed
 ```
+
+Sample login email and password are generated.
+
+If you are in Ubuntu or Debian, add something like this to your `/etc/hosts`
+file.
+テナント選択については, `config/initializers/apartment.rb` ファイルを見てください。
+```
+127.0.0.1   mycompany.localhost.bom  company2.localhost.bom
+```
+
+
 
 ### 6. Precompile assets (for production)
 ```bash
 rails assets:precompile
 ```
 
+
+
 ### 7. Start the development server
-```bash
-rails server
+
+On another terminal,
+
+```shell
+$ `redis-server`
 ```
+
+And run!
+
+```shell
+$ `foreman start -f Procfile.dev`
+```
+
+
+
 
 ## Production Deployment
 

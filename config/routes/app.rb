@@ -156,7 +156,7 @@ end
 
 resources :units
 
-resources :organisations, only: [:new, :update]
+resources :organisations #, only: [:new, :update]
 
 resources :user_passwords, only: [:new, :create] do
   collection do
@@ -182,10 +182,11 @@ get '/sign_up' => 'registrations#new'
 # Password
 resources :reset_passwords, only: [:index, :new, :create, :edit, :update]
 # No auth
-# Sessions
-resources :sessions, only: [:new, :create, :destroy]
-get '/sign_in'  => 'sessions#new', as: :login
-get '/sign_out' => 'sessions#destroy', as: :logout
+
+# 単数形. コントローラ名は `user_sessions`.
+resource :user_session, only: [:new, :create, :destroy]
+#get '/sign_in'  => 'sessions#new', as: :login
+#get '/sign_out' => 'sessions#destroy', as: :logout
 
 # Tests
 resources :tests

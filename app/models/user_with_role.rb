@@ -5,10 +5,11 @@ class UserWithRole
   delegate :email, :id, to: :user
 
   def initialize(user, organisation)
+    raise TypeError, '@user must be type User' if !user.is_a?(User)
+    raise TypeError, '@organisation must be type Organisation'  if !organisation.is_a?(Organisation)
+    
     @user = user
-    raise StandardError, 'The user must be type User'  unless @user.is_a?(User)
     @organisation = organisation
-    raise StandardError, 'The organisation must be type Organisation'  unless @organisation.is_a?(Organisation)
   end
 
   def link
