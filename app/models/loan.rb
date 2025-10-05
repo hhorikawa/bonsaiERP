@@ -1,9 +1,14 @@
+
 # author: Boris Barroso
 # email: boriscyber@gmail.com
-class Loan < Account
+
+# 借入金. 借入れごとに勘定科目を作る.
+class Loan < ApplicationRecord # Account から派生
+  # 仮想的な親: 勘定科目
+  include Accountable
+  
   # module for setters and getters
   extend SettersGetters
-  extend Models::AccountCode
 
   include Models::History
 
@@ -11,9 +16,9 @@ class Loan < Account
   LOAN_TYPES = %w(Loans::Receive Loans::Give).freeze
 
   # Store
-  extend Models::HstoreMap
+  #extend Models::HstoreMap
   store_accessor :extras, :interests
-  convert_hstore_to_decimal :interests
+  #convert_hstore_to_decimal :interests
 
   # Validations
   validates_presence_of :date, :due_date, :name, :contact, :contact_id

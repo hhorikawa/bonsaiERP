@@ -5,13 +5,13 @@ class AddAccountsCreatorApproverUpdater < ActiveRecord::Migration[5.2]
         t.integer :creator_id
         t.integer :approver_id
         t.integer :nuller_id
-        t.date :due_date
+        #t.date :due_date
       end
 
       add_index :accounts, :creator_id
       add_index :accounts, :approver_id
       add_index :accounts, :nuller_id
-      add_index :accounts, :due_date
+     # add_index :accounts, :due_date
     end
   end
 

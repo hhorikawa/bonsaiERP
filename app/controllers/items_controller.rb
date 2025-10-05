@@ -53,7 +53,7 @@ class ItemsController < ApplicationController
     @item = Item.new(item_params)
 
     if @item.save
-      render_or_redirect_item
+      redirect_to @item
     else
       render 'new', status: :unprocessable_entity
     end

@@ -1,79 +1,75 @@
-# encoding: utf-8
+
 # author: Boris Barroso
 # email: boriscyber@gmail.com
+
+# 自社の銀行口座・現金マスタ
 class CashesController < ApplicationController
-  before_action :set_cash, only: [:show, :edit, :update, :destroy]
+  before_action :find_bank, only: [:show, :edit, :update, :destroy]
 
-  include Controllers::Money
-
-  # GET /cashs
+  # GET /banks
   def index
-    @cashes = present Cash.order('name asc'), MoneyAccountPresenter
+    @banks = Bank.order('name asc')
   end
 
-  # GET /cashs/1
+  # GET /banks/1
   def show
-    respond_to do |format|
-      format.html
-      format.json { render json: @cash }
-    end
   end
 
-  # GET /cashs/new
+  # GET /banks/new
   def new
-    @cash = Cash.new
-    respond_to do |format|
-      format.html
-      format.json { render json: @cash }
-    end
+    @bank = Bank.new(currency: params[:currency])
   end
 
-  # GET /cashs/1/edit
-
-  # POST /cashs
+  # GET /banks/1/edit
+  def edit
+  end
+  
+  # POST /banks
   def create
-    @cash = Cash.new(cash_params)
+    @bank = Bank.new(create_bank_params)
 
-    respond_to do |format|
-      if @cash.save
-        format.html { redirect_to(cash_path(@cash), notice: 'La cuenta efectivo fue creada.') }
-      else
-        format.html { render :new }
-      end
-    end
-  end
-
-  # PUT /cashs/1
-  def update
-    if @cash.update(cash_params)
-      flash[:notice] = 'La cuenta efectivo fue actualizada.'
-      respond_to do |format|
-        format.html { redirect_to @cash }
-        format.json { render json: { redirect: url_for(@cash) } }
-        format.js { render json: { redirect: url_for(@cash) } }
-      end
+    if @bank.save
+      redirect_to bank_path(@bank.id), notice: 'La cuenta de banco fue creada.'
     else
-      render :edit
+      render :new
     end
   end
 
-  # DELETE /cashs/1
+  # PUT /banks/1
+  def update
+    if @bank.update(update_bank_params)
+      redirect_to @bank, notice: 'Se actualizo  correctamente la cuenta de banco.'
+    else
+      render action: 'edit'
+    end
+  end
+
+  # Presents money accounts json method
+  # GET /banks/money
+  def money
+    render json: Account.active.money.where(currency: current_organisation.currency)
+      .to_json(only: [:id, :currency, :name, :type])
+  end
+
+  # DELETE /banks/1
+  # DELETE /banks/1.xml
   def destroy
-    @cash.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(cashes_url) }
-      format.xml  { head :ok }
-    end
+    @bank.destroy
+    respond_ajax @bank
   end
 
-  private
+  
+private
 
-    def set_cash
-      @cash = present Cash.find(params[:id]), MoneyAccountPresenter
+  def find_bank
+    @bank = Bank.find(params[:id])
+  end
+
+    def update_bank_params
+      params.require(:bank).permit(:name, :number, :active, :address, :phone, :website)
     end
 
-    def cash_params
-      params.require(:cash).permit(:name, :currency, :amount, :address, :active)
+    def create_bank_params
+      params.require(:bank).permit(:name, :number, :address, :phone, :website, :currency, :amount)
     end
 end

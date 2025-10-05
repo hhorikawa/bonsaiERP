@@ -17,10 +17,10 @@
 
     .row-fluid
       .span3
-        %label Almacen
+        %label 店
         %h4.n= link_to @inv.store, @inv.store, target: '_blank'
       .span3
-        = f.input :date, label: 'Fecha', as: :datepicker
+        = f.input :date, label: '日付:', as: :datepicker
       .span6
         = f.input :description, as: :text, label: 'Description' ,input_html: { rows: 3, cols: 55 }
 

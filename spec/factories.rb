@@ -1,5 +1,21 @@
 # encoding: utf-8
 FactoryBot.define do
+  factory :loan do
+    
+  end
+
+  factory :other_account do
+    
+  end
+
+  factory :contact_account do
+    
+  end
+
+  factory :bank_account do
+    
+  end
+
 
   factory :attachment do
     name { 'picture.jpg' }

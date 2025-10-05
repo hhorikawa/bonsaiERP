@@ -4,12 +4,11 @@
 
 .row-fluid
   .span6
-    %h1 Almacenes
+    %h1 店
 
   .span6.r
-    = link_to new_store_path, class: 'btn' do
-      %i.icon-plus-sign
-      New almacén
+    = link_to "New store...", new_store_path, class: 'btn btn-secondary' 
+
 
 %ul#stores.unstyled.listing
   - @stores.each do |store|
@@ -24,9 +23,9 @@
             %i.icon-warning
             Existen inventarios con mínimos
       .span4
-        = store.phone_tag
+        = store.phone
         .clearfix
-        = store.address_tag
+        = store.address
 
       .span1
         = link_to icon_edit, edit_store_path(store), class: 'dark'

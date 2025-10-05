@@ -1,41 +1,12 @@
 # author: Boris Barroso
 # email: boriscyber@gmail.com
-# Base class for Income and Expense
-class Movement < Account
 
-  # module for setters and getters
-  extend Models::AccountCode
+# その他の勘定科目
+class OtherAccount < ApplicationRecord  # Account から派生
+  # 仮想的な親: 勘定科目
+  include Accountable
 
   STATES = %w(draft approved paid nulled)
-=begin
-  jsonb_accessor(:extras,
-    {delivered: :boolean,
-    discounted: :boolean,
-    devolution: :boolean,
-    gross_total: :decimal,
-    inventory: :boolean,
-    balance_inventory: :decimal,
-    original_total: :decimal,
-    bill_number: :string,
-    null_reason: :string,
-    operation_type: :string,
-    nuller_datetime: :datetime,
-    approver_datetime: :datetime})
-=end
-  EXTRAS_DEFAULTS = {
-    delivered: false,
-    discounted: false,
-    devolution: false,
-    gross_total: 0.0,
-    inventory: true,
-    balance_inventory: 0.0,
-    original_total: 0.0,
-    bill_number: '',
-    null_reason: '',
-    operation_type: '',
-    nuller_datetime: nil,
-    approver_datetime: nil
-  }
 
   # Callbacks
   before_update :check_items_balances

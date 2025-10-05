@@ -1,28 +1,12 @@
 # author: Boris Barroso
 # email: boriscyber@gmail.com
 # Class that creates incomes "Sales"
-class Income < Movement
+class Income < OtherAccount
 
   include Models::History
   has_history_details Movements::History, :income_details
 
-  self.code_name = 'I'
-
-=begin  いったんコメントアウト. 後で表にする
-  jsonb_accessor(:extras,
-    {delivered: :boolean,
-    discounted: :boolean,
-    devolution: :boolean,
-    gross_total: :decimal,
-    inventory: :boolean,
-    balance_inventory: :decimal,
-    original_total: :decimal,
-    bill_number: :string,
-    null_reason: :string,
-    operation_type: :string,
-    nuller_datetime: :datetime,
-    approver_datetime: :datetime})
-=end
+  #self.code_name = 'I'
   
   ########################################
   # Relationships

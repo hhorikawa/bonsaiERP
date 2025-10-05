@@ -6,16 +6,16 @@
 
   .row-fluid
     .span6
-      %label Ingreso
+      %label 所得
       %h4.n= link_to inv.income, inv.income
     .span6
-      %label Almacen
+      %label 店
       %h4.n= link_to inv.store, inv.store, target: '_blank'
 
   = render 'inventories/devolution_form', f: f, inv: @inv
 
   .form-actions
-    = f.submit 'Devolución mercadería', class: 'btn btn-primary b'
+    = f.submit '商品の返品', class: 'btn btn-primary b'
 
 :javascript
   $(function() {

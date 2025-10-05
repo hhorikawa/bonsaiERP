@@ -1,28 +1,12 @@
-# encoding: utf-8
+
 # author: Boris Barroso
 # email: boriscyber@gmail.com
-class Expense < Movement
+class Expense < OtherAccount
 
   include Models::History
   has_history_details Movements::History, :expense_details
 
-  self.code_name = 'E'
-
-=begin  いったんコメントアウト. 後で表にする
-  jsonb_accessor(:extras,
-    {delivered: :boolean,
-    discounted: :boolean,
-    devolution: :boolean,
-    gross_total: :decimal,
-    inventory: :boolean,
-    balance_inventory: :decimal,
-    original_total: :decimal,
-    bill_number: :string,
-    null_reason: :string,
-    operation_type: :string,
-    nuller_datetime: :datetime,
-     approver_datetime: :datetime})
-=end
+  #self.code_name = 'E'
   
   ########################################
   # Relationships

@@ -6,13 +6,10 @@ class StoresController < ApplicationController
 
   # GET /stores
   def index
-    @stores = present Store.all
-
-    respond_to do |format|
-      format.html
-    end
+    @stores = Store.all
   end
 
+  
   # GET /stores/1
   def show
     @store = present Store.find(params[:id])
@@ -41,9 +38,9 @@ class StoresController < ApplicationController
     @store = Store.new(store_params)
 
     if @store.save
-      redirect_ajax(@store, :notice => 'El almacen fue correctamente creado.')
+      redirect_to @store, :notice => 'El almacen fue correctamente creado.'
     else
-      render :action => "new"
+      render 'new', status: :unprocessable_entity
     end
   end
 

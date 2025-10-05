@@ -6,7 +6,7 @@ class AddAccountLedgersContactId < ActiveRecord::Migration[5.2]
         t.index :contact_id
       end
 
-      execute 'UPDATE account_ledgers al SET contact_id = a.contact_id FROM accounts a WHERE al.account_id = a.id '
+      #execute 'UPDATE account_ledgers al SET contact_id = a.contact_id FROM accounts a WHERE al.account_id = a.id '
     end
   end
 

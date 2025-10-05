@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_16_051351) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -55,15 +55,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_16_051351) do
   end
 
   create_table "accounts", force: :cascade do |t|
-    t.string "name"
-    t.string "currency", limit: 10
+    t.string "name", null: false
+    t.string "currency", limit: 3, null: false
+    t.boolean "active", default: true, null: false
+    t.text "description", null: false
+    t.string "accountable_type", limit: 80, null: false
+    t.string "accountable_id", null: false
     t.decimal "exchange_rate", precision: 14, scale: 4, default: "1.0"
     t.decimal "amount", precision: 14, scale: 2, default: "0.0"
-    t.string "type", limit: 30
-    t.integer "contact_id"
-    t.integer "project_id"
-    t.boolean "active", default: true
-    t.text "description"
     t.date "date"
     t.string "state", limit: 30
     t.boolean "has_error", default: false
@@ -80,24 +79,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_16_051351) do
     t.integer "creator_id"
     t.integer "approver_id"
     t.integer "nuller_id"
-    t.date "due_date"
-    t.index ["active"], name: "index_accounts_on_active"
-    t.index ["amount"], name: "index_accounts_on_amount"
     t.index ["approver_id"], name: "index_accounts_on_approver_id"
-    t.index ["contact_id"], name: "index_accounts_on_contact_id"
     t.index ["creator_id"], name: "index_accounts_on_creator_id"
-    t.index ["currency"], name: "index_accounts_on_currency"
-    t.index ["date"], name: "index_accounts_on_date"
-    t.index ["due_date"], name: "index_accounts_on_due_date"
     t.index ["extras"], name: "index_accounts_on_extras"
-    t.index ["has_error"], name: "index_accounts_on_has_error"
     t.index ["nuller_id"], name: "index_accounts_on_nuller_id"
-    t.index ["project_id"], name: "index_accounts_on_project_id"
-    t.index ["state"], name: "index_accounts_on_state"
     t.index ["tag_ids"], name: "index_accounts_on_tag_ids"
     t.index ["tax_id"], name: "index_accounts_on_tax_id"
     t.index ["tax_in_out"], name: "index_accounts_on_tax_in_out"
-    t.index ["type"], name: "index_accounts_on_type"
     t.index ["updater_id"], name: "index_accounts_on_updater_id"
   end
 
@@ -146,6 +134,28 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_16_051351) do
     t.index ["image"], name: "index_attachments_on_image"
     t.index ["publish"], name: "index_attachments_on_publish"
     t.index ["user_id"], name: "index_attachments_on_user_id"
+  end
+
+  create_table "cashes", force: :cascade do |t|
+    t.string "bank_name", comment: "銀行名+支店名"
+    t.string "bank_addr"
+    t.string "account_no"
+    t.string "account_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_no"], name: "index_cashes_on_account_no", unique: true
+  end
+
+  create_table "contact_accounts", force: :cascade do |t|
+    t.bigint "contact_id", null: false
+    t.string "bank_name", comment: "銀行名+支店名"
+    t.string "bank_addr"
+    t.string "account_no"
+    t.string "account_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contact_id", "account_no"], name: "index_contact_accounts_on_contact_id_and_account_no", unique: true
+    t.index ["contact_id"], name: "index_contact_accounts_on_contact_id"
   end
 
   create_table "contacts", force: :cascade do |t|
@@ -276,6 +286,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_16_051351) do
     t.index ["user_id"], name: "index_links_on_user_id"
   end
 
+  create_table "loans", force: :cascade do |t|
+    t.string "bank_name", null: false, comment: "銀行名+支店名"
+    t.decimal "interest_rate", precision: 7, scale: 4, null: false, comment: "percent"
+    t.date "due_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "movement_details", force: :cascade do |t|
     t.integer "account_id"
     t.integer "item_id"
@@ -315,6 +333,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_16_051351) do
     t.index ["tenant"], name: "index_organisations_on_tenant", unique: true
   end
 
+  create_table "other_accounts", force: :cascade do |t|
+    t.boolean "inventory", null: false
+    t.string "subtype", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string "name"
     t.boolean "active", default: true
@@ -345,11 +370,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_16_051351) do
   end
 
   create_table "stores", force: :cascade do |t|
-    t.string "name"
-    t.string "address"
+    t.string "name", null: false
+    t.string "address", null: false
     t.string "phone", limit: 40
-    t.boolean "active", default: true
-    t.string "description"
+    t.boolean "active", default: true, null: false
+    t.string "description", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
   end
@@ -423,6 +448,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_16_051351) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "contact_accounts", "contacts"
   add_foreign_key "items", "units"
   add_foreign_key "links", "organisations"
   add_foreign_key "links", "users"

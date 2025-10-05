@@ -1,4 +1,4 @@
-- item = present item
+
 %li.row-fluid(id='#{item.id}')
   .span6
     .fl
@@ -7,8 +7,8 @@
       %h4.ib
         = link_to item, item
 
-      %strong.fs110= item.code_tag
-      = item.unit_tag
+      %strong.fs110= item.code
+      = item.unit.symbol
     .clearfix
     %tagsfor(tag_ids="#{item.tag_ids}" id="#{item.id}")
   .span6

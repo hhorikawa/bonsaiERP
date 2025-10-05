@@ -4,7 +4,7 @@
 # Class for receiving loans
 class Loans::Give < Loan
 
-  self.code_name = 'PG'
+  #self.code_name = 'PG'
 
   # Relationships
   has_many :ledger_ins, -> { where(operation: 'lgcre') }, class_name: 'AccountLedger', foreign_key: :account_id

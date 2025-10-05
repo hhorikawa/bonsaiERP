@@ -1,14 +1,19 @@
-# encoding: utf-8
+
 # author: Boris Barroso
 # email: boriscyber@gmail.com
-class Cash < Account
 
-  # Store accessors
-  EXTRA_COLUMNS = [:email, :address, :phone].freeze
-  store_accessor(:extras, *EXTRA_COLUMNS)
+# 自社の銀行口座・現金マスタ
+class Cash < ApplicationRecord # Account から派生
+  # 仮想的な親: 勘定科目
+  include Accountable
 
-  # Validations
-  validates :name, length: { minimum: 3 }
+  # can't use Bank.stored_attributes methods[:extras]
+  alias_method :old_attributes, :attributes
+  def attributes
+    old_attributes.merge(
+      Hash[EXTRA_COLUMNS.map { |k| [k.to_s, send(k)] }]
+    )
+  end
 
   # Related methods for money accounts
   include Models::Money
@@ -16,5 +21,15 @@ class Cash < Account
   def to_s
     name
   end
-end
 
+  def pendent_ledgers_tag
+    # 内容不明
+  end
+
+  
+private
+  
+    def set_defaults
+      self.total_amount ||= 0.0
+    end
+end

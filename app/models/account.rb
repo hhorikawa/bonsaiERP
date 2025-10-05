@@ -1,27 +1,37 @@
-# encoding: utf-8
+
 # author: Boris Barroso
 # email: boriscyber@gmail.com
-class Account < ApplicationRecord
 
+# 勘定科目マスタ. マスタに見えないが, マスタ.
+class Account < ApplicationRecord
   include ActionView::Helpers::NumberHelper
   include ::Models::Tag
   #include ::Models::Updater
-
+  
   ########################################
   # Relationships
-  belongs_to :contact, optional: true
+
+  # schema: accountable_type, accountable_id
+  delegated_type :accountable, types: %w[Cash ContactAccount Loan OtherAccount]
+  
+  #belongs_to :contact, optional: true
   has_many :account_ledgers, -> { order('date desc, id desc') }
   belongs_to :approver, class_name: 'User', optional: true
   belongs_to :nuller,   class_name: 'User', optional: true
   belongs_to :creator,  class_name: 'User', optional: true
   belongs_to :updater,  class_name: 'User', optional: true
   belongs_to :tax, optional: true
+  
   ########################################
   # Validations
-  validates_presence_of :currency, :name
-  validates_numericality_of :amount
-  validates_inclusion_of :currency, in: CURRENCIES.keys
+  
+  validates_presence_of :name
   validates_uniqueness_of :name
+  
+  validates_presence_of :currency
+  validates_inclusion_of :currency, in: CURRENCIES.keys
+  
+  validates_numericality_of :amount
   validates_lengths_from_database
 
   # attribute

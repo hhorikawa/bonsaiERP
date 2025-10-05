@@ -12,7 +12,7 @@ class UnitsController < ApplicationController
   # GET /units/1
   def show
     @unit = Unit.find(params[:id])
-    respond_with @unit
+    #respond_with @unit
   end
 
   # GET /units/new

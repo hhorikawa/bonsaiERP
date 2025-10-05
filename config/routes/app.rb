@@ -80,11 +80,11 @@ resources :account_ledgers, only: [:index, :show, :update] do
   patch :null, on: :member
 end
 
-resources :banks do
+
+# 自社の銀行口座・現金マスタ
+resources :cashes do
   get :money, on: :collection
 end
-
-resources :cashes
 
 resources :staff_accounts
 
@@ -138,24 +138,31 @@ resources :expenses_inventory_outs, only: [:new, :create]
 
 ###########################
 
+# 店
 resources :stores do
   resources :inventory_ins, only: [:new, :create]
   resources :inventory_outs, only: [:new, :create]
 end
 
+# 取引先
 resources :contacts do
+  resources :contact_accounts  # Account から派生
+  
   get :incomes, on: :member
   get :expenses, on: :member
 end
 
+# 商品・アイテム
 resources :items do
   get :search_income, on: :collection
   get :search_expense, on: :collection
   get :search_inventory, on: :member
 end
 
+# UoM
 resources :units
 
+# 組織
 resources :organisations #, only: [:new, :update]
 
 resources :user_passwords, only: [:new, :create] do

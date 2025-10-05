@@ -18,6 +18,9 @@
 
 The system allows to use multiple currencies and make exchange rates.
 
+TODO: 
+ - Chart は <s>おそらく <a href="https://github.com/jqPlot/jqPlot/">jqPlot</a> を使っていると思われる。</s> Chart.js の v1.x 辺り。古すぎる。差し替える.
+
 
 
 ## Installation

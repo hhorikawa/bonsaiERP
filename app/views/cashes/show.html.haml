@@ -1,41 +1,51 @@
-- content_for :links do
+-content_for :links do
   %ul.breadcrumbs.span6
     %li
-      =link_to "Cuentas caja", cashes_path
+      =link_to 'Cuentas bancarias', banks_path
 
 .row-fluid
-  .span6
-    %h1
-      = @cash.active_tag
-      = @cash.name
-      = currency_label @cash.currency
-  .span6.r
+  .span8
+    %h1.n
+      = @bank.name
+      = currency_label @bank.currency
+  .span4.r
     .btn-group
-      = link_to new_transference_path(account_id: @cash.id), class: 'btn',
+      = link_to new_transference_path(account_id: @bank.id), class: 'btn',
         title: 'Transferir dinero a otra cuenta', 'data-toggle' => 'tooltip' do
         %i.icon-switch
-        Nueva transferencia
+        Transferencia
 
-      = link_to icon_edit_text, edit_cash_path(@cash), class: 'btn'
+      = link_to icon_edit_text, edit_bank_path(@bank), class: 'btn'
 
 .row-fluid
   .span6
     .moneybox
       %label SALDO CUENTA
       %h5.n
-        = ntc @cash.amount
-        = currency_label @cash.currency
+        %span.amount= ntc @bank.amount
+        = currency_label @bank.currency
 
   .span6
-    %i.icon-building.muted(title='Address' data-toggle='tooltip')
-    = nl2br(@cash.address)
+    %i.muted.icon-phone(title='Phone' data-toggle='tooltip')
+    = @bank.phone
+    %i.muted.icon-globe(title='Website' data-toggle='tooltip')
+    = @bank.website
+    .clearfix
+    %i.muted.icon-building(title="Address" data-toggle='tooltip')
+    = nl2br(@bank.address)
+
 
 %h2 Transacciones
 
-- html = paginate @cash.ledgers.page(@page)
+- html = paginate @bank.ledgers.page(@page)
 = html
 
+- if params[:pendent].blank? && @bank.pendent_ledgers.any?
+  = @bank.pendent_ledgers_tag
+- elsif params[:pendent].present?
+  = link_to 'Ver todas las transacciones', @bank
+
 %ul.unstyled.listing
-  = render partial: 'account_ledgers/money', collection: present(@cash.ledgers.includes(:account, :account_to).page(@page)), as: :ledger, locals: { current_account_id: @cash.id }
+  = render partial: 'account_ledgers/money', collection: @bank.ledgers, as: :ledger, locals: { current_account_id: @bank.id }
 
 = html

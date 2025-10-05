@@ -18,6 +18,9 @@ class UserSessionsController < ApplicationController
     @user = login(params[:email], params[:password])
     if @user
       # TODO: テナントが一つだけのときは, テナントに転送
+      # Rails8: redirect_back(), redirect_back_or_to() は,
+      #         request.referer を参照するようになっていて, 一つ前か怪しい
+      # Rails 5.2 でも同じだった. むむ
       flash.now[:notice] = 'Login successful'
       redirect_to "/organisations/"
     else

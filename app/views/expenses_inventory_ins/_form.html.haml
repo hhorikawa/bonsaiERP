@@ -9,14 +9,14 @@
       %label Egreso
       %h4.n= link_to inv.expense, inv.expense
     .span6
-      %label Almacen
+      %label 店
       %h4.n= link_to inv.store, inv.store, target: '_blank'
 
   -#= render 'inventories/movement_form', f: f, inv: @inv
 
   .row-fluid
     .span6
-      = f.input :date, label: 'Fecha', as: :datepicker
+      = f.input :date, label: '日付:', as: :datepicker
     .span6
       = f.input :description, as: :text, label: 'Description' ,input_html: {rows: 3, cols: INPUT_SIZE }
 
@@ -25,7 +25,7 @@
       %tr
         %th(style="width:40%") Ítem
         %th
-          Cantidad
+          額
         %th
           Cantidad a<br>
           recoger

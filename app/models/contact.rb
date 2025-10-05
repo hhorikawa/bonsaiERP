@@ -1,6 +1,8 @@
-# encoding: utf-8
+
 # author: Boris Barroso
 # email: boriscyber@gmail.com
+
+# 取引先. 法人も個人も
 class Contact < ApplicationRecord
 
   include Models::Tag
@@ -9,10 +11,9 @@ class Contact < ApplicationRecord
 
   ########################################
   # Relationships
-  has_many :contact_accounts, -> { where(type: 'ContactAccount') },
-           foreign_key: :contact_id
 
-  has_many :accounts
+  # 口座. 口座なしも一つづつ作る。勘定科目と紐づき.
+  has_many :contact_accounts
 
   has_many :incomes, -> { where(type: 'Income').order('accounts.date desc, accounts.id desc') },
            foreign_key: :contact_id
