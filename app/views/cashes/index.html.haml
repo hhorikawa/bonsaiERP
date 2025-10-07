@@ -6,27 +6,23 @@
   .span6
     %h1 Cuentas bancarias
   .span6.r
-    = link_to new_bank_path, class: 'btn' do
-      %i.icon-plus-circle
-      Nueva cuenta bancaria
+    = link_to "New cash/bank account...", new_cash_path 
 
 %ul#banks.accounts_list
-  - @banks.each do |bank|
+  - @cashes.each do |cash_ac|
     %li.row-fluid
       .span7
         %h4.n
-          = bank.active
-          = link_to bank, bank
+          = cash_ac.account.active
+          = link_to cash_ac.account.name, cash_ac
 
         = link_to new_transference_path(account_id: bank.id), class: 'btn btn-mini' do
           %i.icon-switch
           Nueva transferencia
 
-        = bank.pendent_ledgers_tag
-
       .span3
         .moneybox
           %label TOTAL EN CUENTA
           %h5.n
-            = ntc bank.amount
-            = bank.currency
+            = ntc cash_ac.account.amount
+            = cash_ac.account.currency

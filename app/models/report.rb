@@ -21,7 +21,7 @@ class Report
     @total_expenses ||= begin
       tot = Expense.active.where(date: date_range.range)
       tot = tot.all_tags(*attrs[:tag_ids])  if any_tags?
-      tot.sum('(accounts.total - accounts.amount) * accounts.exchange_rate')
+      0 #tot.sum('(accounts.total - accounts.amount) * accounts.exchange_rate')
     end
   end
 
@@ -29,18 +29,18 @@ class Report
     @total_incomes ||= begin
       tot = Income.active.where(date: date_range.range)
       tot = tot.all_tags(*attrs[:tag_ids])  if any_tags?
-      tot.sum('(accounts.total - accounts.amount) * accounts.exchange_rate')
+                         0 # tot.sum('(accounts.total - accounts.amount) * accounts.exchange_rate')
     end
   end
 
   def incomes_dayli
     data = params(type: 'Income')
-    @incomes_dayli ||= conn.select_rows(dayli_sql(data)).map {|v| DailyReport.new(*v)}
+    @incomes_dayli ||= [] # conn.select_rows(dayli_sql(data)).map {|v| DailyReport.new(*v)}
   end
 
   def expenses_dayli
     data = params(type: 'Expense')
-    @expenses_dayli ||= conn.select_rows(dayli_sql(data)).map {|v| DailyReport.new(*v)}
+    @expenses_dayli ||= [] # conn.select_rows(dayli_sql(data)).map {|v| DailyReport.new(*v)}
   end
 
   def expenses_pecentage

@@ -3,7 +3,12 @@
     %li
       &nbsp;
 
-%h1 Op. Inventarios
+%h1 入出庫
+
+= link_to "購買入庫...", "/expenses_inventory_ins/new"
+= link_to "仕入戻し...", "/expenses_inventory_outs/new"
+= link_to "出荷/納入...", "/incomes_inventory_outs/new"
+= link_to "顧客返品...", "/incomes_inventory_ins/new"
 
 = render 'search', date_range: @date_range
 

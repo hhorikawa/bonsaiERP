@@ -3,6 +3,16 @@
 # email: boriscyber@gmail.com
 
 # 勘定科目マスタ. マスタに見えないが, マスタ.
+#
+# 次のようにレコードを作る. Cash だけ作ると, Account ができない.
+#   x = Account.new accountable: Cash.new()
+# puts x.attributes
+# puts x.cash.attributes
+#
+# クエリは, 次のようにすれば、Cash と紐づく Account だけ取ってくれる
+# 勝手に "accountable_type" = 'Cash' を補ってくれる
+#   Cash.eager_load(:account)
+#
 class Account < ApplicationRecord
   include ActionView::Helpers::NumberHelper
   include ::Models::Tag
@@ -13,6 +23,8 @@ class Account < ApplicationRecord
 
   # schema: accountable_type, accountable_id
   delegated_type :accountable, types: %w[Cash ContactAccount Loan OtherAccount]
+  # 次はサブクラスでオーバライドする場合の書き方
+  #delegate :name, to: :accountable
   
   #belongs_to :contact, optional: true
   has_many :account_ledgers, -> { order('date desc, id desc') }

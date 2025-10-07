@@ -41,8 +41,7 @@
             Accounts
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/bank_accounts/">Bank Accounts</a>
-            <li><a class="dropdown-item" href="/cashes/">Cashes</a>
+            <li><a class="dropdown-item" href="/cashes/">Cashes &amp; Bank Accounts</a>
             <li><a class="dropdown-item" href="/contact_accounts/">Contact Accounts</a>
             <li><a class="dropdown-item" href="/loan/">Loan</a>
             <li><a class="dropdown-item" href="/staff_accounts/">Staff Accounts</a>
@@ -77,8 +76,8 @@
                     class:"dropdown-item" %>
             <li><%= link_to t("views.menu.inventory_operations"),
                     inventories_path, class:"dropdown-item" %>
-            <li><%= link_to t("views.menu.units"), units_path,
-                    class:"dropdown-item" %>
+            <li><%= link_to "Units of Measure", units_path,
+                            class:"dropdown-item" %>
           </ul>
         </li>
       </ul>

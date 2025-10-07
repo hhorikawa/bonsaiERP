@@ -4,9 +4,9 @@
 class AccountLedger < ApplicationRecord
 
   #include ::Models::Updater
-  extend Models::AccountCode
+  #extend Models::AccountCode
 
-  self.code_name = 'T'
+  #self.code_name = 'T'
 
   ########################################
   # Constants

@@ -12,7 +12,7 @@ class CreateAccounts < ActiveRecord::Migration[5.2]
 
         # delegated_type = polymorphic にする
         t.string :accountable_type, limit:80, null:false
-        t.string :accountable_id, null:false
+        t.integer :accountable_id, null:false
         
         # この意味?
         t.decimal :exchange_rate, precision: 14, scale: 4, default: 1.0

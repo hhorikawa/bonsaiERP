@@ -4,11 +4,11 @@
 
 # 自社の銀行口座・現金マスタ
 class CashesController < ApplicationController
-  before_action :find_bank, only: [:show, :edit, :update, :destroy]
+  before_action :set_cash, only: [:show, :edit, :update, :destroy]
 
   # GET /banks
   def index
-    @banks = Bank.order('name asc')
+    @cashes = Cash.eager_load(:account).order('name asc')
   end
 
   # GET /banks/1
@@ -17,7 +17,7 @@ class CashesController < ApplicationController
 
   # GET /banks/new
   def new
-    @bank = Bank.new(currency: params[:currency])
+    @cash = Cash.new(currency: params[:currency])
   end
 
   # GET /banks/1/edit
@@ -26,24 +26,26 @@ class CashesController < ApplicationController
   
   # POST /banks
   def create
-    @bank = Bank.new(create_bank_params)
+    @cash = Cash.new(create_bank_params)
 
-    if @bank.save
-      redirect_to bank_path(@bank.id), notice: 'La cuenta de banco fue creada.'
+    if @cash.save
+      redirect_to @cash, notice: 'La cuenta de banco fue creada.'
     else
-      render :new
+      render :new, status: :unprocessable_entity 
     end
   end
 
   # PUT /banks/1
   def update
-    if @bank.update(update_bank_params)
-      redirect_to @bank, notice: 'Se actualizo  correctamente la cuenta de banco.'
+    @cash.assign_attributes(update_bank_params)
+    if @cash.save
+      redirect_to @cash, notice: 'Se actualizo  correctamente la cuenta de banco.'
     else
-      render action: 'edit'
+      render :edit, status: :unprocessable_entity 
     end
   end
 
+  
   # Presents money accounts json method
   # GET /banks/money
   def money
@@ -54,15 +56,16 @@ class CashesController < ApplicationController
   # DELETE /banks/1
   # DELETE /banks/1.xml
   def destroy
-    @bank.destroy
-    respond_ajax @bank
+    @cash.destroy!
+    redirect_to cashes_path, status: :see_other,
+                notice: "The cash account was successfully destroyed." 
   end
 
   
 private
 
-  def find_bank
-    @bank = Bank.find(params[:id])
+  def set_cash
+    @cash = Cash.find(params[:id])
   end
 
     def update_bank_params

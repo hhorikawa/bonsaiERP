@@ -60,7 +60,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.boolean "active", default: true, null: false
     t.text "description", null: false
     t.string "accountable_type", limit: 80, null: false
-    t.string "accountable_id", null: false
+    t.integer "accountable_id", null: false
     t.decimal "exchange_rate", precision: 14, scale: 4, default: "1.0"
     t.decimal "amount", precision: 14, scale: 2, default: "0.0"
     t.date "date"
