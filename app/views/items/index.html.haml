@@ -1,7 +1,6 @@
 - content_for :links do
   %ul.breadcrumbs.span6
-    %li
-      = link_to 'Items', items_path
+
 
   %ul.span6.breadcrumbs.r
     %a#help.dark(href='javascript:;')
@@ -10,7 +9,7 @@
 
 .row-fluid
   .span6
-    %h1.ib Items
+    %h1.ib Product/Item Master
     = search_tag
   .span6.r.buttons
     %tags(model='Item' tag-ids='#{ tag_ids }' url='#{ items_path }')

@@ -5,7 +5,7 @@
 
 <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;" data-bs-theme="light">
   <div class="container-fluid">
-    <a class="navbar-brand" >盆栽 ERP</a>
+    <a class="navbar-brand" href="/">盆栽 ERP</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -14,72 +14,98 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">
+            Master Data
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="/partners/" class="dropdown-item">Business Partners</a>
+            <li><%= link_to "Product/Item Master", items_path,
+                            class:"dropdown-item" %>
+            <li><%= link_to "Units of Measure", units_path,
+                            class:"dropdown-item" %>
+          </ul>
         </li>
         
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button"
              data-bs-toggle="dropdown" aria-expanded="false">
-            <%= t('views.menu.reports') %>
+            Finance
           </a>
           <ul class="dropdown-menu">
-            <li><%= link_to t("views.menu.dashboard"), dashboard_path,
-                    class:"dropdown-item" %></li>
+            <li><a class="dropdown-item" href="/cashes/">Cashes &amp; Bank Account</a>
+            <li><a class="dropdown-item" href="/loans/">Loan</a>
+              <!--
+            <li><a class="dropdown-item" href="/staff_accounts/">Staff Accounts</a> -->
+            <li><%= link_to t('views.menu.etiquetas'), tag_groups_path,
+                    class:"dropdown-item" %>
+            <li><%= link_to t("views.menu.ledgers"), account_ledgers_path,
+                    class:"dropdown-item" %>
+
             <li><%= link_to t("views.menu.reports"), reports_path,
                     class:"dropdown-item" %></li>
             <li>
               <%= link_to t("views.menu.inventory"), inventory_report_path,
                   class:"dropdown-item" %>
             </li>
-          </ul>
-        </li>
-        
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button"
-             data-bs-toggle="dropdown" aria-expanded="false">
-            Accounts
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/cashes/">Cashes &amp; Bank Accounts</a>
-            <li><a class="dropdown-item" href="/contact_accounts/">Contact Accounts</a>
-            <li><a class="dropdown-item" href="/loan/">Loan</a>
-            <li><a class="dropdown-item" href="/staff_accounts/">Staff Accounts</a>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="/sales/">Sales</a>
-            <li><a class="dropdown-item" href="/expenses/">Expenses</a>
-          </ul>
-        </li>
-        
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button"
-             data-bs-toggle="dropdown" aria-expanded="false">
-            元帳
-          </a>
-          <ul class="dropdown-menu">              
-            <li><%= link_to t('views.menu.etiquetas'), tag_groups_path,
-                    class:"dropdown-item" %>
-            <li><%= link_to t("views.menu.ledgers"), account_ledgers_path,
-                    class:"dropdown-item" %>
+            <li><a class="dropdown-item" href="/payments/">Payment</a>
+            <li><a class="dropdown-item" href="/taxes/">Tax</a>
           </ul>
         </li>
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button"
              data-bs-toggle="dropdown" aria-expanded="false">
-            <%= t('views.menu.inventarios') %>
+            Sales
           </a>
-          <ul class="dropdown-menu">              
-            <li><%= link_to t("views.menu.stores"), stores_path,
-                    class:"dropdown-item" %>
-            <li><%= link_to t("views.menu.items"), items_path,
-                    class:"dropdown-item" %>
-            <li><%= link_to t("views.menu.inventory_operations"),
-                    inventories_path, class:"dropdown-item" %>
-            <li><%= link_to "Units of Measure", units_path,
-                            class:"dropdown-item" %>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/sales_orders/">Sales Order</a>
+            <li><a class="dropdown-item" href="/deliveries/">出荷/納入</a>
+            <li><a class="dropdown-item" href="/customer_returns/">Customer Return</a>
           </ul>
         </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">
+            Purchasing
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/purchase_orders/">Purchase Order</a>
+            <li><a class="dropdown-item" href="/goods_receipt_pos/">Goods Receipt PO</a>
+            <li><a class="dropdown-item" href="/goods_returns/">仕入戻し</a>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">
+            Inventory
+          </a>
+          <ul class="dropdown-menu">              
+            <li><%= link_to "Store/Warehouse", stores_path,
+                            class:"dropdown-item" %>
+            <li>●●未着品の入庫
+            <li><a href="/inventory_outs/" class="dropdown-item">Transfer Stock - Out</a>
+            <li><a href="/inventory_ins/" class="dropdown-item">Transfer Stock - In</a>
+            <li>●●Inventory Count and Adjustment
+            <li><%= link_to "入出庫伝票",
+                            inventories_path, class:"dropdown-item" %>
+            <li><a href="/stocks/" class="dropdown-item" >Stock</a>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">
+            Project
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/projects/">Project</a>
+          </ul>
+        </li>
+      
       </ul>
 <% # 以上が left menu bar %>
 

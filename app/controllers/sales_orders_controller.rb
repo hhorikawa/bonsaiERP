@@ -1,7 +1,9 @@
-# encoding: utf-8
+
 # author: Boris Barroso
 # email: boriscyber@gmail.com
-class IncomesController < ApplicationController
+
+# Sales Orders
+class SalesOrdersController < ApplicationController
   include Controllers::TagSearch
   include Controllers::Print
 

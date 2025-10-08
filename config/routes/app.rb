@@ -10,49 +10,11 @@ post 'batch_paymets/expense' => 'batch_payments#expense', as: :expense_batch_pay
 
 resources :attachments, only: [:create, :update, :destroy]
 
-resources :loan_payments, only: [] do
-  member do
-    # Receive
-    get :new_pay
-    post :pay
-    get :new_pay_interest
-    post :pay_interest
-    # Give
-    get :new_charge
-    post :charge
-    get :new_charge_interest
-    post :charge_interest
-  end
-end
-
-# Loans
-resources :loans, only: [:index, :show, :update] do
-  collection do
-    get :new_receive
-    post :receive
-    get :new_give
-    post :give
-  end
-end
-
-# Loans ledger_in
-get 'loan_ledger_ins/:id/new_give' => 'loan_ledger_ins#new_give', as: :new_give_loan_ledger_in
-patch 'loan_ledger_ins/:id/give' => 'loan_ledger_ins#give', as: :give_loan_ledger_in
-get 'loan_ledger_ins/:id/new_receive' => 'loan_ledger_ins#new_receive', as: :new_receive_loan_ledger_in
-patch 'loan_ledger_ins/:id/receive' => 'loan_ledger_ins#receive', as: :receive_loan_ledger_in
-
-resources :taxes
-
 resources :tags do
   patch :update_models, on: :collection
 end
 
 resources :tag_groups
-
-resources :inventories, only: [:index, :show] do
-  get :show_movement, on: :member
-  get :show_trans, on: :member
-end
 
 resources :inventory_transferences, only: [:new, :create, :show]
 
@@ -60,97 +22,15 @@ resources :export_expenses, only: [:index, :create]
 
 resources :export_incomes, only: [:index, :create]
 
-resources :reports, only: [:index]
-
-get 'inventory_report' => 'reports#inventory', as: :inventory_report
-
-resources :organisation_updates, only: [:edit, :update]
-
 resources :admin_users, except: [:index] do
   patch :active, on: :member
 end
 
 resources :configurations, only: [:index]
 
-resources :stocks, only: [:update]
 
-resources :account_ledgers, only: [:index, :show, :update] do
-  post :transference, on: :collection
-  patch :conciliate, on: :member
-  patch :null, on: :member
-end
-
-
-# 自社の銀行口座・現金マスタ
-resources :cashes do
-  get :money, on: :collection
-end
-
-resources :staff_accounts
-
-# Transference between accounts
-resources :transferences, only: [:new, :create]
-
-resources :devolutions, only: [] do
-  member do
-    get :new_income
-    post :income
-    get :new_expense
-    post :expense
-  end
-end
-
-resources :payments, only: [] do
-  member do
-    get :new_income
-    post :income
-    get :new_expense
-    post :expense
-  end
-end
-
-resources :projects
-
-############################
-# IN/OUT
-############################
-resources :incomes do
-  member do
-    patch :approve
-    patch :null
-    patch :inventory
-  end
-end
-
-resources :incomes_inventory_ins, only: [:new, :create]
-resources :incomes_inventory_outs, only: [:new, :create]
-
-resources :expenses do
-  member do
-    patch :approve
-    patch :null
-    patch :inventory
-  end
-end
-
-resources :expenses_inventory_ins, only: [:new, :create]
-resources :expenses_inventory_outs, only: [:new, :create]
-
-###########################
-
-# 店
-resources :stores do
-  resources :inventory_ins, only: [:new, :create]
-  resources :inventory_outs, only: [:new, :create]
-end
-
-# 取引先
-resources :contacts do
-  resources :contact_accounts  # Account から派生
-  
-  get :incomes, on: :member
-  get :expenses, on: :member
-end
+######################################################################
+# Master Data
 
 # 商品・アイテム
 resources :items do
@@ -162,8 +42,157 @@ end
 # UoM
 resources :units
 
-# 組織
+# 取引先
+resources :partners do
+  resources :contact_accounts  # Account から派生
+  
+  get :incomes, on: :member
+  get :expenses, on: :member
+end
+
+
+######################################################################
+# Finance
+
+# 自社の銀行口座・現金マスタ
+resources :cashes do
+  get :money, on: :collection
+end
+
+# ●●削除してよいか?
+resources :staff_accounts
+
+resources :account_ledgers, only: [:index, :show, :update] do
+  post :transference, on: :collection
+  patch :conciliate, on: :member
+  patch :null, on: :member
+end
+
+
+# 転移. 何の? Transference between accounts
+resources :transferences, only: [:new, :create]
+
+# 権限委譲. 何の?
+resources :devolutions, only: [] do
+  member do
+    get :new_income
+    post :income
+    get :new_expense
+    post :expense
+  end
+end
+
+resources :payments  do
+  member do
+    get :new_income
+    post :income
+    get :new_expense
+    post :expense
+  end
+end
+
+resources :taxes
+
+resources :reports, only: [:index]
+
+get 'inventory_report' => 'reports#inventory', as: :inventory_report
+
+# Loans. 借入れごとに勘定科目を作る.
+resources :loans, only: [:index, :show, :update] do
+  collection do
+    get :new_receive
+    post :receive
+    get :new_give
+    post :give
+  end
+
+  resources :loan_payments, only: [] do
+    member do
+      # Receive
+      get :new_pay
+      post :pay
+      get :new_pay_interest
+      post :pay_interest
+      # Give
+      get :new_charge
+      post :charge
+      get :new_charge_interest
+      post :charge_interest
+    end
+  end
+end
+
+# Loans ledger_in
+get 'loan_ledger_ins/:id/new_give' => 'loan_ledger_ins#new_give', as: :new_give_loan_ledger_in
+patch 'loan_ledger_ins/:id/give' => 'loan_ledger_ins#give', as: :give_loan_ledger_in
+get 'loan_ledger_ins/:id/new_receive' => 'loan_ledger_ins#new_receive', as: :new_receive_loan_ledger_in
+patch 'loan_ledger_ins/:id/receive' => 'loan_ledger_ins#receive', as: :receive_loan_ledger_in
+
+
+######################################################################
+# Sales 
+
+resources :sales_orders do
+  member do
+    patch :approve
+    patch :null
+    patch :inventory
+  end
+end
+
+resources :deliveries
+
+resources :customer_returns
+
+
+######################################################################
+# Purchasing
+
+resources :purchase_orders do
+  member do
+    patch :approve
+    patch :null
+    patch :inventory
+  end
+end
+
+resources :goods_receipt_pos
+
+resources :goods_returns
+
+
+######################################################################
+# Inventory
+
+# 店/倉庫
+resources :stores
+
+# 在庫
+resources :stocks
+
+# 入出庫伝票
+resources :inventories, only: [:index, :show] do
+  get :show_movement, on: :member
+  get :show_trans, on: :member
+end
+
+resources :inventory_outs
+
+resources :inventory_ins
+
+
+######################################################################
+# Project
+
+resources :projects
+
+
+######################################################################
+
+# Admin only: 組織
 resources :organisations #, only: [:new, :update]
+
+resources :organisation_updates, only: [:edit, :update]
 
 resources :user_passwords, only: [:new, :create] do
   collection do
@@ -172,6 +201,7 @@ resources :user_passwords, only: [:new, :create] do
   end
 end
 
+# Admin only.
 resources :users, only: [:show, :edit, :update]
 
 get '/dashboard' => 'dashboard#index', as: :dashboard
@@ -199,6 +229,7 @@ resource :user_session, only: [:new, :create, :destroy]
 resources :tests
 get '/kitchen' => 'tests#kitchen' # Tests
 
-get '/404', to: 'errors#page_not_found'
-get '/422', to: 'errors#unacceptable'
-get '/500', to: 'errors#internal_error'
+# 例外を捕捉すること
+#get '/404', to: 'errors#page_not_found'
+#get '/422', to: 'errors#unacceptable'
+#get '/500', to: 'errors#internal_error'

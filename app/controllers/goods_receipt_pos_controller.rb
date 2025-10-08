@@ -1,7 +1,7 @@
 # encoding: utf-8
 # author: Boris Barroso
 # email: boriscyber@gmail.com
-class ExpensesInventoryInsController < ApplicationController
+class GoodsReceiptPosController < ApplicationController
   before_action :set_store_and_expense
 
   # GET

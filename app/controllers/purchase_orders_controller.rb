@@ -1,7 +1,9 @@
-# encoding: utf-8
+
 # author: Boris Barroso
 # email: boriscyber@gmail.com
-class ExpensesController < ApplicationController
+
+# 発注
+class PurchaseOrdersController < ApplicationController
   include Controllers::TagSearch
 
   before_action :set_expense, only: [:approve, :null, :inventory]

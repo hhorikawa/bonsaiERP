@@ -1,7 +1,9 @@
-# encoding: utf-8
+
 # author: Boris Barroso
 # email: boriscyber@gmail.com
-class ContactsController < ApplicationController
+
+# 取引先. 人名勘定
+class PartnersController < ApplicationController
   include Controllers::TagSearch
   before_action :find_contact, only: [:show, :edit, :update, :destroy, :incomes, :expenses]
 
