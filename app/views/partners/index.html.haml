@@ -6,20 +6,20 @@
 
 .row-fluid
   .span6
-    %h1 Contactos
+    %h1 Business Partners
   .span6.r
     = link_to 'Export', contacts_path(format: 'xls'), class: 'btn'
 
     %tags(model='Contact' tag-ids='#{ tag_ids }' url='#{ contacts_path }')
-    = link_to icon_new_text, new_contact_path, class: 'btn'
+    = link_to "New Business Partner...", new_contact_path, class: 'btn btn-secondary'
 
 = render 'search'
 
-- paginate_html = paginate(@contacts)
+- paginate_html = paginate(@partners)
 
 = paginate_html
 
 %ul.unstyled.listing.has-row-check
-  = render @contacts
+  = render @partners
 
 = paginate_html

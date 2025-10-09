@@ -1,0 +1,16 @@
+<h1>accounts</h1>
+
+<%= link_to 'New Account', new_account_path, :class => 'new' %>
+
+<table class="decorated nwl">
+  <tr>
+    <th></th>
+  </tr>
+
+<% @accounts.each do |account| %>
+  <tr>
+        <td><%= bonsai_links(account) %></td>
+  </tr>
+<% end %>
+</table>
+

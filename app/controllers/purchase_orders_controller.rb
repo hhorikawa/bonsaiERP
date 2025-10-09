@@ -6,11 +6,12 @@
 class PurchaseOrdersController < ApplicationController
   include Controllers::TagSearch
 
-  before_action :set_expense, only: [:approve, :null, :inventory]
+  before_action :set_po, only: [:show, :edit, :update, :destroy, :approve, :null, :inventory]
 
   # GET /expenses
   def index
-    @expenses = Movements::Search.new(params, Expense).search.order(date: :desc).page(@page)
+    if search_term
+      @pos = Movements::Search.new(params, Expense).search.order(date: :desc).page(@page)
   end
 
   # GET /expenses/1
@@ -40,6 +41,7 @@ class PurchaseOrdersController < ApplicationController
     end
   end
 
+  
   # PATCH /expenses/:id
   def update
     @es = Expenses::Form.find(params[:id])

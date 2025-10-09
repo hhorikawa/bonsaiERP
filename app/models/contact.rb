@@ -36,12 +36,12 @@ class Contact < ApplicationRecord
   # Scopes
   scope :clients, -> { where(client: true) }
   scope :suppliers, -> { where(supplier: true) }
-  scope :search, -> (s) {
+
+  def self.search search_term
     sql = %w(matchcode first_name last_name email phone mobile).map { |field| "contacts.#{field} ILIKE :s" }
     where(sql.join(' OR ' ), s: "%#{s}%")
-  }
+  end
 
-  #default_scope -> { where(staff: false) }
 
   # Serialization
   serialize :incomes_status, coder: JSON

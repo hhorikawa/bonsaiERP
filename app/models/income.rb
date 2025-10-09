@@ -1,7 +1,8 @@
 # author: Boris Barroso
 # email: boriscyber@gmail.com
-# Class that creates incomes "Sales"
-class Income < OtherAccount
+
+# Class that creates "Sales Order"
+class Income < BusinessRecord
 
   include Models::History
   has_history_details Movements::History, :income_details

@@ -35,6 +35,7 @@ class CashesController < ApplicationController
     end
   end
 
+  
   # PUT /banks/1
   def update
     @cash.assign_attributes(update_bank_params)

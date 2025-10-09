@@ -159,36 +159,28 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
   end
 
   create_table "contacts", force: :cascade do |t|
-    t.string "matchcode"
-    t.string "first_name", limit: 100
-    t.string "last_name", limit: 100
-    t.string "organisation_name", limit: 100
-    t.string "address", limit: 250
+    t.string "matchcode", limit: 100, null: false
+    t.string "name", null: false
+    t.string "address", limit: 250, comment: "headquarters"
     t.string "phone", limit: 40
     t.string "mobile", limit: 40
     t.string "email", limit: 200
     t.string "tax_number", limit: 30
     t.string "aditional_info", limit: 250
-    t.string "code"
     t.string "type"
     t.string "position"
-    t.boolean "active", default: true
-    t.boolean "staff", default: false
-    t.boolean "client", default: false
-    t.boolean "supplier", default: false
+    t.boolean "active", default: true, null: false
+    t.boolean "staff", default: false, null: false
+    t.boolean "client", default: false, null: false
+    t.boolean "supplier", default: false, null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "incomes_status", limit: 300, default: "{}"
     t.string "expenses_status", limit: 300, default: "{}"
     t.integer "tag_ids", default: [], array: true
-    t.index ["active"], name: "index_contacts_on_active"
-    t.index ["client"], name: "index_contacts_on_client"
-    t.index ["first_name"], name: "index_contacts_on_first_name"
-    t.index ["last_name"], name: "index_contacts_on_last_name"
-    t.index ["matchcode"], name: "index_contacts_on_matchcode"
-    t.index ["staff"], name: "index_contacts_on_staff"
-    t.index ["supplier"], name: "index_contacts_on_supplier"
+    t.index ["matchcode"], name: "index_contacts_on_matchcode", unique: true
     t.index ["tag_ids"], name: "index_contacts_on_tag_ids"
+    t.index ["tax_number"], name: "index_contacts_on_tax_number", unique: true
   end
 
   create_table "histories", force: :cascade do |t|

@@ -20,6 +20,9 @@ The system allows to use multiple currencies and make exchange rates.
 
 TODO: 
  - Chart は <s>おそらく <a href="https://github.com/jqPlot/jqPlot/">jqPlot</a> を使っていると思われる。</s> Chart.js の v1.x 辺り。古すぎる。差し替える.
+ - Install a UI library.
+   <a href="https://github.com/ColorlibHQ/gentelella/">ColorlibHQ/gentelella: Free Bootstrap 5 Admin Dashboard Template</a> or <a href="https://flowbite.com/">Flowbite - Build websites even faster with components on top of Tailwind CSS</a>
+
 
 
 

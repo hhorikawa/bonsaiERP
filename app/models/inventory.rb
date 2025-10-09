@@ -1,7 +1,7 @@
-# encoding: utf-8
+
 # author: Boris Barroso
 # email: boriscyber@gmail.com
-class Inventory < ApplicationRecord
+class Inventory < BusinessRecord
 
   #include ::Models::Updater
 

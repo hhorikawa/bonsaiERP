@@ -1,7 +1,9 @@
 
 # author: Boris Barroso
 # email: boriscyber@gmail.com
-class Expense < OtherAccount
+
+# Purchase Order
+class Expense < BusinessRecord
 
   include Models::History
   has_history_details Movements::History, :expense_details

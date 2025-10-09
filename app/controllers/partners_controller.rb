@@ -5,60 +5,61 @@
 # 取引先. 人名勘定
 class PartnersController < ApplicationController
   include Controllers::TagSearch
-  before_action :find_contact, only: [:show, :edit, :update, :destroy, :incomes, :expenses]
+  
+  before_action :set_partner,
+                only: [:show, :edit, :update, :destroy, :incomes, :expenses]
 
   # GET /contacts
   def index
-    @contacts = Contacts::Query.new.index.order('matchcode asc')
-
-    @contacts = @contacts.any_tags(*tag_ids)  if tag_ids
-    @contacts = @contacts.search(search_term)  if search_term
-
-    @contacts = @contacts.page(@page)
-
-    respond_to do |format|
-      format.html
-      format.json { render json: @contacts }
-      format.xls { export_contacts }
+    if search_term
+      @partners = Contact.search(search_term)
+    else
+      @partners = Contact.order('matchcode asc')
     end
+    @partners = @partners.page(@page)
+    
+    #@contacts = @contacts.any_tags(*tag_ids)  if tag_ids
   end
 
+  
   # GET /contacts/1
   def show
     params[:operation] ||= 'all'
-    @contact = present @contact
   end
 
   # GET /contacts/new
   def new
-    @contact = Contact.new
+    @partner = Contact.new
   end
 
   # GET /contacts/1/edit
-
+  def edit
+  end
+  
   # POST /contacts
   def create
-    @contact = Contact.new(contact_params)
-
-    if @contact.save
-      redirect_ajax(@contact, notice: 'Se ha creado el contacto.')
+    @partner = Contact.new(contact_params)
+    if @partner.save
+      redirect_to @partner, notice: 'Se ha creado el contacto.'
     else
-      render :new
+      render :new, status: :unprocessable_entity 
     end
   end
 
   # PUT /contacts/1
   def update
-    if @contact.update(contact_params)
-      redirect_ajax(@contact)
+    @partner.assign_attributes(contact_params)
+    if @partner.save
+      redirect_to @partner
     else
-      render :edit
+      render :edit, status: :unprocessable_entity 
     end
   end
 
+  
   # DELETE /contacts/1
   def destroy
-    @contact.destroy
+    @partner.destroy!
 
     if @contact.destroyed?
       flash[:notice] = 'El contacto fue eliminado'
@@ -66,8 +67,9 @@ class PartnersController < ApplicationController
       flash[:error] = 'No fue posible eliminar el contacto'
     end
 
-    redirect_to contacts_path
+    redirect_to contacts_path, status: :see_other
   end
+
 
   # GET /contacts/:id/expenses
   def expenses
@@ -78,12 +80,13 @@ class PartnersController < ApplicationController
   def incomes
     params[:page_incomes] ||= 1
   end
+  
+  
+private
 
-  private
-
-    def find_contact
-      @contact = Contact.find(params[:id])
-    end
+  def set_partner
+    @partner = Contact.find(params[:id])
+  end
 
     def contact_params
       params.require(:contact).permit(:matchcode, :first_name, :last_name, :email, :phone, :mobile, :tax_number, :address)
