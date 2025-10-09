@@ -73,7 +73,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.integer "updater_id"
     t.decimal "tax_percentage", precision: 5, scale: 2, default: "0.0"
     t.integer "tax_id"
-    t.decimal "total", precision: 14, scale: 2, default: "0.0"
     t.boolean "tax_in_out", default: false
     t.jsonb "extras"
     t.integer "creator_id"
@@ -287,8 +286,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
   end
 
   create_table "movement_details", force: :cascade do |t|
-    t.integer "account_id"
-    t.integer "item_id"
+    t.bigint "order_id", null: false
+    t.bigint "item_id"
+    t.bigint "account_id"
     t.decimal "quantity", precision: 14, scale: 2, default: "0.0"
     t.decimal "price", precision: 14, scale: 2, default: "0.0"
     t.string "description"
@@ -299,6 +299,29 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.datetime "updated_at", precision: nil, null: false
     t.index ["account_id"], name: "index_movement_details_on_account_id"
     t.index ["item_id"], name: "index_movement_details_on_item_id"
+    t.index ["order_id"], name: "index_movement_details_on_order_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string "type", limit: 80, null: false
+    t.decimal "total", precision: 14, scale: 2, default: "0.0", null: false
+    t.string "bill_number"
+    t.decimal "gross_total", precision: 14, scale: 2, default: "0.0"
+    t.decimal "original_total", precision: 14, scale: 2, default: "0.0"
+    t.decimal "balance_inventory", precision: 14, scale: 2, default: "0.0"
+    t.date "due_date"
+    t.integer "creator_id"
+    t.integer "approver_id"
+    t.integer "nuller_id"
+    t.datetime "nuller_datetime", precision: nil
+    t.string "null_reason", limit: 400
+    t.datetime "approver_datetime", precision: nil
+    t.boolean "delivered", default: false, null: false
+    t.boolean "discounted", default: false, null: false
+    t.boolean "devolution", default: false, null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.boolean "no_inventory", default: false, null: false
   end
 
   create_table "organisations", force: :cascade do |t|
@@ -444,4 +467,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
   add_foreign_key "items", "units"
   add_foreign_key "links", "organisations"
   add_foreign_key "links", "users"
+  add_foreign_key "movement_details", "accounts"
+  add_foreign_key "movement_details", "items"
+  add_foreign_key "movement_details", "orders"
 end

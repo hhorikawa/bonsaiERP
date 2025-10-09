@@ -1,8 +1,9 @@
 # encoding: utf-8
 FactoryBot.define do
-  factory :account do
+  factory :order do
     
   end
+
 
   factory :loan do
     
