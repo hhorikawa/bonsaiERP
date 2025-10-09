@@ -3,7 +3,7 @@
 # email: boriscyber@gmail.com
 
 # Purchase Order
-class Expense < BusinessRecord
+class PurchaseOrder < Order
 
   include Models::History
   has_history_details Movements::History, :expense_details

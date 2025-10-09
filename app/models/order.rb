@@ -2,10 +2,8 @@
 # email: boriscyber@gmail.com
 
 # その他の勘定科目
-class OtherAccount < ApplicationRecord  # Account から派生
-  # 仮想的な親: 勘定科目
-  include Accountable
-
+class Order < BusinessRecord 
+  
   STATES = %w(draft approved paid nulled)
 
   # Callbacks

@@ -1,14 +1,14 @@
 - content_for :links do
   .links= link_to "Nueva venta", new_income_path, :class => 'new'
 
-%h1 Ventas
+%h1 Sales
 
 %ul.tabs
-  %li= link_incomes "Todas", 'all'
-  %li= link_incomes "Esperando aprobación", 'draft'
-  %li= link_incomes "Esperando cobro", 'awaiting_payment'
-  %li= link_incomes "Vencidas", 'due'
-  %li= link_incomes "Pagadas", 'paid'
+  %li= link_incomes "All", 'all'
+  %li= link_incomes "Waiting for approval", 'draft'
+  %li= link_incomes "Waiting for payment", 'awaiting_payment'
+  %li= link_incomes "Overdue", 'due'
+  %li= link_incomes "Paid", 'paid'
 
 = paginate @incomes
 

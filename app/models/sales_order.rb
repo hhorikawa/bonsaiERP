@@ -2,7 +2,7 @@
 # email: boriscyber@gmail.com
 
 # Class that creates "Sales Order"
-class Income < BusinessRecord
+class SalesOrder < Order
 
   include Models::History
   has_history_details Movements::History, :income_details
