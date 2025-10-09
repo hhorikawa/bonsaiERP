@@ -101,7 +101,7 @@ class StockWithItem
     @unit = obj.item_unit_symbol
     @stock = obj.quantity
   rescue
-    @stock = BigDecimal.new(0)
+    @stock = BigDecimal(0)
   end
 
   def attributes

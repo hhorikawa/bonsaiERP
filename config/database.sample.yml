@@ -7,17 +7,17 @@ default: &default
 
 development:
   <<: *default
-  database: bonsai_erp_development
+  database: bonsai_erp2_development
   username: <%= ENV['USER'] %>
   password: postgres  # Uncomment and set if your PostgreSQL requires a password
 
 test:
   <<: *default
-  database: bonsai_erp_test
+  database: bonsai_erp2_test
 
 production:
   <<: *default
-  database: bonsai_erp_production
+  database: bonsai_erp2_production
   username: <%= ENV['BONSAI_DATABASE_USERNAME'] %>
   password: <%= ENV['BONSAI_DATABASE_PASSWORD'] %>
   host: <%= ENV['BONSAI_DATABASE_HOST'] %>

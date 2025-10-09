@@ -14,7 +14,7 @@ Rails.application.config.content_security_policy do |policy|
 
   # Allow webpack-dev-server in development
   if Rails.env.development?
-    policy.connect_src :self, :https, 'http://localhost:3035', 'ws://localhost:3035'
+    policy.connect_src :self, :https, 'http://localhost:3000', 'ws://localhost:3035'
   end
 
   # Specify URI for violation reports
@@ -30,4 +30,4 @@ Rails.application.config.content_security_policy_nonce_directives = %w(script-sr
 # Report CSP violations to a specified URI
 # For further information see the following documentation:
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only
-# Rails.application.config.content_security_policy_report_only = true
+Rails.application.config.content_security_policy_report_only = true

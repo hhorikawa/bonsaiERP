@@ -3,6 +3,11 @@
 
 > This project is no longer mantained you can fork it and continue development
 
+TODO: 
+ - Some view files where `= expr` in haml are converted to `{{expr}}` in erb. This does not work properly.
+
+
+
 # *bonsaiERP*
 
 *bonsaiERP* is a simple ERP multitenant system written with [Ruby on Rails](http://rubyonrails.org) and includes the following modules:
