@@ -126,13 +126,10 @@ Apartment::Elevators::Subdomain.excluded_subdomains = INVALID_TENANTS
 if Rails.env.development? || Rails.env.test?
   DOMAIN = "bonsai.test"   # TODO: production 環境
 
-  Rails.application.config.hosts << "kintsugi97890.#{DOMAIN}:5100"
-
-  # ログイン画面 `/sessions/new` と `/sign_in` の 2ヶ所か?
-  # as-is `app.*` にリダイレクトし, ログイン後にテナントのドメインに戻らない.
-  #       これはダメ.
+  # `app.domain`    -> sign_in / sign_up, creating an organisation.
+  # `tenant.domain` -> operation functions.
   #
-  # TODO: sign_in / sign_up, organisation 作成を `app` ドメインでおこなう.
-  #       -> `config/initializers/session_store.rb` で設定
-  Rails.application.config.hosts << "app.#{DOMAIN}:5100"
+  # ".example.com" means that the subdomains are allowed.
+  # And, you must set `session_store` in `config/initializers/session_store.rb`
+  Rails.application.config.hosts << ".#{DOMAIN}:5100"
 end

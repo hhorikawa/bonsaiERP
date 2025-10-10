@@ -5,10 +5,13 @@ class ActionDispatch::Routing::Mapper
 end
 
 BonsaiErp::Application.routes.draw do
-  resources :accounts
   draw :api
   draw :app
 
   # `draw` 内で実行時分岐は書けない.
   root to: "home#index"
+
+  # Chart of accounts
+  resources :accounts
+
 end

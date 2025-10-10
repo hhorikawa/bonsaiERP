@@ -5,7 +5,7 @@
 
 <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;" data-bs-theme="light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">盆栽 ERP</a>
+    <a class="navbar-brand" href="/dashboard">盆栽 ERP</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -34,8 +34,12 @@
             Finance
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/cashes/">Cashes &amp; Bank Account</a>
+            <li><a class="dropdown-item" href="/cashes/">Cash &amp; Bank Account</a>
             <li><a class="dropdown-item" href="/loans/">Loan</a>
+            <li><a class="dropdown-item" href="/payments/">Payment</a>
+            <li><a class="dropdown-item" href="/taxes/">Tax</a>
+	      
+	    <li><hr class="dropdown-divider"></li>
 	    <li><a class="dropdown-item" href="/accounts/">Chart of Accounts</a>
               <!--
             <li><a class="dropdown-item" href="/staff_accounts/">Staff Accounts</a> -->
@@ -50,8 +54,6 @@
               <%= link_to t("views.menu.inventory"), inventory_report_path,
                   class:"dropdown-item" %>
             </li>
-            <li><a class="dropdown-item" href="/payments/">Payment</a>
-            <li><a class="dropdown-item" href="/taxes/">Tax</a>
           </ul>
         </li>
 
@@ -90,7 +92,7 @@
             <li>●●未着品の入庫
             <li><a href="/inventory_outs/" class="dropdown-item">Transfer Stock - Out</a>
             <li><a href="/inventory_ins/" class="dropdown-item">Transfer Stock - In</a>
-            <li>●●Inventory Count and Adjustment
+            <li>●●Inventory Count &amp; Adjustment
             <li><%= link_to "入出庫伝票",
                             inventories_path, class:"dropdown-item" %>
             <li><a href="/stocks/" class="dropdown-item" >Stock</a>
@@ -103,7 +105,7 @@
             Project
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/projects/">Project</a>
+            <li><a class="dropdown-item" href="/projects/">Production Order</a>
           </ul>
         </li>
       

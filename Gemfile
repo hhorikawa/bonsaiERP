@@ -87,8 +87,8 @@ gem "thruster", require: false
 # Removed compass-rails as it's not compatible with sass-rails 6.0
 # gem 'compass-rails', '~> 3.1.0'
 
-# Attributes on Steroids for Plain Old Ruby Objects
-gem 'virtus', '~> 2.0'
+# [DISCONTINUED] Attributes on Steroids for Plain Old Ruby Objects
+#gem 'virtus', '~> 2.0'
 
 # v1.2.3: 2015年. 廃れた
 #   AR: Model.where('created_at < ?', 2.weeks.ago)

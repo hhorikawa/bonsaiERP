@@ -1,11 +1,14 @@
-%h1 Empresas
+%h1 Organisations
 
-%p= link_to 'Nueva empresa', new_organisation_path, :class => 'new'
+%p= link_to 'New Organisation...', new_organisation_path, :class => 'new'
+
 %ul#organisations_list
-  -@organisations.each do |organisation|
+  - @organisations.each do |organisation|
     %li
-      %h2= link_to organisation.name, organisation_url(organisation, subdomain: organisation.tenant), :id => organisation.id
-      =raw bonsai_links(organisation)
+      - if USE_SUBDOMAIN
+        = link_to organisation.name, organisation_url(organisation, subdomain: organisation.tenant), :id => organisation.id
+      - else
+        = link_to organisation.name, organisation_url(organisation), :id => organisation.id
 
 :javascript
   $(function() {

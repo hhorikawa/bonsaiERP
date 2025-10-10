@@ -38,8 +38,10 @@ class Organisation < ApplicationRecord
   # そのままドメイン名になるので, 英数のみ.
   validates :tenant, uniqueness: true, format: { with: /\A[a-z][a-z0-9]+\z/ },
                      length: { in: 3...15 }
+if USE_SUBDOMAIN
   validate :valid_tenant_not_in_list
-  
+end
+
   validate :valid_header_css
   validates_email_format_of :email, if: -> { email.present? }, message: I18n.t('errors.messages.email')
 
@@ -138,12 +140,14 @@ private
       self.due_date = 30.days.from_now.to_date
     end
 
+if USE_SUBDOMAIN    
   # For `validate()`
   def valid_tenant_not_in_list
     if INVALID_TENANTS.include?(tenant)
       errors.add :tenant, I18n.t('organisation.errors.tenant.list')
     end
   end
+end
 
   # callback: `after_commit`
   # `Organisation` を作るだけで, 自動的にテナントの生成が走るっぽい.

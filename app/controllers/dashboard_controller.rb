@@ -1,4 +1,4 @@
-# encoding: utf-8
+
 # author: Boris Barroso
 # email: boriscyber@gmail.com
 class DashboardController < ApplicationController
@@ -15,12 +15,13 @@ class DashboardController < ApplicationController
   end
 
   # GET /dashboard
-  def index
+  def show
     @dashboard = DashboardPresenter.new(view_context, @date_range)
     render template: 'dashboard/index'
   end
 
-  private
+
+private
 
 =begin
    def check_user_session

@@ -21,12 +21,16 @@ def make_org_and_admin_user()
 
   org = Organisation.new(
     name: org_name,
-    tenant: "kintsugi97890", # ホスト名のテストのため固定
     inventory_active: true,
     country_code: 'US',
     currency: 'USD',
     email: 'info@kintsugi.design'
   )
+if USE_SUBDOMAIN
+  org.tenant = "kintsugi97890" # ホスト名のテストのため固定
+else
+  org.tenant = "public"
+end
 
   # Save the organization
   org.save!

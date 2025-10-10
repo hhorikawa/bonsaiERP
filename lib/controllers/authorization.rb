@@ -7,12 +7,14 @@ module Controllers::Authorization
   def check_authorization!
     tenant = Apartment::Tenant.current
 
+if USE_SUBDOMAIN
     # このメソッドが呼び出されて, テナントが特定されていないのはオカシイ
     if tenant == "public"
       render plain: "Tenant missing.", status: 403
       return
     end
-    
+end
+
     # TODO: check due_date
     if !current_user || !current_user.active
       render plain: "User missing.", status: 403

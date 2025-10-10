@@ -204,7 +204,7 @@ end
 # Admin only.
 resources :users, only: [:show, :edit, :update]
 
-get '/dashboard' => 'dashboard#index', as: :dashboard
+get '/dashboard' => 'dashboard#show', as: :dashboard
 get '/home' => 'dashboard#home', as: :home
 
 # No auth

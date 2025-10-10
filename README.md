@@ -5,21 +5,59 @@
 
 # *bonsaiERP*
 
-*bonsaiERP* is a simple ERP multitenant system written with [Ruby on Rails](http://rubyonrails.org) and includes the following modules:
+<i>bonsaiERP</i> is a simple ERP multitenant system written with [Ruby on Rails](https://rubyonrails.org/) and includes the following functions:
 
-- Sales
-- Buys
-- Expenses
-- Bank and Cash Accounts
-- Inventory
-- Multi currency
-- Multiple companies
-- File management (in development)
+ - Master Data
+   + Business Partners
+   + Product/Item Master
+   + Units of Measure
 
-The system allows to use multiple currencies and make exchange rates.
+ - Finance
+   + Cash / Bank Account
+   + Loan
+   + Payment
+   + Tax
+   + Chart of Accounts
+   + Tags
+   + General Ledger
+   
+ - Sales
+   + Sales Order
+   + Delivery
+   + Customer Return
+   
+ - Purchasing
+   + Purchase Order
+   + Goods Receipt PO
+   + Goods Return
+
+ - Inventory
+   + Store/Warehouse
+   + When an invoice is received *before* the goods have arrived, the invoice is posted in the *Purchases in Transit* account but has no assignment to a goods receipt at this point.
+   + Transfer Stock - Out
+   + Transfer Stock - In
+   + Inventory Count and Adjustment
+   + Material Documents
+   + Stock
+   
+ - Project
+   + Production Order
+
+
+## Overall
+
+ - Multi-currency
+   The system allows to use multiple currencies and make exchange rates.
+
+ - Multiple companies
+   It uses the tenant function to completely isolate each company's data.
+
+ - File management (in development)
+
 
 TODO: 
  - Chart は <s>おそらく <a href="https://github.com/jqPlot/jqPlot/">jqPlot</a> を使っていると思われる。</s> Chart.js の v1.x 辺り。古すぎる。差し替える.
+   Use `apexcharts`.
  - Install a UI library.
    <a href="https://github.com/ColorlibHQ/gentelella/">ColorlibHQ/gentelella: Free Bootstrap 5 Admin Dashboard Template</a> or <a href="https://flowbite.com/">Flowbite - Build websites even faster with components on top of Tailwind CSS</a>
 

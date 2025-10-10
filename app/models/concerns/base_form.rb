@@ -1,13 +1,29 @@
-# encoding: utf-8
+
 # author: Boris Barroso
 # email: boriscyber@gmail.com
-class BaseForm
-  include Virtus.model
-  #include ActiveModel::Model
-  extend ActiveModel::Naming
-  include ActiveModel::Conversion
-  include ActiveModel::Validations
 
+=begin
+ActiveRecord::Base でないクラスのインスタンスで、Validations の機能を使う。
+
+module ActiveModel::API = ActiveModel::AttributeAssignment +
+                          ActiveModel::Validations + 
+                          ActiveModel::Conversion +
+                          extend ActiveModel::Naming +
+                          extend ActiveModel::Translation
+
+class Person
+  include ActiveModel::Attributes
+
+  attribute :name, :string      <- type specified
+  attribute :active, :boolean, default: true     <- default value specified
+end
+=end
+
+class BaseForm
+  #include Virtus.model
+  include ActiveModel::API
+  include ActiveModel::Attributes
+  
   VALID_BOOLEAN = [true, 1, false, 0, "true", "1", "false", "0"]
 
   attr_reader :has_error#:errors,
@@ -17,6 +33,7 @@ class BaseForm
     @errors = ActiveModel::Errors.new(self)
   end
 
+  # ActiveRecord::Persistence
   def persisted?
     false
   end
