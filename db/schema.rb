@@ -16,25 +16,24 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
   enable_extension "pg_trgm"
 
   create_table "account_ledgers", force: :cascade do |t|
-    t.text "reference"
-    t.string "currency"
-    t.integer "account_id"
-    t.decimal "account_balance", precision: 14, scale: 2, default: "0.0"
-    t.integer "account_to_id"
-    t.decimal "account_to_balance", precision: 14, scale: 2, default: "0.0"
-    t.date "date"
-    t.string "operation", limit: 20
-    t.decimal "amount", precision: 14, scale: 2, default: "0.0"
-    t.decimal "exchange_rate", precision: 14, scale: 4, default: "1.0"
+    t.date "date", null: false
+    t.string "reference"
+    t.string "operation", limit: 20, null: false
+    t.bigint "account_id", null: false
+    t.decimal "amount", precision: 14, scale: 2, default: "0.0", null: false, comment: "借方がプラス"
+    t.string "currency", limit: 3, null: false, comment: "取引通貨"
+    t.decimal "exchange_rate", precision: 14, scale: 4, default: "1.0", null: false
+    t.decimal "account_balance", precision: 14, scale: 2, default: "0.0", null: false
+    t.string "description", null: false
     t.integer "creator_id"
     t.integer "approver_id"
     t.datetime "approver_datetime", precision: nil
     t.integer "nuller_id"
     t.datetime "nuller_datetime", precision: nil
-    t.boolean "inverse", default: false
+    t.boolean "inverse", default: false, null: false
     t.boolean "has_error", default: false
     t.string "error_messages"
-    t.string "status", limit: 50, default: "approved"
+    t.string "status", limit: 50, default: "approved", null: false
     t.integer "project_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -42,15 +41,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.string "name"
     t.integer "contact_id"
     t.index ["account_id"], name: "index_account_ledgers_on_account_id"
-    t.index ["account_to_id"], name: "index_account_ledgers_on_account_to_id"
     t.index ["contact_id"], name: "index_account_ledgers_on_contact_id"
-    t.index ["currency"], name: "index_account_ledgers_on_currency"
-    t.index ["date"], name: "index_account_ledgers_on_date"
-    t.index ["has_error"], name: "index_account_ledgers_on_has_error"
     t.index ["name"], name: "index_account_ledgers_on_name", unique: true
-    t.index ["operation"], name: "index_account_ledgers_on_operation"
-    t.index ["project_id"], name: "index_account_ledgers_on_project_id"
-    t.index ["status"], name: "index_account_ledgers_on_status"
     t.index ["updater_id"], name: "index_account_ledgers_on_updater_id"
   end
 
@@ -61,12 +53,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.text "description", null: false
     t.string "accountable_type", limit: 80, null: false
     t.integer "accountable_id", null: false
+    t.string "subtype", null: false
     t.decimal "exchange_rate", precision: 14, scale: 4, default: "1.0"
-    t.decimal "amount", precision: 14, scale: 2, default: "0.0"
-    t.date "date"
-    t.string "state", limit: 30
-    t.boolean "has_error", default: false
-    t.string "error_messages", limit: 400
+    t.boolean "has_error", default: false, null: false
+    t.jsonb "error_messages"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "tag_ids", default: [], array: true
@@ -80,7 +70,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.integer "nuller_id"
     t.index ["approver_id"], name: "index_accounts_on_approver_id"
     t.index ["creator_id"], name: "index_accounts_on_creator_id"
+    t.index ["description"], name: "index_accounts_on_description"
     t.index ["extras"], name: "index_accounts_on_extras"
+    t.index ["name"], name: "index_accounts_on_name", unique: true
     t.index ["nuller_id"], name: "index_accounts_on_nuller_id"
     t.index ["tag_ids"], name: "index_accounts_on_tag_ids"
     t.index ["tax_id"], name: "index_accounts_on_tax_id"
@@ -174,8 +166,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.boolean "supplier", default: false, null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.string "incomes_status", limit: 300, default: "{}"
-    t.string "expenses_status", limit: 300, default: "{}"
+    t.jsonb "incomes_status", default: "{}"
+    t.jsonb "expenses_status", default: "{}"
     t.integer "tag_ids", default: [], array: true
     t.index ["matchcode"], name: "index_contacts_on_matchcode", unique: true
     t.index ["tag_ids"], name: "index_contacts_on_tag_ids"
@@ -198,30 +190,26 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
   end
 
   create_table "inventories", force: :cascade do |t|
-    t.integer "contact_id"
-    t.integer "store_id"
-    t.integer "account_id"
-    t.date "date"
+    t.date "date", null: false
     t.string "ref_number"
-    t.string "operation", limit: 10
-    t.string "description"
+    t.string "operation", limit: 10, null: false
+    t.bigint "contact_id"
+    t.bigint "store_id", null: false
+    t.bigint "account_id"
+    t.string "description", null: false
     t.decimal "total", precision: 14, scale: 2, default: "0.0"
     t.integer "creator_id"
     t.integer "transference_id"
     t.integer "store_to_id"
-    t.integer "project_id"
-    t.boolean "has_error", default: false
-    t.string "error_messages"
+    t.bigint "project_id"
+    t.boolean "has_error", default: false, null: false
+    t.jsonb "error_messages"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "updater_id"
     t.index ["account_id"], name: "index_inventories_on_account_id"
     t.index ["contact_id"], name: "index_inventories_on_contact_id"
-    t.index ["date"], name: "index_inventories_on_date"
-    t.index ["has_error"], name: "index_inventories_on_has_error"
-    t.index ["operation"], name: "index_inventories_on_operation"
     t.index ["project_id"], name: "index_inventories_on_project_id"
-    t.index ["ref_number"], name: "index_inventories_on_ref_number"
     t.index ["store_id"], name: "index_inventories_on_store_id"
     t.index ["updater_id"], name: "index_inventories_on_updater_id"
   end
@@ -350,7 +338,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
 
   create_table "other_accounts", force: :cascade do |t|
     t.boolean "inventory", null: false
-    t.string "subtype", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -461,9 +448,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "account_ledgers", "accounts"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "contact_accounts", "contacts"
+  add_foreign_key "inventories", "accounts"
+  add_foreign_key "inventories", "contacts"
+  add_foreign_key "inventories", "projects"
+  add_foreign_key "inventories", "stores"
   add_foreign_key "items", "units"
   add_foreign_key "links", "organisations"
   add_foreign_key "links", "users"

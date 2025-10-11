@@ -1,6 +1,8 @@
 
 # author: Boris Barroso
 # email: boriscyber@gmail.com
+
+# 入出庫伝票
 class Inventory < BusinessRecord
 
   #include ::Models::Updater

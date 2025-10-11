@@ -1,6 +1,9 @@
-# encoding: utf-8
+
 # Creates date ranges for search
-class DateRange < Struct.new(:date_start, :date_end)
+class DateRange < BaseForm #Struct.new(:date_start, :date_end)
+  attribute :date_start, :date
+  attribute :date_end, :date
+  
   def range
     date_start..date_end
   end

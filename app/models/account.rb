@@ -43,7 +43,7 @@ class Account < ApplicationRecord
   validates_presence_of :currency
   validates_inclusion_of :currency, in: CURRENCIES.keys
   
-  validates_numericality_of :amount
+  #validates_numericality_of :amount
   validates_lengths_from_database
 
   # attribute
@@ -53,14 +53,15 @@ class Account < ApplicationRecord
 
   ########################################
   # Scopes, optional: true, optional: true
-  scope :to_pay, -> { where('amount < 0') }
-  scope :to_recieve, -> { where('amount > 0') }
+  #scope :to_pay, -> { where('amount < 0') }
+  #scope :to_recieve, -> { where('amount > 0') }
+  
   scope :active, -> { where(active: true) }
   scope :money, -> { where(type: %w(Bank Cash)) }
   scope :in, -> { where(type: %w(Income Loans::Give)) }
   scope :out, -> { where(type: %w(Expense Loans::Receive)) }
-  scope :approved, -> { where(state: 'approved') }
-  scope :operations, -> { where(type: %w(Income Loans::Give Expense Loans::Receive)) }
+  #scope :approved, -> { where(state: 'approved') }
+  #scope :operations, -> { where(type: %w(Income Loans::Give Expense Loans::Receive)) }
 
   delegate :name, :code, :symbol, to: :curr, prefix: true
 

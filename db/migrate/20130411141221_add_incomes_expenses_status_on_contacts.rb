@@ -3,8 +3,8 @@ class AddIncomesExpensesStatusOnContacts < ActiveRecord::Migration[5.2]
     PgTools.with_schemas except: 'common' do
       change_table :contacts do |t|
         t.remove :money_status
-        t.string :incomes_status, default: '{}', limit: 300
-        t.string :expenses_status, default: '{}', limit: 300
+        t.jsonb :incomes_status, default: '{}' #, limit: 300
+        t.jsonb :expenses_status, default: '{}' #, limit: 300
       end
     end
   end

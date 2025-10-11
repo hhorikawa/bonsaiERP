@@ -16,12 +16,12 @@
 
 <h2 id="title">
   Summary
-  <i class="fs80 n"><%= present_date_range @date_range %></i>
+  <i class="fs80 n"><%= @date_range.range %></i>
 </h2>
 
 <%= render partial: "dashboard/general_aspects" %>
 
-<h5 class="n"><%= @dashboard.pendent_ledgers %></h5>
+<h5 class="n">●●未承認の伝票がある場合, ここに一覧を表示 </h5>
 
 <div class="well">
   <%= form_for dashboard_path, method: :get, html: {id: "form_graph", class: 'form-inline'} do %>
@@ -30,7 +30,7 @@
   <% end %>
 </div>
 
-<%= render 'dashboard/graph', data: @dashboard %>
+<%= render 'dashboard/graph', data: @report %>
 
 <div class="row-fluid">
   <div class="span6 well well-small">
@@ -42,13 +42,13 @@
         </h4>
         <h4 class="bonsai-dark ib">
           %
-          <%= ntc @dashboard.incomes_percentage %>
+          <%= ntc @report.incomes_percentage %>
         </h4>
       </div>
       <div class="span6">
         <h4 class="n ib">
           <i class="icon-plus bonsai-dark"></i>
-          <%= ntc @dashboard.total_incomes %>
+          <%= ntc @report.total_incomes %>
           <%= currency_label currency %>
         </h4>
       </div>
@@ -64,13 +64,13 @@
         </h4>
         <h4 class="ib text-error">
           %
-          <%= ntc @dashboard.expenses_pecentage %>
+          <%= ntc @report.expenses_pecentage %>
         </h4>
       </div>
       <div class="span6">
         <h4 class="n inline-block">
           <i class="icon-minus text-error"></i>
-          <%= ntc @dashboard.total_expenses %>
+          <%= ntc @report.total_expenses %>
           <%= currency_label currency %>
         </h4>
       </div>

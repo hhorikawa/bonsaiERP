@@ -1,8 +1,13 @@
-# encoding: utf-8
+
+# 収支リポートのモデル
 class Report
-  attr_reader :date_range, :attrs
+  attr_reader :date_range
+  attr_reader :attrs
 
   def initialize(drange, attrs = {})
+    raise TypeError if !drange || !drange.is_a?(Range)
+    raise TypeError if drange.exclude_end?
+    
     @date_range = drange
     @attrs = attrs
   end
@@ -19,7 +24,7 @@ class Report
 
   def total_expenses
     @total_expenses ||= begin
-      tot = Expense.active.where(date: date_range.range)
+      tot = Expense.active.where(date: date_range)
       tot = tot.all_tags(*attrs[:tag_ids])  if any_tags?
       0 #tot.sum('(accounts.total - accounts.amount) * accounts.exchange_rate')
     end
@@ -27,7 +32,7 @@ class Report
 
   def total_incomes
     @total_incomes ||= begin
-      tot = Income.active.where(date: date_range.range)
+      tot = Income.active.where(date: date_range)
       tot = tot.all_tags(*attrs[:tag_ids])  if any_tags?
                          0 # tot.sum('(accounts.total - accounts.amount) * accounts.exchange_rate')
     end
@@ -85,7 +90,7 @@ class Report
         JOIN accounts a ON (a.id = d.account_id)
         WHERE a.type = '#{data.type}'
         AND a.state IN ('approved', 'paid')
-        AND a.date BETWEEN '#{date_range.date_start}' AND '#{date_range.date_end}'
+        AND a.date BETWEEN '#{date_range.begin}' AND '#{date_range.last}'
         #{ tags_sql('i') }
         GROUP BY (i.id)
         ORDER BY total DESC
@@ -106,7 +111,7 @@ class Report
         SELECT SUM((a.total - a.amount) * a.exchange_rate) AS tot, a.date
         FROM accounts a
         WHERE a.type = '#{data.type}' and a.state IN ('approved', 'paid')
-        AND a.date BETWEEN '#{date_range.date_start}' AND '#{date_range.date_end}'
+        AND a.date BETWEEN '#{date_range.begin}' AND '#{date_range.last}'
         GROUP BY a.date
         ORDER BY a.date
       SQL
@@ -116,7 +121,7 @@ class Report
       <<-SQL
       SELECT c.matchcode, SUM((a.total - a.amount) * a.exchange_rate) AS tot
       FROM contacts c JOIN accounts a ON (a.contact_id=c.id and a.type='#{data.type}')
-      WHERE a.date BETWEEN '#{ date_range.date_start }' AND '#{ date_range.date_end }'
+      WHERE a.date BETWEEN '#{ date_range.begin}' AND '#{ date_range.last}'
       GROUP BY c.id
       ORDER BY tot DESC OFFSET #{data.offset} LIMIT #{data.limit}
       SQL
