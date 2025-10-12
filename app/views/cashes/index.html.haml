@@ -1,6 +1,6 @@
 - content_for :links do
   %ul.breadcrumbs.span6
-    %li Cuentas bancarias
+    %li ""
 
 .row-fluid
   .span6
@@ -16,13 +16,8 @@
           = cash_ac.account.active
           = link_to cash_ac.account.name, cash_ac
 
-        = link_to new_transference_path(account_id: bank.id), class: 'btn btn-mini' do
-          %i.icon-switch
-          Nueva transferencia
-
       .span3
         .moneybox
           %label TOTAL EN CUENTA
           %h5.n
-            = ntc cash_ac.account.amount
             = cash_ac.account.currency

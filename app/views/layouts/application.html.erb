@@ -82,22 +82,5 @@
       <%= render 'layouts/footer' %>
     </div>
 
-    <script type="text/javascript">
-      bonsai.currency = this.currency = "<%= currency %>";
-      _b.numSeparator = '.';
-      _b.numDelimiter = ' ';
-      $(function() {
-        _b.numSeparator = '.';
-        _b.numDelimiter = ' ';
-      })
-
-      $(document).foundation({
-        topbar: {
-          custom_back_text: true,
-          back_text: '<i class="icon-caret-left"></i> Back'
-        }
-      });
-    </script>
-
 </body>
 </html>

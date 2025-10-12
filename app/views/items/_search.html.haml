@@ -1,7 +1,12 @@
 .search.input-append
-  = form_tag '/items', method: 'get', class: 'form-inline' do
+  = bootstrap_form_with model:@search, url:{action:"index"}, method: 'get', layout: :inline do |f|
+    = f.select :active, [["All", 0], ["Active", 1], ["Inactive", 2]], label:"Active:"
 
-    = text_field_tag 'search', '', placeholder: 'Buscar por nombre o código'
-    = submit_tag 'Buscar', class: 'btn'
+    = f.select :for_sale, [["All", 0], ["For sale", 1], ["Not for sale", 2]], label:"For Sale:"
 
-    = link_to 'eliminar filtro', items_path  if params[:commit].present?
+    = f.select :stockable, [["All", 0], ["Stockable", 1], ["Not for stock", 2]], label: "Stockable:"
+
+    = f.text_field 'search', hide_label:true, placeholder: 'Buscar por nombre o código', inline:true
+    = f.submit 'Filter', class: 'btn btn-primary'
+    = f.submit 'Reset', name:"reset", class: 'btn btn-secondary'
+

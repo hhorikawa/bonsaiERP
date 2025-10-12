@@ -9,12 +9,14 @@ class UnitsController < ApplicationController
     @units = Unit.all
   end
 
+=begin  一覧画面のみ
   # GET /units/1
   def show
     @unit = Unit.find(params[:id])
     #respond_with @unit
   end
-
+=end
+  
   # GET /units/new
   def new
     @unit = Unit.new
@@ -31,13 +33,9 @@ class UnitsController < ApplicationController
     @unit = Unit.new(unit_params)
 
     if @unit.save
-      redirect_ajax @unit
+      redirect_to units_path
     else
-      if request.xhr?
-        render json: @unit.errors
-      else
-        render :new
-      end
+      render :new, status: :unprocessable_entity 
     end
   end
 

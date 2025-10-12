@@ -8,16 +8,18 @@ class SalesOrdersController < ApplicationController
   include Controllers::Print
 
   #respond_to :html, :js, :pdf
-  before_action :set_income, only: [:approve, :null, :inventory, :destroy]
+  before_action :set_order, only: [:show, :edit, :update, :approve, :null, :inventory, :destroy]
 
   # GET /incomes
   def index
-    @incomes = Movements::Search.new(params, Income).search.order(date: :desc).page(@page)
+    @orders = SalesOrder.order(date: :desc).page(@page)
+    #@incomes = Movements::Search.new(params, Income).search.order(date: :desc).page(@page)
   end
 
+  
   # GET /incomes/1
   def show
-    @income = present Income.find(params[:id])
+    #@income = present Income.find(params[:id])
 
     respond_to do |format|
       format.html
@@ -28,24 +30,21 @@ class SalesOrdersController < ApplicationController
 
   # GET /incomes/new
   def new
-    #@is = params[:id].present? ? Incomes::Clone.new(params[:id]).clone : Incomes::Form.new_income(currency: currency)
-    @is = Incomes::Form.new_income(currency: currency)
-    
-    respond_to do |format|
-      format.html { render :new }
-      format.js { render :new }
-    end
+    @order = SalesOrder.new 
   end
 
+  
   # GET /incomes/1/edit
   def edit
-    @is = Incomes::Form.find(params[:id])
+    #@is = Incomes::Form.find(params[:id])
   end
 
   # POST /incomes
   def create
-    @is = Incomes::Form.new_income(income_params)
-
+    # ここでフォームオブジェクトを使っている
+    #@order = Incomes::Form.new_income(income_params)
+    @order = SalesOrder.new income_params
+    
     if create_or_approve
       redirect_to income_path(@is.income), notice: 'Se ha creado un Ingreso.'
     else
@@ -54,9 +53,10 @@ class SalesOrdersController < ApplicationController
     end
   end
 
+  
   # PATCH /incomes/:id
   def update
-    @is = Incomes::Form.find(params[:id])
+    #@is = Incomes::Form.find(params[:id])
 
     if update_or_approve
       redirect_to income_path(@is.income), notice: 'El Ingreso fue actualizado!.'
@@ -65,6 +65,7 @@ class SalesOrdersController < ApplicationController
     end
   end
 
+  
   # PATCH /incomes/:id/approve
   # Method to approve an income
   def approve
@@ -80,6 +81,7 @@ class SalesOrdersController < ApplicationController
     redirect_to income_path(@income)
   end
 
+  
   # PATCH /incomes/:id/approve
   # Method that nulls or enables inventory
   def inventory
@@ -95,6 +97,7 @@ class SalesOrdersController < ApplicationController
     redirect_to income_path(@income.id, anchor: 'items')
   end
 
+  
   # PATCH /incomes/:id/null
   def null
     if @income.null!
@@ -104,7 +107,14 @@ class SalesOrdersController < ApplicationController
     end
   end
 
-  private
+
+  def destroy
+    @order.destroy!
+    #TODO impl.
+  end
+
+    
+private
 
     # Creates or approves a ExpenseService instance
     def create_or_approve
@@ -131,9 +141,10 @@ class SalesOrdersController < ApplicationController
       @movement_params ||= MovementParams.new
     end
 
-    def set_income
-      @income = Income.find_by(id: params[:id])
-    end
+  # before_action()
+  def set_order
+    @order = SalesOrder.find params[:id]
+  end
 
     # Method to search incomes on the index
     def search_incomes

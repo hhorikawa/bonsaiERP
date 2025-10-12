@@ -2,7 +2,7 @@
 # author: Boris Barroso
 # email: boriscyber@gmail.com
 
-# 納入
+# 出荷/納入
 class DeliveriesController < ApplicationController
   before_action :set_store_and_income
 

@@ -6,8 +6,8 @@ class Item < ApplicationRecord
   include ::Models::Tag
   #include ::Models::Updater
 
-  # TODO: マスタと価格変動を兼ねている。分離が必要.
-  #include ::Models::History
+  # マスタの変更履歴
+  include ::Models::History
 
   ##########################################
   # Callbacks
@@ -32,9 +32,11 @@ class Item < ApplicationRecord
 
   ##########################################
   # Validations
-  validates_presence_of   :name, :unit, :unit_id
-  validates_uniqueness_of :code, if: -> { code.present? }
-  validates_uniqueness_of :name
+  validates_presence_of   :name, :unit_id
+  #validates_uniqueness_of :name
+
+  validates_presence_of   :code
+  validates_uniqueness_of :code
 
   validates :price, numericality: { greater_than_or_equal_to: 0 }
   validates :buy_price, numericality: { greater_than_or_equal_to: 0 }

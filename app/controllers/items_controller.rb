@@ -8,14 +8,25 @@ class ItemsController < ApplicationController
 
   # GET /items
   def index
-    search_items
-
-    respond_to do |format|
-      format.html
-      format.json { render json: @items}
+    if params[:item_search].blank? || !params[:reset].blank?
+      @search = ItemSearch.new
+    else
+      @search = ItemSearch.new params.require(:item_search)
+                                     .permit(*ItemSearch.attribute_names)
     end
+
+    @items = Item
+    if !@search.nothing? # Filter 
+      @items = @items.where(active: @search.active == 1) if @search.active != 0
+      @items = @items.where(for_sale: @search.for_sale == 1) if @search.for_sale != 0
+      @items = @items.where(stockable: @search.stockable == 1) if @search.stockable != 0
+      @items = @items.search(@search.search) if !@search.search.blank?
+      #@items = @items.any_tags(*tag_ids)  if tag_ids
+    end
+    @items = @items.order('items.name ASC').page(params[:page])
   end
 
+  
   # Search for income items
   # GET /items/search_income?term=:term
   def search_income
@@ -77,35 +88,18 @@ class ItemsController < ApplicationController
     redirect_ajax @item
   end
 
-  private
+  
+private
 
-    def set_item
-      @item = Item.find(params[:id])
-    end
+  def set_item
+    @item = Item.find(params[:id])
+  end
+  
 
-    def search_items
-      filter_params
-      @items = Item.includes(:unit, :stocks)
-      @items.where!(for_sale: for_sale_param)  if params[:for_sale].present?
-      @items.where!(active: params[:active])  if params[:active].present?
-      @items = @items.search(search_term)  if search_term.present?
-      @items = @items.any_tags(*tag_ids)  if tag_ids
-
-      @items = @items.order('items.name asc').page(@page)
-    end
-
-    def filter_params
-      params[:all] = true  if params[:for_sale].blank?
-    end
-
-    def for_sale_param
-      ['true', true, '1', 1].include?(params.fetch(:for_sale)) == true ? true : false
-    end
-
-    def item_params
-      params.require(:item).permit(:code, :name, :active, :stockable,
+  def item_params
+    params.require(:item).permit(:code, :name, :active, :stockable,
                                    :for_sale, :price, :buy_price, :unit_id, :description)
-    end
+  end
 
     def render_or_redirect_item
       if request.xhr?

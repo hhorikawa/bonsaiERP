@@ -25,10 +25,11 @@ class Contact < ApplicationRecord
 
   ########################################
   # Validations
-  validates :matchcode, presence: true, uniqueness: { scope: :type }
+  validates :matchcode, presence: true, uniqueness: true #{ scope: :type }
 
-  validates_email_format_of :email, allow_blank: true,
-    message: I18n.t('errors.messages.invalid_email_format')
+  # `localhost` が通らない。これはダメだ.
+  #validates_email_format_of :email, allow_blank: true,
+  #  message: I18n.t('errors.messages.invalid_email_format')
 
   validates_lengths_from_database
 
@@ -38,14 +39,15 @@ class Contact < ApplicationRecord
   scope :suppliers, -> { where(supplier: true) }
 
   def self.search search_term
-    sql = %w(matchcode first_name last_name email phone mobile).map { |field| "contacts.#{field} ILIKE :s" }
-    where(sql.join(' OR ' ), s: "%#{s}%")
+    # `ILIKE` は PostgreSQL 拡張.
+    sql = %w(matchcode name email phone mobile).map {|field| "contacts.#{field} ILIKE :s" }
+    where(sql.join(' OR ' ), s: "%#{search_term}%")
   end
 
 
   # Serialization
-  serialize :incomes_status, coder: JSON
-  serialize :expenses_status, coder: JSON
+  #serialize :incomes_status, coder: JSON
+  #serialize :expenses_status, coder: JSON
 
   delegate :total_in, :total_out, to: :calculation
 
@@ -89,6 +91,15 @@ class Contact < ApplicationRecord
     { id: id, incomes: incomes_status, expenses: expenses_status }
   end
 
+  
+  # 取引先との取引の一覧
+  def op_list op
+    raise ArgumentError if ![:all, :sales, :purchase].include?(op)
+
+    # STI にしているのが効く. TODO: filter
+    return Order.where(contact_id: self.id)
+  end
+  
   def total_incomes
     incomes.active
     .sum('(accounts.total - accounts.amount) * accounts.exchange_rate')
@@ -99,7 +110,8 @@ class Contact < ApplicationRecord
     .sum('(accounts.total - accounts.amount) * accounts.exchange_rate')
   end
 
-  private
+  
+private
 
     # Check if the contact has any relations before destroy
     def check_relations

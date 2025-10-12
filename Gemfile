@@ -96,8 +96,9 @@ gem "thruster", require: false
 # ActiveRecord を大胆にモンキーパッチしているため, 対応バージョンが必要
 #gem 'squeel' # Better SQL queries
 
-# Bootstrap5 で作るなら, `bootstrap_form` のほうがだいぶいい. 入れ替えるか?
-gem 'simple_form', '~> 5.1'  # Compatible with Rails 6.0
+# Bootstrap5 で作るなら, `bootstrap_form` のほうがだいぶいい. 入れ替える
+#gem 'simple_form', '~> 5.1'  # Compatible with Rails 6.0
+gem 'bootstrap_form', '~> 5.4'
 
 # Template engines
 gem 'haml' 

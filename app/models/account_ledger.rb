@@ -40,10 +40,17 @@ class AccountLedger < ApplicationRecord
 
   ########################################
   # Relationships
+
+  # 勘定科目
   belongs_to :account
-  belongs_to :account_to, class_name: 'Account'
-belongs_to :contact, optional: true
-  #belongs_to :project
+  
+  #belongs_to :account_to, class_name: 'Account'
+
+  # 人名勘定で行くので, 逆に contact はなし.
+  #belongs_to :contact, optional: true
+  
+  belongs_to :project, optional:true
+  
 belongs_to :approver, class_name: 'User'
 belongs_to :nuller,   class_name: 'User'
   belongs_to :creator,  class_name: 'User'

@@ -11,14 +11,18 @@ class Order < BusinessRecord
 
   ########################################
   # Relationships
-belongs_to :contact, optional: true
-belongs_to :project, optional: true
+
+  # 親
+  belongs_to :contact
+  
+  belongs_to :project, optional: true
   has_many :ledgers, foreign_key: :account_id, class_name: 'AccountLedger'
   has_many :inventories, foreign_key: :account_id
 
   ########################################
   # Validations
-  validates_presence_of :date, :due_date, :contact, :contact_id
+  validates_presence_of :date, :due_date
+  
   validates :state, presence: true, inclusion: {in: STATES}
   validate  :valid_currency_change, on: :update
   validate  :greater_or_equal_due_date

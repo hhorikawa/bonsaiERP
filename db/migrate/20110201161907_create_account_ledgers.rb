@@ -43,7 +43,8 @@ class CreateAccountLedgers < ActiveRecord::Migration[5.2]
         # 文字列は効率が悪い.
         t.string  :status, limit: 50, null:false, default: 'approved'
 
-        t.integer :project_id
+        # nullable
+        t.references :project, foreign_key: true
 
         t.timestamps
       end

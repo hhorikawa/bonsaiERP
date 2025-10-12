@@ -13,9 +13,9 @@ class CreateAccounts < ActiveRecord::Migration[5.2]
         t.boolean :active, null:false, default: true
         t.string  :description, limit: 500, null:false
 
-        # delegated_type (= polymorphic) にする
-        t.string :accountable_type, limit:80, null:false
-        t.integer :accountable_id, null:false
+        # delegated_type (= polymorphic) にする. nullable
+        t.string :accountable_type, limit:80 #, null:false
+        t.integer :accountable_id #, null:false
 
         # 売上, 変動費, 非変動費, ...
         t.string :subtype, null:false

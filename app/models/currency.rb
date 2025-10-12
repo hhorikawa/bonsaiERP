@@ -18,7 +18,8 @@ class Currency < OpenStruct
   end
 
   def self.all
-    CURRENCIES.map {|v| Currency.new(v) }
+    # CURRENCIES is a Hash{code => Hash}
+    CURRENCIES.map {|code, v| Currency.new(v) }
   end
 
   def self.options(*currencies)

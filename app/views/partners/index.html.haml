@@ -1,25 +1,28 @@
 - content_for :links do
   %ul.breadcrumbs.span6
     %li
-      =link_to 'Contactos', contacts_path
+      = ""
 
 
 .row-fluid
   .span6
     %h1 Business Partners
   .span6.r
-    = link_to 'Export', contacts_path(format: 'xls'), class: 'btn'
+    = link_to 'Export', partners_path(format: 'xls'), class: 'btn'
 
-    %tags(model='Contact' tag-ids='#{ tag_ids }' url='#{ contacts_path }')
-    = link_to "New Business Partner...", new_contact_path, class: 'btn btn-secondary'
+    %tags(model='Contact' tag-ids='#{ tag_ids }' url='#{ }')
+    = link_to "New Business Partner...", new_partner_path, class: 'btn btn-secondary'
 
 = render 'search'
+%p
+  = @search_term ? "Search: " + @search_term : ""
 
 - paginate_html = paginate(@partners)
 
 = paginate_html
 
 %ul.unstyled.listing.has-row-check
-  = render @partners
+  - @partners.each do |partner|
+    = render partial:"contact", locals:{contact:partner}
 
 = paginate_html

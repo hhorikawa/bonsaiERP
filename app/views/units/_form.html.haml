@@ -1,9 +1,9 @@
-= simple_form_for(@unit) do |f|
+= bootstrap_form_for(@unit) do |f|
   .row-fluid
     .span6
-      = f.input :name, :label => 'Name', :input_html => {:size => 30}
+      = f.text_field :name, :label => 'Name:', :input_html => {:size => 30}
     .span6
-      = f.input :symbol, :label => 'Unidad', :input_html => {:size => 12}
+      = f.text_field :symbol, :label => 'Symbol:', :input_html => {:size => 12}
 
   .form-action
     = f.submit 'Save', class: 'btn btn-success b'

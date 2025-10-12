@@ -11,8 +11,10 @@ class PartnersController < ApplicationController
 
   # GET /contacts
   def index
-    if search_term
-      @partners = Contact.search(search_term)
+    @search_term = !params[:search].blank? ? params[:search] : nil
+    
+    if @search_term
+      @partners = Contact.search(@search_term)
     else
       @partners = Contact.order('matchcode asc')
     end
@@ -40,7 +42,7 @@ class PartnersController < ApplicationController
   def create
     @partner = Contact.new(contact_params)
     if @partner.save
-      redirect_to @partner, notice: 'Se ha creado el contacto.'
+      redirect_to({action:"show", id: @partner}, notice: 'Se ha creado el contacto.')
     else
       render :new, status: :unprocessable_entity 
     end
@@ -88,13 +90,10 @@ private
     @partner = Contact.find(params[:id])
   end
 
-    def contact_params
-      params.require(:contact).permit(:matchcode, :first_name, :last_name, :email, :phone, :mobile, :tax_number, :address)
-    end
+  def contact_params
+    params.require(:contact).permit(:matchcode, :name, :email, :phone, :mobile, :tax_number, :address)
+  end
 
-    def search_term
-      @search_term ||= params[:search] || params[:term]
-    end
 
     def export_contacts
       send_data StringEncoder.encode("UTF-8", "ISO-8859-1", generate_csv("\t") ), filename: "contactos-p#{@page}.xls"

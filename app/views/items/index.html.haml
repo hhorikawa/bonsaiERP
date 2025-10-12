@@ -17,19 +17,9 @@
     = link_to "New Item...", new_item_path, class: 'btn btn-secondary'
       
 
-%ul.unstyled.inline
-  %li
-    = link_to "All", items_path, class: params_bold(:all)
-  %li
-    = link_to "Sales", items_path(for_sale: true), class: param_bold_for(:for_sale, 'true')
-  %li
-    = link_to "No Sale", items_path(for_sale: false), class: param_bold_for(:for_sale, 'false')
-  %li
-    = link_to "Visibles", items_path(active: true), class: param_bold_for(:active, 'true')
-  %li
-    = link_to "Invisibles", items_path(active: false), class: param_bold_for(:active, 'false')
-
 = render 'search'
+%p
+  = @search.nothing? ? "" : "Search: " + @search.attributes.inspect
 
 - paginate_html = paginate @items
 

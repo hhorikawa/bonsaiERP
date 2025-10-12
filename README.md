@@ -1,19 +1,23 @@
 
+# *bonsaiERP*
+
 [![License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/hhorikawa/bonsaiERP/blob/main/MIT-LICENSE.md)
 
 
-
-# *bonsaiERP*
-
 <i>bonsaiERP</i> is a simple ERP multitenant system written with [Ruby on Rails](https://rubyonrails.org/) and includes the following functions:
 
+入出庫に伴って, どのように記帳するか, 収支ダッシュボードをどのように作るか, が中心.
+インボイス機能は持たない
+
+ - Dashboard
+ 
  - Master Data
-   + Business Partners
-   + Product/Item Master
-   + Units of Measure
+   + ✅ Business Partners   -- 機能通貨が必要
+   + ✅ Product/Item Master
+   + ✅ Units of Measure
 
  - Finance
-   + Cash / Bank Account
+   + ✅ Cash / Bank Account
    + Loan
    + Payment
    + Tax
@@ -23,21 +27,22 @@
    
  - Sales
    + Sales Order
-   + Delivery
+   + In-Store Sales w/o order
    + Customer Return
    
  - Purchasing
-   + Purchase Order
-   + Goods Receipt PO
-   + Goods Return
+   + Purchase Order and Cancel
 
  - Inventory
    + Store/Warehouse
+   + Goods Receipt PO
    + When an invoice is received *before* the goods have arrived, the invoice is posted in the *Purchases in Transit* account but has no assignment to a goods receipt at this point.
+   + Goods Return 仕入戻し
+   + Delivery
    + Transfer Stock - Out
    + Transfer Stock - In
    + Inventory Count and Adjustment
-   + Material Documents
+   + Material Documents 入出庫伝票
    + Stock
    
  - Project
@@ -53,6 +58,7 @@
    It uses the tenant function to completely isolate each company's data.
 
  - File management (in development)
+   ActiveStorage は Rails 5.2 で導入された。
 
 
 TODO: 

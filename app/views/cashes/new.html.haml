@@ -1,28 +1,39 @@
 - content_for :links do
   %ul.breadcrumbs.span6
-    %li #{link_to 'Cuentas bancarias', banks_path}
+    %li #{link_to 'Cash / Bank Account', cashes_path}
 
-%h1 Nueva cuenta bancaria
+%h1 New Cash/Bank Account
 
-= simple_form_for(@bank, html: {id: 'bank-form' }) do |f|
-  .row-fluid
-    .span6
-      = f.input :name, label: 'Name', input_html: { class: 'span10' }
+= bootstrap_form_for(@cash, layout: :horizontal) do |f|
+  = fields_for @cash.account do |af|
+    %div.row
+      = af.label :name, class: "col-sm-2 col-form-label"
+      %div.col-sm-10
+        = af.text_field :name, label: 'Name:', class:'form-control'
 
-  .row-fluid
-    .span6
-      = f.input :currency, collection: Currency.options(*Currency::FILTER),
-        input_html: {placeholder: 'Escriba para poder buscar', class: 'span10' },
-        label: 'Currency (<i>No es posible modificar</i>)'.html_safe
+    %div.row
+      = af.label :currency, class: "col-sm-2 col-form-label"
+      %div.col-sm-10
+        = af.select :currency, options_from_collection_for_select(Currency.all, :code, :to_s, @cash.account.currency),
+                input_html: {placeholder: 'Escriba para poder buscar', class: 'span10' },
+                label: 'Currency (<i>No es posible modificar</i>)'.html_safe
+    %div.row
+      %div.col-sm-10.offset-sm-2
+        %div.form-check
+          = af.label :active do
+            = af.check_box :active
+            Active
+    %div.row
+      = af.label :description, class: "col-sm-2 col-form-label"
+      %div.col-sm-10
+        = af.text_field :description
 
-    .span6
-      = f.input :amount, label: 'Total en cuenta (<i>Valor inicial</i>)'.html_safe,
-        input_html: {size: 12, class: 'r', type: 'decimal'}, required: true
-  .row-fluid
-    .span6
-      = f.input :address, :label => 'Address', :as => :text, :input_html => {:rows => 4, :cols => 35}, :required => false
-    .span6
-      = f.input :phone, :label => 'Phone', :required => false, :wrapper_html => {:class => "_100"}
-      = f.input :website, :label => 'Sitio web', :wrapper_html => {:class => "_100"}
+  %fieldset
+    %legend Only Bank
+    = f.text_field :bank_name, label:"Bank and Branch:"
+    = f.text_field :bank_addr
+    = f.text_field :account_no
+    = f.text_field :account_name
+
   .form-actions
-    = f.submit 'Save', class: 'btn btn-primary b'
+    = f.submit 'Save', class: 'btn btn-primary'

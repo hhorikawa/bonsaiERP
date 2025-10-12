@@ -8,7 +8,7 @@ class CashesController < ApplicationController
 
   # GET /banks
   def index
-    @cashes = Cash.eager_load(:account).order('name asc')
+    @cashes = Cash.eager_load(:account).order('name ASC')
   end
 
   # GET /banks/1
@@ -17,7 +17,8 @@ class CashesController < ApplicationController
 
   # GET /banks/new
   def new
-    @cash = Cash.new(currency: params[:currency])
+    #ac = Account.new accountable: Cash.new(),
+    @cash = Cash.new account: Account.new(currency: "JPY", active:true)
   end
 
   # GET /banks/1/edit
@@ -26,13 +27,25 @@ class CashesController < ApplicationController
   
   # POST /banks
   def create
-    @cash = Cash.new(create_bank_params)
-
-    if @cash.save
-      redirect_to @cash, notice: 'La cuenta de banco fue creada.'
-    else
-      render :new, status: :unprocessable_entity 
+    @cash = Cash.new account: Account.new(params.require(:account)
+                                     .permit(:name, :currency, :active, :description))
+    @cash.assign_attributes create_bank_params
+    begin
+      ActiveRecord::Base.transaction do 
+        # @cash.save だと cash しか作られない!
+        @cash.save!
+        @cash.account.accountable = @cash
+        @cash.account.subtype = 'CASH'
+        @cash.account.creator_id = current_user.id
+        @cash.account.save!
+      end
+    rescue ActiveRecord::RecordInvalid => e
+      raise e.record.inspect
+      render :new, status: :unprocessable_entity
+      return
     end
+
+    redirect_to @cash, notice: 'La cuenta de banco fue creada.'
   end
 
   
@@ -66,14 +79,15 @@ class CashesController < ApplicationController
 private
 
   def set_cash
-    @cash = Cash.find(params[:id])
+    @cash = Cash.eager_load(:account).where(id: params[:id]).take
+    raise ActiveRecord::RecordNotFound if !@cash
   end
 
-    def update_bank_params
+  def update_bank_params
       params.require(:bank).permit(:name, :number, :active, :address, :phone, :website)
-    end
+  end
 
-    def create_bank_params
-      params.require(:bank).permit(:name, :number, :address, :phone, :website, :currency, :amount)
-    end
+  def create_bank_params
+    params.require(:cash).permit(:bank_name, :bank_addr, :account_no, :account_name)
+  end
 end

@@ -3,11 +3,13 @@ class CreateTransactions < ActiveRecord::Migration[5.2]
     PgTools.with_schemas except: 'common' do
 
       create_table :orders do |t|
-        #t.integer :account_id
-
         # STI は `type` が必要
         t.string :type, limit:80, null:false
-        
+
+        t.date :date, null:false
+
+        t.references :contact, null:false, foreign_key:true
+
         # Use Account#amount for total, create alias
         t.decimal :total, precision: 14, scale: 2, null:false, default: 0.0
 
@@ -20,12 +22,13 @@ class CreateTransactions < ActiveRecord::Migration[5.2]
 
         t.date    :due_date
         # Creators approver
-        t.integer  :creator_id
-        t.integer  :approver_id
-        t.integer  :nuller_id
+        t.references :creator, null:false, foreign_key:{to_table: :users}
+        t.references :approver, foreign_key:{to_table: :users}
+        t.datetime :approver_datetime
+        
+        t.references :nuller, foreign_key:{to_table: :users}
         t.datetime :nuller_datetime
         t.string   :null_reason, limit: 400
-        t.datetime :approver_datetime
 
         t.boolean :delivered, null:false, default: false
         t.boolean :discounted, null:false, default: false

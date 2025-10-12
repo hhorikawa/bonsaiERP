@@ -22,15 +22,16 @@ class Account < ApplicationRecord
   # Relationships
 
   # schema: accountable_type, accountable_id
-  delegated_type :accountable, types: %w[Cash ContactAccount Loan OtherAccount]
+  delegated_type :accountable, types: %w[Cash ContactAccount Loan]
   # 次はサブクラスでオーバライドする場合の書き方
   #delegate :name, to: :accountable
   
   #belongs_to :contact, optional: true
   has_many :account_ledgers, -> { order('date desc, id desc') }
+  
   belongs_to :approver, class_name: 'User', optional: true
   belongs_to :nuller,   class_name: 'User', optional: true
-  belongs_to :creator,  class_name: 'User', optional: true
+  belongs_to :creator,  class_name: 'User'
   belongs_to :updater,  class_name: 'User', optional: true
   belongs_to :tax, optional: true
   
@@ -49,7 +50,7 @@ class Account < ApplicationRecord
   # attribute
   # Rails 7.1 での非互換変更: 第2引数に `coder:` が必要.
   # See https://techracho.bpsinc.jp/hachi8833/2023_03_14/128066
-  serialize :error_messages, coder: JSON
+  #serialize :error_messages, coder: JSON
 
   ########################################
   # Scopes, optional: true, optional: true

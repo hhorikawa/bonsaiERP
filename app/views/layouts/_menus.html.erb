@@ -44,9 +44,9 @@
               <!--
             <li><a class="dropdown-item" href="/staff_accounts/">Staff Accounts</a> -->
             <li><%= link_to t('views.menu.etiquetas'), tag_groups_path,
-                    class:"dropdown-item" %>
-            <li><%= link_to t("views.menu.ledgers"), account_ledgers_path,
-                    class:"dropdown-item" %>
+                            class:"dropdown-item" %>
+            <li><%= link_to "General Ledger", account_ledgers_path,
+                            class:"dropdown-item" %>
 
             <li><%= link_to t("views.menu.reports"), reports_path,
                     class:"dropdown-item" %></li>
@@ -64,7 +64,7 @@
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="/sales_orders/">Sales Order</a>
-            <li><a class="dropdown-item" href="/deliveries/">出荷/納入</a>
+            <li><a class="dropdown-item" href="●●">● In-Store Sales w/o order</a>
             <li><a class="dropdown-item" href="/customer_returns/">Customer Return</a>
           </ul>
         </li>
@@ -75,9 +75,7 @@
             Purchasing
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/purchase_orders/">Purchase Order</a>
-            <li><a class="dropdown-item" href="/goods_receipt_pos/">Goods Receipt PO</a>
-            <li><a class="dropdown-item" href="/goods_returns/">仕入戻し</a>
+            <li><a class="dropdown-item" href="/purchase_orders/">Purchase Order &amp; Cancel</a>
           </ul>
         </li>
 
@@ -89,7 +87,10 @@
           <ul class="dropdown-menu">              
             <li><%= link_to "Store/Warehouse", stores_path,
                             class:"dropdown-item" %>
+            <li><a class="dropdown-item" href="/goods_receipt_pos/">Goods Receipt PO</a>
             <li>●●未着品の入庫
+            <li><a class="dropdown-item" href="/goods_returns/">仕入戻し</a>
+            <li><a class="dropdown-item" href="/deliveries/">出荷/納入</a>
             <li><a href="/inventory_outs/" class="dropdown-item">Transfer Stock - Out</a>
             <li><a href="/inventory_ins/" class="dropdown-item">Transfer Stock - In</a>
             <li>●●Inventory Count &amp; Adjustment

@@ -1,11 +1,11 @@
 - content_for :links do
   %ul.breadcrumbs.span6
     %li
-      = link_to t("views.incomes.index.title"), incomes_path
+      = ""
 
 .row-fluid
   .span6
-    %h1.ib= t("views.incomes.index.title")
+    %h1.ib= "Sales Orders"
     = search_tag
   .span6.buttons.r
 
@@ -16,18 +16,15 @@
           %i.icon-download-alt
           = t("general.export")
 
-    %tags(model='Income' tag-ids='#{ tag_ids }' url='#{ incomes_path }')
+    %tags(model='Income' tag-ids='#{ tag_ids }' url='#{ }')
 
-    = link_to new_income_path, class: 'btn' do
-      %i.icon-plus-sign
-      = t('views.incomes.index.new')
+    = link_to "New Sales Order...", new_sales_order_path, class: 'btn btn-secondary'
 
 
-= render "incomes/search"
+= render partial: "sales_orders/search"
 
-= render "incomes/with_error"  if Income.error.any? && params[:error].blank?
 
-- paginate_html = paginate @incomes
+- paginate_html = paginate @orders
 
 = paginate_html
 
@@ -39,7 +36,7 @@
       .span6.r.b.muted
         Saldo
 
-  = render partial: 'incomes/income', collection: present(@incomes), as: :income
+  = render partial: 'sales_orders/income', collection: @orders, as: :income
 
 = paginate_html
 

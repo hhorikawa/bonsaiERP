@@ -1,13 +1,14 @@
-= simple_form_for(@contact, html: {class: 'contact-form'}) do |f|
+
+= bootstrap_form_with model: @partner, url:{action:"create"}, layout: :horizontal do |f|
+  = @partner.errors.inspect
   = bonsai_form_error(f)
   .row-fluid
     .span6
-      = f.input :matchcode,
-        label: 'Name y/o Last Name',
+      = f.text_field :matchcode, label: 'matchcode:',
         input_html: { class: 'matchcode span11' }
-
+      = f.text_field :name
     .span6
-      = f.input :email, lanel: "E-mail", input_html: { class: 'span11' }
+      = f.email_field :email, lanel: "E-mail", input_html: { class: 'span11' }
 
 
   %a.view-more(href='javascript:;') Ver mas
@@ -15,14 +16,14 @@
   .modal-more
     .row-fluid
       .span3
-        = f.input :phone, label: "Phone", input_html: {size: 20}
+        = f.text_field :phone, label: "Phone", input_html: {size: 20}
       .span3
-        = f.input :mobile, label: "Mobile", input_html: {size: 20}
+        = f.text_field :mobile, label: "Mobile", input_html: {size: 20}
       .span6
-        = f.input :tax_number, label: 'Código tributario'
+        = f.text_field :tax_number, label: 'Código tributario'
     .row-fluid
       .span6
-        = f.input :address, as: :text, input_html: {rows: 3, cols: 45}, label: 'Address'
+        = f.text_field :address, as: :text, input_html: {rows: 3, cols: 45}, label: 'Address'
   .form-actions
     = f.submit 'Save', class: 'btn btn-primary b'
 

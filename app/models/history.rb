@@ -1,3 +1,5 @@
+
+# 各マスタの履歴
 class History < ApplicationRecord
 
   # Relationships

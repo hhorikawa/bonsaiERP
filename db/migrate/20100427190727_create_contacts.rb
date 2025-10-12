@@ -16,7 +16,7 @@ class CreateContacts < ActiveRecord::Migration[5.2]
         t.string :aditional_info, limit: 250
 
         #t.string  :code
-        t.string  :type
+        #t.string  :type
         t.string  :position
         t.boolean :active, null:false, default: true
 

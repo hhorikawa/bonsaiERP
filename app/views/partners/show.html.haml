@@ -1,59 +1,48 @@
 - content_for :links do
   %ul.breadcrumbs.span6
-    %li #{link_to "Contactos", contacts_path}
+    %li #{link_to "Business Partners", partners_path}
 
 .row-fluid
   .span8
     %h1.n
-      = @contact
+      = @partner.name
 
   .span4.r.btn-group
-    = link_to icon_new_text, new_contact_path, class: 'btn'
-    = link_to icon_edit_text, edit_contact_path(@contact.id), class: 'btn'
-    = link_to icon_delete_text, @contact, class: 'btn', data: { confirm: "Esta seguro de borra el contacto" }, method: :delete
+    = link_to "Edit this partner...", edit_partner_path(@partner), class: 'btn'
+    = button_to "Destroy this partner", partner_path(@partner), class: 'btn', data: { turbo_confirm: "Esta seguro de borra el contacto" }, method: :delete
 
 .row-fluid
   .span4
-    = @contact.email_tag
+    = @partner.email
 
   .span4
     .span8
-      = @contact.tax_number_tag
+      = @partner.tax_number
       .clearfix
-      = nl2br @contact.address_tag
+      = nl2br @partner.address
     .span4
-      = @contact.phone_tag
+      = @partner.phone
       .clearfix
-      = @contact.mobile_tag
+      = @partner.mobile
 
-.row-fluid
-  .moneybox
-    %label.b.text-success Por cobrar
-    %h4.n.ib= ntc @contact.total_in
-    = currency_label
-  .moneybox
-    %label.b.text-error Por pagar
-    %h4.n.ib= ntc @contact.total_out
-    = currency_label
 
-%h3.n Operaciones
+%h3.n Operaciones  取引先との取引の一覧
 
 %ul.unstyled.inline
   %li
-    = link_to "Todas", contact_path(@contact, operation: :all), class: param_bold_for(:operation, 'all')
+    = link_to "Todas", partner_path(@partner, operation: :all), class: param_bold_for(:operation, 'all')
   %li
-    = link_to "Ingresos", contact_path(@contact, operation: :income), class: param_bold_for(:operation, 'income')
+    = link_to "Ingresos", partner_path(@partner, operation: :income), class: param_bold_for(:operation, 'income')
   %li
-    = link_to "Expenses", contact_path(@contact, operation: :expense), class: param_bold_for(:operation, 'expense')
+    = link_to "Expenses", partner_path(@partner, operation: :expense), class: param_bold_for(:operation, 'expense')
   %li
-    = link_to "Prestamos otorgados", contact_path(@contact, operation: :loangive), class: param_bold_for(:operation, 'loangive')
+    = link_to "Prestamos otorgados", partner_path(@partner, operation: :loangive), class: param_bold_for(:operation, 'loangive')
   %li
-    = link_to "Prestamos recibidos", contact_path(@contact, operation: :loanreceive), class: param_bold_for(:operation, 'loanreceive')
+    = link_to "Prestamos recibidos", partner_path(@partner, operation: :loanreceive), class: param_bold_for(:operation, 'loanreceive')
 
+- orders = @partner.op_list(:all).page(params[:page])  # TODO: params を使う
 
-- paginate_html = paginate @contact.operations
-
-= paginate_html
+= paginate(orders)
 
 %ul.listing.unstyled(style='margin-top: 10px')
   %li.row-fluid
@@ -64,7 +53,8 @@
       .span6
         %strong.muted Saldo
 
-  - @contact.operations.each do |op|
-    = @contact.operation_partial(op)
+  - orders.each do |order|
+    = order.inspect  # TODO: impl.
 
-= paginate_html
+= paginate(orders)
+

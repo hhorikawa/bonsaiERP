@@ -1,34 +1,28 @@
-- contact = present contact
+
 %li.row-fluid.contact(data-data="#{contact.incomes_expenses_status.to_json}")
   .span3
     .checkbox-l
       %input.row-check(type='checkbox' id="#{contact.id}")
     .checkbox-r
       %h4
-        = link_to contact, contact, title: 'Name'
+        = link_to contact.name, {action:"show", id:contact}, title: 'Name'
       .cleafix
       .clearfix
-      = contact.email_tag
+      = contact.email
       .clearfix
       %tagsfor(tag_ids="#{contact.tag_ids}" id="#{contact.id}")
   .span4
     .span8
-      = contact.tax_number_tag
+      = contact.tax_number
 
       .clearfix
-      = contact.address_tag
+      = contact.address
     .span4
-      = contact.phone_tag
+      = contact.phone
       .clearfix
-      = contact.mobile_tag
+      = contact.mobile
 
-  .span4
-    .row-fluid.r
-      .span6
-        = contact.tot_in_tag
-      .span6
-        = contact.tot_out_tag
 
   .span1
-    = link_to icon_edit, edit_contact_path(contact), class: 'dark'
-    = link_to icon_delete, contact_path(contact), class: 'dark', method: 'delete'
+    = link_to icon_edit, edit_partner_path(contact), class: 'dark'
+    = link_to icon_delete, partner_path(contact), class: 'dark', method: 'delete'
