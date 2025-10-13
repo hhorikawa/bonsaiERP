@@ -1,0 +1,19 @@
+
+<%= bootstrap_form_with model: @contact_account, url:{action:"create"},
+                        layout: :horizontal do |f| %>
+<%= f.fields_for @contact_account.account do |af| %>
+  <%= render partial:"accounts/form", locals:{form:af} %>
+<% end %>
+
+<fieldset>
+  <legend>Only Bank</legend>
+<%= f.text_field :bank_name %>
+<%= f.text_field :bank_addr %>
+<%= f.text_field :account_no %>
+<%= f.text_field :account_name %>
+</fieldset>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

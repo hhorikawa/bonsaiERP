@@ -3,14 +3,14 @@ class CreateHistories < ActiveRecord::Migration[5.2]
     PgTools.with_schemas except: 'common' do
       # 各マスタの履歴
       create_table :histories do |t|
-        t.references :user, null:false, foreign_key:true, comment:"created by"
+        t.integer :user_id, null:false, comment:"created by"
 
         # *_type, *_id の 2カラム
         t.references :historiable, null:false, polymorphic: true
         
         t.boolean :new_item, null:false, default: false
         #t.string :historiable_type
-        t.jsonb :history_data
+        t.jsonb :history_data, null:false
 
         t.datetime :created_at, null:false
       end

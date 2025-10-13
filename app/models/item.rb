@@ -7,11 +7,14 @@ class Item < ApplicationRecord
   #include ::Models::Updater
 
   # マスタの変更履歴
-  include ::Models::History
-
+  #include ::Models::History
+  has_many :histories, ->{order('histories.created_at DESC, id DESC')},
+                       as: :historiable, dependent: :destroy
+  
   ##########################################
   # Callbacks
-  before_save :trim_code
+  
+  before_validation :trim_code
   before_save :set_unit
   before_destroy :check_items_destroy
 
@@ -62,7 +65,8 @@ class Item < ApplicationRecord
     stocks.reduce(0) { |sum, st| sum += st.quantity }
   end
 
-  private
+  
+private
 
     # checks if there are any items on destruction
     def check_items_destroy
@@ -74,9 +78,10 @@ class Item < ApplicationRecord
       end
     end
 
-    def trim_code
-      self.code = code.to_s.strip
-    end
+  # For before_validation()
+  def trim_code
+    self.code = code.to_s.unicode_normalize(:nfkc).strip.upcase
+  end
 
     def set_unit
       self.unit_symbol = unit.symbol

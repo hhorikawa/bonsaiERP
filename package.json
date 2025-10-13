@@ -1,10 +1,9 @@
 {
   "private": true,
-  "type": "module",
   "devDependencies": {
     "sass": "^1.93.2",
-    "vite": "^5.4.20",
-    "vite-plugin-ruby": "^5.1.1"
+    "webpack": "^5.102.1",
+    "webpack-cli": "^6.0.1"
   },
   "packageManager": "yarn@4.10.3",
   "dependencies": {
@@ -13,6 +12,7 @@
     "apexcharts": "^5.3.5"
   },
   "scripts": {
-    "build:css": "sass ./app/assets/stylesheets/application.sass.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
+    "build:css": "sass ./app/assets/stylesheets/application.sass.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules",
+    "build": "webpack --config webpack.config.cjs"
   }
 }

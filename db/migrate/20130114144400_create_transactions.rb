@@ -22,11 +22,11 @@ class CreateTransactions < ActiveRecord::Migration[5.2]
 
         t.date    :due_date
         # Creators approver
-        t.references :creator, null:false, foreign_key:{to_table: :users}
-        t.references :approver, foreign_key:{to_table: :users}
+        t.integer  :creator_id, null:false #, foreign_key:{to_table: :users}
+        t.integer  :approver_id  #, foreign_key:{to_table: :users}
         t.datetime :approver_datetime
         
-        t.references :nuller, foreign_key:{to_table: :users}
+        t.integer  :nuller #, foreign_key:{to_table: :users}
         t.datetime :nuller_datetime
         t.string   :null_reason, limit: 400
 

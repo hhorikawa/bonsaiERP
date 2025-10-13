@@ -37,14 +37,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.bigint "project_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.bigint "updater_id"
+    t.integer "updater_id"
     t.string "name"
     t.integer "contact_id"
     t.index ["account_id"], name: "index_account_ledgers_on_account_id"
     t.index ["contact_id"], name: "index_account_ledgers_on_contact_id"
     t.index ["name"], name: "index_account_ledgers_on_name", unique: true
     t.index ["project_id"], name: "index_account_ledgers_on_project_id"
-    t.index ["updater_id"], name: "index_account_ledgers_on_updater_id"
   end
 
   create_table "accounts", force: :cascade do |t|
@@ -61,7 +60,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "tag_ids", default: [], array: true
-    t.bigint "updater_id"
+    t.integer "updater_id"
     t.decimal "tax_percentage", precision: 5, scale: 2, default: "0.0"
     t.integer "tax_id"
     t.boolean "tax_in_out", default: false
@@ -77,7 +76,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.index ["tag_ids"], name: "index_accounts_on_tag_ids"
     t.index ["tax_id"], name: "index_accounts_on_tax_id"
     t.index ["tax_in_out"], name: "index_accounts_on_tax_in_out"
-    t.index ["updater_id"], name: "index_accounts_on_updater_id"
   end
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -174,7 +172,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
   end
 
   create_table "histories", force: :cascade do |t|
-    t.bigint "user_id", null: false, comment: "created by"
+    t.integer "user_id", null: false, comment: "created by"
     t.string "historiable_type", null: false
     t.bigint "historiable_id", null: false
     t.boolean "new_item", default: false, null: false
@@ -184,7 +182,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.text "extras"
     t.json "all_data", default: {}
     t.index ["historiable_type", "historiable_id"], name: "index_histories_on_historiable_type_and_historiable_id"
-    t.index ["user_id"], name: "index_histories_on_user_id"
   end
 
   create_table "inventories", force: :cascade do |t|
@@ -204,12 +201,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.jsonb "error_messages"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.bigint "updater_id"
+    t.integer "updater_id"
     t.index ["account_id"], name: "index_inventories_on_account_id"
     t.index ["contact_id"], name: "index_inventories_on_contact_id"
     t.index ["project_id"], name: "index_inventories_on_project_id"
     t.index ["store_id"], name: "index_inventories_on_store_id"
-    t.index ["updater_id"], name: "index_inventories_on_updater_id"
   end
 
   create_table "inventory_details", force: :cascade do |t|
@@ -298,10 +294,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.decimal "original_total", precision: 14, scale: 2, default: "0.0"
     t.decimal "balance_inventory", precision: 14, scale: 2, default: "0.0"
     t.date "due_date"
-    t.bigint "creator_id", null: false
-    t.bigint "approver_id"
+    t.integer "creator_id", null: false
+    t.integer "approver_id"
     t.datetime "approver_datetime", precision: nil
-    t.bigint "nuller_id"
+    t.integer "nuller"
     t.datetime "nuller_datetime", precision: nil
     t.string "null_reason", limit: 400
     t.boolean "delivered", default: false, null: false
@@ -310,10 +306,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.boolean "no_inventory", default: false, null: false
-    t.index ["approver_id"], name: "index_orders_on_approver_id"
     t.index ["contact_id"], name: "index_orders_on_contact_id"
-    t.index ["creator_id"], name: "index_orders_on_creator_id"
-    t.index ["nuller_id"], name: "index_orders_on_nuller_id"
   end
 
   create_table "organisations", force: :cascade do |t|
@@ -448,17 +441,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
 
   add_foreign_key "account_ledgers", "accounts"
   add_foreign_key "account_ledgers", "projects"
-  add_foreign_key "account_ledgers", "users", column: "updater_id"
-  add_foreign_key "accounts", "users", column: "updater_id"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "contact_accounts", "contacts"
-  add_foreign_key "histories", "users"
   add_foreign_key "inventories", "accounts"
   add_foreign_key "inventories", "contacts"
   add_foreign_key "inventories", "projects"
   add_foreign_key "inventories", "stores"
-  add_foreign_key "inventories", "users", column: "updater_id"
   add_foreign_key "items", "units"
   add_foreign_key "links", "organisations"
   add_foreign_key "links", "users"
@@ -466,7 +455,4 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
   add_foreign_key "movement_details", "items"
   add_foreign_key "movement_details", "orders"
   add_foreign_key "orders", "contacts"
-  add_foreign_key "orders", "users", column: "approver_id"
-  add_foreign_key "orders", "users", column: "creator_id"
-  add_foreign_key "orders", "users", column: "nuller_id"
 end

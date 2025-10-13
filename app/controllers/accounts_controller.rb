@@ -1,3 +1,5 @@
+
+# Chart of Accounts
 class AccountsController < ApplicationController
   before_action :set_account, only: %i[ show edit update destroy ]
 

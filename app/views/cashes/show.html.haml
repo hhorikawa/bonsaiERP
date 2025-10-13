@@ -12,14 +12,18 @@
     .btn-group
       = link_to "Edit this account...", edit_cash_path(@cash), class: 'btn'
 
-.row-fluid
-  .span6
-    %i.muted.icon-phone(title='Phone' data-toggle='tooltip')
-    = @cash.bank_name
-    %i.muted.icon-globe(title='Website' data-toggle='tooltip')
-    = @cash.bank_addr
-    = @cash.account_no
-    = @cash.account_name
+.row
+  .col Bank Name:
+  .col= @cash.bank_name
+.row
+  .col Bank Addr:
+  .col= @cash.bank_addr
+.row
+  .col Account No:
+  .col= @cash.account_no
+.row
+  .col Account Name:
+  .col= @cash.account_name
 
 
 

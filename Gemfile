@@ -37,8 +37,8 @@ gem "pg", "~> 1.1"
 gem "puma", ">= 5.0"
 
 # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
-# vite を使う場合, 不要では?
-#gem "jsbundling-rails"
+# vite を使う場合, 不要.
+gem "jsbundling-rails"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
@@ -171,7 +171,8 @@ group :development do
   gem "web-console"
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
-  gem "rack-mini-profiler"
+  # 繰り返しエラーを吐く. コメントアウト
+  #gem "rack-mini-profiler"
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
@@ -220,6 +221,7 @@ end
 gem "sidekiq"
 
 # Protect the API routes via CORS
+# サブドメインで使うとき, CORS 設定が必要。See config/initializers/cors.rb
 gem "rack-cors"
 
 
@@ -227,7 +229,8 @@ gem "rack-cors"
 #gem "active_hash"
 
 # do `bundle exec vite install`
-gem "vite_rails"
+# サブドメインで上手く動かせなかった. 剥がす
+#gem "vite_rails"
 
 # 各テナントを PostgreSQL のスキーマを使って完全に分ける
 #   ros-apartment 3.2  rails >=6.1.0, < 8.1

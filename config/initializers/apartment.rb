@@ -131,5 +131,24 @@ if Rails.env.development? || Rails.env.test?
   #
   # ".example.com" means that the subdomains are allowed.
   # And, you must set `session_store` in `config/initializers/session_store.rb`
-  Rails.application.config.hosts << ".#{DOMAIN}:5100"
+  Rails.application.config.hosts << ".#{DOMAIN}:5000"
+end
+
+
+require 'apartment/adapters/abstract_adapter'
+
+module Apartment
+  module Adapters
+    class AbstractAdapter
+      set_callback :create, :after do |object|
+        #raise object.inspect
+        # -> `public` で渡される。うーむ
+#<Apartment::Adapters::PostgresqlSchemaAdapter:0x00007fc810bed400 @config={:adapter=>"postgresql", :encoding=>"unicode", :pool=>5, :database=>"bonsai_erp_development", :username=>"データベースユーザ", :password=>"データベースパスワード", :host=>"localhost", :port=>5432}, @default_tenant="public", @current="public">
+
+        if object.current != "public"
+          raise object.inspect  # ここは呼び出されない. アカン
+        end
+      end
+    end
+  end
 end

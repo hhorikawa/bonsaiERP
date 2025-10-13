@@ -26,7 +26,8 @@ class Contact < ApplicationRecord
   ########################################
   # Validations
   validates :matchcode, presence: true, uniqueness: true #{ scope: :type }
-
+  validates :name, presence: true
+  
   # `localhost` が通らない。これはダメだ.
   #validates_email_format_of :email, allow_blank: true,
   #  message: I18n.t('errors.messages.invalid_email_format')

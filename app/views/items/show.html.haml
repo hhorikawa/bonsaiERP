@@ -4,18 +4,23 @@
 
 .row-fluid
   .span8
-    %h2.n= @item
+    %h2.n= @item.name
   .span4.r
     .btn-group
       = link_to "Edit this item...", edit_item_path(@item), class: 'btn'
       = button_to "Destroy this item", @item, class: 'btn', data:{turbo_confirm: "Esta seguro de borra el ítem"}, method: :delete
 
-.row-fluid
-  .span3
-    %span.text-muted.muted
-      %i.icon-info-sign(title="Un ítem visible se puede usar en operaciones" data-toggle="tooltip")
-      Visible:
-    %span.active.icon(class="icon-large icon-#{@item.active}")
+%div.row
+  %div.col Name:
+  %div.col= @item.name
+
+%div.row
+  %div.col Code:
+  %div.col= @item.code
+
+%div.row
+  %div.col Active:
+  %div.col= @item.active
 
   .span3
     %span.text-muted.muted Venta:

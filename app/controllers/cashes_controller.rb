@@ -27,8 +27,9 @@ class CashesController < ApplicationController
   
   # POST /banks
   def create
-    @cash = Cash.new account: Account.new(params.require(:account)
-                                     .permit(:name, :currency, :active, :description))
+    @cash = Cash.new account: Account.new(params.require(:cash)
+                                .require(:account)
+                                .permit(:name, :currency, :active, :description))
     @cash.assign_attributes create_bank_params
     begin
       ActiveRecord::Base.transaction do 
@@ -40,7 +41,7 @@ class CashesController < ApplicationController
         @cash.account.save!
       end
     rescue ActiveRecord::RecordInvalid => e
-      raise e.record.inspect
+      #raise e.record.inspect
       render :new, status: :unprocessable_entity
       return
     end

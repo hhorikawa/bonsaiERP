@@ -1,5 +1,5 @@
 
-vite: bin/vite dev
 web: bin/rails server
 worker: bundle exec sidekiq
 css: yarn build:css --watch
+js: yarn build --watch

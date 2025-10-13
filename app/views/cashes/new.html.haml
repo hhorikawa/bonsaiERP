@@ -5,28 +5,8 @@
 %h1 New Cash/Bank Account
 
 = bootstrap_form_for(@cash, layout: :horizontal) do |f|
-  = fields_for @cash.account do |af|
-    %div.row
-      = af.label :name, class: "col-sm-2 col-form-label"
-      %div.col-sm-10
-        = af.text_field :name, label: 'Name:', class:'form-control'
-
-    %div.row
-      = af.label :currency, class: "col-sm-2 col-form-label"
-      %div.col-sm-10
-        = af.select :currency, options_from_collection_for_select(Currency.all, :code, :to_s, @cash.account.currency),
-                input_html: {placeholder: 'Escriba para poder buscar', class: 'span10' },
-                label: 'Currency (<i>No es posible modificar</i>)'.html_safe
-    %div.row
-      %div.col-sm-10.offset-sm-2
-        %div.form-check
-          = af.label :active do
-            = af.check_box :active
-            Active
-    %div.row
-      = af.label :description, class: "col-sm-2 col-form-label"
-      %div.col-sm-10
-        = af.text_field :description
+  = f.fields_for @cash.account do |af|
+    = render partial:"accounts/form", locals:{form: af}
 
   %fieldset
     %legend Only Bank

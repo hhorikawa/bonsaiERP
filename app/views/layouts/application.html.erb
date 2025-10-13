@@ -21,32 +21,7 @@
   <script src="/lib/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
   <script src="/lib/jquery-ui-1.14.1/jquery-ui.min.js"></script>
-  <%= vite_client_tag %>
-  <%= vite_javascript_tag 'application' %>
-    <!--
-      If using a TypeScript entrypoint file:
-        vite_typescript_tag 'application'
-
-      If using a .jsx or .tsx entrypoint, add the extension:
-        vite_javascript_tag 'application.jsx'
-
-      Visit the guide for more information: https://vite-ruby.netlify.app/guide/rails
-    -->
-    
-<% if Rails.env.production? %>
-  <script src="//d2wy8f7a9ursnm.cloudfront.net/bugsnag-2.min.js" data-apikey="5764f05c4e7d87832059e096471f9bc9"></script>
-      <%= render 'layouts/google_analytics' %>
-<% end %>
-
-    <script type="text/javascript">
-      this.organisation = {
-        currency: "<%= currency %>",
-        name: "<%= organisation_name %>"
-      }
-
-      this.exchangeRates = <%= set_exchange_rates %>;
-      this.currencies = <%= File.read Rails.root.join 'public', 'currencies.json' %>;
-    </script>
+  <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
 
 </head>
 <body ng-app="myApp">

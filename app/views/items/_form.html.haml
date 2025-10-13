@@ -20,7 +20,7 @@
       .unit-control.input(class="#{field_with_errors(f, :unit_id)}")
         = f.label 'Unit of Measure'
         = f.select :unit_id, Unit.order('name asc').map { |v| [v.to_s, v.id] },
-                     {}, { class: 'span8' }
+                     {required:false}, { class: 'span8' }
 
         %a.btn#new-unit-link.btn.add-new-url(title='New Unit of Measure' data-toggle='tooltip')
           %i.icon-plus-sign

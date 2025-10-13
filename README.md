@@ -12,7 +12,8 @@
  - Dashboard
  
  - Master Data
-   + ✅ Business Partners   -- 機能通貨が必要
+   + ✅ Business Partners
+     - 取引先口座 OK
    + ✅ Product/Item Master
    + ✅ Units of Measure
 
@@ -22,7 +23,7 @@
    + Payment
    + Tax
    + Chart of Accounts
-   + Tags
+   + Tags   --- どんな機能性だろう?
    + General Ledger
    
  - Sales

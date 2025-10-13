@@ -9,5 +9,17 @@ class ContactAccount < ApplicationRecord  # Account から派生
   
   # 親
   belongs_to :contact
+
+  before_validation :check
+  
+  validates_uniqueness_of :account_no, scope: :contact_id, allow_nil:true
+
+
+private
+
+  # for before_validation
+  def check
+    self.account_no = nil if account_no.blank?
+  end
   
 end

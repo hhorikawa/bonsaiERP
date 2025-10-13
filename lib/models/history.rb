@@ -58,7 +58,7 @@ module Models::History
     end
 
     def store_new_record
-      histories.build(new_item: true, user_id: history_user_id,
+      histories.build(new_item: true, user_id: current_user.id,
                       historiable_type: self.class.to_s, history_data: {})
     end
 
@@ -96,9 +96,6 @@ module Models::History
       end
     end
 
-    def history_user_id
-      UserSession.id
-    end
 
     def get_object_attributes(object)
       object.changed_attributes

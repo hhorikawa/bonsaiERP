@@ -58,16 +58,27 @@ class ItemsController < ApplicationController
   end
 
   # GET /items/1/edit
+  def edit
+  end
 
+  
   # POST /items
   def create
     @item = Item.new(item_params)
 
-    if @item.save
-      redirect_to @item
-    else
+    begin
+      ActiveRecord::Base.transaction do
+        @item.save!
+        @item.histories.create!(user_id: current_user.id,
+                                new_item:true,
+                                history_data: {})
+      end
+    rescue ActiveRecord::RecordInvalid
       render 'new', status: :unprocessable_entity
+      return
     end
+    
+    redirect_to @item
   end
 
   

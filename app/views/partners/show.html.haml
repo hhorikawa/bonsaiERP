@@ -25,6 +25,10 @@
       .clearfix
       = @partner.mobile
 
+%h2 口座
+- @partner.contact_accounts.each do |ca|
+  = render ca
+= link_to "New Contact Account...", new_partner_contact_account_path(@partner)
 
 %h3.n Operaciones  取引先との取引の一覧
 

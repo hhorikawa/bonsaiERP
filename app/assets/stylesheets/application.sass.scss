@@ -1,2 +1,8 @@
 // Entry point for your Sass build
 
+
+.required:after {
+    content:" *";
+    color: red;
+}
+
