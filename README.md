@@ -21,6 +21,7 @@
    + ✅ Cash / Bank Account
    + Loan
    + Payment
+   + Currency
    + Tax
    + Chart of Accounts
    + Tags   --- どんな機能性だろう?

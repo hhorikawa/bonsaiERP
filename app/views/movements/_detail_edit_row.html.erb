@@ -1,0 +1,32 @@
+
+<% # @param lineno 行番号. 1始まり
+   # @param detail_obj 詳細行オブジェクト %>
+
+  <li class="row-fluid detail" ng-repeat="detail in details" ng-hide="detail._destroy==1">
+    <div class="span6 item">
+      <input type="hidden" ng-model="detail.id" name="<%= movement.form_details_name %>[{{ $index }}][id]" value="{{ detail.id }}">
+      <input type="hidden" ng-model="detail._destroy" name="<%= movement.form_details_name %>[{{$index}}][_destroy]" value="{{detail._destroy}}">
+      <div class="input-append autocomp">
+        <input class="hide" type="text" ng-model="detail.item_id" name="<%= movement.form_details_name %>[{{$index}}][item_id]" size="2">
+        <input class="item-name autocomp" type="text" placeholder="<%= t('views.movements.form_items.search_item_placeholder') %>" data-source="<%= item_url %>" ng-model="detail.item" detail-autocomplete="true">
+        <a class="btn add-new-url add-new-item ajax" href="/items/new?for_sale=<%= movement.is_income? %>" tabindex="-1">
+          <i class="icon-plus-circle"></i>
+        </a>
+      </div>
+      <span class="error" ng-show="detail.hasError('item_id')">{{detail.errorsFor('item_id')}}</span>
+    </div>
+
+    <div class="span2 price r">
+      <label class="visible-phone"><%= t('views.movements.form_items.price_label') %></label>
+      <input class="r" type="number" ng-model="detail.price" name="<%= movement.form_details_name %>[{{$index}}][price]" value="10">
+      <span class="unit visible-phone"></span>
+    </div>
+
+    <div class="span2 quantity r">
+      <label class="visible-phone"><%= t('views.movements.form_items.quantity_label') %></label>
+      <input class="r" type="number" ng-model="detail.quantity" name="<%= movement.form_details_name %>[{{$index}}][quantity]">
+      <span class="unit" data-original-title="{{ detail.unit_name }}" data-toggle="tooltip">
+        {{detail.unit_symbol}}
+      </span>
+      <span class="error" ng-show="detail.hasError('quantity')">{{detail.errorsFor('quantity')}}</span>
+    </div>

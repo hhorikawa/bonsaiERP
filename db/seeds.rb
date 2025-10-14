@@ -78,5 +78,8 @@ end
 
 if Organisation.count == 0
   make_org_and_admin_user()
+else
+  # ここで drop table する
+  puts "Apartment::Tenant.current = ", Apartment::Tenant.current
 end
 

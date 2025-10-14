@@ -2,8 +2,9 @@
 # author: Boris Barroso
 # email: boriscyber@gmail.com
 class StoresController < ApplicationController
-  before_action :set_date_range, :set_show_params, only: ['show']
-
+  #before_action :set_date_range, :set_show_params, only: ['show']
+  before_action :set_store, only: [:show, :edit, :update, :destroy]
+  
   # GET /stores
   def index
     @stores = Store.all
@@ -12,25 +13,18 @@ class StoresController < ApplicationController
   
   # GET /stores/1
   def show
-    @store = present Store.find(params[:id])
-
-    respond_to do |format|
-      format.html
-    end
+    #@store = present Store.find(params[:id])
   end
 
   # GET /stores/new
   def new
     @store = Store.new(active: true)
-
-    respond_to do |format|
-      format.html
-    end
   end
 
+  
   # GET /stores/1/edit
   def edit
-    @store = Store.find(params[:id])
+    #@store = Store.find(params[:id])
   end
 
   # POST /stores
@@ -46,38 +40,37 @@ class StoresController < ApplicationController
 
   # PUT /stores/1
   def update
-    @store = Store.find(params[:id])
+    #@store = Store.find(params[:id])
 
-    respond_to do |format|
-      if @store.update(store_params)
-        format.html { redirect_to(@store, notice: 'El almacen fue correctamente actualizado.') }
-      else
-        format.html { render :action => "edit" }
-      end
+    @store.assign_attributes store_params
+    if @store.save
+      redirect_to(@store, notice: 'El almacen fue correctamente actualizado.') 
+    else
+      render "edit", status: :unprocessable_entity
     end
   end
 
   # DELETE /stores/1
   # DELETE /stores/1.xml
   def destroy
-    @store = Store.find(params[:id])
-    @store.destroy
+    #@store = Store.find(params[:id])
+    @store.destroy!
 
-    if @store.destroyed?
-      flash[:notice] = "El almacen fue eliminado."
-      redirect_to stores_path
-    else
-      flash[:warning] = "El almacen no puede ser eliminado debido a que tiene datos relacionados."
-      redirect_to @store
-    end
-
+    flash[:notice] = "El almacen fue eliminado."
+    redirect_to stores_path
   end
 
-  private
+  
+private
 
-    def store_params
-      params.require(:store).permit(:name, :active, :phone, :address)
-    end
+  # before_action()
+  def set_store
+    @store = Store.find params[:id]
+  end
+  
+  def store_params
+    params.require(:store).permit(:name, :active, :phone, :address, :description)
+  end
 
     def get_partial
       case params[:tab]
