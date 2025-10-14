@@ -3,8 +3,9 @@
 
 # その他の勘定科目
 class Order < BusinessRecord 
-  
-  STATES = %w(draft approved paid nulled)
+
+  # `delivered` = closed
+  STATES = %w(draft approved delivered nulled).freeze
 
   # Callbacks
   before_update :check_items_balances
@@ -14,6 +15,12 @@ class Order < BusinessRecord
 
   # 親
   belongs_to :contact
+
+  has_many :details, -> {order('id ASC')},
+           class_name: "MovementDetail", dependent: :destroy
+
+  #accepts_nested_attributes_for :income_details, allow_destroy: true,
+  #reject_if: proc { |det| det.fetch(:item_id).blank? }
   
   belongs_to :project, optional: true
   has_many :ledgers, foreign_key: :account_id, class_name: 'AccountLedger'
@@ -23,7 +30,9 @@ class Order < BusinessRecord
   # Validations
   validates_presence_of :date, :due_date
   
-  validates :state, presence: true, inclusion: {in: STATES}
+  #validates :state, presence: true, inclusion: {in: STATES}
+  enum :state, STATES.map{|x| [x,x]}.to_h
+  
   validate  :valid_currency_change, on: :update
   validate  :greater_or_equal_due_date
 
@@ -31,13 +40,15 @@ class Order < BusinessRecord
   # Delegations
   delegate :name, :percentage, :percentage_dec, to: :tax, prefix: true, allow_nil: true
 
+=begin
   # Define boolean methods for states
   STATES.each do |_state|
     define_method :"is_#{_state}?" do
       _state == state
     end
   end
-
+=end
+  
   def self.movements
     Account.where(type: ['Income', 'Expense'])
   end
@@ -88,10 +99,14 @@ class Order < BusinessRecord
     discount/gross_total
   end
 
-  def approve!
-    if is_draft?
+
+  # save() must be done by caller.
+  def approve! user
+    raise TypeError if !user.is_a?(User)
+    
+    if draft?
       self.state = 'approved'
-      self.approver_id = UserSession.id
+      self.approver_id = user.id
       self.approver_datetime = Time.zone.now
       self.due_date ||= Time.zone.now.to_date
       self.extras = extras.symbolize_keys

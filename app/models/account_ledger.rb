@@ -63,7 +63,10 @@ belongs_to :nuller,   class_name: 'User'
   validate :different_accounts
 
   validates_inclusion_of :operation, in: OPERATIONS
-  validates_inclusion_of :status, in: STATUSES
+
+  #validates_inclusion_of :status, in: STATUSES
+  enum :status, STATUSES.map{|x| [x,x]}.to_h
+       
   validates_numericality_of :exchange_rate, greater_than: 0
   validates_presence_of :contact_id, unless: :is_trans?
   validates :reference,
@@ -73,9 +76,10 @@ belongs_to :nuller,   class_name: 'User'
 
   ########################################
   # scopes, optional: true, optional: true
-  scope :pendent, -> { where(status: 'pendent') }
-  scope :nulled,  -> { where(status: 'nulled') }
-  scope :approved, -> { where(status: 'approved') }
+  #scope :pendent, -> { where(status: 'pendent') }
+  #scope :nulled,  -> { where(status: 'nulled') }
+  #scope :approved, -> { where(status: 'approved') }
+  
   scope :active, -> { where(status: ['pendent', 'approved']) }
 
   ########################################

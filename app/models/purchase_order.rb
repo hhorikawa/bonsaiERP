@@ -26,14 +26,14 @@ class PurchaseOrder < Order
 
   ########################################
   # Scopes
-  scope :approved, -> { where(state: 'approved') }
+  #scope :approved, -> { where(state: 'approved') }
   scope :active,   -> { where(state: %w(approved paid)) }
-  scope :paid, -> { where(state: 'paid') }
+  #scope :paid, -> { where(state: 'paid') }
   scope :contact, -> (cid) { where(contact_id: cid) }
   scope :pendent, -> { active.where.not(amount: 0) }
   scope :error, -> { active.where(has_error: true) }
   scope :due, -> { approved.where("accounts.due_date < ?", Time.zone.now.to_date) }
-  scope :nulled, -> { where(state: 'nulled') }
+  #scope :nulled, -> { where(state: 'nulled') }
   scope :inventory, -> { active.where("extras->'delivered' = ?", 'false') }
   scope :like, -> (s) {
     s = "%#{s}%"

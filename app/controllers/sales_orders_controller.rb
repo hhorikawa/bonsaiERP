@@ -12,8 +12,14 @@ class SalesOrdersController < ApplicationController
 
   # GET /incomes
   def index
-    @orders = SalesOrder.order(date: :desc).page(@page)
-    #@incomes = Movements::Search.new(params, Income).search.order(date: :desc).page(@page)
+    if params[:movements_search].blank? || !params[:reset].blank?
+      @search = Movements::Search.new
+    else
+      @search = Movements::Search.new params.require(:movements_search)
+                                        .permit(*Movements::Search.attribute_names)
+    end
+    
+    @orders = @search.search_by_text(SalesOrder).order(date: :desc).page(params[:page])
   end
 
   
@@ -28,9 +34,11 @@ class SalesOrdersController < ApplicationController
     end
   end
 
+  
   # GET /incomes/new
   def new
-    @order = SalesOrder.new 
+    @order = SalesOrder.new
+    @order_details = []
   end
 
   
@@ -39,17 +47,19 @@ class SalesOrdersController < ApplicationController
     #@is = Incomes::Form.find(params[:id])
   end
 
+  
   # POST /incomes
   def create
     # ここでフォームオブジェクトを使っている
     #@order = Incomes::Form.new_income(income_params)
-    @order = SalesOrder.new income_params
     
+    @order = SalesOrder.new income_params
+    @order_details = SalesOrder.create_details_from_params(params.require(:order_details))
     if create_or_approve
       redirect_to income_path(@is.income), notice: 'Se ha creado un Ingreso.'
     else
       @is.movement.state = 'draft' # reset status
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -61,7 +71,7 @@ class SalesOrdersController < ApplicationController
     if update_or_approve
       redirect_to income_path(@is.income), notice: 'El Ingreso fue actualizado!.'
     else
-      render :edit
+      render :edit, status: :unprocessable_entity 
     end
   end
 
@@ -69,16 +79,19 @@ class SalesOrdersController < ApplicationController
   # PATCH /incomes/:id/approve
   # Method to approve an income
   def approve
-    redirect_to(@income, alert: 'El Ingreso ya esta aprovado') and return unless @income.is_draft?
+    if !@order.draft?
+      redirect_to(@order, alert: 'El Ingreso ya esta aprovado')
+      return
+    end
 
-    @income.approve!
-    if @income.save
+    @order.approve! current_user
+    if @order.save
       flash[:notice] = "El Ingreso fue aprobado."
     else
       flash[:error] = "Existio un problema con la aprobación."
     end
 
-    redirect_to income_path(@income)
+    redirect_to sales_order_path(@order)
   end
 
   
@@ -146,6 +159,7 @@ private
     @order = SalesOrder.find params[:id]
   end
 
+=begin
     # Method to search incomes on the index
     def search_incomes
       if tag_ids
@@ -157,7 +171,8 @@ private
       set_incomes_filters
       @incomes = @incomes.page(@page)
     end
-
+=end
+  
     def set_incomes_filters
       [:approved, :error, :due, :nulled, :inventory].each do |filter|
         @incomes = @incomes.send(filter)  if params[filter].present?

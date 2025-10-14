@@ -4,56 +4,28 @@
       &nbsp;
 
 
-.row-fluid
-  .span6
-    %h1.ib Expenses
-    = search_tag
-  .span6.r.buttons
-    %tags(model='Expense' tag-ids='#{ tag_ids }' url='#{ expenses_path }')
+%div.row
+  %div.col
+    %h1.ib Purchase Orders
 
-    .btn-group
-      = link_to export_expenses_path, class: 'btn' do
-        %i.icon-download-alt
-        Export
+  %div.btn-list
+    = link_to "Export", export_expenses_path, class: 'btn btn-secondary' 
 
-      = link_to new_expense_path, class: 'btn' do
-        %i.icon-plus-sign
-        New Expense
+    = link_to "New Purchase Order...", new_purchase_order_path, class: 'btn btn-secondary'
 
 
-= render 'search'
 
--#%ul.unstyled.inline
-  %li
-    = link_to "Todos", expenses_path, class: params_bold(:all)
-  %li
-    = link_to "Vencidos", expenses_path(due: true), class: "red #{ params_bold(:due) }"
-  %li
-    = link_to "Aprobados", expenses_path(approved: true), class: params_bold(:approved)
-  %li
-    = link_to "Con error", expenses_path(error: true), class: params_bold(:error)
-  %li
-    = link_to "Anulados", expenses_path(nulled: true), class: params_bold(:nulled)
-  %li
-    = link_to "Inventario pendiente", expenses_path(inventory: true), class: params_bold(:inventory)
+= render partial: 'movements/search'
 
 
-= render 'expenses/with_error'  if Expense.error.any? && params[:error].blank?
-
-- paginate_html = paginate @expenses
+- paginate_html = paginate @orders
 
 =paginate_html
 
 %ul#expenses-list.unstyled.listing.has-row-check
-  %li.row-fluid
-    .span4.offset7
-      .span6.r.b.muted
-        Total
-      .span6.r.b.muted
-        Saldo
-
-  = render partial: 'expenses/expense', collection: present(@expenses), as: :expense
+  - @orders.each do |order|
+    = render 'purchase_orders/expense', order: order
 
 =paginate_html
 
-= render 'expenses/index_tour'
+-#= render 'expenses/index_tour'

@@ -13,7 +13,7 @@
  
  - Master Data
    + ✅ Business Partners
-     - 取引先口座 OK
+     - 取引先口座 OK    TODO: edit
    + ✅ Product/Item Master
    + ✅ Units of Measure
 

@@ -1,6 +1,8 @@
-# encoding: utf-8
+
 # author: Boris Barroso
 # email: boriscyber@gmail.com
+
+# Product/Item Master
 class ItemsController < ApplicationController
   include Controllers::TagSearch
 
@@ -15,15 +17,7 @@ class ItemsController < ApplicationController
                                      .permit(*ItemSearch.attribute_names)
     end
 
-    @items = Item
-    if !@search.nothing? # Filter 
-      @items = @items.where(active: @search.active == 1) if @search.active != 0
-      @items = @items.where(for_sale: @search.for_sale == 1) if @search.for_sale != 0
-      @items = @items.where(stockable: @search.stockable == 1) if @search.stockable != 0
-      @items = @items.search(@search.search) if !@search.search.blank?
-      #@items = @items.any_tags(*tag_ids)  if tag_ids
-    end
-    @items = @items.order('items.name ASC').page(params[:page])
+    @items = @search.search_by_text().order('items.name ASC').page(params[:page])
   end
 
   

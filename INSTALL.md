@@ -140,6 +140,8 @@ By `postgres` user,
 $ createdb --owner rails --encoding UTF-8 bonsai_erp_development
 ```
 
+If you use tenants, set `USE_SUBDOMAIN = true` in `config/initializers/constants.rb`
+
 ```bash
 rails db:migrate
 rails db:seed

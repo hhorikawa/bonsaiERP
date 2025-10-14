@@ -6,16 +6,19 @@ class ItemSearch < BaseForm
   attribute :stockable, :integer, default: 0
   attribute :search, :string, default: ""
 
-=begin
-  # 単純に params.require(:hoge) を与えると, ActiveModel::ForbiddenAttributesError
-  def initialize attributes = nil
-    super(attributes)
-  end
-=end
 
   def nothing?
-    return self.active == 0 && self.for_sale == 0 && self.stockable == 0 &&
-           self.search.blank?
+    return active == 0 && for_sale == 0 && stockable == 0 && search.blank?
+  end
+  
+  def search_by_text
+    ret = Item
+    ret = ret.where(active: active == 1) if active != 0
+    ret = ret.where(for_sale: for_sale == 1) if for_sale != 0
+    ret = ret.where(stockable: stockable == 1) if stockable != 0
+    ret = ret.search(search) if !search.blank?
+    #@items = @items.any_tags(*tag_ids)  if tag_ids
+    return ret
   end
 end
 

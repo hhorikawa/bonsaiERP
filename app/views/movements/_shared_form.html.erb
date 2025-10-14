@@ -1,18 +1,19 @@
+<% # @param f form object 
+   # @param @order order object %>
+
 <div class="row-fluid">
   <div class="span6 contact autocomp">
-    <% if transaction.new_record? %>
-      <%= f.input :contact_id, as: :autocomplete, label: t('general.contact'),
-        input_html: { class: 'span10 autocomp', placeholder: t('views.movements.shared_form.search_contact_placeholder'),
-        data: { source: '/contacts.json', new_url: new_contact_path, title: t('views.movements.shared_form.new_contact'), trigger: 'new-contact' } } %>
+    <% if @order.new_record? %>
+      <%= f.select :contact_id, options_from_collection_for_select(Contact.all, :id, :name, @order.contact_id), help: "Only new record" %>
     <% else %>
       <label><%= t('general.contact') %></label>
-      <%= transaction.contact %>
+      <%= @order.contact.name %>
     <% end %>
   </div>
   <div class="span3">
-    <%= f.input :date, label: t('movement_attributes.date'), as: :datepicker %>
+    <%= f.date_field :date, label: t('movement_attributes.date'), as: :datepicker %>
   </div>
   <div class="span3">
-    <%= f.input :due_date, as: :datepicker, label: t('movement_attributes.due_date') %>
+    <%= f.date_field :due_date, as: :datepicker, label: t('movement_attributes.due_date') %>
   </div>
 </div>

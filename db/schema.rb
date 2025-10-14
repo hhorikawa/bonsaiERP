@@ -176,7 +176,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.string "historiable_type", null: false
     t.bigint "historiable_id", null: false
     t.boolean "new_item", default: false, null: false
-    t.json "history_data", default: {}
+    t.json "history_data", default: {}, null: false
     t.datetime "created_at", precision: nil, null: false
     t.string "klass_type"
     t.text "extras"
@@ -288,6 +288,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.string "type", limit: 80, null: false
     t.date "date", null: false
     t.bigint "contact_id", null: false
+    t.string "currency", limit: 3, null: false
     t.decimal "total", precision: 14, scale: 2, default: "0.0", null: false
     t.string "bill_number"
     t.decimal "gross_total", precision: 14, scale: 2, default: "0.0"
@@ -303,6 +304,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.boolean "delivered", default: false, null: false
     t.boolean "discounted", default: false, null: false
     t.boolean "devolution", default: false, null: false
+    t.string "state", limit: 50, null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.boolean "no_inventory", default: false, null: false

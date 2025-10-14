@@ -6,50 +6,63 @@
 class PurchaseOrdersController < ApplicationController
   include Controllers::TagSearch
 
-  before_action :set_po, only: [:show, :edit, :update, :destroy, :approve, :null, :inventory]
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :approve, :null, :inventory]
 
   # GET /expenses
   def index
-    if search_term
-      @pos = Movements::Search.new(params, Expense).search.order(date: :desc).page(@page)
+    if params[:movements_search].blank? || !params[:reset].blank?
+      @search = Movements::Search.new
+    else
+      @search = Movements::Search.new params.require(:movements_search)
+                                        .permit(*Movements::Search.attribute_names)
+    end
+
+    @orders = @search.search_by_text(PurchaseOrder).order(date: :desc).page(params[:page])
   end
 
+  
   # GET /expenses/1
   def show
-    @expense = present Expense.find(params[:id])
+    #@expense = present Expense.find(params[:id])
   end
 
   # GET /expenses/new
   def new
-    @es = Expenses::Form.new_expense(currency: currency)
+    # Use the form object.
+    #@order = Expenses::Form.new_expense(currency: currency)
+    @order = PurchaseOrder.new
+    @order_details = []
   end
 
   # GET /expenses/1/edit
   def edit
-    @es = Expenses::Form.find(params[:id])
+    #@es = Expenses::Form.find(params[:id])
   end
 
   # POST /expenses
   def create
-    @es = Expenses::Form.new_expense(expense_params)
-
+    # the form object
+    #es = Expenses::Form.new_expense(expense_params)
+    
+    @order = PurchaseOrder.new expense_params 
+    @order_details = PurchaseOrder.create_details_from_params(params.require(:order_details))
     if create_or_approve
       redirect_to expense_path(@es.expense), notice: 'Se ha creado un Egreso.'
     else
       @es.movement.state = 'draft' # reset status
-      render 'new'
+      render :new, status: :unprocessable_entity
     end
   end
 
   
   # PATCH /expenses/:id
   def update
-    @es = Expenses::Form.find(params[:id])
-
+    #@es = Expenses::Form.find(params[:id])
+    
     if update_or_approve
       redirect_to expense_path(@es.expense), notice: 'El Egreso fue actualizado!.'
     else
-      render 'edit'
+      render :edit, status: :unprocessable_entity 
     end
   end
 
@@ -57,18 +70,23 @@ class PurchaseOrdersController < ApplicationController
   # PATCH /expenses/1/approve
   # Method to approve an expense
   def approve
-    @expense = Expense.find(params[:id])
-    @expense.approve!
-
-    if @expense.save
+    #@expense = Expense.find(params[:id])
+    if !@order.draft?
+      redirect_to(@order, alert: 'El Ingreso ya esta aprovado')
+      return
+    end
+    
+    @order.approve! current_user
+    if @order.save
       flash[:notice] = "La nota de venta fue aprobada."
     else
       flash[:error] = "Existio un problema con la aprobación."
     end
 
-    redirect_to expense_path(@expense)
+    redirect_to purchase_order_path(@order)
   end
 
+  
   # PATCH /expenses/:id/approve
   # Method that nulls or enables inventory
   def inventory
@@ -85,6 +103,7 @@ class PurchaseOrdersController < ApplicationController
     redirect_to expense_path(@expense.id, anchor: 'items')
   end
 
+  
   # PATCH /incomes/:id/null
   def null
     if @expense.null!
@@ -94,9 +113,16 @@ class PurchaseOrdersController < ApplicationController
     end
   end
 
-  private
+  
+  def destroy
+    @order.destroy!
+    #TODO impl.
+  end
 
-    # Creates or approves a Expenses::Form instance
+  
+private
+
+  # Creates or approves a Expenses::Form instance
     def create_or_approve
       if params[:commit_approve]
         @es.create_and_approve
@@ -125,10 +151,12 @@ class PurchaseOrdersController < ApplicationController
       @movement_params ||= MovementParams.new
     end
 
-    def set_expense
-      @expense = Expense.find_by(id: params[:id])
-    end
+  # before_action()
+  def set_order
+    @order = PurchaseOrder.find params[:id]
+  end
 
+=begin  
     # Method to search expenses on the index
     def search_expenses
       if tag_ids
@@ -140,7 +168,8 @@ class PurchaseOrdersController < ApplicationController
       set_expenses_filters
       @expenses = @expenses.page(@page)
     end
-
+=end
+  
     def set_expenses_filters
       [:approved, :error, :due, :nulled, :inventory].each do |filter|
         @expenses = @expenses.send(filter)  if params[filter].present?

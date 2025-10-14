@@ -10,6 +10,8 @@ class CreateTransactions < ActiveRecord::Migration[5.2]
 
         t.references :contact, null:false, foreign_key:true
 
+        t.column :currency, "CHAR(3) NOT NULL"
+        
         # Use Account#amount for total, create alias
         t.decimal :total, precision: 14, scale: 2, null:false, default: 0.0
 
@@ -34,6 +36,8 @@ class CreateTransactions < ActiveRecord::Migration[5.2]
         t.boolean :discounted, null:false, default: false
         t.boolean :devolution, null:false, default: false
 
+        t.string :state, limit:50, null:false
+        
         t.timestamps
       end
 

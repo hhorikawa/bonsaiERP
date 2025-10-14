@@ -1,7 +1,7 @@
 <% content_for :links do %>
   <ul class="breadcrumbs span6">
     <li>
-      <%= link_to t('views.incomes.index.title'), incomes_path %>
+      <%= link_to "Sales Orders", sales_orders_path %>
     </li>
     <li>
       <i class="icon-caret-right"></i>
@@ -19,12 +19,9 @@
   </ul>
 <% end %>
 
-<% inc_presenter = present @is.income %>
 
 <h1 class="title">
-  <span class="muted n"><%= t('views.incomes.new.title') %></span>
-  <span class="code" title="<%= t('views.incomes.new.code_tooltip') %>" data-toggle="tooltip"><%= @is.income %></span>
-  <small class="state" title="<%= t('general.state') %>" data-toggle="tooltip"><%= inc_presenter.state_tag %></small>
+  <span class="muted n">New Sales Order</span>
 </h1>
 
-<%= render 'incomes/form', income_service: @is %>
+<%= render partial: 'form'  %>

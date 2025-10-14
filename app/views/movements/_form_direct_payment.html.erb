@@ -1,17 +1,14 @@
-<input type="hidden" ng-model="base_currency" value="<%= currency %>" initial>
+
+<% # @param f form object
+   # @param @order order object %>
+
 <div class="row-fluid currency-input">
   <div class="span6">
-    <%= f.input :currency, collection: currency_options, label: 'Currency ', include_blank: false,
-      input_html: { id: 'currency', 'ng-model' => 'currency' } %>
-  </div>
-  <div class="span6">
-    <%= f.input :exchange_rate, label: "Exchange rate of <span class='currency'></span> a #{currency_label} ".html_safe,
-      input_html: { id: 'exchange_rate', type: 'number', class: 'span3',
-      'ng-model' => 'exchange_rate', 'ng-disabled' => 'same_currency', 'ng-change' => 'setDetailsPrices()', 'initial' => true } %>
+    <%= f.select :currency, options_from_collection_for_select(Currency.all, :code, :name, @order.currency) %>
   </div>
 </div>
 
-<% if movement.is_draft? %>
+<% if @order.draft? %>
   <input id="accounts" type="hidden" data-accounts="<%= Accounts::Query.new.bank_cash_options.to_json %>">
   <br>
   <div class="well well-small">
