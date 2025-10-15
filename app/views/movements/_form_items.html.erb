@@ -8,23 +8,23 @@
 </h2>
 
 
-<ul class="unstyled movement-details listing">
-  <li class="header row-fluid">
-    <div class="span6">
+<div class="row text-bg-secondary">
+  <div class="col-3">
       <%= t('views.movements.form_items.item') %>
-    </div>
-    <div class="span2">
+  </div>
+  <div class="col-1">
       <%= t('views.movements.form_items.price') %>
     </div>
-    <div class="span2">
+  <div class="col-1">
       <%= t('views.movements.form_items.quantity') %>
-      <br>
-      <%= t('views.movements.form_items.unit_of_measure') %>
-    </div>
-    <div class="span2">
+      <br />
+      UoM 
+  </div>
+  <div class="col-4">Description</div>
+  <div class="col-2">
       <%= t('views.movements.form_items.line_total') %>
     </div>
-  </li>
+</div>
 
 <% # 手抜いて, フォームをベタ書きする。
   %>

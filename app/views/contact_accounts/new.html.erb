@@ -3,6 +3,12 @@
   
 <h1>New contact_account</h1>
 
-<%= render partial:"form" %>
+<%= bootstrap_form_with model: @contact_account, url:{action:"create"},
+                        layout: :horizontal do |f| %>
+  <%= render partial:"form", locals:{f:f} %>
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
 
 

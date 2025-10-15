@@ -1,31 +1,20 @@
 
-= bootstrap_form_with model: @partner, url:{action:"create"}, layout: :horizontal do |f|
-  = @partner.errors.inspect
-  = bonsai_form_error(f)
-  .row-fluid
-    .span6
-      = f.text_field :matchcode, label: 'matchcode:',
+= @partner.errors.inspect
+= bonsai_form_error(f)
+
+= f.text_field :matchcode, label: 'matchcode:',
         input_html: { class: 'matchcode span11' }
-      = f.text_field :name
-    .span6
-      = f.email_field :email, lanel: "E-mail", input_html: { class: 'span11' }
+= f.text_field :name
+= f.email_field :email, lanel: "E-mail:", input_html: { class: 'span11' }
 
+= f.text_field :phone, label: "Phone:", input_html: {size: 20}
 
-  %a.view-more(href='javascript:;') Ver mas
+= f.text_field :mobile, label: "Mobile:", input_html: {size: 20}
 
-  .modal-more
-    .row-fluid
-      .span3
-        = f.text_field :phone, label: "Phone", input_html: {size: 20}
-      .span3
-        = f.text_field :mobile, label: "Mobile", input_html: {size: 20}
-      .span6
-        = f.text_field :tax_number, label: 'Código tributario'
-    .row-fluid
-      .span6
-        = f.text_field :address, as: :text, input_html: {rows: 3, cols: 45}, label: 'Address'
-  .form-actions
-    = f.submit 'Save', class: 'btn btn-primary b'
+= f.text_field :tax_number, label: 'Tax Number:'
+
+= f.text_field :address, input_html: {rows: 3, cols: 45}, label: 'Address:'
+
 
 :javascript
   $( function() {

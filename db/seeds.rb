@@ -80,6 +80,11 @@ if Organisation.count == 0
   make_org_and_admin_user()
 else
   # ここで drop table する
-  puts "Apartment::Tenant.current = ", Apartment::Tenant.current
+  print "Apartment::Tenant.current = ", Apartment::Tenant.current, "\n"
+  if Apartment::Tenant.current != "public"
+    ActiveRecord::Base.connection.execute("DROP TABLE links")
+    ActiveRecord::Base.connection.execute("DROP TABLE organisations")
+    ActiveRecord::Base.connection.execute("DROP TABLE users")
+  end
 end
 

@@ -1,32 +1,41 @@
 
 <% # @param lineno 行番号. 1始まり
-   # @param detail_obj 詳細行オブジェクト %>
+   # @param detail_obj 詳細行オブジェクト 
+   # sales_orders/_form -> movements/_form_items から呼び出される
+  %>
 
-  <li class="row-fluid detail" ng-repeat="detail in details" ng-hide="detail._destroy==1">
-    <div class="span6 item">
-      <input type="hidden" ng-model="detail.id" name="<%= movement.form_details_name %>[{{ $index }}][id]" value="{{ detail.id }}">
-      <input type="hidden" ng-model="detail._destroy" name="<%= movement.form_details_name %>[{{$index}}][_destroy]" value="{{detail._destroy}}">
-      <div class="input-append autocomp">
-        <input class="hide" type="text" ng-model="detail.item_id" name="<%= movement.form_details_name %>[{{$index}}][item_id]" size="2">
-        <input class="item-name autocomp" type="text" placeholder="<%= t('views.movements.form_items.search_item_placeholder') %>" data-source="<%= item_url %>" ng-model="detail.item" detail-autocomplete="true">
-        <a class="btn add-new-url add-new-item ajax" href="/items/new?for_sale=<%= movement.is_income? %>" tabindex="-1">
-          <i class="icon-plus-circle"></i>
-        </a>
-      </div>
-      <span class="error" ng-show="detail.hasError('item_id')">{{detail.errorsFor('item_id')}}</span>
-    </div>
+<div id="<%= "detail_#{lineno}" %>" >
+  <%= fields_for "detail[#{lineno}]", detail_obj do |f| %>
+<% if !detail_obj.errors.empty? %>
+  <div style="color:red">
+<%   detail_obj.errors.full_messages.each do |msg| %>
+    <%= msg %>
+<%   end %>
+  </div>
+<% end %>
 
-    <div class="span2 price r">
-      <label class="visible-phone"><%= t('views.movements.form_items.price_label') %></label>
-      <input class="r" type="number" ng-model="detail.price" name="<%= movement.form_details_name %>[{{$index}}][price]" value="10">
-      <span class="unit visible-phone"></span>
-    </div>
+<div class="row border-bottom border-primary"
+     data-controller="order-detail-row">
+  <div class="col-3">
+    <%= f.select :item_id,
+                options_from_collection_for_select(Item.all, :id, :name,
+                                                   detail_obj.item_id) %>
+  </div>
+  <div class="col-1">
+    <%= f.number_field :price %>
+  </div>
+  <div class="col-1">
+    <%= f.number_field :quantity %>
+    <%= f.text_field :uom, value:"uom", disabled:true %>
+  </div>
+  <div class="col-4">
+    <%= f.text_field :description %>
+  </div>
+  <div class="col-2">
+    <%= f.text_field :line_total, value:"line_total", disabled:true %>
+  </div>
+</div>  <!-- /.row -->
 
-    <div class="span2 quantity r">
-      <label class="visible-phone"><%= t('views.movements.form_items.quantity_label') %></label>
-      <input class="r" type="number" ng-model="detail.quantity" name="<%= movement.form_details_name %>[{{$index}}][quantity]">
-      <span class="unit" data-original-title="{{ detail.unit_name }}" data-toggle="tooltip">
-        {{detail.unit_symbol}}
-      </span>
-      <span class="error" ng-show="detail.hasError('quantity')">{{detail.errorsFor('quantity')}}</span>
-    </div>
+<%   end  # of fields_for %>
+</div>
+

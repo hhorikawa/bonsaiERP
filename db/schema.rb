@@ -271,16 +271,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.bigint "order_id", null: false
     t.bigint "item_id"
     t.bigint "account_id"
-    t.decimal "quantity", precision: 14, scale: 2, default: "0.0"
-    t.decimal "price", precision: 14, scale: 2, default: "0.0"
-    t.string "description"
-    t.decimal "discount", precision: 14, scale: 2, default: "0.0"
-    t.decimal "balance", precision: 14, scale: 2, default: "0.0"
-    t.decimal "original_price", precision: 14, scale: 2, default: "0.0"
+    t.decimal "quantity", precision: 14, scale: 2, default: "0.0", null: false
+    t.decimal "price", precision: 14, scale: 2, default: "0.0", null: false
+    t.string "description", null: false
+    t.decimal "balance", precision: 14, scale: 2, default: "0.0", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["account_id"], name: "index_movement_details_on_account_id"
     t.index ["item_id"], name: "index_movement_details_on_item_id"
+    t.index ["order_id", "item_id"], name: "index_movement_details_on_order_id_and_item_id", unique: true
     t.index ["order_id"], name: "index_movement_details_on_order_id"
   end
 

@@ -1,34 +1,35 @@
-# encoding: utf-8
+
 # author: Boris Barroso
 # email: boriscyber@gmail.com
+
+# order 内の明細行
 class MovementDetail < ApplicationRecord
 
   # Validations
-  validates_presence_of :item_id
+  validate :check
   validates_numericality_of :quantity, greater_than: 0
-  validate :balance_is_correct
-  validate :change_of_item_id, unless: :new_record?
-  validate :quantity_eq_balance, if: :marked_for_destruction?
+
+  #validate :change_of_item_id, unless: :new_record?
+  #validate :quantity_eq_balance, if: :marked_for_destruction?
 
   delegate :unit_name, :unit_symbol, to: :item, allow_nil: true
 
-  def total
+  def line_total
     quantity * price
   end
-  alias_method :subtotal, :total
 
-  def changed_price?
-    !(price === original_price)
-  end
+  #def changed_price?
+  #!(price === original_price)
+  #end
 
   def data_hash
     {
       id: id,
       item_id: item_id,
-      original_price: original_price,
+      #original_price: original_price,
       price: price,
       quantity: quantity,
-      subtotal: subtotal
+      #subtotal: subtotal
     }
   end
 
@@ -41,21 +42,28 @@ class MovementDetail < ApplicationRecord
     res
   end
 
-  private
+  
+private
 
-    def balance_is_correct
-      self.errors.add(:item_id, balance_error_message)  if self.balance > quantity
+  # for validate()
+  def check
+    if !((item_id && !account_id) || (!item_id && account_id))
+      errors.add :base, "must set item_id or account_id"
     end
 
-    def balance_error_message
-      I18n.t('errors.messages.movement_details.balance')
+    if balance < 0 || quantity < balance
+      errors.add :balance, I18n.t('errors.messages.movement_details.balance')
     end
+  end
 
-    def quantity_eq_balance
-      self.errors.add(:quantity, "No se puede")  unless balance == quantity
-    end
+  #def quantity_eq_balance
+  #self.errors.add(:quantity, "No se puede")  unless balance == quantity
+  #end
 
-    def change_of_item_id
+=begin
+  def change_of_item_id
+    # *_changed? メソッドは ActiveModel::Dirty の機能
       self.errors.add(:item_id, I18n.t('errors.messages.movement_details.item_changed'))  if item_id_changed?
-    end
+  end
+=end
 end

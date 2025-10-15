@@ -4,4 +4,14 @@
 
 %h1 New Business Partner
 
-= render partial: 'partners/form'
+= bootstrap_form_with model: @partner, url:{action:"create"},
+                      layout: :horizontal do |f|
+  = render partial: 'partners/form', locals:{f:f}
+
+  %div.card
+    %div.card-body
+      = f.fields_for @contact_account do |caf|
+        = render partial: 'contact_accounts/form', locals:{f:caf}
+
+  .form-actions
+    = f.submit 'Save', class: 'btn btn-primary'

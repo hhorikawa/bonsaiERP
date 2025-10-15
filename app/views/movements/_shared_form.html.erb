@@ -4,7 +4,7 @@
 <div class="row-fluid">
   <div class="span6 contact autocomp">
     <% if @order.new_record? %>
-      <%= f.select :contact_id, options_from_collection_for_select(Contact.all, :id, :name, @order.contact_id), help: "Only new record" %>
+      <%= f.select :contact_id, options_from_collection_for_select(Contact.all, :id, :name, @order.contact_id), required:false, help: "Only new record" %>
     <% else %>
       <label><%= t('general.contact') %></label>
       <%= @order.contact.name %>

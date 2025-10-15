@@ -4,7 +4,8 @@
 
 <div class="row-fluid currency-input">
   <div class="span6">
-    <%= f.select :currency, options_from_collection_for_select(Currency.all, :code, :name, @order.currency) %>
+    <%= f.select :currency,
+            options_from_collection_for_select(Currency.all, :code, :to_s, @order.currency) %>
   </div>
 </div>
 
