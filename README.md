@@ -1,10 +1,10 @@
 
-# *bonsaiERP*
+# *bonsaiERP 3*
 
 [![License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/hhorikawa/bonsaiERP/blob/main/MIT-LICENSE.md)
 
 
-<i>bonsaiERP</i> is a simple ERP multitenant system written with [Ruby on Rails](https://rubyonrails.org/) and includes the following functions:
+<i>bonsaiERP 3</i> is a simple ERP multitenant system written with [Ruby on Rails](https://rubyonrails.org/) and includes the following functions:
 
 入出庫に伴って, どのように記帳するか, 収支ダッシュボードをどのように作るか, が中心.
 インボイス機能は持たない
@@ -13,7 +13,9 @@
  
  - Master Data
    + ✅ Business Partners
-     - 取引先口座 OK    TODO: edit
+     - 取引先口座 OK
+     - TODO: edit.
+     - TODO: When a user create a business partner, the system must create the first account at the same time. `:new` screen.
    + ✅ Product/Item Master
    + ✅ Units of Measure
 
@@ -34,11 +36,13 @@
    
  - Purchasing
    + Purchase Order and Cancel
-
+     - If there is an under-delivery, the system should be able to modify the order and close it, but the system has not been implemented.
+     
  - Inventory
    + Store/Warehouse
    + Goods Receipt PO
-   + When an invoice is received *before* the goods have arrived, the invoice is posted in the *Purchases in Transit* account but has no assignment to a goods receipt at this point.
+   + Purchases in Transit: When an invoice is received *before* the goods have arrived, the invoice is posted in the *Purchases in Transit* account but has no assignment to a goods receipt at this point.
+     - TODO: mockup of invoice.
    + Goods Return 仕入戻し
    + Delivery
    + Transfer Stock - Out
@@ -50,12 +54,17 @@
  - Project
    + Production Order
 
+ - Configuration
+   + Organisation     TODO: Have a functional currency
+   + User Profile   
+
 
 ## Overall
 
  - Multi-currency
    The system allows to use multiple currencies and make exchange rates.
-
+   TODO:
+     + Historical exchange rates is needed
  - Multiple companies
    It uses the tenant function to completely isolate each company's data.
 
@@ -69,6 +78,37 @@ TODO:
  - Install a UI library.
    <a href="https://github.com/ColorlibHQ/gentelella/">ColorlibHQ/gentelella: Free Bootstrap 5 Admin Dashboard Template</a> or <a href="https://flowbite.com/">Flowbite - Build websites even faster with components on top of Tailwind CSS</a>
 
+ - Installing the `pundit` gem for authorization
+ 
+
+##
+
+See https://qiita.com/MelonPanUryuu/items/0372582e8b8e4e6ad1b4
+    The diagrams are helpful, but there are many gaps.
+
+```
+        103?        <02>                105🚩? 321?
+     +----------> [inspection stock]  -----------+ 
+     |    < 124?                                 |
+     |      107🚩   <10>              109        v    <01>         251 or 261
+[supplier] -----> [valued blocked]  ------>  [unrestricted stock]  ---> [for sale]
+     |      < 108                                ^            |    221
+     |     122       <03>              161    |  |  |      |  +-------> [issue for prj]
+     |  <--------  [return for PO]  <---------+  |  |      |  
+     |                                           |  |      |  
+     +-------------------------------------------+  |      |201
+                                101🚩 >             |      v
+                                                    |   [cost center]
+                                                    v 541
+                                                [subcontract] 
+```
+missing: 102, 162, 542
+
+```
+          303       <05>      305
+[store] --------> [transfer] -------> [store]
+```
+storage location to location in one step: 311
 
 
 
@@ -94,6 +134,8 @@ and then check the email that has been sent, open the url changing the port and 
 the files will go setting:
 
 `config/initialiazers/dragonfly.rb`
+
+
 
 # License
 
