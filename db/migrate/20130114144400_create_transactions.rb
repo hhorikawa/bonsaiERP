@@ -22,7 +22,7 @@ class CreateTransactions < ActiveRecord::Migration[5.2]
         t.decimal :original_total, precision: 14, scale: 2, default: 0.0
         t.decimal :balance_inventory, precision: 14, scale: 2, default: 0.0
 
-        t.date    :due_date
+        t.date    :delivery_date, null:false
         # Creators approver
         t.integer  :creator_id, null:false #, foreign_key:{to_table: :users}
         t.integer  :approver_id  #, foreign_key:{to_table: :users}

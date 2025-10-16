@@ -1,88 +1,83 @@
-# encoding: utf-8
+
 # author: Boris Barroso
 # email: boriscyber@gmail.com
+
+# Form object for SalesOrder/PurchaseOrder
 class Movements::Form < BaseForm
-  attribute :id, Integer
-  attribute :date, Date
-  attribute :due_date, Date
-  attribute :contact_id, Integer
-  attribute :currency, String
-  attribute :exchange_rate, Decimal, default: 1
-  attribute :project_id, Integer
-  attribute :description, String
-  attribute :direct_payment, Boolean, default: false
-  attribute :account_to_id, Integer
-  attribute :reference, String
-  attribute :tax_id, Integer
-  attribute :tax_in_out, Boolean, default: false # true = out, false = in
-  # Tags
-  attribute :tag_ids, Array
+  # SalesOrder or PurchaseOrder
+  attr_reader :model_obj
 
-  ATTRIBUTES = [:date, :contact_id, :currency, :exchange_rate, :project_id, :due_date,
-                :description, :direct_payment, :account_to_id, :reference].freeze
+  # Array of MovementDetail
+  attr_reader :details
+  
+  # form fields
+  delegate :date, :contact_id, :currency, :delivery_date, :draft?, #:description, :tax_id,
+           to: :model_obj
 
-  attr_accessor :service, :movement, :history
+  # for field required star
+  validates_presence_of :date
+  validates_presence_of :delivery_date
+  
+  #validates_presence_of :currency
+  validate :validate_models
 
-  validates_presence_of :movement
-  validates_numericality_of :total
-  validate :unique_item_ids
-
-  delegate :ref_number, to: :movement
-  delegate :ledger, to: :service
-
-  def create
-    set_errors(movement)  unless res = service.create(self)
-    res
+  
+  def initialize order
+    raise TypeError if !(order.is_a?(SalesOrder) || order.is_a?(PurchaseOrder))
+    @model_obj = order
+    @details = order.details
   end
 
-  def create_and_approve
-    set_errors(movement, ledger)  unless res = service.create_and_approve(self)
-    res
+  
+  # @param model_params   permitted params for model object
+  # @param detail_params for nested array              
+  def assign model_params, detail_params
+    model_obj.assign_attributes model_params #.permit(.....)
+    @details = Movements::Form.create_details_from_params(detail_params)
   end
 
-  def update(attrs = {})
-    self.attributes = attrs
-    set_errors(movement, ledger)  unless res = service.update(self)
-    res
-  end
+  # ActiveModel::Validations  -> DON'T override `valid?` directly.
+  #def valid?
+  #     1. errors.clear
+  #     2. run_validations!
+  #     3. return errors.empty?
+  #end
 
-  def update_and_approve(attrs = {})
-    self.attributes = attrs
-    set_errors(movement, ledger)  unless res = service.update_and_approve(self)
-    res
-  end
+  
+private
 
-  def attr_details
-    @attr_details || {}
-  end
+  # for `validate()`
+  def validate_models
+    # promote errors
+    errors.merge!(model_obj.errors) if !model_obj.valid?
 
-  def set_defaults
-    _today = Time.zone.now.to_date
-    self.date ||= _today
-    self.due_date ||= _today
-    self.currency ||= OrganisationSession.currency
-  end
-
-  def form_details_data
-    dets = movement.new_record? ? movement.details : movement.details.includes(:item)
-    dets.map { |v|
-      {
-        id: v.id, item: v.item_to_s, item_id: v.item_id,
-        unit_symbol: v.unit_symbol, unit_name: v.unit_name,
-        price: v.price, quantity: v.quantity,
-        original_price: v.item_price, errors: v.errors
-      }
+    # run validations for all nested objects
+    err_count = details.count {|detail|
+      # only useful when `:autosave` option is enabled.
+      next if detail.respond_to?(:marked_for_destruction?) && detail.marked_for_destruction?
+      !detail.valid?
     }
-  end
-
-  def get_movement_attributes
-    movement.attributes
-  end
-
-  private
-
-    def unique_item_ids
-      UniqueItem.new(self).valid?
+    if err_count > 0
+      errors.add :details, "Some error(s)"
     end
+
+    errors.add :details, "Item not unique" if !UniqueItem.new(self).valid?
+  end
+
+  
+  # @param detail_params [Hash{lineno => Hash}] params
+  #   {"1"=>{"item_id"=>"1", "price"=>"123", "quantity"=>"567", "description"=>"aaaa"},
+  #    "2"=>{"item_id"=>"1", "price"=>"0.0", "quantity"=>"0.0", "description"=>""},
+  def self.create_details_from_params(detail_params)
+    #raise detail_params.inspect # DEBUG
+
+    ary = []
+    detail_params.each do |_lineno, h|
+      m = MovementDetail.new h.permit(:item_id, :price, :quantity, :description)
+      (ary << m) if m.quantity != 0.0
+    end
+
+    return ary
+  end
 
 end

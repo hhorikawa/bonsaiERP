@@ -3,7 +3,7 @@
 
 <div class="row-fluid">
   <div class="span6 contact autocomp">
-    <% if @order.new_record? %>
+    <% if ['new', 'create'].include?(action_name) %>
       <%= f.select :contact_id, options_from_collection_for_select(Contact.all, :id, :name, @order.contact_id), required:false, help: "Only new record" %>
     <% else %>
       <label><%= t('general.contact') %></label>
@@ -14,6 +14,6 @@
     <%= f.date_field :date, label: t('movement_attributes.date'), as: :datepicker %>
   </div>
   <div class="span3">
-    <%= f.date_field :due_date, as: :datepicker, label: t('movement_attributes.due_date') %>
+    <%= f.date_field :delivery_date, as: :datepicker, label: "Delivery Date:" %>
   </div>
 </div>

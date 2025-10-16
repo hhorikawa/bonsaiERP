@@ -37,30 +37,46 @@ class SalesOrdersController < ApplicationController
   
   # GET /incomes/new
   def new
-    @order = SalesOrder.new
-    @order_details = []
+    # Use form object.
+    @order = Movements::Form.new(SalesOrder.new)
+    #@order_details = []
   end
 
   
   # GET /incomes/1/edit
   def edit
-    #@is = Incomes::Form.find(params[:id])
+    # wrap
+    @order = Movements::Form.new(@order)
   end
 
   
   # POST /incomes
   def create
     # ここでフォームオブジェクトを使っている
-    #@order = Incomes::Form.new_income(income_params)
+    @order = Movements::Form.new(SalesOrder.new)
+    @order.assign income_params, params.require(:detail)
     
-    @order = SalesOrder.new income_params
-    @order_details = SalesOrder.create_details_from_params(params.require(:order_details))
-    if create_or_approve
-      redirect_to income_path(@is.income), notice: 'Se ha creado un Ingreso.'
-    else
-      @is.movement.state = 'draft' # reset status
+    if !@order.valid?
+      raise @order.errors.inspect
       render :new, status: :unprocessable_entity
+      return
     end
+
+    begin
+      ActiveRecord::Base.transaction do
+        @order.model_obj.save!
+        @order.details.each do |detail|
+          detail.order_id = @order.model_obj.id
+          detail.save!
+        end
+      end
+    rescue ActiveRecord::RecordInvalid => e
+      # Something wrong!
+      raise e.inspect
+      return
+    end
+    
+    redirect_to @order.model_obj, notice: 'Se ha creado un Ingreso.'
   end
 
   
@@ -146,13 +162,11 @@ private
       end
     end
 
-    def income_params
-      params.require(:incomes_form).permit(*movement_params.income)
-    end
+  def income_params
+    # form object
+    params.require(:movements_form).permit(:contact_id, :date, :delivery_date, :currency)
+  end
 
-    def movement_params
-      @movement_params ||= MovementParams.new
-    end
 
   # before_action()
   def set_order

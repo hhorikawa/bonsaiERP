@@ -1,5 +1,5 @@
 
-<% # @param @order_details 明細
+<% # @param @order  order object.
    # @param f  form object %>
    
 <h2 class="dark" id="items-header">
@@ -29,9 +29,9 @@
 <% # 手抜いて, フォームをベタ書きする。
   %>
 
-<% lines = [@order_details.length + 2, 6].max %>
+<% lines = [@order.details.length + 2, 6].max %>
 <% (0.. lines - 1).each do |idx|
-     detail_obj = @order_details[idx] ||
+     detail_obj = @order.details[idx] ||
                   MovementDetail.new() %>
   <%= render partial: "movements/detail_edit_row",
              locals: {lineno: idx + 1, detail_obj: detail_obj} %>
@@ -72,45 +72,6 @@
     </div>
   </li>
 
-  <li class="row-fluid taxes">
-    <div class="span10 r">
-      <label><%= t('views.movements.form_items.taxes') %></label>
-      <input id="taxes" type="hidden" data-taxes="<%= Tax.all.to_json(only: [:id, :name, :percentage]) %>">
-
-      <%= f.text_field :tax_id, 'ng-model' => 'tax_id', id: 'tax_id', class: 'hide', 'initial' => true %>
-      <div class="input-append">
-        <select id="tax-id" ng-model="tax" ng-change="setTaxId()" ng-options="[t.name, ' (', t.percentage, '%)' ].join('') for t in taxes track by t.id">
-          <option value=""></option>
-        </select>
-
-        <% if user_with_role.is_admin? || user_with_role.is_group? %>
-          <%= link_to icon('icon-plus-sign'), new_tax_path, title: t('views.movements.form_items.new_tax'),
-            class: 'btn ajax add-new-url add-new-tax', data: { width: 400 } %>
-        <% end %>
-      </div>
-
-      <a id="tax-in-out-btn" class="btn btn-small btn-info b" data-toggle="button" ng-click="tax_in_out=!tax_in_out">{{ taxLabel() }}</a>
-      <span class="hide"><%= f.check_box :tax_in_out, 'ng-model' => 'tax_in_out', id: 'tax_in_out' %></span>
-
-      <span class="currency"></span>
-    </div>
-
-    <div class="span2 r">
-      <span class="taxes">{{ taxTotal() | decimal }}</span>
-      <span class="space">&nbsp;</span>
-    </div>
-  </li>
-
-  <li class="row-fluid total">
-    <div class="span10 r">
-      <strong><%= t('views.movements.form_items.total') %></strong>
-      <span class="currency"></span>
-    </div>
-    <div class="span2 r">
-      <strong class="total">{{ total() | decimal }}</strong>
-      <span class="space">&nbsp;</span>
-    </div>
-  </li>
 </ul>
 
 <script type="text/javascript">

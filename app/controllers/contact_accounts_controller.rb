@@ -41,7 +41,7 @@ class ContactAccountsController < ApplicationController
       return
     end
     
-    redirect_to({controller:"partners", action:"show", id:@partner.id},
+    redirect_to({action:"show", id: @contact_account.id},
                 notice: "Contact account was successfully created." )
   end
 

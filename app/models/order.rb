@@ -28,7 +28,9 @@ class Order < BusinessRecord
 
   ########################################
   # Validations
-  validates_presence_of :date, :due_date
+  
+  validates_presence_of :date
+  validates_presence_of :delivery_date
   
   #validates :state, presence: true, inclusion: {in: STATES}
   enum :state, STATES.map{|x| [x,x]}.to_h
@@ -53,6 +55,7 @@ class Order < BusinessRecord
     Account.where(type: ['Income', 'Expense'])
   end
 
+  
   ########################################
   # Aliases, alias and alias_method not working
   [[:ref_number, :name], [:balance, :amount]].each do |meth|
@@ -108,7 +111,7 @@ class Order < BusinessRecord
       self.state = 'approved'
       self.approver_id = user.id
       self.approver_datetime = Time.zone.now
-      self.due_date ||= Time.zone.now.to_date
+      #self.due_date ||= Time.zone.now.to_date
       self.extras = extras.symbolize_keys
     end
   end
@@ -130,9 +133,6 @@ class Order < BusinessRecord
     details.any? { |det| det.quantity != det.balance }
   end
 
-  def details
-    []
-  end
 
   def can_pay?
     !is_nulled? && !is_paid? && !is_draft?
@@ -177,7 +177,7 @@ class Order < BusinessRecord
    end
 
    def greater_or_equal_due_date
-     errors.add(:due_date, I18n.t('errors.messages.movement.greater_due_date'))  if date && due_date && due_date < date
+     errors.add(:delivery_date, I18n.t('errors.messages.movement.greater_due_date'))  if date && delivery_date && delivery_date < date
    end
 
 end

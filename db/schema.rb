@@ -293,7 +293,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.decimal "gross_total", precision: 14, scale: 2, default: "0.0"
     t.decimal "original_total", precision: 14, scale: 2, default: "0.0"
     t.decimal "balance_inventory", precision: 14, scale: 2, default: "0.0"
-    t.date "due_date"
+    t.date "delivery_date", null: false
     t.integer "creator_id", null: false
     t.integer "approver_id"
     t.datetime "approver_datetime", precision: nil

@@ -25,6 +25,9 @@ class Contact < ApplicationRecord
 
   ########################################
   # Validations
+
+  before_validation :check
+  
   validates :matchcode, presence: true, uniqueness: true #{ scope: :type }
   validates :name, presence: true
   
@@ -113,6 +116,11 @@ class Contact < ApplicationRecord
 
   
 private
+
+  # for before_validation
+  def check
+    self.matchcode = matchcode.to_s.unicode_normalize(:nfkc).strip.upcase
+  end
 
     # Check if the contact has any relations before destroy
     def check_relations

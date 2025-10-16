@@ -11,19 +11,25 @@
     = link_to "Edit this partner...", edit_partner_path(@partner), class: 'btn'
     = button_to "Destroy this partner", partner_path(@partner), class: 'btn', data: { turbo_confirm: "Esta seguro de borra el contacto" }, method: :delete
 
-.row-fluid
-  .span4
-    = @partner.email
-
-  .span4
-    .span8
-      = @partner.tax_number
-      .clearfix
-      = nl2br @partner.address
-    .span4
-      = @partner.phone
-      .clearfix
-      = @partner.mobile
+%table
+  %tr
+    %th Matchcode:
+    %td= @partner.matchcode
+  %tr
+    %th Email:
+    %td= @partner.email
+  %tr
+    %th Tax Number:
+    %td= @partner.tax_number
+  %tr
+    %th Address:
+    %td= @partner.address
+  %tr
+    %th Phone:
+    %td= @partner.phone
+  %tr
+    %th Mobile:
+    %td= @partner.mobile
 
 %h2 口座
 - @partner.contact_accounts.each do |ca|
