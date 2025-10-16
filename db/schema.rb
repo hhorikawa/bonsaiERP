@@ -287,6 +287,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.string "type", limit: 80, null: false
     t.date "date", null: false
     t.bigint "contact_id", null: false
+    t.bigint "ship_to_id"
+    t.string "delivery_loc"
     t.string "currency", limit: 3, null: false
     t.decimal "total", precision: 14, scale: 2, default: "0.0", null: false
     t.string "bill_number"
@@ -308,6 +310,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.datetime "updated_at", precision: nil, null: false
     t.boolean "no_inventory", default: false, null: false
     t.index ["contact_id"], name: "index_orders_on_contact_id"
+    t.index ["ship_to_id"], name: "index_orders_on_ship_to_id"
   end
 
   create_table "organisations", force: :cascade do |t|
@@ -456,4 +459,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
   add_foreign_key "movement_details", "items"
   add_foreign_key "movement_details", "orders"
   add_foreign_key "orders", "contacts"
+  add_foreign_key "orders", "stores", column: "ship_to_id"
 end

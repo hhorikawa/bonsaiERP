@@ -20,7 +20,7 @@
 
 = paginate_html
 
-%ul#incomes-list.unstyled.listing.has-row-check
+%table#incomes-list.unstyled.listing.has-row-check
   - @orders.each do |order|
     = render 'sales_orders/income', order: order
 

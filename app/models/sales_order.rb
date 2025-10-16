@@ -4,8 +4,9 @@
 # Class that creates "Sales Order"
 class SalesOrder < Order
 
-  include Models::History
-  has_history_details Movements::History, :income_details
+  # TODO: オーダの変更 (納品不足など) の保存
+  #include Models::History
+  #has_history_details Movements::History, :income_details
 
   #self.code_name = 'I'
   

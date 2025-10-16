@@ -6,10 +6,18 @@ class CreateTransactions < ActiveRecord::Migration[5.2]
         # STI は `type` が必要
         t.string :type, limit:80, null:false
 
+        # order date
         t.date :date, null:false
 
+        # purchase order: vendor, sales order: customer
         t.references :contact, null:false, foreign_key:true
 
+        # purchase order: ship to, sales order: n/a
+        t.references :ship_to, foreign_key: {to_table: "stores"}
+
+        # if any. "TOKYO CY", "LONG BEACH CY"
+        t.string :delivery_loc
+        
         t.column :currency, "CHAR(3) NOT NULL"
         
         # Use Account#amount for total, create alias

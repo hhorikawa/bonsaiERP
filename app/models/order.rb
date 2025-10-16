@@ -1,7 +1,7 @@
 # author: Boris Barroso
 # email: boriscyber@gmail.com
 
-# その他の勘定科目
+# Base of SalesOrder and PurchaseOrder
 class Order < BusinessRecord 
 
   # `delivered` = closed
@@ -58,22 +58,22 @@ class Order < BusinessRecord
   
   ########################################
   # Aliases, alias and alias_method not working
-  [[:ref_number, :name], [:balance, :amount]].each do |meth|
-    define_method meth.first do
-      self.send(meth.last)
-    end
+#  [[:ref_number, :name], [:balance, :amount]].each do |meth|
+#    define_method meth.first do
+#      self.send(meth.last)
+#    end
 
-    define_method :"#{meth.first}=" do |val|
-      self.send(:"#{meth.last}=", val)
-    end
-  end
+#    define_method :"#{meth.first}=" do |val|
+#      self.send(:"#{meth.last}=", val)
+#    end
+#  end
 
-  def to_s
-    ref_number
-  end
+#  def to_s
+#    ref_number
+#  end
 
   def to_param
-    "#{id}-#{ref_number}"
+    "#{id}"
   end
 
   def set_state_by_balance!
