@@ -14,6 +14,9 @@ class Movements::Form < BaseForm
   delegate :date, :contact_id, :currency, :delivery_date, :draft?, #:description, :tax_id,
            to: :model_obj
 
+  # PO only
+  delegate :ship_to_id, to: :model_obj, allow_nil:true
+  
   # for field required star
   validates_presence_of :date
   validates_presence_of :delivery_date

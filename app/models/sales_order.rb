@@ -14,14 +14,19 @@ class SalesOrder < Order
   # Relationships
 
   has_many :payments, -> { where(operation: 'payin') }, class_name: 'AccountLedger', foreign_key: :account_id
-  has_many :devolutions, -> { where(operation: 'devout') }, class_name: 'AccountLedger', foreign_key: :account_id
+
+  # what's this?
+  #has_many :devolutions, -> { where(operation: 'devout') }, class_name: 'AccountLedger', foreign_key: :account_id
 
   ########################################
   # Scopes
   #scope :approved, -> { where(state: 'approved') }
   scope :active,   -> { where(state: ['approved', 'paid']) }
   #scope :paid, -> { where(state: 'paid') }
+
+  # customer
   scope :contact, -> (cid) { where(contact_id: cid) }
+  
   scope :pendent, -> { active.where.not(amount: 0) }
   scope :error, -> { active.where(has_error: true) }
   scope :due, -> { approved.where("accounts.due_date < ?", Time.zone.now.to_date) }

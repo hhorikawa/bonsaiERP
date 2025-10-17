@@ -123,7 +123,7 @@ class Order < BusinessRecord
   end
 
   def can_null?
-    return false  if is_draft? || is_nulled?
+    return false  if draft? || nulled?
     return false  if ledgers.pendent.any?
     return false  if inventory_was_moved?
     total === amount

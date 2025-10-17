@@ -56,6 +56,9 @@ class SalesOrdersController < ApplicationController
     @order = Movements::Form.new(SalesOrder.new)
     @order.assign income_params, params.require(:detail)
     
+    @order.model_obj.creator_id = current_user.id
+    @order.model_obj.state = 'draft'
+    
     if !@order.valid?
       #raise @order.errors.inspect
       render :new, status: :unprocessable_entity
@@ -64,8 +67,6 @@ class SalesOrdersController < ApplicationController
 
     begin
       ActiveRecord::Base.transaction do
-        @order.model_obj.creator_id = current_user.id
-        @order.model_obj.state = 'draft'
         @order.model_obj.save!
         @order.details.each do |detail|
           detail.order_id = @order.model_obj.id

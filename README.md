@@ -76,8 +76,11 @@ TODO:
  - Chart は <s>おそらく <a href="https://github.com/jqPlot/jqPlot/">jqPlot</a> を使っていると思われる。</s> Chart.js の v1.x 辺り。古すぎる。差し替える.
    Use `apexcharts`.
  - Install a UI library.
-   <a href="https://github.com/ColorlibHQ/gentelella/">ColorlibHQ/gentelella: Free Bootstrap 5 Admin Dashboard Template</a> or <a href="https://flowbite.com/">Flowbite - Build websites even faster with components on top of Tailwind CSS</a>
+   + <a href="https://github.com/ColorlibHQ/gentelella/">ColorlibHQ/gentelella: Free Bootstrap 5 Admin Dashboard Template</a> or
+   + <a href="https://flowbite.com/">Flowbite - Build websites even faster with components on top of Tailwind CSS</a>
 
+   + https://coreui.io/bootstrap/docs/forms/stepper/ PRO only
+   
  - Installing the `pundit` gem for authorization
  
 

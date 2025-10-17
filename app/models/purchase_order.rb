@@ -5,31 +5,39 @@
 # Purchase Order
 class PurchaseOrder < Order
 
-  include Models::History
-  has_history_details Movements::History, :expense_details
+  # TODO: change order
+  #include Models::History
+  #has_history_details Movements::History, :expense_details
 
   #self.code_name = 'E'
   
   ########################################
   # Relationships
-  has_many :expense_details, -> { order('id asc') },
-           foreign_key: :account_id, dependent: :destroy
-  alias_method :details, :expense_details
+  
+  #has_many :expense_details, -> { order('id asc') },
+  #         foreign_key: :account_id, dependent: :destroy
+  #alias_method :details, :expense_details
 
-  accepts_nested_attributes_for :expense_details, allow_destroy: true,
-                                reject_if: proc { |det| det.fetch(:item_id).blank? }
+  #accepts_nested_attributes_for :expense_details, allow_destroy: true,
+  #                              reject_if: proc { |det| det.fetch(:item_id).blank? }
 
   has_many :payments, -> { where(operation: 'payout') },
            class_name: 'AccountLedger', foreign_key: :account_id
   has_many :devolutions, -> { where(operation: 'devin') },
            class_name: 'AccountLedger', foreign_key: :account_id
 
+  # ship to: purchase only
+  belongs_to :ship_to, class_name: 'Store'
+    
   ########################################
   # Scopes
   #scope :approved, -> { where(state: 'approved') }
   scope :active,   -> { where(state: %w(approved paid)) }
   #scope :paid, -> { where(state: 'paid') }
+
+  # vendor
   scope :contact, -> (cid) { where(contact_id: cid) }
+  
   scope :pendent, -> { active.where.not(amount: 0) }
   scope :error, -> { active.where(has_error: true) }
   scope :due, -> { approved.where("accounts.due_date < ?", Time.zone.now.to_date) }

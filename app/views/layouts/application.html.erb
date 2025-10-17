@@ -24,14 +24,39 @@
   <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
 
 </head>
-<body ng-app="myApp">
+<body >
   
 <% # `cache()` は Rails のフラグメントキャッシュの仕組み. %>      
 <% cache [current_user, 'menu'] do %>
   <%= render 'layouts/menus' %>
 <% end %>
 
-  
+<div class="container">
+  <header class="border-bottom ">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+	<li class="breadcrumb-item"><a href="#">Home</a></li>
+	<li class="breadcrumb-item"><a href="#">Library</a></li>
+	<li class="breadcrumb-item active" aria-current="page">Data</li>
+      </ol>
+    </nav>
+
+    <div class="d-flex flex-wrap justify-content-center mb-4 align-items-center" >
+      <div class="d-flex align-items-center mb-md-0 me-md-auto">
+	<h1 >Double header</h1>
+      </div>
+      
+      <ul class="nav nav-pills ">
+	<li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
+	<li class="nav-item"><a href="#" class="nav-link">Features</a></li>
+	<li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>
+	<li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
+	<li class="nav-item"><a href="#" class="nav-link">About</a></li>
+      </ul>
+    </div>
+  </header>
+</div>
+
     <%= render 'layouts/notifications' %>
 
     <div id="wrapper" class="cont">

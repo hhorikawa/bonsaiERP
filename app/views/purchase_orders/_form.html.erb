@@ -1,0 +1,22 @@
+
+<%= bootstrap_form_with model: @order, url:{action:"create"},
+                        layout: :horizontal do |f| %>
+  <%= bonsai_form_error(f) %>
+
+  <%# Render common form elements %>
+  <%= render 'movements/shared_form', f: f %>
+  <%= render 'movements/form_direct_payment', f: f %>
+
+  <%= f.select :ship_to_id, options_from_collection_for_select(Store.all, :id, :name, @order.ship_to_id), required:false %>
+  <%# Render items %>
+  <%= render 'movements/form_items', f: f  %>
+
+  <div class="form-actions">
+    <% if @order.draft? %>
+      <%= f.submit 'Save borrador', class: 'btn b btn-large trans', name: 'commit_save' %>
+    <% else %>
+      <%= f.submit 'Save', class: 'btn btn-primary btn-large b' %>
+    <% end %>
+  </div>
+<% end %>
+  

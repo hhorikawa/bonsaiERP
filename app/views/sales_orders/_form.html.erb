@@ -14,15 +14,15 @@
     <% if @order.draft? %>
         <div class="ib" ng-hide="direct_payment">
           <%= f.submit 'Save borrador', class: 'btn b btn-large trans', name: 'commit_save' %>
-          <br>
+          <br />
           <small class="muted">Salva un borrador o proforma</small>
         </div>
         <div class="ib">
           <%= f.submit value: 'Save y aprobar', class: 'btn b btn-large btn-primary', name: 'commit_approve' %>
-          <br>
+          <br />
           <small class="muted">Salva y permite cobros</small>
         </div>
-      <% else %>
+    <% else %>
         <%= f.submit 'Save', class: 'btn btn-primary btn-large b' %>
       <% end %>
     </div>

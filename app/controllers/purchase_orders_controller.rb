@@ -29,29 +29,46 @@ class PurchaseOrdersController < ApplicationController
   # GET /expenses/new
   def new
     # Use the form object.
-    #@order = Expenses::Form.new_expense(currency: currency)
-    @order = PurchaseOrder.new
-    @order_details = []
+    @order = Movements::Form.new(PurchaseOrder.new)
+    #@order_details = []
   end
 
   # GET /expenses/1/edit
   def edit
-    #@es = Expenses::Form.find(params[:id])
+    # wrap
+    @order = Movements::Form.new(@order)
   end
 
   # POST /expenses
   def create
     # the form object
-    #es = Expenses::Form.new_expense(expense_params)
-    
-    @order = PurchaseOrder.new expense_params 
-    @order_details = PurchaseOrder.create_details_from_params(params.require(:order_details))
-    if create_or_approve
-      redirect_to expense_path(@es.expense), notice: 'Se ha creado un Egreso.'
-    else
-      @es.movement.state = 'draft' # reset status
+    @order = Movements::Form.new(PurchaseOrder.new)
+    @order.assign expense_params, params.require(:detail)
+
+    @order.model_obj.creator_id = current_user.id
+    @order.model_obj.state = 'draft'
+
+    if !@order.valid?
+      #raise @order.errors.inspect
       render :new, status: :unprocessable_entity
+      return
     end
+
+    begin
+      ActiveRecord::Base.transaction do
+        @order.model_obj.save!
+        @order.details.each do |detail|
+          detail.order_id = @order.model_obj.id
+          detail.save!
+        end
+      end
+    rescue ActiveRecord::RecordInvalid => e
+      # Something wrong!
+      raise e.inspect
+      return
+    end
+      
+    redirect_to @order.model_obj, notice: 'Se ha creado un Egreso.'
   end
 
   
@@ -143,13 +160,10 @@ private
      params.require(:expenses_quick_form).permit(*movement_params.quick_income)
     end
 
-    def expense_params
-      params.require(:expenses_form).permit(*movement_params.expense)
-    end
-
-    def movement_params
-      @movement_params ||= MovementParams.new
-    end
+  def expense_params
+    # form object
+    params.require(:movements_form).permit(:contact_id, :date, :delivery_date, :currency, :ship_to_id)
+  end
 
   # before_action()
   def set_order
