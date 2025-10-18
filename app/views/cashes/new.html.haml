@@ -1,19 +1,9 @@
+
+- @page_title = "New Cash/Bank Account"
+
 - content_for :links do
   %ul.breadcrumbs.span6
     %li #{link_to 'Cash / Bank Account', cashes_path}
 
-%h1 New Cash/Bank Account
+= render "cashes/form"
 
-= bootstrap_form_for(@cash, layout: :horizontal) do |f|
-  = f.fields_for @cash.account do |af|
-    = render partial:"accounts/form", locals:{form: af}
-
-  %fieldset
-    %legend Only Bank
-    = f.text_field :bank_name, label:"Bank and Branch:"
-    = f.text_field :bank_addr
-    = f.text_field :account_no
-    = f.text_field :account_name
-
-  .form-actions
-    = f.submit 'Save', class: 'btn btn-primary'

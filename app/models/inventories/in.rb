@@ -1,6 +1,8 @@
-# encoding: utf-8
+
 # author: Boris Barroso
 # email: boriscyber@gmail.com
+
+# フォームオブジェクト for GoodsReceiptPo
 class Inventories::In < Inventories::Form
 
   def create
@@ -11,11 +13,8 @@ class Inventories::In < Inventories::Form
     'inventories_in[inventory_details_attributes]'
   end
 
-  private
-
-    def operation
-      'in'
-    end
+  
+private
 
     def update_stocks
       stocks.all? do |st|

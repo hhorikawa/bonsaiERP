@@ -3,7 +3,6 @@
 %tr
   %td
     %input.row-check(type='checkbox' id="#{order.id}" code-name="#{ }" currency="#{ order.currency }")
-  %td
     %h4.ib= link_to order.id, order 
   %td= link_to order.contact, partner_path(order.contact.id)
   %td= order.state

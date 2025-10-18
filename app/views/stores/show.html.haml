@@ -1,3 +1,6 @@
+
+- @page_title = "Store: " + @store.name
+
 - content_for :links do
   %ul.breadcrumbs
     %li
@@ -5,10 +8,6 @@
 
 .row-fluid
   .span6
-    %h2.n
-      %i(class="icon-#{@store.active?}" title='Activo' data-toggle='tooltip')
-      = @store
-
     .clear-both
     .row-fluid
       .span4
@@ -19,7 +18,7 @@
   .span6.r
     .btn-group
 
-      = link_to icon_edit_text, edit_store_path(@store.id), class: 'btn'
+      = link_to "Edit...", edit_store_path(@store.id), class: 'btn'
 
       = button_to icon_delete_text, store_path(@store.id), method: :delete,
                 data:{turbo_confirm: "Esta seguro de borrar el almacen?"}, class: 'btn'
@@ -28,6 +27,8 @@
   %h2 In-Store Operations
 
   %ul
+    %li= link_to "Goods Receipt PO", {controller:"goods_receipt_pos", action:"index", store_id: @store.id} 
+
     %li In-Store Sales w/o order  ● TODO: impl.
     %li
       = link_to "New Sales Order...", new_sales_order_path 

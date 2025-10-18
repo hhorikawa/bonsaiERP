@@ -7,31 +7,51 @@ class Inventory < BusinessRecord
 
   #include ::Models::Updater
 
-  before_create { self.creator_id = UserSession.id }
+  #before_create { self.creator_id = UserSession.id }
 
+  # exp_in 購買入庫
+  # exp_out 仕入戻し
+  # inc_out 販売出庫
+  # inc_in  顧客返品
+  # in 転送入庫
+  # out 転送出庫
+  # trans ?
   OPERATIONS = %w(in out inc_in inc_out exp_in exp_out trans).freeze
 
+  # 親
   belongs_to :store
-  belongs_to :store_to, class_name: "Store"
+
+  # transfer-out の場合
+  belongs_to :store_to, class_name: "Store", optional:true
+
+  # 購買入庫、販売出庫の場合
   belongs_to :contact, optional: true
+  
   belongs_to :creator, class_name: "User"
+  # scrap の場合か?
   belongs_to :expense, foreign_key: :account_id
   belongs_to :income, foreign_key: :account_id
+  
   belongs_to :project, optional: true
   #has_one    :transference, :class_name => 'InventoryOperation', :foreign_key => "transference_id"
 
-  has_many :inventory_details, dependent: :destroy
-  accepts_nested_attributes_for :inventory_details, allow_destroy: true,
-                                reject_if: lambda {|attrs| attrs[:quantity].blank? || attrs[:quantity].to_d <= 0 }
-  alias :details :inventory_details
+  has_many :details, class_name: "InventoryDetail", dependent: :destroy
+  #accepts_nested_attributes_for :inventory_details, allow_destroy: true,
+  #                              reject_if: lambda {|attrs| attrs[:quantity].blank? || attrs[:quantity].to_d <= 0 }
+  #alias :details :inventory_details
 
   # Validations
-  validates_presence_of :ref_number, :store_id, :store, :date
+  validates_presence_of :date
+  
+  # 購買入庫, 販売出庫 with order の場合のみ
+  validates_presence_of :ref_number,
+                if: -> x {%w(exp_in inc_out).include?(x.operation) }
+  
   validates_inclusion_of :operation, in: OPERATIONS
   validates_lengths_from_database
 
   # attribute
-  serialize :error_messages, coder: JSON
+  #serialize :error_messages, coder: JSON
 
   OPERATIONS.each do |_op|
     define_method :"is_#{_op}?" do

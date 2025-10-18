@@ -16,8 +16,14 @@ class DashboardController < ApplicationController
 
   # GET /dashboard
   def show
-    @date_range = DateRange.new params[:date_range]
-    @report = Report.new @date_range
+    if params[:date_range].blank?
+      today = Date.today
+      @date_range = DateRange.new date_start: today - 366, date_end: today
+    else
+      @date_range = DateRange.new params[:date_range]
+    end
+    
+    @report = Report.new @date_range.range
     #@dashboard = DashboardPresenter.new(view_context, @date_range)
     #render template: 'dashboard/index'
   end

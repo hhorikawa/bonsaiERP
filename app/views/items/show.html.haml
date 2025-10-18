@@ -1,10 +1,11 @@
+
+- @page_title = "Product/Item: " + @item.name
+
 - content_for :links do
   %ul.breadcrumbs.span6
     %li #{ link_to "Items", items_path }
 
 .row-fluid
-  .span8
-    %h2.n= @item.name
   .span4.r
     .btn-group
       = link_to "Edit this item...", edit_item_path(@item), class: 'btn'

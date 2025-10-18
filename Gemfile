@@ -240,4 +240,9 @@ gem "ros-apartment", "~> 3.2", require: 'apartment'
 # `Money::Currency` と組み合わせる.
 gem "country_select"
 
+# authentication
 gem "sorcery", ">= 0.17.0"
+
+# authorization
+gem "pundit", "~> 2.5"
+

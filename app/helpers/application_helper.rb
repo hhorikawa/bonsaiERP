@@ -42,10 +42,6 @@ module ApplicationHelper
     end
   end
 
-  # Used for localization
-  def lo(val, options = {})
-    localize(val, options) unless val.nil?
-  end
 
   def create_options_link
     opts = params

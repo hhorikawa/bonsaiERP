@@ -94,12 +94,12 @@ class Order < BusinessRecord
     end
   end
 
-  def discount
+  def total_discount
     gross_total - total
   end
 
   def discount_percent
-    discount/gross_total
+    total_discount / gross_total
   end
 
 

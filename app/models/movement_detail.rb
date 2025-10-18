@@ -4,7 +4,13 @@
 
 # order 内の明細行
 class MovementDetail < ApplicationRecord
+  # 親
+  belongs_to :order
 
+  # どちらか一方
+  belongs_to :item, optional:true
+  belongs_to :account, optional:true
+  
   # Validations
   validate :check
   validates_numericality_of :quantity, greater_than: 0

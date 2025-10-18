@@ -1,3 +1,6 @@
+
+- @page_title = "Edit Product/Item"
+
 - content_for :links do
   %ul.breadcrumbs.span6
     %li
@@ -5,11 +8,8 @@
 
 
 .row-fluid
-  .span6
-    %h1 Editar ítem
   .span6.r
     .btn-group
-      = link_to icon_new_text, new_item_path, class: 'btn'
       = link_to icon_show_text, @item, class: 'btn'
 
 = render 'items/form'

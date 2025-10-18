@@ -30,16 +30,16 @@
    + General Ledger
    
  - Sales
-   + Sales Order
+   + ✅ Sales Order
    + In-Store Sales w/o order
    + Customer Return
    
  - Purchasing
-   + Purchase Order and Cancel
+   + ✅ Purchase Order and Cancel
      - If there is an under-delivery, the system should be able to modify the order and close it, but the system has not been implemented.
      
  - Inventory
-   + Store/Warehouse
+   + ✅ Store/Warehouse
    + Goods Receipt PO
    + Purchases in Transit: When an invoice is received *before* the goods have arrived, the invoice is posted in the *Purchases in Transit* account but has no assignment to a goods receipt at this point.
      - TODO: mockup of invoice.

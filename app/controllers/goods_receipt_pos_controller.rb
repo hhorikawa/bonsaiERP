@@ -1,9 +1,19 @@
-# encoding: utf-8
+
 # author: Boris Barroso
 # email: boriscyber@gmail.com
-class GoodsReceiptPosController < ApplicationController
-  before_action :set_store_and_expense
 
+# 購買入庫
+class GoodsReceiptPosController < ApplicationController
+  before_action :set_store
+
+  before_action :set_order, only: [:show, :edit, :update, :destroy]
+
+  
+  def index
+    # TODO: 完了したものは除外するか, フィルタ可能に
+    @orders = PurchaseOrder.where(ship_to_id: @store.id)
+  end
+  
   # GET
   # /expenses_inventory_ins/new?store_id=:store_id&expense_id=:expense_id
   def new
@@ -14,6 +24,7 @@ class GoodsReceiptPosController < ApplicationController
     @inv.build_details
   end
 
+  
   # POST /expenses_inventory_ins
   # store_id&expense_id=:expense_id
   def create
@@ -26,15 +37,31 @@ class GoodsReceiptPosController < ApplicationController
     end
   end
 
-  private
 
-    def set_store_and_expense
-      @expense = Expense.active.find(params[:expense_id])
-      @store = Store.active.find(params[:store_id])
-    rescue
-      redirect_to expenses_path, alert: 'Ha seleccionado un almacen o un egreso invalido.' and return
-    end
+  def show
+  end
 
+  def edit
+  end
+
+  def update
+  end
+
+  def destroy
+  end
+
+  
+private
+
+  def set_store
+    @store = Store.find params[:store_id]
+  end
+
+  def set_order
+    @order = PurchaseOrder.find params[:id]
+  end
+
+  
     def inventory_params
       params.require(:expenses_inventory_in).permit(
         :description, :date, :store_id, :expense_id,

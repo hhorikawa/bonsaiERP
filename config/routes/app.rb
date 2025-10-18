@@ -156,7 +156,6 @@ resources :purchase_orders do
   end
 end
 
-resources :goods_receipt_pos
 
 resources :goods_returns
 
@@ -165,7 +164,10 @@ resources :goods_returns
 # Inventory
 
 # 店/倉庫
-resources :stores
+resources :stores do
+  resources :goods_receipt_pos
+end
+
 
 # 在庫
 resources :stocks

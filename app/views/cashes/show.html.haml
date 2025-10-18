@@ -1,13 +1,12 @@
+
+- @page_title = "Cash/Bank: #{@cash.account.name} (#{@cash.account.currency})"
+
 -content_for :links do
   %ul.breadcrumbs.span6
     %li
       =link_to 'Cash/Bank Account', cashes_path
 
 .row-fluid
-  .span8
-    %h1.n
-      = @cash.account.name
-      = currency_label @cash.account.currency
   .span4.r
     .btn-group
       = link_to "Edit this account...", edit_cash_path(@cash), class: 'btn'

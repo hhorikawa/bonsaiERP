@@ -1,13 +1,21 @@
-# encoding: utf-8
+
 # author: Boris Barroso
 # email: boriscyber@gmail.com
-# Checks for unique item_ids and adds an error to the found details
-class UniqueItem < Struct.new(:klass)
-  delegate :details, to: :klass
 
+# Checks for unique `item_id` and adds an error to the found details
+class UniqueItem #< Struct.new(:klass)
+  # 重複があるのは, 親レコードのほうのエラー
+  attr_reader :model_obj
+  
+  def initialize model
+    raise TypeError if !model.respond_to?(:details)
+    @model_obj = model
+  end
+
+  
   def valid?
     res = true
-    details.each do |det|
+    model_obj.details.each do |det|
       add_to_hash(det.item_id)
 
       if repeated_item?(det.item_id)
@@ -16,12 +24,16 @@ class UniqueItem < Struct.new(:klass)
       end
     end
 
-    klass.errors.add(:base, I18n.t("errors.messages.item.repeated_items")) unless res
-
-    res
+    #if !res
+    #  model_obj.errors.add(:base, I18n.t("errors.messages.item.repeated_items"))
+    #end
+    
+    return res
   end
 
+  
 private
+  
   def add_to_hash(item_id)
     @h ||= Hash.new(0)
     @h[item_id] += 1

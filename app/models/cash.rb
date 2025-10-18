@@ -21,7 +21,7 @@ class Cash < ApplicationRecord # Account から派生
   include Models::Money
 
   def to_s
-    name
+    account.name
   end
 
   def pendent_ledgers_tag

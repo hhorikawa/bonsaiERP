@@ -1,3 +1,6 @@
+
+- @page_title = "Sales Order ##{@order.id}"
+
 - content_for :links do
   %ul.breadcrumbs.span6
     %li
@@ -67,7 +70,7 @@
 %h2
   Items
 
--# = render "movements/items", income: @income
+= render "movements/items"
 
 - unless @order.draft?
   .row-fluid

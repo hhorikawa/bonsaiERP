@@ -1,3 +1,6 @@
+
+- @page_title = "Edit Unit of Measure"
+
 - content_for :links do
   %ul.breadcrumps.span6
     %li #{link_to "Unidades de medida", units_path}
@@ -6,9 +9,6 @@
     = link_to 'New', @unit, :class => 'add'
     = link_to 'Ver', @unit, :class => 'show'
     = link_to 'Borrar', @unit, :class => 'delete'
-
-
-%h1 Editar unidad de medida
 
 = render 'form' 
 

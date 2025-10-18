@@ -1,28 +1,66 @@
-# encoding: utf-8
+
 # author: Boris Barroso
 # email: boriscyber@gmail.com
+
+# フォームオブジェクトの基底クラス
 class Inventories::Form < BaseForm
-  attribute :store_id, Integer
-  attribute :date, Date
-  attribute :ref_number, String
-  attribute :description, String
-  attribute :inventory_details_attributes
+  # `Inventory` 入出庫伝票
+  attr_reader :model_obj
 
-  attr_writer :inventory
+  # Array of InventoryDetail
+  attr_reader :details
 
-  delegate :inventory_details, :details,
-           :inventory_details_attributes=,
-           to: :inventory
+  delegate :date, :store_id, :description, to: :model_obj
+  # フォームに置くフィールドだけでよい
+  delegate :ref_number, :project_id, to: :model_obj, allow_nil: true
+  
+  #delegate :stocks, :stock, :stocks_to, :detail, :item_ids, :item_quantity,
+  #         to: :klass_details
 
-  delegate :stocks, :stock, :stocks_to, :detail, :item_ids, :item_quantity, to: :klass_details
+  # field required red star
+  validates_presence_of :date
 
-  validates_presence_of :store, :inventory
-  validate :unique_item_ids
-  validate :at_least_one_item
+  validate :validate_models
 
-  def store
-    @store ||= Store.active.where(id: store_id).first
+  def initialize model
+    raise TypeError if !model.is_a?(Inventory)
+    @model_obj = model
+    @details = model.details
   end
+
+  def assign model_params, detail_params
+    model_obj.assign_attributes model_params
+    @details = Inventories::Form.create_details_from_params(detail_params)
+  end
+
+  
+private
+
+  # for `validate()`
+  def validate_models
+    # promote errors
+    errors.merge!(model_obj.errors) if !model_obj.valid?
+
+    # run  validations for all nested objects
+    err_count = details.count {|detail|
+      # only useful when `:autosave` option is enabled.
+      next if detail.respond_to?(:marked_for_destruction?) && detail.marked_for_destruction?
+      !detail.valid?
+    }
+    if err_count > 0
+      errors.add :details, "Some error(s)"
+    end
+
+    errors.add :details, "Item not unique" if !UniqueItem.new(self).valid?
+
+    if details.empty?
+      errors.add(:details, I18n.t("errors.messages.inventory.at_least_one_item"))
+    end
+  end
+
+  #def store
+  #  @store ||= Store.active.where(id: store_id).first
+  #end
 
   def inventory
     @inventory ||= begin
@@ -42,7 +80,8 @@ class Inventories::Form < BaseForm
     end
   end
 
-  private
+  
+private
 
     def stock_with_items(item_id)
       stock_items_hash.fetch(item_id) { StockWithItem.new }
@@ -55,6 +94,7 @@ class Inventories::Form < BaseForm
       end
     end
 
+=begin
     # Saves and in case there are errors in inventory these are set on
     # the Iventories::Form instance
     def save(&b)
@@ -65,7 +105,8 @@ class Inventories::Form < BaseForm
 
       res
     end
-
+=end
+  
     def get_inventory_details
       if inventory_details_attributes.nil?
         []
@@ -82,16 +123,13 @@ class Inventories::Form < BaseForm
       [:store_id, :date, :description]
     end
 
-    def operation; end
 
-    def unique_item_ids
-      self.errors.add(:base, I18n.t("errors.messages.item.repeated_items")) unless UniqueItem.new(@inventory).valid?
-    end
+  #def unique_item_ids
+  #self.errors.add(:base, I18n.t("errors.messages.item.repeated_items")) unless UniqueItem.new(@inventory).valid?
+  #end
 
-    def at_least_one_item
-      self.errors.add(:base, I18n.t("errors.messages.inventory.at_least_one_item"))  if details.empty?
-    end
 end
+
 
 class StockWithItem
   attr_accessor :unit, :item, :stock

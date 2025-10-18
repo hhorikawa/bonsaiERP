@@ -1,6 +1,8 @@
-# encoding: utf-8
+
 # author: Boris Barroso
 # email: boriscyber@gmail.com
+
+# フォームオブジェクト for GoodsReceiptPo
 class Expenses::InventoryIn < Inventories::In
   attribute :expense_id, Integer
 

@@ -1,17 +1,23 @@
+
+- @page_title = "Edit " + @partner.name
+
 - content_for :links do
   %ul.breadcrumbs.span6
     %li
-      = link_to "Contactos", contacts_path
+      = link_to "Business Partners", partners_path
     %li
       %i.icon-caret-right
     %li
-      = @contact
+      = @partner
 
 .row-fluid
-  .span6
-    %h1 Editar contacto
   .span6.r
-    = link_to icon_show_text, @contact, class: 'btn'
+    = link_to icon_show_text, partner_path(@partner.id), class: 'btn'
 
-= render 'contacts/form'
+= bootstrap_form_with model: @partner, url:{action:"update", id: @partner},
+                      layout: :horizontal do |f|
+  = render partial: 'partners/form', locals:{f:f}
+
+  .form-actions
+    = f.submit 'Update', class: 'btn btn-primary'
 

@@ -27,11 +27,11 @@ class SalesOrdersController < ApplicationController
   def show
     #@income = present Income.find(params[:id])
 
-    respond_to do |format|
-      format.html
-      format.print
-      format.pdf { print_pdf 'show.print', "Ingreso-#{@income}" }
-    end
+    #respond_to do |format|
+    #  format.html
+    #  format.print
+    #  format.pdf { print_pdf 'show.print', "Ingreso-#{@income}" }
+    #end
   end
 
   
