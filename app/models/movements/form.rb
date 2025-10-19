@@ -46,14 +46,30 @@ class Movements::Form < BaseForm
   #     3. return errors.empty?
   #end
 
+  # nest している場合, 結局, 保存と #valid? を同時に行わないと動かない
+  # トランザクションは呼び出し側で行うこと
+  def save!
+    if !model_obj.valid?
+      # promote errors
+      errors.merge!(model_obj.errors)
+      raise ActiveRecord::RecordInvalid.new("Failed to save the record", self)
+    end
+    model_obj.save!
+    
+    details.each do |detail|
+      detail.order_id = model_obj.id
+    end
+    if !self.valid?
+      raise ActiveRecord::RecordInvalid.new("Failed to save details", self)
+    end
+    details.each do |detail| detail.save! end
+  end
+
   
 private
 
   # for `validate()`
   def validate_models
-    # promote errors
-    errors.merge!(model_obj.errors) if !model_obj.valid?
-
     # run validations for all nested objects
     err_count = details.count {|detail|
       # only useful when `:autosave` option is enabled.
@@ -61,7 +77,7 @@ private
       !detail.valid?
     }
     if err_count > 0
-      errors.add :details, "Some error(s)"
+      errors.add :details, "Some error(s) in details"
     end
 
     errors.add :details, "Item not unique" if !UniqueItem.new(self).valid?

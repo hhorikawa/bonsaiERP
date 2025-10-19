@@ -11,7 +11,12 @@ class Inventories::Form < BaseForm
   attr_reader :details
 
   delegate :date, :store_id, :description, to: :model_obj
-  # フォームに置くフィールドだけでよい
+  
+  # `belongs_to()` が使えない
+  def store
+    @store ||= Store.active.where(id: store_id).take
+  end
+  
   delegate :ref_number, :project_id, to: :model_obj, allow_nil: true
   
   #delegate :stocks, :stock, :stocks_to, :detail, :item_ids, :item_quantity,
@@ -58,10 +63,7 @@ private
     end
   end
 
-  #def store
-  #  @store ||= Store.active.where(id: store_id).first
-  #end
-
+=begin
   def inventory
     @inventory ||= begin
       i = Inventory.new(
@@ -73,7 +75,8 @@ private
       i
     end
   end
-
+=end
+  
   def details_serialized
     details.map do |v|
       v.attributes.merge(stock_with_items(v.item_id).attributes)
@@ -119,9 +122,9 @@ private
       @klass_details ||= Inventories::Details.new(@inventory)
     end
 
-    def self.public_attributes
-      [:store_id, :date, :description]
-    end
+#    def self.public_attributes
+#      [:store_id, :date, :description]
+#    end
 
 
   #def unique_item_ids

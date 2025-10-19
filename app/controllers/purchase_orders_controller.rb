@@ -48,23 +48,14 @@ class PurchaseOrdersController < ApplicationController
     @order.model_obj.creator_id = current_user.id
     @order.model_obj.state = 'draft'
 
-    if !@order.valid?
-      #raise @order.errors.inspect
-      render :new, status: :unprocessable_entity
-      return
-    end
-
     begin
       ActiveRecord::Base.transaction do
-        @order.model_obj.save!
-        @order.details.each do |detail|
-          detail.order_id = @order.model_obj.id
-          detail.save!
-        end
+        # form object 内で同時保存する
+        @order.save!
       end
     rescue ActiveRecord::RecordInvalid => e
-      # Something wrong!
-      raise e.inspect
+      #raise @order.errors.inspect
+      render :new, status: :unprocessable_entity
       return
     end
       

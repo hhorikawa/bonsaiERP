@@ -1,0 +1,42 @@
+
+<% # @param @order PO
+   # @param @inv model object %>
+
+<%= bootstrap_form_with model: @inv, url: {action:"create"},
+                      layout: :horizontal do |f| %>
+  <%= bonsai_form_error(f) %>
+
+  <%= hidden_field_tag :po_id, @order.id %>
+
+<div class="row">
+  <label>Purchase Order:</label>
+  <h4><%= link_to @order.id, @order, target: '_blank' %></h4>
+</div>
+
+<% #= render 'inventories/movement_form', f: f, inv: @inv %>
+
+  <%= f.date_field :date, label: '日付:' %>
+  <% # なぜかエラーになる. why?
+     # f.text_field :description, label: 'Description:' %>
+
+<div class="row text-bg-secondary">
+  <div class="col-3">Item</div>
+  <div class="col-3">数量</div>
+  <div class="col-3">
+      Cantidad a<br />
+      recoger
+  </div>
+  <div class="col-3"></div>
+</div>
+
+<% lines = [@inv.details.length + 2, 6].max %>
+<% (0.. lines - 1).each do |idx|   %>
+<%   detail_obj = @inv.details[idx] || InventoryDetail.new %>
+
+  <%= render partial: "inventories/detail_edit_row",
+             locals: {lineno: idx + 1, detail_obj: detail_obj} %>
+<% end %>
+  
+  <%= f.submit 'Recoger mercadería', class: 'btn btn-primary' %>
+<% end %>
+

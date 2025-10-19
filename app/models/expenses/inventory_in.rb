@@ -3,19 +3,19 @@
 # email: boriscyber@gmail.com
 
 # フォームオブジェクト for GoodsReceiptPo
-class Expenses::InventoryIn < Inventories::In
-  attribute :expense_id, Integer
+class Expenses::InventoryIn < Inventories::Form
+  #attribute :expense_id, Integer
 
-  validates_presence_of :expense
+  #validates_presence_of :expense
   validate :valid_quantities
   #validate :valid_item_ids
 
   delegate :expense_details, to: :expense
   delegate :balance_inventory, :inventory_left, to: :expense_calculations
 
-  def expense
-    @expense ||= Expense.active.where(id: expense_id).first
-  end
+  #def expense
+  #  @expense ||= Expense.active.where(id: expense_id).first
+  #end
 
   def build_details
     expense.expense_details.each do |det|

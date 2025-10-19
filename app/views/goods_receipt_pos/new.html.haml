@@ -1,3 +1,6 @@
+
+- @page_title = "購買入庫"
+
 - content_for :links do
   %ul.breadcrumbs.span6
     %li
@@ -9,10 +12,7 @@
 
 .row-fluid
   .span12
-    %h1
-      %span.muted.n Operación inventario:
-      = @inv.inventory.ref_number
     %h4.text-success
       Recoger mecadería egreso
 
-= render 'form', inv: @inv
+= render 'form'

@@ -25,7 +25,7 @@ class Inventory < BusinessRecord
   belongs_to :store_to, class_name: "Store", optional:true
 
   # 購買入庫、販売出庫の場合
-  belongs_to :contact, optional: true
+  belongs_to :order, optional: true
   
   belongs_to :creator, class_name: "User"
   # scrap の場合か?

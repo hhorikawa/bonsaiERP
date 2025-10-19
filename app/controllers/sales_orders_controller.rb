@@ -10,6 +10,7 @@ class SalesOrdersController < ApplicationController
   #respond_to :html, :js, :pdf
   before_action :set_order, only: [:show, :edit, :update, :approve, :null, :inventory, :destroy]
 
+  
   # GET /incomes
   def index
     if params[:movements_search].blank? || !params[:reset].blank?
@@ -59,23 +60,14 @@ class SalesOrdersController < ApplicationController
     @order.model_obj.creator_id = current_user.id
     @order.model_obj.state = 'draft'
     
-    if !@order.valid?
-      #raise @order.errors.inspect
-      render :new, status: :unprocessable_entity
-      return
-    end
-
     begin
       ActiveRecord::Base.transaction do
-        @order.model_obj.save!
-        @order.details.each do |detail|
-          detail.order_id = @order.model_obj.id
-          detail.save!
-        end
+        # form object 内で同時保存
+        @order.save!
       end
     rescue ActiveRecord::RecordInvalid => e
-      # Something wrong!
-      raise e.inspect
+      #raise @order.errors.inspect
+      render :new, status: :unprocessable_entity
       return
     end
     
@@ -85,8 +77,10 @@ class SalesOrdersController < ApplicationController
   
   # PATCH /incomes/:id
   def update
-    #@is = Incomes::Form.find(params[:id])
-
+    # wrap
+    @order = Movements::Form.new(@order)
+    @order.assign income_params, params.require(:detail)
+    
     if update_or_approve
       redirect_to income_path(@is.income), notice: 'El Ingreso fue actualizado!.'
     else

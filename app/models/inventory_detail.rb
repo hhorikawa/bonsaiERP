@@ -11,17 +11,19 @@
 #   在庫転送   出し側 quantity < 0, valuation = false
 #              受け側 quantity > 0, valuation = false
 class InventoryDetail < ApplicationRecord
-  # 親
+  # 親. 入出庫伝票
   belongs_to :inventory
+  
   belongs_to :item
 
-  validates_presence_of :item_id
   # 預託品の場合は, 預託品倉庫への転送扱い
-  validates_presence_of :store_id
+  belongs_to :store
 
-  ●追加 unit_price
-  ●追加 valuation
-  ●追加 project_id  nullable
+  validates_presence_of :movement_type
+  
+  #● TODO: 追加 unit_price
+  #● TODO: 追加 valuation
+  #● TODO: 追加 project_id  nullable
   
   # 入庫 = 0 以上, 出庫 = マイナス
   validates_presence_of :quantity

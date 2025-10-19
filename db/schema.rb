@@ -188,12 +188,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.date "date", null: false
     t.string "ref_number"
     t.string "operation", limit: 10, null: false
-    t.bigint "contact_id"
+    t.bigint "order_id"
     t.bigint "store_id", null: false
     t.bigint "account_id"
     t.string "description", null: false
     t.decimal "total", precision: 14, scale: 2, default: "0.0"
-    t.integer "creator_id"
+    t.integer "creator_id", null: false
     t.integer "transference_id"
     t.integer "store_to_id"
     t.bigint "project_id"
@@ -203,16 +203,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.datetime "updated_at", precision: nil, null: false
     t.integer "updater_id"
     t.index ["account_id"], name: "index_inventories_on_account_id"
-    t.index ["contact_id"], name: "index_inventories_on_contact_id"
+    t.index ["order_id"], name: "index_inventories_on_order_id"
     t.index ["project_id"], name: "index_inventories_on_project_id"
     t.index ["store_id"], name: "index_inventories_on_store_id"
   end
 
   create_table "inventory_details", force: :cascade do |t|
-    t.integer "inventory_id"
-    t.integer "item_id"
-    t.integer "store_id"
-    t.decimal "quantity", precision: 14, scale: 2, default: "0.0"
+    t.bigint "inventory_id", null: false
+    t.integer "movement_type", limit: 2, null: false
+    t.bigint "item_id", null: false
+    t.bigint "store_id", null: false
+    t.decimal "quantity", precision: 14, scale: 2, default: "0.0", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["inventory_id"], name: "index_inventory_details_on_inventory_id"
@@ -449,9 +450,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "contact_accounts", "contacts"
   add_foreign_key "inventories", "accounts"
-  add_foreign_key "inventories", "contacts"
+  add_foreign_key "inventories", "orders"
   add_foreign_key "inventories", "projects"
   add_foreign_key "inventories", "stores"
+  add_foreign_key "inventory_details", "inventories"
+  add_foreign_key "inventory_details", "items"
+  add_foreign_key "inventory_details", "stores"
   add_foreign_key "items", "units"
   add_foreign_key "links", "organisations"
   add_foreign_key "links", "users"
