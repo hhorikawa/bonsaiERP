@@ -18,6 +18,15 @@ class Inventories::Form < BaseForm
   end
   
   delegate :ref_number, :project_id, to: :model_obj, allow_nil: true
+  delegate :order_id, to: :model_obj, allow_nil: true
+
+  # `belongs_to()` が使えない
+  def order
+    if order_id
+      @order ||= Order.find order_id
+    end
+    return @order
+  end
   
   #delegate :stocks, :stock, :stocks_to, :detail, :item_ids, :item_quantity,
   #         to: :klass_details
@@ -29,13 +38,14 @@ class Inventories::Form < BaseForm
 
   def initialize model
     raise TypeError if !model.is_a?(Inventory)
+    super() # set @attributes
     @model_obj = model
     @details = model.details
   end
 
-  def assign model_params, detail_params
+  def assign model_params, detail_params, store_id
     model_obj.assign_attributes model_params
-    @details = Inventories::Form.create_details_from_params(detail_params)
+    @details = self.class.create_details_from_params(detail_params, store_id)
   end
 
   

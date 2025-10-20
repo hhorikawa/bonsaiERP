@@ -15,6 +15,8 @@ class MovementDetail < ApplicationRecord
   validate :check
   validates_numericality_of :quantity, greater_than: 0
 
+  before_create :set_balance_on_create
+  
   #validate :change_of_item_id, unless: :new_record?
   #validate :quantity_eq_balance, if: :marked_for_destruction?
 
@@ -57,9 +59,15 @@ private
       errors.add :base, "must set item_id or account_id"
     end
 
-    if balance < 0 || quantity < balance
+    # balance < 0: Excessive delivered
+    if quantity < balance
       errors.add :balance, I18n.t('errors.messages.movement_details.balance')
     end
+  end
+
+  # for `before_create()`
+  def set_balance_on_create
+    self.balance = quantity
   end
 
   #def quantity_eq_balance

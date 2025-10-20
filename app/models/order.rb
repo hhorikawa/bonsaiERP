@@ -8,7 +8,7 @@ class Order < BusinessRecord
   STATES = %w(draft approved delivered nulled).freeze
 
   # Callbacks
-  before_update :check_items_balances
+  #before_update :check_items_balances
 
   ########################################
   # Relationships
@@ -167,10 +167,10 @@ class Order < BusinessRecord
     end
 
     # Do not allow items to be destroyed if the quantity != balance
-    def check_items_balances
-      details.select(&:marked_for_destruction?)
-      .all?(&:valid_for_destruction?)
-    end
+#    def check_items_balances
+#      details.select(&:marked_for_destruction?)
+#      .all?(&:valid_for_destruction?)
+#    end
 
    def valid_currency_change
      errors.add(:currency, I18n.t('errors.messages.movement.currency_change'))  if currency_changed? && ledgers.any?

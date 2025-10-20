@@ -18,3 +18,15 @@
   <% end %>
 </table>
 
+
+
+<h2>Inventories</h2>
+
+<table class="table">
+  <% @invs.each do |inv| %>
+  <tr>
+    <td><%= inv.inspect %>
+      <%= link_to "Show", {controller:"goods_receipt_pos", action:"show", id:inv} %>
+  </tr>
+  <% end %>
+</table>

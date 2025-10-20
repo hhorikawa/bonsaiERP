@@ -29,8 +29,7 @@ class Inventory < BusinessRecord
   
   belongs_to :creator, class_name: "User"
   # scrap の場合か?
-  belongs_to :expense, foreign_key: :account_id
-  belongs_to :income, foreign_key: :account_id
+  belongs_to :account, optional:true
   
   belongs_to :project, optional: true
   #has_one    :transference, :class_name => 'InventoryOperation', :foreign_key => "transference_id"
@@ -44,8 +43,8 @@ class Inventory < BusinessRecord
   validates_presence_of :date
   
   # 購買入庫, 販売出庫 with order の場合のみ
-  validates_presence_of :ref_number,
-                if: -> x {%w(exp_in inc_out).include?(x.operation) }
+  #validates_presence_of :ref_number,
+  #              if: -> x {%w(exp_in inc_out).include?(x.operation) }
   
   validates_inclusion_of :operation, in: OPERATIONS
   validates_lengths_from_database

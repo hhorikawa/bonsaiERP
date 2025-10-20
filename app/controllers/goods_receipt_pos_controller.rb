@@ -24,10 +24,11 @@ class GoodsReceiptPosController < ApplicationController
     
     # form object 
     @inv = Expenses::InventoryIn.new(
-      Inventory.new store_id: @store.id, order_id: @order.id,
+      Inventory.new store_id: @store.id, order: @order,
                     date: Date.today,
-                    description: "Recoger mercadería egreso PO##{@order.id}")
-    # @inv.build_details
+                    description: "Recoger mercadería egreso PO##{@order.id}"
+    )
+    @inv.build_details_from_order
   end
 
   
@@ -37,31 +38,22 @@ class GoodsReceiptPosController < ApplicationController
     @order = PurchaseOrder.find params[:po_id]
     # wrap
     @inv = Expenses::InventoryIn.new(
-                Inventory.new store_id: @store.id, order_id: @order.id,
+                Inventory.new store_id: @store.id, order: @order,
                               creator_id: current_user.id,
                               operation: 'exp_in' )
-    @inv.assign inventory_params, params.require(:detail)
-
-    if !@inv.valid?
-      render :new, status: :unprocessable_entity
-      return
-    end
+    @inv.assign inventory_params, params.require(:detail), @store.id
 
     begin
       ActiveRecord::Base.transaction do
-        @inv.model_obj.save!
-        @inv.details.each do |detail|
-          detail.inventory_id = @inv.id
-          detail.save!
-        end
+        # atomic save in form object
+        @inv.save!
       end
     rescue ActiveRecord::RecordInvalid => e
-      # Something wrong!
-      raise e.inspect
+      render :new, status: :unprocessable_entity
       return
     end
       
-    redirect_to({action:"show", id: @inv.id}, notice: 'Se realizó el ingreso de inventario.')
+    redirect_to({action:"show", id: @inv.model_obj}, notice: 'Se realizó el ingreso de inventario.')
   end
 
 

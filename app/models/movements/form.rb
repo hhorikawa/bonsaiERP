@@ -21,7 +21,6 @@ class Movements::Form < BaseForm
   validates_presence_of :date
   validates_presence_of :delivery_date
   
-  #validates_presence_of :currency
   validate :validate_models
 
   
@@ -52,15 +51,17 @@ class Movements::Form < BaseForm
     if !model_obj.valid?
       # promote errors
       errors.merge!(model_obj.errors)
-      raise ActiveRecord::RecordInvalid.new("Failed to save the record", self)
+      # new: record that has `errors` 
+      raise ActiveRecord::RecordInvalid.new(self)
     end
     model_obj.save!
     
     details.each do |detail|
-      detail.order_id = model_obj.id
+      detail.order_id = model_obj.id  
+      #detail.balance = detail.quantity  # set in MovementDetail. only on create
     end
     if !self.valid?
-      raise ActiveRecord::RecordInvalid.new("Failed to save details", self)
+      raise ActiveRecord::RecordInvalid.new(self)
     end
     details.each do |detail| detail.save! end
   end

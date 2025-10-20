@@ -16,17 +16,18 @@
 <% #= render 'inventories/movement_form', f: f, inv: @inv %>
 
   <%= f.date_field :date, label: '日付:' %>
-  <% # なぜかエラーになる. why?
-     # f.text_field :description, label: 'Description:' %>
+  <% # なぜかエラーになる. why? => must call `super()` in `initialize()` %>
+  <%= f.text_field :description, label: 'Description:' %>
 
 <div class="row text-bg-secondary">
   <div class="col-3">Item</div>
-  <div class="col-3">数量</div>
+  <div class="col-2">Undelivered qty</div>
+  <div class="col-2">数量</div>
   <div class="col-3">
       Cantidad a<br />
       recoger
   </div>
-  <div class="col-3"></div>
+  <div class="col-2"></div>
 </div>
 
 <% lines = [@inv.details.length + 2, 6].max %>

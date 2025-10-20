@@ -4,26 +4,60 @@
 
 # フォームオブジェクト for GoodsReceiptPo
 class Expenses::InventoryIn < Inventories::Form
-  #attribute :expense_id, Integer
 
-  #validates_presence_of :expense
-  validate :valid_quantities
+  #validate :valid_quantities
   #validate :valid_item_ids
 
-  delegate :expense_details, to: :expense
-  delegate :balance_inventory, :inventory_left, to: :expense_calculations
+  #delegate :balance_inventory, :inventory_left, to: :expense_calculations
 
-  #def expense
-  #  @expense ||= Expense.active.where(id: expense_id).first
-  #end
+  validate :validate_models
 
-  def build_details
-    expense.expense_details.each do |det|
-      inventory.inventory_details.build(item_id: det.item_id ,quantity: det.balance)
+  
+  # @param detail_params  [Hash{lineno => Hash}] params
+  #   {"1"=>{"item_id"=>"1", "quantity"=>"567"},
+  #    "2"=>{"item_id"=>"1", "quantity"=>"0.0"},
+  def self.create_details_from_params detail_params, store_id
+    ary = []
+    detail_params.each do |_lineno, h|
+      m = InventoryDetail.new h.permit(:item_id, :price, :quantity)
+      m.movement_type = 101  # supplier -> unrestricted stock
+      m.store_id = store_id
+      (ary << m) if m.quantity != 0.0
+    end
+
+    return ary
+  end
+  
+  
+  def build_details_from_order
+    # The number of items that are not yet received is the `balance`
+    order.details.each do |det|
+      # The quantity should be entered manually.
+      self.details << InventoryDetail.new(item_id: det.item_id, quantity: 0)
     end
   end
 
-  def create
+  
+  def save!
+    if !model_obj.valid?
+      # promote errors
+      errors.merge!(model_obj.errors)
+      raise ActiveRecord::RecordInvalid.new(self)
+    end
+    model_obj.save!
+    
+    details.each do |detail|
+      detail.inventory_id = model_obj.id
+    end
+    if !self.valid?
+      raise ActiveRecord::RecordInvalid.new(self)
+    end
+    
+    details.each do |detail| detail.save! end
+  end
+  
+
+=begin
     res = true
 
     save do
@@ -39,17 +73,34 @@ class Expenses::InventoryIn < Inventories::Form
       @inventory.contact_id = @expense.contact_id
       res && @inventory.save
     end
-  end
+=end
 
-  def movement_detail(item_id)
-    @expense.details.find {|det| det.item_id === item_id }
-  end
+  #def movement_detail(item_id)
+  #  @expense.details.find {|det| det.item_id === item_id }
+  #end
 
-  private
+  
+private
 
-    def operation
-      'exp_in'
+  # for `validate()`
+  def validate_models
+    # run validations for all nested objects
+    err_count = details.count {|detail|
+      # only useful when `:autosave` option is enabled.
+      next if detail.respond_to?(:marked_for_destruction?) && detail.marked_for_destruction?
+      !detail.valid?
+    }
+    if err_count > 0
+      errors.add :details, "Some error(s) in details"
     end
+
+    errors.add :details, "Item not unique" if !UniqueItem.new(self).valid?
+  end
+
+  
+  #  def operation
+  #    'exp_in'
+  #  end
 
     def valid_quantities
       res = true

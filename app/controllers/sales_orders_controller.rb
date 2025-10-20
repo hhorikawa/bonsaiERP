@@ -54,11 +54,9 @@ class SalesOrdersController < ApplicationController
   # POST /incomes
   def create
     # ここでフォームオブジェクトを使っている
-    @order = Movements::Form.new(SalesOrder.new)
+    @order = Movements::Form.new(SalesOrder.new creator_id: current_user.id,
+                                                state: 'draft' )                          
     @order.assign income_params, params.require(:detail)
-    
-    @order.model_obj.creator_id = current_user.id
-    @order.model_obj.state = 'draft'
     
     begin
       ActiveRecord::Base.transaction do
