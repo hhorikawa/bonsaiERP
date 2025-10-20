@@ -1,0 +1,29 @@
+
+<% @page_title = "出荷/納入" %>
+
+
+<h2>未出荷の受注</h2>
+
+<table class="table">
+  <tr>
+    <th>Order# <th>受注日 <th>納期 <th>取引先
+  </tr>
+<% @orders.each do |order| %>
+  <tr>
+    <td><%= order.id %>
+    <td><%= order.date %>
+    <td><%= order.delivery_date %>
+    <td><%= order.contact.name %>
+    <td><%= link_to "あたらしい出荷/納入...", {action:"new", order_id: order.id} %>
+  <% end %>
+</table>
+
+
+
+<h2>Inventories</h2>
+
+<% @invs.each do |inv| %>
+<div class="row">
+  <%= inv.inspect %>
+</div>
+<% end %>

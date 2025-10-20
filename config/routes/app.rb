@@ -140,8 +140,6 @@ resources :sales_orders do
   end
 end
 
-resources :deliveries
-
 resources :customer_returns
 
 
@@ -166,6 +164,9 @@ resources :goods_returns
 # 店/倉庫
 resources :stores do
   resources :goods_receipt_pos
+
+  # 出荷/納入
+  resources :deliveries
 end
 
 

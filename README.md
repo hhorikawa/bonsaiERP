@@ -41,6 +41,8 @@
  - Inventory
    + ✅ Store/Warehouse
    + Goods Receipt PO
+     - TODO: PO balance 減算
+     - TODO: 仕訳の生成. 数量が異なる場合の考慮.
    + Purchases in Transit: When an invoice is received *before* the goods have arrived, the invoice is posted in the *Purchases in Transit* account but has no assignment to a goods receipt at this point.
      - TODO: mockup of invoice.
    + Goods Return 仕入戻し
@@ -80,8 +82,9 @@ TODO:
    + <a href="https://flowbite.com/">Flowbite - Build websites even faster with components on top of Tailwind CSS</a>
 
    + https://coreui.io/bootstrap/docs/forms/stepper/ PRO only
+   + <a href="https://daisyui.com/">Tailwind CSS Component Library ⸺ daisyUI</a>
    
- - Installing the `pundit` gem for authorization
+ - <s>Installing the `pundit` gem for authorization</s> fixed.
  
 
 ##

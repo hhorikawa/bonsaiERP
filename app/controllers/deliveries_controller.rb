@@ -4,8 +4,18 @@
 
 # 出荷/納入
 class DeliveriesController < ApplicationController
-  before_action :set_store_and_income
+  before_action :set_store
+  
+  before_action :set_inv, only: [:show, :edit, :update, :destroy]
 
+  
+  def index
+    # TODO: 完了したものは除外するか, フィルタ可能に
+    @orders = SalesOrder.all
+    @invs = Inventory.where(operation: 'inc_out').page(params[:page])
+  end
+
+  
   # GET
   # /incomes_inventory_ins/new?store_id=:store_id&income_id=:income_id
   def new
@@ -29,14 +39,30 @@ class DeliveriesController < ApplicationController
     end
   end
 
-  private
+  def show
+  end
 
-    def set_store_and_income
-      @income = Income.active.find(params[:income_id])
-      @store = Store.active.find(params[:store_id])
-    rescue
-      redirect_to incomes_path, alert: 'Ha seleccionado un almacen o un ingreso invalido.' and return
-    end
+  def edit
+  end
+
+  def update
+  end
+
+  def destroy
+  end
+
+  
+private
+
+  def set_store
+    @store = Store.find params[:store_id]
+  end
+
+  def set_inv
+    @inv = Inventory.where(operation: 'inc_out', id: params[:id]).take
+    raise ActiveRecord::RecordNotFound if !@inv
+  end
+
 
     def inventory_params
       params.require(:incomes_inventory_out).permit(
