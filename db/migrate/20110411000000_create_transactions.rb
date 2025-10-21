@@ -6,31 +6,42 @@ class CreateTransactions < ActiveRecord::Migration[5.2]
         # STI は `type` が必要
         t.string :type, limit:80, null:false
 
-        # order date
-        t.date :date, null:false
+        # order datetime
+        t.datetime :date, null:false
 
         # purchase order: vendor, sales order: customer
         t.references :contact, null:false, foreign_key:true
 
-        # purchase order: ship to, sales order: n/a
-        t.references :ship_to, foreign_key: {to_table: "stores"}
+        # purchase order: ship to, sales order: ship from, nullable.
+        t.references :store, foreign_key: true
 
-        # if any. "TOKYO CY", "LONG BEACH CY"
-        t.string :delivery_loc
-        
-        t.column :currency, "CHAR(3) NOT NULL"
-        
+        # before discount
+        t.decimal :gross_total, precision: 14, scale: 2, default: 0.0
+
+        # after discount
         # Use Account#amount for total, create alias
         t.decimal :total, precision: 14, scale: 2, null:false, default: 0.0
+
+        t.column :currency, "CHAR(3) NOT NULL"
 
         # Use Account#name for ref_number create alias
         t.string  :bill_number
 
-        t.decimal :gross_total, precision: 14, scale: 2, default: 0.0
         t.decimal :original_total, precision: 14, scale: 2, default: 0.0
         t.decimal :balance_inventory, precision: 14, scale: 2, default: 0.0
 
-        t.date    :delivery_date, null:false
+        # PO: When D-group, ship_date = delivery_date
+        t.date    :ship_date, null:false,
+                  comment: "If FOB and *CIF*, the date on the port of departure"
+
+        # if any. "TOKYO CY", "LONG BEACH CY"
+        t.string  :delivery_loc
+        
+        t.string  :incoterms, limit:10
+        
+        # sales_order: nullable
+        t.date    :delivery_date #, null:false
+        
         # Creators approver
         t.integer  :creator_id, null:false #, foreign_key:{to_table: :users}
         t.integer  :approver_id  #, foreign_key:{to_table: :users}

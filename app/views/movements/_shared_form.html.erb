@@ -11,9 +11,6 @@
     <% end %>
   </div>
   <div class="span3">
-    <%= f.date_field :date, label: t('movement_attributes.date'), as: :datepicker %>
-  </div>
-  <div class="span3">
-    <%= f.date_field :delivery_date, as: :datepicker, label: "Delivery Date:" %>
+    <%= f.datetime_field :date, label: "Order Datetime:" %>
   </div>
 </div>

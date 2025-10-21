@@ -9,29 +9,3 @@
   </div>
 </div>
 
-<% if @order.draft? %>
-  <input id="accounts" type="hidden" data-accounts="<%= Accounts::Query.new.bank_cash_options.to_json %>">
-  <br>
-  <div class="well well-small">
-    <div class="row-fluid">
-      <%# Render for direct_payment %>
-      <div class="span6 account_to form-inline">
-        <span style="display:none">
-          <%= f.check_box :direct_payment, id: 'direct_payment',
-            'ng-model' => 'direct_payment', style: 'vertical-align: top' %>
-        </span>
-        <a id="direct-payment-button" class="btn btn-small btn-info b" data-toggle="button" ng-click="direct_payment=!direct_payment"><%= lbl %> directo</a>
-
-        <%= f.input :account_to_id, input_html: { id: 'account_to_id', class: 'span10',
-          'ng-model' => 'account_to_id', 'ng-disabled' => '!direct_payment', 'ng-movement-accounts' => true, 'initial' => true },
-          label: "<strong>Cuenta</strong> a la cual se aplicara el <i>#{lbl} directo</i>".html_safe %>
-      </div>
-
-      <div class="span6">
-        <%= f.input :reference, label: 'Reference', as: :text,
-          input_html: {rows: 2, placeholder: 'Número de recibo o documento', class: 'span10',
-          'ng-disabled' => '!direct_payment' } %>
-      </div>
-    </div>
-  </div>
-<% end %>

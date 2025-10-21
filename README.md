@@ -15,7 +15,7 @@
    + ✅ Business Partners
      - 取引先口座 OK
      - TODO: edit.
-     - TODO: When a user create a business partner, the system must create the first account at the same time. `:new` screen.
+     - <s>TODO: When a user create a business partner, the system must create the first account at the same time. `:new` screen.</s> fixed.
    + ✅ Product/Item Master
    + ✅ Units of Measure
 

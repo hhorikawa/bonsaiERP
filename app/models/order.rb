@@ -22,15 +22,17 @@ class Order < BusinessRecord
   #accepts_nested_attributes_for :income_details, allow_destroy: true,
   #reject_if: proc { |det| det.fetch(:item_id).blank? }
   
-  belongs_to :project, optional: true
+  #belongs_to :project, optional: true
+  
   has_many :ledgers, foreign_key: :account_id, class_name: 'AccountLedger'
-  has_many :inventories, foreign_key: :account_id
+  
+  has_many :inventories #, foreign_key: :account_id
 
   ########################################
   # Validations
   
   validates_presence_of :date
-  validates_presence_of :delivery_date
+  validates_presence_of :ship_date
   
   #validates :state, presence: true, inclusion: {in: STATES}
   enum :state, STATES.map{|x| [x,x]}.to_h
@@ -160,7 +162,8 @@ class Order < BusinessRecord
   #  )
   #end
 
-  private
+  
+private
 
     def nulling_valid?
       ['paid', 'approved'].include?(state_was) && is_nulled?
@@ -176,8 +179,11 @@ class Order < BusinessRecord
      errors.add(:currency, I18n.t('errors.messages.movement.currency_change'))  if currency_changed? && ledgers.any?
    end
 
-   def greater_or_equal_due_date
-     errors.add(:delivery_date, I18n.t('errors.messages.movement.greater_due_date'))  if date && delivery_date && delivery_date < date
-   end
-
+  # for validate()
+  def greater_or_equal_due_date
+    if date && ship_date && ship_date < date
+      errors.add(:ship_date, "must be >= order_date" )
+    end
+  end
+  
 end

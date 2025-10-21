@@ -7,15 +7,24 @@
   <%= render 'movements/shared_form', f: f %>
   <%= render 'movements/form_direct_payment', f: f %>
 
-  <%= f.select :ship_to_id, options_from_collection_for_select(Store.all, :id, :name, @order.ship_to_id), required:false %>
+  <%= f.date_field :ship_date, label: "Delivery Date:",
+                   help:"If FOB and *CIF*, the date on the port of departure" %>
+  <%= f.text_field :delivery_loc %>
+  <%= f.text_field :incoterms %>
+  <%= f.date_field :delivery_date, label:"Arrival Date:",
+                   help:"Please enter if different from delivery date" %>
+      
+  <%= f.select :store_id,
+            options_from_collection_for_select(Store.all, :id, :name, @order.store_id), required:false, label:"Ship To:" %>
+
   <%# Render items %>
   <%= render 'movements/form_items', f: f  %>
 
   <div class="form-actions">
     <% if @order.draft? %>
-      <%= f.submit 'Save borrador', class: 'btn b btn-large trans', name: 'commit_save' %>
+      <%= f.submit 'Save (draft)', class: 'btn btn-primary', name: 'commit_save' %>
     <% else %>
-      <%= f.submit 'Save', class: 'btn btn-primary btn-large b' %>
+      <%= f.submit 'Save', class: 'btn btn-primary ' %>
     <% end %>
   </div>
 <% end %>

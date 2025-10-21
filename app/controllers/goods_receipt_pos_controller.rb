@@ -11,7 +11,7 @@ class GoodsReceiptPosController < ApplicationController
   
   def index
     # TODO: 完了したものは除外するか, フィルタ可能に
-    @orders = PurchaseOrder.where(ship_to_id: @store.id)
+    @orders = PurchaseOrder.where(store_id: @store.id)
     @invs = Inventory.where(operation: 'exp_in').page(params[:page])
   end
 

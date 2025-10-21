@@ -11,21 +11,23 @@ class Movements::Form < BaseForm
   attr_reader :details
   
   # form fields
-  delegate :date, :contact_id, :currency, :delivery_date, :draft?, #:description, :tax_id,
+  delegate :date, :contact_id, :currency, :ship_date, :draft?, #:description, :tax_id,
            to: :model_obj
 
   # PO only
-  delegate :ship_to_id, to: :model_obj, allow_nil:true
+  delegate :store_id, :delivery_loc, :incoterms, :delivery_date,
+           to: :model_obj, allow_nil:true
   
   # for field required star
   validates_presence_of :date
-  validates_presence_of :delivery_date
+  validates_presence_of :ship_date
   
   validate :validate_models
 
   
   def initialize order
     raise TypeError if !(order.is_a?(SalesOrder) || order.is_a?(PurchaseOrder))
+    super()
     @model_obj = order
     @details = order.details
   end

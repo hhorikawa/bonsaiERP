@@ -27,8 +27,10 @@ class PurchaseOrder < Order
            class_name: 'AccountLedger', foreign_key: :account_id
 
   # ship to: purchase only
-  belongs_to :ship_to, class_name: 'Store'
-    
+  belongs_to :store
+
+  before_validation :set_delivery_date
+  
   ########################################
   # Scopes
   #scope :approved, -> { where(state: 'approved') }
@@ -57,4 +59,13 @@ class PurchaseOrder < Order
   def as_json(options = {})
     super(options).merge(expense_details: expense_details.map(&:attributes))
   end
+
+  
+private
+
+  # for `before_validation()`
+  def set_delivery_date
+    self.delivery_date = ship_date if !delivery_date
+  end
+
 end

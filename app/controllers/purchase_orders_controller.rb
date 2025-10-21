@@ -29,7 +29,8 @@ class PurchaseOrdersController < ApplicationController
   # GET /expenses/new
   def new
     # Use the form object.
-    @order = Movements::Form.new(PurchaseOrder.new)
+    # TODO: default currency = partner's one.
+    @order = Movements::Form.new(PurchaseOrder.new date: Time.now, state: 'draft')
     #@order_details = []
   end
 
@@ -39,6 +40,7 @@ class PurchaseOrdersController < ApplicationController
     @order = Movements::Form.new(@order)
   end
 
+  
   # POST /expenses
   def create
     # the form object
@@ -54,7 +56,7 @@ class PurchaseOrdersController < ApplicationController
         @order.save!
       end
     rescue ActiveRecord::RecordInvalid => e
-      #raise @order.errors.inspect
+      raise @order.errors.inspect
       render :new, status: :unprocessable_entity
       return
     end
@@ -153,7 +155,9 @@ private
 
   def expense_params
     # form object
-    params.require(:movements_form).permit(:contact_id, :date, :delivery_date, :currency, :ship_to_id)
+    params.require(:movements_form)
+          .permit(:contact_id, :date, :currency, :ship_date, :delivery_loc,
+                  :incoterms, :delivery_date, :store_id)
   end
 
   # before_action()

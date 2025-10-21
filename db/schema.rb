@@ -286,17 +286,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
 
   create_table "orders", force: :cascade do |t|
     t.string "type", limit: 80, null: false
-    t.date "date", null: false
+    t.datetime "date", precision: nil, null: false
     t.bigint "contact_id", null: false
-    t.bigint "ship_to_id"
-    t.string "delivery_loc"
-    t.string "currency", limit: 3, null: false
-    t.decimal "total", precision: 14, scale: 2, default: "0.0", null: false
-    t.string "bill_number"
+    t.bigint "store_id"
     t.decimal "gross_total", precision: 14, scale: 2, default: "0.0"
+    t.decimal "total", precision: 14, scale: 2, default: "0.0", null: false
+    t.string "currency", limit: 3, null: false
+    t.string "bill_number"
     t.decimal "original_total", precision: 14, scale: 2, default: "0.0"
     t.decimal "balance_inventory", precision: 14, scale: 2, default: "0.0"
-    t.date "delivery_date", null: false
+    t.date "ship_date", null: false, comment: "If FOB and *CIF*, the date on the port of departure"
+    t.string "delivery_loc"
+    t.string "incoterms", limit: 10
+    t.date "delivery_date"
     t.integer "creator_id", null: false
     t.integer "approver_id"
     t.datetime "approver_datetime", precision: nil
@@ -311,7 +313,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.datetime "updated_at", precision: nil, null: false
     t.boolean "no_inventory", default: false, null: false
     t.index ["contact_id"], name: "index_orders_on_contact_id"
-    t.index ["ship_to_id"], name: "index_orders_on_ship_to_id"
+    t.index ["store_id"], name: "index_orders_on_store_id"
   end
 
   create_table "organisations", force: :cascade do |t|
@@ -463,5 +465,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
   add_foreign_key "movement_details", "items"
   add_foreign_key "movement_details", "orders"
   add_foreign_key "orders", "contacts"
-  add_foreign_key "orders", "stores", column: "ship_to_id"
+  add_foreign_key "orders", "stores"
 end
