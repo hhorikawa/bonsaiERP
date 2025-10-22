@@ -2,8 +2,20 @@
 <%= bootstrap_form_with model: @order, url:{action:"create"}, layout: :horizontal do |f| %>
   <%= bonsai_form_error(f) %>
 
-    <%# Render common form elements %>
-  <%= render 'movements/shared_form', f: f  %>
+<% if ['new', 'create'].include?(action_name) %>
+  <%= f.select :contact_id,
+            options_from_collection_for_select(Contact.where(client:true), :id, :name, @order.contact_id),
+            required:false, help: "Only new record" %>
+<% else %>
+  <div class="row">
+    <label><%= t('general.contact') %></label>
+    <%= @order.contact.name %>
+  </div>
+<% end %>
+
+  <%= f.datetime_field :date, label: "Order Datetime:" %>
+
+  
   <%= render 'movements/form_direct_payment', f: f %>
  
   <%= f.select :store_id,

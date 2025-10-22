@@ -8,6 +8,8 @@ class CreateInventoryOperations < ActiveRecord::Migration[5.2]
         t.string :ref_number
         t.string :operation, limit: 10, null:false
 
+        t.string "state", limit: 50, null: false
+
         # sales order / purchase order. nullable
         t.references :order, foreign_key:true
 
@@ -16,8 +18,6 @@ class CreateInventoryOperations < ActiveRecord::Migration[5.2]
 
         # sales order なしの出庫 = 売上科目
         t.references :account, foreign_key:true
-
-        t.string :state, null:false
 
         t.string :description, null:false
 

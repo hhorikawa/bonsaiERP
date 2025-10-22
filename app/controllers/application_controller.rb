@@ -13,7 +13,8 @@ class ApplicationController < ActionController::Base
     end
   }
 
-  #include Controllers::Authentication
+  include Pundit::Authorization
+  
   include Controllers::Authorization
   include Controllers::RescueFrom
 

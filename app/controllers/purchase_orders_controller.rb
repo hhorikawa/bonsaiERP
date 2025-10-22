@@ -6,7 +6,8 @@
 class PurchaseOrdersController < ApplicationController
   include Controllers::TagSearch
 
-  before_action :set_order, only: [:show, :edit, :update, :destroy, :approve, :null, :inventory]
+  before_action :set_order,
+                only: [:show, :edit, :update, :destroy, :approve, :void, :inventory]
 
   # GET /expenses
   def index
@@ -80,11 +81,7 @@ class PurchaseOrdersController < ApplicationController
   # PATCH /expenses/1/approve
   # Method to approve an expense
   def approve
-    #@expense = Expense.find(params[:id])
-    if !@order.draft?
-      redirect_to(@order, alert: 'El Ingreso ya esta aprovado')
-      return
-    end
+    authorize @order
     
     @order.approve! current_user
     if @order.save
@@ -115,7 +112,9 @@ class PurchaseOrdersController < ApplicationController
 
   
   # PATCH /incomes/:id/null
-  def null
+  def void
+    authorize @order
+    
     if @expense.null!
       redirect_to expense_path(@expense), notice: 'Se anulo correctamente el egreso.'
     else
@@ -125,6 +124,8 @@ class PurchaseOrdersController < ApplicationController
 
   
   def destroy
+    authorize @order
+    
     @order.destroy!
     #TODO impl.
   end

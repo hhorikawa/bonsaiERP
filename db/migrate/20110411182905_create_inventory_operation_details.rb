@@ -9,6 +9,8 @@ class CreateInventoryOperationDetails < ActiveRecord::Migration[5.2]
         t.column :movement_type, "SMALLINT NOT NULL"
         
         t.references :item, null:false, foreign_key:true
+        t.decimal :price, precision: 14, scale: 2, null:false, default: 0.0
+
         t.references :store, null:false, foreign_key:true
 
         t.decimal :quantity, :precision => 14, :scale => 2, null:false, default: 0.0

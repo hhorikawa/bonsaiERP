@@ -188,6 +188,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.date "date", null: false
     t.string "ref_number"
     t.string "operation", limit: 10, null: false
+    t.string "state", limit: 50, null: false
     t.bigint "order_id"
     t.bigint "store_id", null: false
     t.bigint "account_id"
@@ -212,6 +213,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.bigint "inventory_id", null: false
     t.integer "movement_type", limit: 2, null: false
     t.bigint "item_id", null: false
+    t.decimal "price", precision: 14, scale: 2, default: "0.0", null: false
     t.bigint "store_id", null: false
     t.decimal "quantity", precision: 14, scale: 2, default: "0.0", null: false
     t.datetime "created_at", precision: nil, null: false

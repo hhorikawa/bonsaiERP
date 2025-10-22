@@ -7,8 +7,8 @@ class SalesOrdersController < ApplicationController
   include Controllers::TagSearch
   include Controllers::Print
 
-  #respond_to :html, :js, :pdf
-  before_action :set_order, only: [:show, :edit, :update, :approve, :null, :inventory, :destroy]
+  before_action :set_order,
+                only: [:show, :edit, :update, :destroy, :approve, :void, :inventory ]
 
   
   # GET /incomes
@@ -39,7 +39,7 @@ class SalesOrdersController < ApplicationController
   # GET /incomes/new
   def new
     # Use form object.
-    @order = Movements::Form.new(SalesOrder.new)
+    @order = Movements::Form.new(SalesOrder.new date: Time.now, state: 'draft')
     #@order_details = []
   end
 
@@ -90,10 +90,7 @@ class SalesOrdersController < ApplicationController
   # PATCH /incomes/:id/approve
   # Method to approve an income
   def approve
-    if !@order.draft?
-      redirect_to(@order, alert: 'El Ingreso ya esta aprovado')
-      return
-    end
+    authorize @order
 
     @order.approve! current_user
     if @order.save
@@ -123,7 +120,9 @@ class SalesOrdersController < ApplicationController
 
   
   # PATCH /incomes/:id/null
-  def null
+  def void
+    authorize @order
+    
     if @income.null!
       redirect_to income_path(@income), notice: 'Se anulo correctamente el ingreso.'
     else
@@ -133,6 +132,8 @@ class SalesOrdersController < ApplicationController
 
 
   def destroy
+    authorize @order
+    
     @order.destroy!
     #TODO impl.
   end
@@ -159,7 +160,8 @@ private
 
   def income_params
     # form object
-    params.require(:movements_form).permit(:contact_id, :date, :delivery_date, :currency)
+    params.require(:movements_form)
+          .permit(:contact_id, :date, :store_id, :ship_date, :currency)
   end
 
 

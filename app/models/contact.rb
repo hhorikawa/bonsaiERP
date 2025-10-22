@@ -120,6 +120,7 @@ private
   # for before_validation
   def check
     self.matchcode = matchcode.to_s.unicode_normalize(:nfkc).strip.upcase
+    self.tax_number = nil if tax_number.blank?
   end
 
     # Check if the contact has any relations before destroy

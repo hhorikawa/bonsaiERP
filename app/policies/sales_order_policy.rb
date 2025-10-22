@@ -12,4 +12,19 @@ class SalesOrderPolicy < ApplicationPolicy
     #   scope.all
     # end
   end
+
+
+  def destroy?
+    record.draft?
+  end
+
+  def approve?
+    record.draft?
+  end
+
+  # -> state = void
+  def void?
+    # TODO: partial delivered の場合、どうする?
+    record.approved?
+  end
 end

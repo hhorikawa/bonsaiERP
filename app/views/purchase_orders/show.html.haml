@@ -28,14 +28,12 @@
     -# Approve form
     = render 'tags/tags', model: 'Expense', hide_tags_filter: true
 
-    -# Approve
-    = link_to 'Aprobar', approve_purchase_order_path(@order.id), class: 'b btn btn-success', method: :patch  if @order.draft?
+    = button_to 'Approve', approve_purchase_order_path(@order.id), class: 'btn btn-success', method: :patch  if policy(@order).approve?
 
-    -# Null
-    = link_to 'Anular', null_purchase_order_path(@order.id), method: :patch,  class: 'btn btn-danger b',
-      confirm: 'Esta segur@ de anular el Ingreso?'  if @order.can_null?
+    = button_to 'Void', void_purchase_order_path(@order.id), method: :patch, class: 'btn btn-danger',
+      data:{turbo_confirm: 'Esta segur@ de anular el Ingreso?'}  if policy(@order).void?
 
-    = link_to "Edit...", edit_purchase_order_path(@order.id), class: 'btn' unless @order.nulled?
+    = link_to "Edit...", edit_purchase_order_path(@order.id), class: 'btn'  if policy(@order).update?
 
 .row-fluid.expense
   .span6

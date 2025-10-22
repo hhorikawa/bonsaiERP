@@ -73,7 +73,7 @@ class PartnersController < ApplicationController
   def update
     @partner.assign_attributes(contact_params)
     if @partner.save
-      redirect_to @partner
+      redirect_to partner_path(@partner.id)
     else
       render :edit, status: :unprocessable_entity 
     end
@@ -117,7 +117,8 @@ private
   end
 
   def contact_params
-    params.require(:contact).permit(:matchcode, :name, :email, :phone, :mobile, :tax_number, :address)
+    params.require(:contact).permit(:matchcode, :name, :email, :phone, :mobile,
+                        :tax_number, :address, :client, :supplier, :staff)
   end
 
 

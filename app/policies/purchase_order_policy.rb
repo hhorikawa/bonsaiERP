@@ -11,4 +11,24 @@ class PurchaseOrderPolicy < ApplicationPolicy
     #   scope.all
     # end
   end
+
+
+  def update?
+    !record.void?
+  end
+  
+  def destroy?
+    record.draft?
+  end
+
+  def approve?
+    record.draft?
+  end
+
+  # -> state = void
+  def void?
+    # TODO: partial delivered の場合、どうする?
+    record.approved?
+  end
+  
 end

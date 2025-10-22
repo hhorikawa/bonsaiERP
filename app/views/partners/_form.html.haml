@@ -15,6 +15,10 @@
 
 = f.text_field :address, input_html: {rows: 3, cols: 45}, label: 'Address:'
 
+= f.form_group label:{text:"Kind:"}, layout: :horizontal do
+  = f.check_box :client #, add_control_col_class:"form-check-inline"
+  = f.check_box :supplier #, add_control_col_class:"form-check-inline"
+  = f.check_box :staff #, add_control_col_class:"form-check-inline"
 
 :javascript
   $( function() {

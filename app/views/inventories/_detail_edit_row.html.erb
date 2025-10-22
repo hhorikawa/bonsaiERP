@@ -16,14 +16,25 @@
 
   <div class="row border-bottom border-primary"
        data-controller="inv-detail-row">
-    <div class="col-3">
 <%    if detail_obj.item %>
+    <div class="col-3">
       <%= df.hidden_field :item_id %>
       <%= detail_obj.item.name %>
-<%    else %>
-      <%= df.select :item_id, options_from_collection_for_select(Item.all, :id, :name, detail_obj.item_id) %>
-<% end %>
     </div>
+    <div class="col-2">
+      <%= df.hidden_field :price %>
+      <%= detail_obj.price %>
+    </div>
+<%    else %>
+    <div class="col-3">
+      <%= df.select :item_id,
+                options_from_collection_for_select(Item.all, :id, :name, detail_obj.item_id) %>
+    </div>
+    <div class="col-2">
+      <%= df.number_field :price %>
+    </div>
+<% end %>
+    
     <div class="col-2">
 <%    if detail_obj.item %>
       <%= MovementDetail.where(order_id: @order.id, item_id: detail_obj.item_id).take.balance %>
@@ -33,6 +44,8 @@
       <%= df.number_field :quantity %>
       <%= df.text_field :uom, value:"uom", disabled:true %>
     </div>
+
+    <div class="col-3"></div>
   </div>
 <%   end # fields_for %>
 </div>

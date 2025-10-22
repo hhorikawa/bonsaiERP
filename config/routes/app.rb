@@ -135,7 +135,7 @@ patch 'loan_ledger_ins/:id/receive' => 'loan_ledger_ins#receive', as: :receive_l
 resources :sales_orders do
   member do
     patch :approve
-    patch :null
+    patch :void
     patch :inventory
   end
 end
@@ -149,7 +149,7 @@ resources :customer_returns
 resources :purchase_orders do
   member do
     patch :approve
-    patch :null
+    patch :void
     patch :inventory
   end
 end

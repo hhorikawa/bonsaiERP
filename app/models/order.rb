@@ -5,7 +5,7 @@
 class Order < BusinessRecord 
 
   # `delivered` = closed
-  STATES = %w(draft approved delivered nulled).freeze
+  STATES = %w(draft approved delivered void).freeze
 
   # Callbacks
   #before_update :check_items_balances
@@ -34,7 +34,6 @@ class Order < BusinessRecord
   validates_presence_of :date
   validates_presence_of :ship_date
   
-  #validates :state, presence: true, inclusion: {in: STATES}
   enum :state, STATES.map{|x| [x,x]}.to_h
   
   validate  :valid_currency_change, on: :update
@@ -43,15 +42,6 @@ class Order < BusinessRecord
   ########################################
   # Delegations
   delegate :name, :percentage, :percentage_dec, to: :tax, prefix: true, allow_nil: true
-
-=begin
-  # Define boolean methods for states
-  STATES.each do |_state|
-    define_method :"is_#{_state}?" do
-      _state == state
-    end
-  end
-=end
   
   def self.movements
     Account.where(type: ['Income', 'Expense'])
@@ -105,7 +95,7 @@ class Order < BusinessRecord
   end
 
 
-  # save() must be done by caller.
+  # `save()` must be done by caller.
   def approve! user
     raise TypeError if !user.is_a?(User)
     
@@ -124,13 +114,15 @@ class Order < BusinessRecord
     end
   end
 
+=begin
   def can_null?
     return false  if draft? || nulled?
     return false  if ledgers.pendent.any?
     return false  if inventory_was_moved?
     total === amount
   end
-
+=end
+  
   def inventory_was_moved?
     details.any? { |det| det.quantity != det.balance }
   end

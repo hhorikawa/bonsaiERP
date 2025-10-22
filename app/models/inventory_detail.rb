@@ -20,8 +20,10 @@ class InventoryDetail < ApplicationRecord
   belongs_to :store
 
   validates_presence_of :movement_type
-  
-  #● TODO: 追加 unit_price
+
+  # 単価
+  validates_presence_of :price
+
   #● TODO: 追加 valuation
   #● TODO: 追加 project_id  nullable
   

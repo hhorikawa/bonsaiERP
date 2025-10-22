@@ -7,8 +7,6 @@ class Inventory < BusinessRecord
 
   #include ::Models::Updater
 
-  #before_create { self.creator_id = UserSession.id }
-
   # exp_in 購買入庫
   # exp_out 仕入戻し
   # inc_out 販売出庫
@@ -18,6 +16,9 @@ class Inventory < BusinessRecord
   # trans ?
   OPERATIONS = %w(in out inc_in inc_out exp_in exp_out trans).freeze
 
+  STATES = %w(draft approved void).freeze
+  enum :state, STATES.map{|x| [x,x]}.to_h
+  
   # 親
   belongs_to :store
 
