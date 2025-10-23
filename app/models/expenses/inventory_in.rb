@@ -33,7 +33,8 @@ class Expenses::InventoryIn < Inventories::Form
     # The number of items that are not yet received is the `balance`
     order.details.each do |det|
       # The quantity should be entered manually.
-      self.details << InventoryDetail.new(item_id: det.item_id, quantity: 0)
+      self.details << InventoryDetail.new(item_id: det.item_id,
+                                          price: det.price, quantity: 0)
     end
   end
 

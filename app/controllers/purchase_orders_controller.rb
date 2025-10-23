@@ -14,8 +14,11 @@ class PurchaseOrdersController < ApplicationController
     if params[:movements_search].blank? || !params[:reset].blank?
       @search = Movements::Search.new
     else
+      #raise params.inspect
       @search = Movements::Search.new params.require(:movements_search)
                                         .permit(*Movements::Search.attribute_names)
+      # `permit()` returns `Parameters {}`. why?
+      @search.state = params.require(:movements_search)['state']
     end
 
     @orders = @search.search_by_text(PurchaseOrder).order(date: :desc).page(params[:page])
@@ -45,11 +48,10 @@ class PurchaseOrdersController < ApplicationController
   # POST /expenses
   def create
     # the form object
-    @order = Movements::Form.new(PurchaseOrder.new)
+    @order = Movements::Form.new(
+                PurchaseOrder.new creator_id: current_user.id,
+                                  state: 'draft' )
     @order.assign expense_params, params.require(:detail)
-
-    @order.model_obj.creator_id = current_user.id
-    @order.model_obj.state = 'draft'
 
     begin
       ActiveRecord::Base.transaction do

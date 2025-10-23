@@ -13,7 +13,9 @@ class MovementDetail < ApplicationRecord
   
   # Validations
   validate :check
-  validates_numericality_of :quantity, greater_than: 0
+
+  # when excessive delivered, qty = 0, balance < 0
+  validates_numericality_of :quantity, greater_than_or_equal_to: 0
 
   before_create :set_balance_on_create
   

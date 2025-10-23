@@ -2,7 +2,8 @@
 # author: Boris Barroso
 # email: boriscyber@gmail.com
 class UnitsController < ApplicationController
-  #respond_to :html, :json
+  before_action :set_unit, only: [:edit, :update, :destroy]
+  
 
   # GET /units
   def index
@@ -25,7 +26,6 @@ class UnitsController < ApplicationController
 
   # GET /units/1/edit
   def edit
-    @unit = Unit.find(params[:id])
   end
 
   # POST /units
@@ -41,29 +41,36 @@ class UnitsController < ApplicationController
 
   # PUT /units/1
   def update
-    @unit = Unit.find(params[:id])
-    @unit.update(unit_params)
-
-    respond_with @unit
+    begin
+      @unit.update!(unit_params)
+    rescue ActiveRecord::RecordInvalid => e
+      render :edit, status: :unprocessable_entity 
+      return
+    end
+    redirect_to units_path
   end
 
+  
   # DELETE /units/1
   def destroy
-    @unit = Unit.find(params[:id])
-    @unit.destroy
+    #@unit = Unit.find(params[:id])
+    @unit.destroy!
     if @unit.destroyed?
       flash[:notice] = "La unidad de medidad fue borrada."
     else
       flash[:error] = "No es posible borrar la unidad de medida."
     end
 
-    respond_to do |format|
-      format.html { redirect_to(units_url) }
-    end
+    redirect_to(units_url)
   end
 
-  private
+  
+private
 
+  def set_unit
+    @unit = Unit.find(params[:id])
+  end
+  
     def unit_params
       params.require(:unit).permit(:name, :symbol)
     end

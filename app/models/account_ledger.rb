@@ -58,8 +58,7 @@ belongs_to :nuller,   class_name: 'User'
 
   ########################################
   # Validations
-  validates_presence_of :amount, :account_id, :account, :account_to_id,
-                        :account_to, :reference, :currency, :date
+  validates_presence_of :amount, :reference, :currency, :date
   validate :different_accounts
 
   validates_inclusion_of :operation, in: OPERATIONS
@@ -84,10 +83,11 @@ belongs_to :nuller,   class_name: 'User'
 
   ########################################
   # delegates
+  
   delegate :name, :amount, :currency, :contact, :contact_id,
            to: :account, prefix: true, allow_nil: true
-  delegate :name, :amount, :currency, :contact,
-           to: :account_to, prefix: true, allow_nil: true
+  #delegate :name, :amount, :currency, :contact,
+  #         to: :account_to, prefix: true, allow_nil: true
   delegate :same_currency?, to: :currency_exchange
 
   OPERATIONS.each do |op|

@@ -10,8 +10,7 @@ class GoodsReceiptPosController < ApplicationController
 
   
   def index
-    # TODO: 完了したものは除外するか, フィルタ可能に
-    @orders = PurchaseOrder.where(store_id: @store.id)
+    @orders = PurchaseOrder.approved.where(store_id: @store.id)
     @invs = Inventory.where(operation: 'exp_in').page(params[:page])
   end
 
@@ -39,20 +38,42 @@ class GoodsReceiptPosController < ApplicationController
     @inv = Expenses::InventoryIn.new(
                 Inventory.new store_id: @store.id, order: @order,
                               creator_id: current_user.id,
-                              operation: 'exp_in' )
+                              operation: 'exp_in',
+                              state: 'draft' )
     @inv.assign inventory_params, params.require(:detail), @store.id
 
     begin
       ActiveRecord::Base.transaction do
         # atomic save in form object
         @inv.save!
+        
+        # subtract from the order balance.
+        @inv.model_obj.details.each do |inv_detail|
+          m = MovementDetail.where(order_id: @inv.model_obj.order_id,
+                                   item_id: inv_detail.item_id).take ||
+              MovementDetail.new(order_id: @inv.model_obj.order_id,
+                                 item_id: inv_detail.item_id,
+                                 price: inv_detail.price) # new price
+          m.balance -= inv_detail.quantity
+          m.save!
+        end
+                                    
+        # journal entry
+        a = AccountLedger.new date: hoge,
+                              operation: hoge,
+                              account_id: hoge,
+                              amount: hoge,
+                              currency: hoge,
+                              name? reference?
+        a.save!
       end
     rescue ActiveRecord::RecordInvalid => e
       render :new, status: :unprocessable_entity
       return
     end
       
-    redirect_to({action:"show", id: @inv.model_obj}, notice: 'Se realizó el ingreso de inventario.')
+    redirect_to({action:"show", id: @inv.model_obj},
+                notice: 'Se realizó el ingreso de inventario.')
   end
 
 

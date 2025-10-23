@@ -68,6 +68,7 @@ class Order < BusinessRecord
     "#{id}"
   end
 
+=begin
   def set_state_by_balance!
     if balance <= 0
       self.state = 'paid'
@@ -85,7 +86,8 @@ class Order < BusinessRecord
       -(balance - total)
     end
   end
-
+=end
+  
   def total_discount
     gross_total - total
   end
@@ -104,7 +106,7 @@ class Order < BusinessRecord
       self.approver_id = user.id
       self.approver_datetime = Time.zone.now
       #self.due_date ||= Time.zone.now.to_date
-      self.extras = extras.symbolize_keys
+      #self.extras = extras.symbolize_keys
     end
   end
 
@@ -127,11 +129,12 @@ class Order < BusinessRecord
     details.any? { |det| det.quantity != det.balance }
   end
 
-
+=begin
   def can_pay?
     !is_nulled? && !is_paid? && !is_draft?
   end
-
+=end
+  
   def can_devolution?
     return false  if is_draft? || is_nulled?
     return false  if balance == total

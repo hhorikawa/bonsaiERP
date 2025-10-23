@@ -27,8 +27,6 @@ class CreateTransactionDetails < ActiveRecord::Migration[5.2]
         t.timestamps
       end
       add_index :transaction_details, [:order_id, :item_id], unique:true
-      #add_index :transaction_details, :account_id
-      #add_index :transaction_details, :item_id
     end
   end
 end

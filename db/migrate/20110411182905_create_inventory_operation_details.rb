@@ -17,10 +17,8 @@ class CreateInventoryOperationDetails < ActiveRecord::Migration[5.2]
 
         t.timestamps
       end
-
-      #add_index :inventory_operation_details, :inventory_operation_id
-      #add_index :inventory_operation_details, :item_id
-      #add_index :inventory_operation_details, :store_id
+      add_index :inventory_operation_details,
+                [:inventory_operation_id, :item_id], unique: true
     end
   end
 end

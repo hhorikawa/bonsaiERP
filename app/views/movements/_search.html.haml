@@ -9,7 +9,9 @@
       = f.date_field :date_start, label:"From:"
       = f.date_field :date_end, label:"To:"
 
-      = f.collection_check_boxes :state, Order::STATES.map {|x| [x, x]}, :first, :second
+      -# params = "state"=>{"draft"=>"1", "approved"=>"1", "delivered"=>"1", "void"=>"0"}
+      - Order::STATES.each do |st|
+        = f.check_box 'state', {multiple:true, label:st, checked: @search.state.include?(st)}, st
 
       = f.date_field :overdue
 
