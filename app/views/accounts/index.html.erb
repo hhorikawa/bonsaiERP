@@ -4,14 +4,19 @@
 
 <p><%= link_to 'New Account...', new_account_path, :class => 'new' %>
 
-<table class="decorated nwl">
+<table class="table">
   <tr>
-    <th></th>
+    <th>Name</th>
   </tr>
 
 <% @accounts.each do |account| %>
   <tr>
-        <td><%= bonsai_links(account) %></td>
+    <td><%= account.name %>
+    <td><%= account.active  %>
+    <td><%= account.subtype %>
+    <td><%= account.currency  %>
+    <td><%= account.description  %>
+    <td><%= link_to account.name, account %>
   </tr>
 <% end %>
 </table>

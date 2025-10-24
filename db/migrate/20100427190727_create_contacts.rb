@@ -2,7 +2,7 @@ class CreateContacts < ActiveRecord::Migration[5.2]
   def up
     PgTools.with_schemas except: 'common' do
       # Business Partners
-      create_table :contacts do |t|
+      create_table :contacts, id: :serial do |t|
         t.string :matchcode, limit:100, null:false, index:{unique:true}
         #t.string :first_name, limit: 100
         t.string :name, null:false

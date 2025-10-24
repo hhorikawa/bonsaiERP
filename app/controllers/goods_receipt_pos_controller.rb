@@ -6,7 +6,7 @@
 class GoodsReceiptPosController < ApplicationController
   before_action :set_store
 
-  before_action :set_inv, only: [:show, :edit, :update, :destroy]
+  before_action :set_inv, only: [:show, :edit, :update, :destroy, :confirm]
 
   
   def index
@@ -46,6 +46,11 @@ class GoodsReceiptPosController < ApplicationController
       ActiveRecord::Base.transaction do
         # atomic save in form object
         @inv.save!
+
+        # TODO:
+        # To prevent double submissions, the balances is subtracted even in
+        # draft state. It also needs to update them when updating. This is not
+        # efficient.
         
         # subtract from the order balance.
         @inv.model_obj.details.each do |inv_detail|
@@ -57,15 +62,6 @@ class GoodsReceiptPosController < ApplicationController
           m.balance -= inv_detail.quantity
           m.save!
         end
-                                    
-        # journal entry
-        a = AccountLedger.new date: hoge,
-                              operation: hoge,
-                              account_id: hoge,
-                              amount: hoge,
-                              currency: hoge,
-                              name? reference?
-        a.save!
       end
     rescue ActiveRecord::RecordInvalid => e
       render :new, status: :unprocessable_entity
@@ -80,6 +76,19 @@ class GoodsReceiptPosController < ApplicationController
   def show
   end
 
+
+  # POST
+  def confirm
+    # journal entry
+    a = AccountLedger.new date: hoge,
+                              operation: hoge,
+                              account_id: hoge,
+                              amount: hoge,
+                              currency: hoge,
+                              name? reference?
+    a.save!
+  end
+  
   def edit
     # wrap
     @inv = Expenses::InventoryIn.new(@inv)

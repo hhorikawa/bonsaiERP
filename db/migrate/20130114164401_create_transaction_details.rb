@@ -5,11 +5,11 @@ class CreateTransactionDetails < ActiveRecord::Migration[5.2]
     PgTools.with_schemas except: 'common' do
       create_table :transaction_details do |t|
         # parent
-        t.references :order, null:false, foreign_key:true
+        t.references :order, type: :integer, null:false, foreign_key:true
 
         # 仕入れかサービスかどちらか. nullable
-        t.references :item, foreign_key:true
-        t.references :account, foreign_key:true
+        t.references :item, type: :integer, foreign_key:true
+        t.references :account, type: :integer, foreign_key:true
 
         # item の場合 qty 必須. account の場合も (qty * price)
         t.decimal :quantity, precision: 14, scale: 2, null:false, default: 0.0

@@ -4,7 +4,7 @@ class CreateAccounts < ActiveRecord::Migration[5.2]
     PgTools.with_schemas except: 'common' do
       # 勘定科目マスタ.
       # マスタっぽくないフィールドが大量にあるが, マスタのはず.
-      create_table :accounts do |t|
+      create_table :accounts, id: :serial do |t|
         t.string  :name, null:false, index: {unique:true}
 
         # 通貨は勘定科目ごとに持つ。人名勘定なので可能.

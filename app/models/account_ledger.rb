@@ -28,7 +28,7 @@ class AccountLedger < ApplicationRecord
                 'servin', # servin = Pays an account with a service account_to is Income
                ].freeze
 
-  STATUSES = %w(pendent approved nulled).freeze
+  STATUSES = %w(pendent approved void).freeze
 
   ########################################
   # Callbacks
@@ -58,6 +58,7 @@ belongs_to :nuller,   class_name: 'User'
 
   ########################################
   # Validations
+  
   validates_presence_of :amount, :reference, :currency, :date
   validate :different_accounts
 
@@ -84,7 +85,7 @@ belongs_to :nuller,   class_name: 'User'
   ########################################
   # delegates
   
-  delegate :name, :amount, :currency, :contact, :contact_id,
+  delegate :name, :amount, :contact, :contact_id,
            to: :account, prefix: true, allow_nil: true
   #delegate :name, :amount, :currency, :contact,
   #         to: :account_to, prefix: true, allow_nil: true

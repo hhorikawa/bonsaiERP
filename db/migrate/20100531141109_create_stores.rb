@@ -1,7 +1,7 @@
 class CreateStores < ActiveRecord::Migration[5.2]
   def up
     PgTools.with_schemas except: 'common' do
-      create_table :stores do |t|
+      create_table :stores, id: :serial do |t|
         t.string :name, null:false
         t.string :address, null:false
         t.string :phone

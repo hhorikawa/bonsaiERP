@@ -2,7 +2,7 @@ class AddCreatorIdToItems < ActiveRecord::Migration[5.2]
   def up
     PgTools.with_schemas except: 'common' do
       change_table :items do |t|
-        t.integer :creator_id
+        t.integer :creator_id, null:false
         t.index :creator_id
       end
     end

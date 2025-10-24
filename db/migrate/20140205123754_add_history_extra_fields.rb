@@ -2,8 +2,8 @@ class AddHistoryExtraFields < ActiveRecord::Migration[5.2]
   def up
     PgTools.with_schemas except: 'common' do
       change_table :histories do |t|
-        t.text :extras
-        t.text :all_data
+        t.jsonb :extras
+        t.jsonb :all_data, null:false, default:{}
       end
     end
   end

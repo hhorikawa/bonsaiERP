@@ -3,8 +3,8 @@ class CreateLinks < ActiveRecord::Migration[5.2]
     PgTools.with_schemas only: ['common', 'public'] do
       create_table :links do |t|
         # `references()` でも, 陽に null:false が必要
-        t.references :organisation, null:false, foreign_key: true
-        t.references :user, null:false, foreign_key: true
+        t.references :organisation, type: :integer, null:false, foreign_key: true
+        t.references :user, type: :integer, null:false, foreign_key: true
         t.string  :settings
         t.boolean :creator        , null:false, default: false
         t.boolean :master_account , null:false, default: false

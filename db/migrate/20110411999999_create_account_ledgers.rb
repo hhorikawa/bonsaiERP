@@ -9,14 +9,13 @@ class CreateAccountLedgers < ActiveRecord::Migration[5.2]
         t.string   :operation, limit: 20, null:false
 
         # 例えば, 勘定科目は円で, 外貨債務の支払いがある。
-        t.references :account, null:false, foreign_key:true
+        t.references :account, type: :integer, null:false, foreign_key:true
         
         # 仕訳は2行以上
         #t.integer  :account_to_id
         #t.decimal  :account_to_balance, precision: 14, scale: 2, default: 0.0
 
-        # "調停". 何だろう?
-        t.boolean :conciliation, null:false, default: true
+        #t.boolean :conciliation, null:false, default: true
 
         # 取引金額, 取引通貨
         t.decimal :amount, precision: 14, scale: 2, null:false, default: 0.0,
@@ -29,23 +28,26 @@ class CreateAccountLedgers < ActiveRecord::Migration[5.2]
 
         t.string  :description, null:false
 
-        t.integer  :creator_id # related with created_at
+        t.integer  :creator_id, null:false  # related with created_at
         t.integer  :approver_id
         t.datetime :approver_datetime # conciliation
         t.integer  :nuller_id
         t.datetime :nuller_datetime # null
-        t.boolean  :active, null:false, default: true
+        #t.boolean  :active, null:false, default: true
         t.boolean  :inverse, null:false, default: false
 
         t.boolean :has_error, default: false
         t.string  :error_messages
 
-        # 文字列は効率が悪い.
+        # TODO: 文字列は効率が悪い.
         t.string  :status, limit: 50, null:false, default: 'approved'
 
         # nullable
-        t.references :project, foreign_key: true
+        t.references :project, type: :integer, foreign_key: true
 
+        # nullable
+        t.references :inventory, type: :integer, foreign_key: true
+        
         t.timestamps
       end
 

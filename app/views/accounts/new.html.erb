@@ -1,0 +1,13 @@
+
+<% @page_title = "New Account" %>
+
+
+<%= bootstrap_form_for @account do |f| %>
+  <%= render partial: "form", locals: {form: f} %>
+
+  <%= f.select :subtype, ... %>
+
+  <%= f.submit %>
+<% end %>
+
+

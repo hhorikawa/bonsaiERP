@@ -2,7 +2,7 @@ class CreateTransactions < ActiveRecord::Migration[5.2]
   def up
     PgTools.with_schemas except: 'common' do
 
-      create_table :orders do |t|
+      create_table :orders, id: :serial do |t|
         # STI は `type` が必要
         t.string :type, limit:80, null:false
 
@@ -10,10 +10,10 @@ class CreateTransactions < ActiveRecord::Migration[5.2]
         t.datetime :date, null:false
 
         # purchase order: vendor, sales order: customer
-        t.references :contact, null:false, foreign_key:true
+        t.references :contact, type: :integer, null:false, foreign_key:true
 
         # purchase order: ship to, sales order: ship from, nullable.
-        t.references :store, foreign_key: true
+        t.references :store, type: :integer, foreign_key: true
 
         # before discount
         t.decimal :gross_total, precision: 14, scale: 2, default: 0.0

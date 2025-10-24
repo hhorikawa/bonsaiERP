@@ -163,7 +163,11 @@ resources :goods_returns
 
 # 店/倉庫
 resources :stores do
-  resources :goods_receipt_pos
+  resources :goods_receipt_pos do
+    member do
+      post :confirm
+    end
+  end
 
   # 出荷/納入
   resources :deliveries

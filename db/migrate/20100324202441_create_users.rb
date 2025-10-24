@@ -4,7 +4,7 @@
 class CreateUsers < ActiveRecord::Migration[5.2]
   def up
     PgTools.with_schemas only: ['common','public'] do
-      create_table :users do |t|
+      create_table :users, id: :serial do |t|
         # user
         t.string :email, null: false, index: {unique: true}
         t.string :first_name, limit: 80, null:false

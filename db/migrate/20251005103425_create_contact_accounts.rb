@@ -4,7 +4,7 @@ class CreateContactAccounts < ActiveRecord::Migration[8.0]
   def change
     create_table :contact_accounts do |t|
       # 親
-      t.references :contact, null:false, foreign_key:true
+      t.references :contact, type: :integer, null:false, foreign_key:true
 
       # nullable. 現金払いのときは NULL.
       t.string :bank_name, comment: "銀行名+支店名"

@@ -19,13 +19,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.date "date", null: false
     t.string "reference"
     t.string "operation", limit: 20, null: false
-    t.bigint "account_id", null: false
+    t.integer "account_id", null: false
     t.decimal "amount", precision: 14, scale: 2, default: "0.0", null: false, comment: "借方がプラス"
     t.string "currency", limit: 3, null: false, comment: "取引通貨"
     t.decimal "exchange_rate", precision: 14, scale: 4, default: "1.0", null: false
     t.decimal "account_balance", precision: 14, scale: 2, default: "0.0", null: false
     t.string "description", null: false
-    t.integer "creator_id"
+    t.integer "creator_id", null: false
     t.integer "approver_id"
     t.datetime "approver_datetime", precision: nil
     t.integer "nuller_id"
@@ -34,19 +34,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.boolean "has_error", default: false
     t.string "error_messages"
     t.string "status", limit: 50, default: "approved", null: false
-    t.bigint "project_id"
+    t.integer "project_id"
+    t.integer "inventory_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "updater_id"
-    t.string "name"
-    t.integer "contact_id"
     t.index ["account_id"], name: "index_account_ledgers_on_account_id"
-    t.index ["contact_id"], name: "index_account_ledgers_on_contact_id"
-    t.index ["name"], name: "index_account_ledgers_on_name", unique: true
+    t.index ["inventory_id"], name: "index_account_ledgers_on_inventory_id"
     t.index ["project_id"], name: "index_account_ledgers_on_project_id"
   end
 
-  create_table "accounts", force: :cascade do |t|
+  create_table "accounts", id: :serial, force: :cascade do |t|
     t.string "name", null: false
     t.string "currency", limit: 3, null: false
     t.boolean "active", default: true, null: false
@@ -65,10 +63,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.integer "tax_id"
     t.boolean "tax_in_out", default: false
     t.jsonb "extras"
-    t.integer "creator_id"
-    t.integer "approver_id"
+    t.integer "creator_id", null: false
     t.integer "nuller_id"
-    t.index ["approver_id"], name: "index_accounts_on_approver_id"
     t.index ["creator_id"], name: "index_accounts_on_creator_id"
     t.index ["extras"], name: "index_accounts_on_extras"
     t.index ["name"], name: "index_accounts_on_name", unique: true
@@ -136,7 +132,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
   end
 
   create_table "contact_accounts", force: :cascade do |t|
-    t.bigint "contact_id", null: false
+    t.integer "contact_id", null: false
     t.string "bank_name", comment: "銀行名+支店名"
     t.string "bank_addr"
     t.string "account_no"
@@ -147,7 +143,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.index ["contact_id"], name: "index_contact_accounts_on_contact_id"
   end
 
-  create_table "contacts", force: :cascade do |t|
+  create_table "contacts", id: :serial, force: :cascade do |t|
     t.string "matchcode", limit: 100, null: false
     t.string "name", null: false
     t.string "address", limit: 250, comment: "headquarters"
@@ -179,25 +175,25 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.json "history_data", default: {}, null: false
     t.datetime "created_at", precision: nil, null: false
     t.string "klass_type"
-    t.text "extras"
-    t.json "all_data", default: {}
+    t.jsonb "extras"
+    t.jsonb "all_data", default: {}, null: false
     t.index ["historiable_type", "historiable_id"], name: "index_histories_on_historiable_type_and_historiable_id"
   end
 
-  create_table "inventories", force: :cascade do |t|
+  create_table "inventories", id: :serial, force: :cascade do |t|
     t.date "date", null: false
     t.string "ref_number"
     t.string "operation", limit: 10, null: false
     t.string "state", limit: 50, null: false
-    t.bigint "order_id"
-    t.bigint "store_id", null: false
-    t.bigint "account_id"
+    t.integer "order_id"
+    t.integer "store_id", null: false
+    t.integer "account_id"
     t.string "description", null: false
     t.decimal "total", precision: 14, scale: 2, default: "0.0"
     t.integer "creator_id", null: false
     t.integer "transference_id"
     t.integer "store_to_id"
-    t.bigint "project_id"
+    t.integer "project_id"
     t.boolean "has_error", default: false, null: false
     t.jsonb "error_messages"
     t.datetime "created_at", precision: nil, null: false
@@ -210,21 +206,22 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
   end
 
   create_table "inventory_details", force: :cascade do |t|
-    t.bigint "inventory_id", null: false
+    t.integer "inventory_id", null: false
     t.integer "movement_type", limit: 2, null: false
-    t.bigint "item_id", null: false
+    t.integer "item_id", null: false
     t.decimal "price", precision: 14, scale: 2, default: "0.0", null: false
-    t.bigint "store_id", null: false
+    t.integer "store_id", null: false
     t.decimal "quantity", precision: 14, scale: 2, default: "0.0", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.index ["inventory_id", "item_id"], name: "index_inventory_details_on_inventory_id_and_item_id", unique: true
     t.index ["inventory_id"], name: "index_inventory_details_on_inventory_id"
     t.index ["item_id"], name: "index_inventory_details_on_item_id"
     t.index ["store_id"], name: "index_inventory_details_on_store_id"
   end
 
-  create_table "items", force: :cascade do |t|
-    t.bigint "unit_id", null: false
+  create_table "items", id: :serial, force: :cascade do |t|
+    t.integer "unit_id", null: false
     t.decimal "price", precision: 14, scale: 2, default: "0.0", null: false
     t.string "name", limit: 255, null: false
     t.string "description", null: false
@@ -239,7 +236,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.string "unit_name", limit: 255
     t.integer "tag_ids", default: [], array: true
     t.integer "updater_id"
-    t.integer "creator_id"
+    t.integer "creator_id", null: false
     t.index ["code"], name: "index_items_on_code", unique: true
     t.index ["creator_id"], name: "index_items_on_creator_id"
     t.index ["unit_id"], name: "index_items_on_unit_id"
@@ -247,8 +244,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
   end
 
   create_table "links", force: :cascade do |t|
-    t.bigint "organisation_id", null: false
-    t.bigint "user_id", null: false
+    t.integer "organisation_id", null: false
+    t.integer "user_id", null: false
     t.string "settings"
     t.boolean "creator", default: false, null: false
     t.boolean "master_account", default: false, null: false
@@ -271,9 +268,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
   end
 
   create_table "movement_details", force: :cascade do |t|
-    t.bigint "order_id", null: false
-    t.bigint "item_id"
-    t.bigint "account_id"
+    t.integer "order_id", null: false
+    t.integer "item_id"
+    t.integer "account_id"
     t.decimal "quantity", precision: 14, scale: 2, default: "0.0", null: false
     t.decimal "price", precision: 14, scale: 2, default: "0.0", null: false
     t.string "description", null: false
@@ -286,11 +283,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.index ["order_id"], name: "index_movement_details_on_order_id"
   end
 
-  create_table "orders", force: :cascade do |t|
+  create_table "orders", id: :serial, force: :cascade do |t|
     t.string "type", limit: 80, null: false
     t.datetime "date", precision: nil, null: false
-    t.bigint "contact_id", null: false
-    t.bigint "store_id"
+    t.integer "contact_id", null: false
+    t.integer "store_id"
     t.decimal "gross_total", precision: 14, scale: 2, default: "0.0"
     t.decimal "total", precision: 14, scale: 2, default: "0.0", null: false
     t.string "currency", limit: 3, null: false
@@ -318,7 +315,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.index ["store_id"], name: "index_orders_on_store_id"
   end
 
-  create_table "organisations", force: :cascade do |t|
+  create_table "organisations", id: :serial, force: :cascade do |t|
     t.string "name", limit: 100, null: false
     t.string "address"
     t.string "address_alt"
@@ -342,15 +339,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.index ["tenant"], name: "index_organisations_on_tenant", unique: true
   end
 
-  create_table "projects", force: :cascade do |t|
-    t.string "name"
-    t.boolean "active", default: true
+  create_table "projects", id: :serial, force: :cascade do |t|
+    t.string "name", null: false
+    t.boolean "active", default: true, null: false
     t.date "date_start"
     t.date "date_end"
-    t.text "description"
+    t.text "description", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.index ["active"], name: "index_projects_on_active"
   end
 
   create_table "stocks", force: :cascade do |t|
@@ -371,7 +367,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.index ["user_id"], name: "index_stocks_on_user_id"
   end
 
-  create_table "stores", force: :cascade do |t|
+  create_table "stores", id: :serial, force: :cascade do |t|
     t.string "name", null: false
     t.string "address", null: false
     t.string "phone", limit: 40
@@ -407,7 +403,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.datetime "updated_at", precision: nil, null: false
   end
 
-  create_table "units", force: :cascade do |t|
+  create_table "units", id: :serial, force: :cascade do |t|
     t.string "name", limit: 100
     t.string "symbol", limit: 20
     t.boolean "integer", default: false
@@ -416,7 +412,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.datetime "updated_at", precision: nil, null: false
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :serial, force: :cascade do |t|
     t.string "email", null: false
     t.string "first_name", limit: 80, null: false
     t.string "last_name", limit: 80, null: false
@@ -449,6 +445,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
   end
 
   add_foreign_key "account_ledgers", "accounts"
+  add_foreign_key "account_ledgers", "inventories"
   add_foreign_key "account_ledgers", "projects"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
