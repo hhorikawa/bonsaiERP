@@ -49,6 +49,7 @@ class PartnersController < ApplicationController
                             .require(:contact_account).require(:account)
                             .permit(:name, :currency, :active, :description))
     @contact_account.assign_attributes contact_account_params
+
     begin
       ActiveRecord::Base.transaction do
         @partner.save! 

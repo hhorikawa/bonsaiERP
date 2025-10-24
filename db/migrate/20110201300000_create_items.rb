@@ -2,8 +2,11 @@ class CreateItems < ActiveRecord::Migration[5.2]
   def up
     PgTools.with_schemas except: 'common' do
       create_table :items, id: :serial do |t|
+        # UoM
         t.references :unit, type: :integer, null:false, foreign_key:true
 
+        t.references :account, type: :integer, null:false, foreign_key:true
+        
         t.decimal :price, precision: 14, scale: 2, null:false, default: 0.0
         t.string  :name, null:false
         t.string  :description, null:false

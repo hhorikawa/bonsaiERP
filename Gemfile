@@ -246,3 +246,5 @@ gem "sorcery", ">= 0.17.0"
 # authorization
 gem "pundit", "~> 2.5"
 
+# `error_messages_for`
+gem 'dynamic_form', '>= 1.3.0'

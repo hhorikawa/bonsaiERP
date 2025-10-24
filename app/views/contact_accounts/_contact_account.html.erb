@@ -2,4 +2,5 @@
 <div id="<%= dom_id contact_account %>">
   <%= contact_account.account.inspect %>
   <%= contact_account.inspect %>
+  <%= link_to "Show", {controller:"contact_accounts", action:"show", partner_id:@partner.id, id: contact_account} %>
 </div>

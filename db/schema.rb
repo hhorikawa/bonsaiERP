@@ -222,6 +222,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
 
   create_table "items", id: :serial, force: :cascade do |t|
     t.integer "unit_id", null: false
+    t.integer "account_id", null: false
     t.decimal "price", precision: 14, scale: 2, default: "0.0", null: false
     t.string "name", limit: 255, null: false
     t.string "description", null: false
@@ -237,6 +238,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.integer "tag_ids", default: [], array: true
     t.integer "updater_id"
     t.integer "creator_id", null: false
+    t.index ["account_id"], name: "index_items_on_account_id"
     t.index ["code"], name: "index_items_on_code", unique: true
     t.index ["creator_id"], name: "index_items_on_creator_id"
     t.index ["unit_id"], name: "index_items_on_unit_id"
@@ -457,6 +459,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
   add_foreign_key "inventory_details", "inventories"
   add_foreign_key "inventory_details", "items"
   add_foreign_key "inventory_details", "stores"
+  add_foreign_key "items", "accounts"
   add_foreign_key "items", "units"
   add_foreign_key "links", "organisations"
   add_foreign_key "links", "users"

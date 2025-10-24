@@ -23,6 +23,7 @@ module BonsaiHelper
     end
   end
 
+=begin
   def error_message(f, method)
     if f.object.errors.messages[method].any?
       content_tag :span, f.object.errors.messages[method].join(', '),class: 'error'
@@ -32,7 +33,8 @@ module BonsaiHelper
   def field_with_errors(f, method)
     'field_with_errors'  if f.object.errors[method] && f.object.errors[method].any?
   end
-
+=end
+  
   #
   def bonsai_title()
     if params[:action] == "index"
@@ -44,6 +46,7 @@ module BonsaiHelper
     end
   end
 
+=begin
   # Shows the base errors
   # @param [FormBuilder]
   def bonsai_form_error(f)
@@ -55,7 +58,8 @@ module BonsaiHelper
       "<div class='alert alert-error'>#{ html }</div>".html_safe
     end
   end
-
+=end
+  
   # returns an active value
   def tabs_filter(val)
     params[:option] ||= 'all'

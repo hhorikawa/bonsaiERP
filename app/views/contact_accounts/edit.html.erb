@@ -1,6 +1,12 @@
-<h1>Editar contact_account</h1>
 
-<%= render :partial => "_form" %>
+<% @page_title = "Edit contact_account" %>
 
-<%= link_to "Lista", contact_account_path(@contact_account), :class => 'edit' %>
-<%= link_to "Lista", contact_accounts_path, :class => 'list' %>
+<%= bootstrap_form_with model: @contact_account, url:{action:"update", id:@contact_account},
+                        layout: :horizontal do |f| %>
+  <%= render partial: "form", locals:{f:f} %>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
+

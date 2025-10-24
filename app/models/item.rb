@@ -1,6 +1,8 @@
-# encoding: utf-8
+
 # author: Boris Barroso
 # email: boriscyber@gmail.com
+
+# Product/Item
 class Item < ApplicationRecord
 
   include ::Models::Tag
@@ -20,7 +22,10 @@ class Item < ApplicationRecord
 
   ##########################################
   # Relationships
+  
   belongs_to :unit
+  belongs_to :account
+  
   has_many   :stocks, -> { where(active: true) }
   has_many   :income_details
   has_many   :expense_details

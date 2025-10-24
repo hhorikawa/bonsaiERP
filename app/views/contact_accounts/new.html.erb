@@ -1,11 +1,13 @@
 
+<% @page_title = "New contact_account" %>
+
 <p><%= link_to "Back", partner_path(@partner), :class => 'list' %>
   
-<h1>New contact_account</h1>
 
 <%= bootstrap_form_with model: @contact_account, url:{action:"create"},
                         layout: :horizontal do |f| %>
   <%= render partial:"form", locals:{f:f} %>
+
   <div class="form-actions">
     <%= f.button :submit %>
   </div>

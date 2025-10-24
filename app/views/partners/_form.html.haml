@@ -1,6 +1,6 @@
 
 = @partner.errors.inspect
-= bonsai_form_error(f)
+= error_messages_for 'partner'
 
 = f.text_field :matchcode, label: 'matchcode:',
         input_html: { class: 'matchcode span11' }

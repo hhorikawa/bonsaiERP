@@ -3,41 +3,17 @@
   #item-form .well .form-horizontal label{ width: 100px; }
 
 = bootstrap_form_for(@item, layout: :horizontal) do |f|
-  = bonsai_form_error(f)
-  = hidden_field_tag "scope", params[:scope] if params[:scope].present?
+  = error_messages_for 'item'
 
-  .row
-    .span6
-      = f.text_field :name, label: 'Name:', input_html: { class: 'span11' }
-    .span3.form-inline
-      = f.check_box :active, label: 'Active', hint: 'Visible en operaciones'
+  = f.text_field :name, label: 'Name:', input_html: { class: 'span11' }
+  = f.check_box :active, label: 'Active', hint: 'Visible en operaciones'
 
-    .span3
-      = f.text_field :code, label: 'Item Code:', input_html: { class: 'span11' }
+  = f.text_field :code, label: 'Item Code:', input_html: { class: 'span11' }
 
-  .row
-    .span6
-      .unit-control.input(class="#{field_with_errors(f, :unit_id)}")
-        = f.label 'Unit of Measure'
-        = f.select :unit_id, Unit.order('name asc').map { |v| [v.to_s, v.id] },
-                     {required:false}, { class: 'span8' }
+  = f.select :unit_id, Unit.order('name asc').map { |v| [v.to_s, v.id] },
+                     {required:false, label:'Unit of Measure:'}, { class: 'span8' }
 
-        %a.btn#new-unit-link.btn.add-new-url(title='New Unit of Measure' data-toggle='tooltip')
-          %i.icon-plus-sign
-          = error_message f, :unit_id
-
-      .unit-form(style='display:none')
-        .form-inline
-          %span
-            %input(type='text' id='unit_name' size='15' placeholder='Name' title='Name')
-          %span
-            %input(type='text' id='unit_symbol' size='7' placeholder='Símbolo' title='Símbolo')
-          %btn#save-button.btn.btn-small.btn-primary Save
-          %btn#cancel-button.btn.btn-small Cancel
-        %br
-
-    .span6
-      = f.text_field :description, label: 'Description', input_html: {class: 'span12'}
+  = f.text_field :description, label: 'Description', input_html: {class: 'span12'}
 
   .row
     .span6.well.well-small
