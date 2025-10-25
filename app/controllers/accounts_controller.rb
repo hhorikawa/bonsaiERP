@@ -23,19 +23,18 @@ class AccountsController < ApplicationController
 
   # POST /accounts or /accounts.json
   def create
-    @account = Account.new(account_params)
-
-    respond_to do |format|
-      if @account.save
-        format.html { redirect_to @account, notice: "Account was successfully created." }
-        format.json { render :show, status: :created, location: @account }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @account.errors, status: :unprocessable_entity }
-      end
+    @account = Account.new(params.require(:account)
+                           .permit(:name, :active, :currency, :description, :subtype) )
+    @account.creator_id = current_user.id
+    
+    if @account.save
+      redirect_to @account, notice: "Account was successfully created." 
+    else
+      render :new, status: :unprocessable_entity 
     end
   end
 
+  
   # PATCH/PUT /accounts/1 or /accounts/1.json
   def update
     respond_to do |format|
@@ -59,14 +58,16 @@ class AccountsController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_account
-      @account = Account.find(params.expect(:id))
-    end
+  
+private
 
-    # Only allow a list of trusted parameters through.
-    def account_params
-      params.fetch(:account, {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_account
+    @account = Account.find(params.expect(:id))
+  end
+
+  # Only allow a list of trusted parameters through.
+  def account_params
+    params.require(:account).permit(:name, :active, :description)
+  end
 end

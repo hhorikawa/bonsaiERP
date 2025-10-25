@@ -1,5 +1,19 @@
 
-<% @page_title = "Goods Receipt PO: ##{@inv.id}" %>
+<% @page_title = "Goods Receipt PO ##{@inv.id}" %>
+
+<table>
+  <tr><th>Account: <td><%= @inv.account.name %>
+  <tr><th>State: <td><%= @inv.state %>
+</table>
+
+<div class="row">
+<% if policy(@inv).update? %>
+  <%= link_to 'Edit...', {action:"edit", id:@inv} %>
+<% end %>
+<% if policy(@inv).confirm? %>
+  <%= button_to 'Confirm', {action:"confirm", id:@inv} %>
+<% end %>
+</div>
 
 <table class="table">
   <% @inv.details.each do |detail| %>

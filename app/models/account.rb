@@ -22,7 +22,8 @@ class Account < ApplicationRecord
   # Relationships
 
   # schema: accountable_type, accountable_id
-  delegated_type :accountable, types: %w[Cash ContactAccount Loan]
+  delegated_type :accountable, types: %w[Cash ContactAccount Loan],
+                 optional: true
   # 次はサブクラスでオーバライドする場合の書き方
   #delegate :name, to: :accountable
   
@@ -43,15 +44,24 @@ class Account < ApplicationRecord
   validates_presence_of :currency
   validates_inclusion_of :currency, in: CURRENCIES.keys
 
-  SUBTYPES = ['CASH', 'APAR',
-              'HAWA',  # Trading Goods
-              'FERT',  # Finished Product
-              'HALB',  # Semifinished Product
-              'ROH',   # Raw Materials
-              'REV',    # Revenue
-              'VC',     # Variable Cost
-              'NON-VC'] # non-variable costs
-  validates_inclusion_of :subtype, in: SUBTYPES
+  # 品目タイプについては, 例えば
+  #   https://note.com/biznology/n/nbc2c463ca9fc
+  #   「Technology」初めてのSAP-(3)SAPマスタの考え方
+  
+  SUBTYPES = {
+    'CASH' => 'Cash and Bank Account',
+    'APAR' => 'Accounts Payable and Receivable',
+    # 品目タイプと共通
+    'HAWA' => 'Trading Goods',
+    'FERT' => 'Finished Product',
+    'HALB' => 'Semifinished Product', # 半製品 (これは仕掛品とは異なる)
+    'ROH' => 'Raw Materials',
+    
+    'REV' => 'Revenue',
+    'VC' => 'Variable Cost',
+    'NON-VC' => 'Non-Variable Costs'
+  }
+  validates_inclusion_of :subtype, in: SUBTYPES.keys
   
   validates_lengths_from_database
 

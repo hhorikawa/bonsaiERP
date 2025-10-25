@@ -2,10 +2,18 @@
 <% @page_title = "New Account" %>
 
 
-<%= bootstrap_form_for @account do |f| %>
+<%= bootstrap_form_for @account, layout: :horizontal do |f| %>
   <%= render partial: "form", locals: {form: f} %>
 
-  <%= f.select :subtype, ... %>
+<% if ['new', 'create'].include?(action_name) %>
+  <%= f.select :subtype,
+            Account::SUBTYPES.filter {|k, v| k != 'CASH' && k != 'APAR'}. map {|k, v| [v, k]},
+            help:"Only new record" %>
+<% else %>
+  <div class="row">
+    <%= @account.subtype %>
+  </div>
+<% end %>
 
   <%= f.submit %>
 <% end %>

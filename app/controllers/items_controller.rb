@@ -59,7 +59,8 @@ class ItemsController < ApplicationController
   # POST /items
   def create
     @item = Item.new(item_params)
-
+    @item.creator_id = current_user.id
+    
     begin
       ActiveRecord::Base.transaction do
         @item.save!
@@ -103,7 +104,8 @@ private
 
   def item_params
     params.require(:item).permit(:code, :name, :active, :stockable,
-                                   :for_sale, :price, :buy_price, :unit_id, :description)
+                        :for_sale, :price, :buy_price, :unit_id, :description,
+                        :account_id)
   end
 
     def render_or_redirect_item

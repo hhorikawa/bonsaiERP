@@ -6,11 +6,11 @@
 class GoodsReceiptPosController < ApplicationController
   before_action :set_store
 
-  before_action :set_inv, only: [:show, :edit, :update, :destroy, :confirm]
+  before_action :set_inv, only: [:show, :edit, :update, :destroy, :confirm, :void]
 
   
   def index
-    @orders = PurchaseOrder.approved.where(store_id: @store.id)
+    @orders = PurchaseOrder.confirmed.where(store_id: @store.id)
     @invs = Inventory.where(operation: 'exp_in').page(params[:page])
   end
 
@@ -79,21 +79,64 @@ class GoodsReceiptPosController < ApplicationController
 
   # POST
   def confirm
+    authorize @inv
+
     # journal entry
-    a = AccountLedger.new date: hoge,
-                              operation: hoge,
-                              account_id: hoge,
-                              amount: hoge,
-                              currency: hoge,
-                              name? reference?
-    a.save!
+    # TODO: 1件ごとに作っていては件数がバカにならない. 集約して, 夜間バッチに
+    #       するか?
+    amt = {}
+    @inv.details.each do |detail|
+      amt[detail.item.account_id] = (amt[detail.item.account_id] || 0) +
+                                    detail.price * detail.quantity
+    end
+
+    begin
+      ActiveRecord::Base.transaction do
+        @inv.confirm! current_user
+        @inv.save!
+
+        # Dr.
+        sum_amt = 0
+        amt.each do |ac_id, a|
+          r = AccountLedger.new date: @inv.date,
+                            operation: 'trans',
+                            account_id: ac_id,  # Dr.
+                            amount: a,  # 取引通貨
+                            currency: @inv.order.currency,
+                            description: "goods receipt po",
+                            creator_id: current_user.id,
+                            status: 'approved',
+                            inventory_id: @inv.id
+          r.save!
+          sum_amt += a
+        end
+        # Cr.
+        r = AccountLedger.new date: @inv.date,
+                            operation: 'trans',
+                            account_id: @inv.account_id,
+                            amount: sum_amt,  # 取引通貨
+                            currency: @inv.order.currency,
+                            description: "goods receipt po",
+                            creator_id: current_user.id,
+                            status: 'approved',
+                            inventory_id: @inv.id
+        r.save!
+      end # transaction
+    rescue ActiveRecord::RecordInvalid => e
+      raise e.inspect
+      return
+    end
+      
+    redirect_to({action:"show", id: @inv})
   end
+
   
   def edit
     # wrap
     @inv = Expenses::InventoryIn.new(@inv)
   end
 
+  
   def update
     # wrap
     @inv = Expenses::InventoryIn.new(@inv)
@@ -103,7 +146,17 @@ class GoodsReceiptPosController < ApplicationController
   end
 
   def destroy
+    authorize @inv
+    
     @inv.destroy!
+    # TODO: impl.
+  end
+
+  
+  # POST
+  def void
+    authorize @inv
+
     # TODO: impl.
   end
 
@@ -123,8 +176,8 @@ private
   def inventory_params
     # form object
     params.require(:expenses_inventory_in).permit(
-        :description, :date, :expense_id,
-        inventory_details_attributes: [:item_id, :quantity]
+        :description, :date, :account_id,
+        #inventory_details_attributes: [:item_id, :quantity]
       )
   end
 end

@@ -1,6 +1,8 @@
-# encoding: utf-8
+
 # author: Boris Barroso
 # email: boriscyber@gmail.com
+
+# 仕訳の半分. 一つの仕訳ごとに2行以上
 class AccountLedger < ApplicationRecord
 
   #include ::Models::Updater
@@ -28,12 +30,14 @@ class AccountLedger < ApplicationRecord
                 'servin', # servin = Pays an account with a service account_to is Income
                ].freeze
 
+  # 仕訳は基本 `approved` で作る. `pendent` は仮仕訳
   STATUSES = %w(pendent approved void).freeze
 
   ########################################
   # Callbacks
-  before_validation :set_currency
-  before_create :set_creator, :set_code
+  
+  #before_validation :set_currency
+  #before_create :set_code
 
   # Includes
   include ActionView::Helpers::NumberHelper
@@ -51,16 +55,16 @@ class AccountLedger < ApplicationRecord
   
   belongs_to :project, optional:true
   
-belongs_to :approver, class_name: 'User'
-belongs_to :nuller,   class_name: 'User'
+  belongs_to :approver, class_name: 'User', optional:true
+  belongs_to :nuller,   class_name: 'User', optional:true
   belongs_to :creator,  class_name: 'User'
-  belongs_to :updater,  class_name: 'User'
+  belongs_to :updater,  class_name: 'User', optional:true
 
   ########################################
   # Validations
   
-  validates_presence_of :amount, :reference, :currency, :date
-  validate :different_accounts
+  validates_presence_of :amount, :currency, :date
+  #validate :different_accounts
 
   validates_inclusion_of :operation, in: OPERATIONS
 
@@ -68,9 +72,9 @@ belongs_to :nuller,   class_name: 'User'
   enum :status, STATUSES.map{|x| [x,x]}.to_h
        
   validates_numericality_of :exchange_rate, greater_than: 0
-  validates_presence_of :contact_id, unless: :is_trans?
-  validates :reference,
-            length: { within: 3..300, allow_blank: false }
+  #validates_presence_of :contact_id, unless: :is_trans?
+  #validates :reference,
+  #          length: { within: 3..300, allow_blank: false }
 
   validates_lengths_from_database
 
@@ -85,8 +89,8 @@ belongs_to :nuller,   class_name: 'User'
   ########################################
   # delegates
   
-  delegate :name, :amount, :contact, :contact_id,
-           to: :account, prefix: true, allow_nil: true
+  #delegate :name, :amount, :contact, :contact_id,
+  #         to: :account, prefix: true, allow_nil: true
   #delegate :name, :amount, :currency, :contact,
   #         to: :account_to, prefix: true, allow_nil: true
   delegate :same_currency?, to: :currency_exchange
@@ -103,9 +107,9 @@ belongs_to :nuller,   class_name: 'User'
     end
   end
 
-  def to_s
-    name
-  end
+  #def to_s
+  #  name
+  #end
 
   # Determines if the ledger can be conciliated or nulled
   def can_conciliate_or_null?
@@ -130,7 +134,8 @@ belongs_to :nuller,   class_name: 'User'
     save
   end
 
-  private
+  
+private
 
     def currency_exchange
       @currency_exchange ||= CurrencyExchange.new(
@@ -138,21 +143,22 @@ belongs_to :nuller,   class_name: 'User'
       )
     end
 
-    def set_currency
-      self.currency = account_to_currency
-    end
+  # 取引の通貨は, 勘定科目の通貨とは限らない
+  #  def set_currency
+  #    self.currency = account_to_currency
+  #  end
 
-    def set_creator
-      self.creator_id = UserSession.id
-    end
+    #def set_creator
+    #  self.creator_id = UserSession.id
+    #end
 
-    def set_code
-      self.name = self.class.get_code_number
-    end
+  #def set_code
+  #    self.name = self.class.get_code_number
+  #  end
 
-    def set_approver
-      self.approver_id = UserSession.id
-    end
+    #def set_approver
+    #  self.approver_id = UserSession.id
+    #end
 
     def different_accounts
       if account_id == account_to_id

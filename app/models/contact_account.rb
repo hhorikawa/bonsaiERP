@@ -16,7 +16,13 @@ class ContactAccount < ApplicationRecord  # Account から派生
   
   validates_uniqueness_of :account_no, scope: :contact_id, allow_nil:true
 
+  # form select で必要
+  def account_id
+    account.id
+  end
+  delegate :name, to: :account
 
+  
 private
 
   # for `after_save`

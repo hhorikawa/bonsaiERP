@@ -1,10 +1,13 @@
 
-<% # @param form form object %>
+<% # @param form form object 
+   # サブクラスの form からも呼び出される %>
+
+  <%= error_messages_for form.object %>
 
   <%= form.text_field :name %>  
   <%= form.check_box  :active  %>  
   <%= form.select :currency,
             options_from_collection_for_select(Currency.all, :code, :to_s, form.object.currency),
-            label:"Currency:", help:"後から変更できません" %>  
+            required:false, label:"Currency:", help:"後から変更できません" %>  
   <%= form.text_field :description  %>  
 

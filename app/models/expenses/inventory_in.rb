@@ -4,12 +4,6 @@
 
 # フォームオブジェクト for GoodsReceiptPo
 class Expenses::InventoryIn < Inventories::Form
-
-  #validate :valid_quantities
-  #validate :valid_item_ids
-
-  #delegate :balance_inventory, :inventory_left, to: :expense_calculations
-
   validate :validate_models
 
   

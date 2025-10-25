@@ -1,4 +1,4 @@
-class PurchaseOrderPolicy < ApplicationPolicy
+class InventoryPolicy < ApplicationPolicy
   # NOTE: Up to Pundit v2.3.1, the inheritance was declared as
   # `Scope < Scope` rather than `Scope < ApplicationPolicy::Scope`.
   # In most cases the behavior will be identical, but if updating existing
@@ -12,24 +12,19 @@ class PurchaseOrderPolicy < ApplicationPolicy
     # end
   end
 
-
   def update?
-    # `confirmed` の場合, 更新不可。Change order は void -> 新たに作成
-    record.draft? 
-  end
-  
-  def destroy?
     record.draft?
   end
-
+  
   def confirm?
     record.draft?
   end
 
-  # -> state = void
-  def void?
-    # TODO: partial delivered の場合、どうする?
-    record.confirmed?
+  def destroy?
+    record.draft?
   end
   
+  def void?
+    record.confirmed?
+  end
 end

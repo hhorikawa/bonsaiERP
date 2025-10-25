@@ -28,7 +28,7 @@
     -# Approve form
     = render 'tags/tags', model: 'Expense', hide_tags_filter: true
 
-    = button_to 'Approve', approve_purchase_order_path(@order.id), class: 'btn btn-success', method: :patch  if policy(@order).approve?
+    = button_to 'Confirm', confirm_purchase_order_path(@order.id), class: 'btn btn-success', method: :patch  if policy(@order).confirm?
 
     = button_to 'Void', void_purchase_order_path(@order.id), method: :patch, class: 'btn btn-danger',
       data:{turbo_confirm: 'Esta segur@ de anular el Ingreso?'}  if policy(@order).void?

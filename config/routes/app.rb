@@ -148,7 +148,7 @@ resources :customer_returns
 
 resources :purchase_orders do
   member do
-    patch :approve
+    patch :confirm
     patch :void
     patch :inventory
   end

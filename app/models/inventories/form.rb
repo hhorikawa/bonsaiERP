@@ -17,8 +17,8 @@ class Inventories::Form < BaseForm
     @store ||= Store.active.where(id: store_id).take
   end
   
-  delegate :ref_number, :project_id, to: :model_obj, allow_nil: true
-  delegate :order_id, to: :model_obj, allow_nil: true
+  delegate :ref_number, :project_id, :order_id, :account_id,
+           to: :model_obj, allow_nil: true
 
   # `belongs_to()` が使えない
   def order

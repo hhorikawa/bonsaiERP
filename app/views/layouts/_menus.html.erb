@@ -25,6 +25,8 @@
                             class:"dropdown-item" %>
             <li><%= link_to "Units of Measure", units_path,
                             class:"dropdown-item" %>
+            <li><%= link_to "Store/Warehouse", stores_path,
+                            class:"dropdown-item" %>
           </ul>
         </li>
         
@@ -85,8 +87,6 @@
             Inventory
           </a>
           <ul class="dropdown-menu">              
-            <li><%= link_to "Store/Warehouse", stores_path,
-                            class:"dropdown-item" %>
             <li>●●未着品の入庫
             <li><a class="dropdown-item" href="/goods_returns/">仕入戻し</a>
             <li><a href="/inventory_outs/" class="dropdown-item">Transfer Stock - Out</a>

@@ -5,7 +5,7 @@
 class Order < BusinessRecord 
 
   # `delivered` = closed
-  STATES = %w(draft approved delivered void).freeze
+  STATES = %w(draft confirmed delivered void).freeze
 
   # Callbacks
   #before_update :check_items_balances
@@ -98,11 +98,11 @@ class Order < BusinessRecord
 
 
   # `save()` must be done by caller.
-  def approve! user
+  def confirm! user
     raise TypeError if !user.is_a?(User)
     
     if draft?
-      self.state = 'approved'
+      self.state = 'confirmed'
       self.approver_id = user.id
       self.approver_datetime = Time.zone.now
       #self.due_date ||= Time.zone.now.to_date
@@ -143,7 +143,7 @@ class Order < BusinessRecord
   end
 
   def is_active?
-    is_approved? || is_paid?
+    confirmed? || is_paid?
   end
 
   def taxes
@@ -160,9 +160,9 @@ class Order < BusinessRecord
   
 private
 
-    def nulling_valid?
-      ['paid', 'approved'].include?(state_was) && is_nulled?
-    end
+  def nulling_valid?
+    ['paid', 'confirmed'].include?(state_was) && is_nulled?
+  end
 
     # Do not allow items to be destroyed if the quantity != balance
 #    def check_items_balances

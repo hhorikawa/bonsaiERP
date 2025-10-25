@@ -16,7 +16,7 @@ class Inventory < BusinessRecord
   # trans ?
   OPERATIONS = %w(in out inc_in inc_out exp_in exp_out trans).freeze
 
-  STATES = %w(draft approved void).freeze
+  STATES = %w(draft confirmed void).freeze
   enum :state, STATES.map{|x| [x,x]}.to_h
   
   # 親
@@ -111,7 +111,21 @@ class Inventory < BusinessRecord
     %w(out inc_out exp_out).include? operation
   end
 
-  private
+
+  # `save()` must be done by caller.
+  def confirm! user
+    raise TypeError if !user.is_a?(User)
+    
+    if draft?
+      self.state = 'confirmed'
+      # TODO: add fields.
+      #self.approver_id = user.id
+      #self.approver_datetime = Time.zone.now
+    end
+  end
+
+  
+private
 
     def get_ref_io(io)
       _, y, _ = io.ref_number.split('-')

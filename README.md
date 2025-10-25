@@ -14,10 +14,11 @@
  - Master Data
    + ✅ Business Partners
      - 取引先口座 OK
-     - TODO: edit.
+     - <s>TODO: edit.</s> fixed.
      - <s>TODO: When a user create a business partner, the system must create the first account at the same time. `:new` screen.</s> fixed.
    + ✅ Product/Item Master
    + ✅ Units of Measure
+   + ✅ Store/Warehouse
 
  - Finance
    + ✅ Cash / Bank Account
@@ -25,9 +26,9 @@
    + Payment
    + Currency
    + Tax
-   + Chart of Accounts
+   + ✅ Chart of Accounts
    + Tags   --- どんな機能性だろう?
-   + General Ledger
+   + ❌ General Ledger
    
  - Sales
    + ✅ Sales Order
@@ -37,14 +38,14 @@
  - Purchasing
    + ✅ Purchase Order and Cancel
      - If there is an under-delivery, the system should be able to modify the order and close it, but the system has not been implemented.
-     
- - Inventory
-   + ✅ Store/Warehouse
-   + Goods Receipt PO
-     - TODO: PO balance 減算
-     - TODO: 仕訳の生成. 数量が異なる場合の考慮.
    + Purchases in Transit: When an invoice is received *before* the goods have arrived, the invoice is posted in the *Purchases in Transit* account but has no assignment to a goods receipt at this point.
      - TODO: mockup of invoice.
+     
+ - In-Store/Warehouse Operations
+   + ✅ Goods Receipt PO
+     - <s>TODO: PO balance 減算</s> fixed.
+     - <s>TODO: 仕訳の生成. </s> fixed.
+     - 数量が異なる場合の考慮.
    + Goods Return 仕入戻し
    + Delivery
    + Transfer Stock - Out
@@ -52,7 +53,7 @@
    + Inventory Count and Adjustment
    + Material Documents 入出庫伝票
    + Stock
-   
+ 
  - Project
    + Production Order
 

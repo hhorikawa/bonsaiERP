@@ -7,7 +7,7 @@ class PurchaseOrdersController < ApplicationController
   include Controllers::TagSearch
 
   before_action :set_order,
-                only: [:show, :edit, :update, :destroy, :approve, :void, :inventory]
+                only: [:show, :edit, :update, :destroy, :confirm, :void, :inventory]
 
   # GET /expenses
   def index
@@ -82,10 +82,10 @@ class PurchaseOrdersController < ApplicationController
 
   # PATCH /expenses/1/approve
   # Method to approve an expense
-  def approve
+  def confirm
     authorize @order
     
-    @order.approve! current_user
+    @order.confirm! current_user
     if @order.save
       flash[:notice] = "La nota de venta fue aprobada."
     else
