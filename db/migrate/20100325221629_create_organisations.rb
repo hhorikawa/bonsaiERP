@@ -24,16 +24,11 @@ class CreateOrganisations < ActiveRecord::Migration[5.2]
         # が, ユーザに属するのでは?
         t.string  :time_zone, limit: 100
 
-        t.string :tenant, limit: 50, null:false
+        t.string :tenant, limit: 50, null:false, index:{unique:true}
         t.column :currency, "CHAR(3) NOT NULL"
 
         t.timestamps
       end
-
-      #add_index :organisations, :country_id
-      #add_index :organisations, :due_date
-      add_index :organisations, :tenant, unique: true
-      #add_index :organisations, :currency
     end
   end
 end

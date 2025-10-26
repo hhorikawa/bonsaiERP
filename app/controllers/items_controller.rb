@@ -105,7 +105,7 @@ private
   def item_params
     params.require(:item).permit(:code, :name, :active, :stockable,
                         :for_sale, :price, :buy_price, :unit_id, :description,
-                        :account_id)
+                        :accounting_id)
   end
 
     def render_or_redirect_item

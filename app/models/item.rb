@@ -24,7 +24,9 @@ class Item < ApplicationRecord
   # Relationships
   
   belongs_to :unit
-  belongs_to :account
+
+  # 勘定科目セット
+  belongs_to :accounting, class_name: "ItemAccounting"
   
   has_many   :stocks, -> { where(active: true) }
   has_many   :income_details

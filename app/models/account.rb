@@ -44,19 +44,13 @@ class Account < ApplicationRecord
   validates_presence_of :currency
   validates_inclusion_of :currency, in: CURRENCIES.keys
 
-  # 品目タイプについては, 例えば
-  #   https://note.com/biznology/n/nbc2c463ca9fc
-  #   「Technology」初めてのSAP-(3)SAPマスタの考え方
-  
   SUBTYPES = {
+    # Assets / Liabilities
     'CASH' => 'Cash and Bank Account',
     'APAR' => 'Accounts Payable and Receivable',
-    # 品目タイプと共通
-    'HAWA' => 'Trading Goods',
-    'FERT' => 'Finished Product',
-    'HALB' => 'Semifinished Product', # 半製品 (これは仕掛品とは異なる)
-    'ROH' => 'Raw Materials',
-    
+    'INV' => 'Inventory',  # stock は完成品のみ, inventory は材料も含むイメージ
+
+    # P/L
     'REV' => 'Revenue',
     'VC' => 'Variable Cost',
     'NON-VC' => 'Non-Variable Costs'

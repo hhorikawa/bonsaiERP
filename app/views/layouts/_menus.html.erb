@@ -21,12 +21,11 @@
           </a>
           <ul class="dropdown-menu">
             <li><a href="/partners/" class="dropdown-item">Business Partners</a>
-            <li><%= link_to "Product/Item Master", items_path,
-                            class:"dropdown-item" %>
             <li><%= link_to "Units of Measure", units_path,
                             class:"dropdown-item" %>
-            <li><%= link_to "Store/Warehouse", stores_path,
+            <li><%= link_to "Product/Item Master", items_path,
                             class:"dropdown-item" %>
+            <li><%= link_to "Store/Warehouse", stores_path, class:"dropdown-item" %>
           </ul>
         </li>
         
@@ -43,6 +42,8 @@
 	      
 	    <li><hr class="dropdown-divider"></li>
 	    <li><a class="dropdown-item" href="/accounts/">Chart of Accounts</a>
+            <li><%= link_to "Item Accounting", item_accountings_path,
+                            class:"dropdown-item" %>
               <!--
             <li><a class="dropdown-item" href="/staff_accounts/">Staff Accounts</a> -->
             <li><%= link_to t('views.menu.etiquetas'), tag_groups_path,
@@ -84,20 +85,15 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button"
              data-bs-toggle="dropdown" aria-expanded="false">
-            Inventory
+            Store/Warehouse
           </a>
-          <ul class="dropdown-menu">              
-            <li>●●未着品の入庫
-            <li><a class="dropdown-item" href="/goods_returns/">仕入戻し</a>
-            <li><a href="/inventory_outs/" class="dropdown-item">Transfer Stock - Out</a>
-            <li><a href="/inventory_ins/" class="dropdown-item">Transfer Stock - In</a>
-            <li>●●Inventory Count &amp; Adjustment
-            <li><%= link_to "入出庫伝票",
-                            inventories_path, class:"dropdown-item" %>
-            <li><a href="/stocks/" class="dropdown-item" >Stock</a>
+          <ul class="dropdown-menu">
+<% Store.all.each do |store| %>            
+            <li><%= link_to store.name, store, class:"dropdown-item" %>
+<% end %>
           </ul>
         </li>
-
+        
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button"
              data-bs-toggle="dropdown" aria-expanded="false">
@@ -110,11 +106,6 @@
       
       </ul>
 <% # 以上が left menu bar %>
-
-      <form class="d-flex me-2" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
 
       <span class="navbar-text me-2">
         <%= current_organisation %>

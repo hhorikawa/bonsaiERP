@@ -5,7 +5,7 @@ class Movements::Search < BaseForm
   attribute :date_start, :date
   attribute :date_end, :date
 
-  attribute :state, array: true, default: ['draft', 'approved', 'delivered']
+  attribute :state, array: true, default: ['draft', 'confirmed', 'delivered']
   attribute :overdue, :date
 
   
@@ -28,6 +28,7 @@ class Movements::Search < BaseForm
   
 private
 
+=begin
   def get_state(s)
       case args[:state]
       when 'draft', 'approved', 'nulled', 'paid'
@@ -40,5 +41,6 @@ private
         s
       end
     end
-
+=end
+  
 end

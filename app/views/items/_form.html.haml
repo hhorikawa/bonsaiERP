@@ -15,7 +15,7 @@
 
   = f.text_field :description, label: 'Description', input_html: {class: 'span12'}
 
-  = f.select(:account_id, options_from_collection_for_select(Account.where(subtype: ['HAWA', 'FERT', 'HALB', 'ROH']), :id, :name, @item.account_id), required:false ) 
+  = f.select(:accounting_id, options_from_collection_for_select(ItemAccounting.all, :id, :name, @item.accounting_id), required:false ) 
 
   .row
     .span6.well.well-small

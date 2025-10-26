@@ -34,8 +34,9 @@ class Inventories::Form < BaseForm
   # field required red star
   validates_presence_of :date
 
-  validate :validate_models
+  validate :validate_details
 
+  
   def initialize model
     raise TypeError if !model.is_a?(Inventory)
     super() # set @attributes
@@ -48,29 +49,47 @@ class Inventories::Form < BaseForm
     @details = self.class.create_details_from_params(detail_params, store_id)
   end
 
+
+  # トランザクションは呼出し側で掛けること
+  def save!
+    if !model_obj.valid?
+      # promote errors
+      errors.merge!(model_obj.errors)
+      raise ActiveRecord::RecordInvalid.new(self)
+    end
+    model_obj.save!
+    
+    details.each do |detail|
+      detail.inventory_id = model_obj.id
+    end
+    if !self.valid?   # フォームオブジェクトの validation. details 存在する
+      raise ActiveRecord::RecordInvalid.new(self)
+    end
+    
+    details.each do |detail| detail.save! end
+  end
+
   
 private
 
-  # for `validate()`
-  def validate_models
-    # promote errors
-    errors.merge!(model_obj.errors) if !model_obj.valid?
-
-    # run  validations for all nested objects
+  # for `validate()`. 親側の validation は `save!` のなかで実行する.
+  def validate_details
+    if details.empty?
+      errors.add(:details, I18n.t("errors.messages.inventory.at_least_one_item"))
+      return
+    end
+    
+    # run validations for all nested objects
     err_count = details.count {|detail|
       # only useful when `:autosave` option is enabled.
       next if detail.respond_to?(:marked_for_destruction?) && detail.marked_for_destruction?
       !detail.valid?
     }
     if err_count > 0
-      errors.add :details, "Some error(s)"
+      errors.add :details, "Some error(s) in details"
     end
 
     errors.add :details, "Item not unique" if !UniqueItem.new(self).valid?
-
-    if details.empty?
-      errors.add(:details, I18n.t("errors.messages.inventory.at_least_one_item"))
-    end
   end
 
 =begin
@@ -93,7 +112,7 @@ private
     end
   end
 
-  
+
 private
 
     def stock_with_items(item_id)

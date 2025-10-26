@@ -40,6 +40,16 @@
     %li
       = link_to "Transfer Stock - Out...", new_inventory_out_path 
 
+    %li
+      = "●●未着品の入庫"
+    %li= "/goods_returns/  仕入戻し"
+    %li= "/inventory_outs/ Transfer Stock - Out"
+    %li= "/inventory_ins/ Transfer Stock - In"
+    %li= "●●Inventory Count &amp; Adjustment"
+    %li= link_to "入出庫伝票", inventories_path 
+    %li= "/stocks/    Stock"
+
+
 %hr
 
 %ul#tabs.nav.nav-pills.fs150

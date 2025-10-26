@@ -1,5 +1,9 @@
 # encoding: utf-8
 FactoryBot.define do
+  factory :item_accounting do
+    
+  end
+
   factory :order do
     
   end

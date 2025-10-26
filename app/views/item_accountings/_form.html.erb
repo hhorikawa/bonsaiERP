@@ -1,0 +1,26 @@
+
+<%= bootstrap_form_for(@item_accounting, layout: :horizontal) do |f| %>
+  <%= error_messages_for 'item_accounting' %>
+
+  <%= f.text_field :name %>
+  <%= f.select :item_type,
+            options_from_collection_for_select(ItemAccounting::ITEM_TYPES.to_a,
+                                               :first, :second,
+            @item_accounting.item_type), required:false %>
+  <%= f.select :stock_ac_id,
+            options_from_collection_for_select(Account.all,
+                                :id, :name, @item_accounting.stock_ac_id), required:false %>
+  <%= f.select :revenue_ac_id,
+            options_from_collection_for_select(Account.all,
+                                :id, :name, @item_accounting.revenue_ac_id), required:false %>
+  <%= f.select :purchase_ac_id,
+            options_from_collection_for_select(Account.all,
+                                :id, :name, @item_accounting.purchase_ac_id), required:false %>
+      
+  <%= f.select :ending_inv_ac_id,
+            options_from_collection_for_select(Account.all,
+                                :id, :name, @item_accounting.ending_inv_ac_id), required:false %>
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

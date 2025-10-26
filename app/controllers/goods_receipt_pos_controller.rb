@@ -86,8 +86,9 @@ class GoodsReceiptPosController < ApplicationController
     #       するか?
     amt = {}
     @inv.details.each do |detail|
-      amt[detail.item.account_id] = (amt[detail.item.account_id] || 0) +
-                                    detail.price * detail.quantity
+      amt[detail.item.accounting.stock_ac_id] =
+                        (amt[detail.item.accounting.stock_ac_id] || 0) +
+                        detail.price * detail.quantity
     end
 
     begin
@@ -114,7 +115,7 @@ class GoodsReceiptPosController < ApplicationController
         r = AccountLedger.new date: @inv.date,
                             operation: 'trans',
                             account_id: @inv.account_id,
-                            amount: sum_amt,  # 取引通貨
+                            amount: -sum_amt,  # 取引通貨, 貸方マイナス
                             currency: @inv.order.currency,
                             description: "goods receipt po",
                             creator_id: current_user.id,

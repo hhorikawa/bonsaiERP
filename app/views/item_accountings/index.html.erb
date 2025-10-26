@@ -1,0 +1,28 @@
+
+<% @page_title = "Item Accountings" %>
+
+
+<p><%= link_to 'New Item-accounting...', new_item_accounting_path, :class => 'new' %>
+
+<table class="table">
+  <tr>
+    <th>Name</th>
+    <th>Item Type
+    <th>(資産) 棚卸資産
+    <th>Revenue Ac
+    <th>商品仕入高
+    <th>(P/L) 期末棚卸高
+  </tr>
+
+<% @item_accountings.each do |item_accounting| %>
+  <tr>
+    <td><%= link_to item_accounting.name, item_accounting %>
+    <td><%= item_accounting.item_type %>
+    <td><%= item_accounting.stock_ac.name  %>
+    <td><%= item_accounting.revenue_ac.name  %>
+    <td><%= item_accounting.purchase_ac.name  %>
+    <td><%= item_accounting.ending_inv_ac.name  %>
+  </tr>
+<% end %>
+</table>
+

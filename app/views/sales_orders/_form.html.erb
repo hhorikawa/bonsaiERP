@@ -1,6 +1,6 @@
 
 <%= bootstrap_form_with model: @order, url:{action:"create"}, layout: :horizontal do |f| %>
-  <%= bonsai_form_error(f) %>
+  <%= error_messages_for 'order' %>
 
 <% if ['new', 'create'].include?(action_name) %>
   <%= f.select :contact_id,

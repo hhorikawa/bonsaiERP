@@ -13,18 +13,22 @@ class SalesOrderPolicy < ApplicationPolicy
     # end
   end
 
+  def update?
+    # `confirmed` の場合, 更新不可。Change order は void -> 新たに作成
+    record.draft? 
+  end
 
   def destroy?
     record.draft?
   end
 
-  def approve?
+  def confirm?
     record.draft?
   end
 
   # -> state = void
   def void?
     # TODO: partial delivered の場合、どうする?
-    record.approved?
+    record.confirmed?
   end
 end

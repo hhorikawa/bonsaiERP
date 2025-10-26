@@ -31,22 +31,14 @@
     %tags(model='Income' hide-filter='true' tag-ids='false')
 
     -# Approve form
-    - if @order.draft?
-      = link_to 'Aprobar', approve_sales_order_path(@order), method: :patch, class: 'btn btn-success b'
+    = button_to 'Confirm', confirm_sales_order_path(@order), method: :patch, class: 'btn btn-success'  if policy(@order).confirm?
     -# Null form
-    - if @order.can_null?
-      = link_to 'Anular', null_sales_order_path(@order), method: :patch, class: 'btn btn-danger b', data: { confirm: 'Esta segur@ de anular' }
+    = button_to 'Void', void_sales_order_path(@order), method: :patch, class: 'btn btn-danger', data: { turbo_confirm: 'Esta segur@ de anular' }  if policy(@order).void?
 
-    .btn-group
-      = link_to "Edit this SO...", edit_sales_order_path(@order.id), class: 'btn' unless @order.nulled?
+    = link_to "Edit this SO...", edit_sales_order_path(@order.id), class: 'btn' if policy(@order).update?
 
-      = link_to sales_order_path(@order.id, format: 'pdf'), class: 'btn' do
-        %i.icon-pdf
-        PDF
+    = link_to "Print Order", sales_order_path(@order.id, format: 'print'), class: 'btn' 
 
-      = link_to sales_order_path(@order.id, format: 'print'), class: 'btn' do
-        %i.icon-print
-        Imprimir
 
 .row-fluid
   .span6
@@ -76,11 +68,11 @@
   .row-fluid
     -# Ledgers
     .span6.bg-white
-      = render 'ledger_details', income: @order
+      -# = render 'ledger_details', income: @order
 
     -# Inventory
     #inventory.span6.bg-white
-      = render 'inventory_details', income: @order
+      -# = render 'inventory_details', income: @order
 
 
 

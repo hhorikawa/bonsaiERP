@@ -4,8 +4,6 @@
 
 # フォームオブジェクト for GoodsReceiptPo
 class Expenses::InventoryIn < Inventories::Form
-  validate :validate_models
-
   
   # @param detail_params  [Hash{lineno => Hash}] params
   #   {"1"=>{"item_id"=>"1", "quantity"=>"567"},
@@ -24,7 +22,7 @@ class Expenses::InventoryIn < Inventories::Form
   
   
   def build_details_from_order
-    # The number of items that are not yet received is the `balance`
+    # The `balance` is the number of items that are not yet received.
     order.details.each do |det|
       # The quantity should be entered manually.
       self.details << InventoryDetail.new(item_id: det.item_id,
@@ -32,25 +30,6 @@ class Expenses::InventoryIn < Inventories::Form
     end
   end
 
-  
-  def save!
-    if !model_obj.valid?
-      # promote errors
-      errors.merge!(model_obj.errors)
-      raise ActiveRecord::RecordInvalid.new(self)
-    end
-    model_obj.save!
-    
-    details.each do |detail|
-      detail.inventory_id = model_obj.id
-    end
-    if !self.valid?
-      raise ActiveRecord::RecordInvalid.new(self)
-    end
-    
-    details.each do |detail| detail.save! end
-  end
-  
 
 =begin
     res = true
@@ -76,26 +55,6 @@ class Expenses::InventoryIn < Inventories::Form
 
   
 private
-
-  # for `validate()`
-  def validate_models
-    # run validations for all nested objects
-    err_count = details.count {|detail|
-      # only useful when `:autosave` option is enabled.
-      next if detail.respond_to?(:marked_for_destruction?) && detail.marked_for_destruction?
-      !detail.valid?
-    }
-    if err_count > 0
-      errors.add :details, "Some error(s) in details"
-    end
-
-    errors.add :details, "Item not unique" if !UniqueItem.new(self).valid?
-  end
-
-  
-  #  def operation
-  #    'exp_in'
-  #  end
 
     def valid_quantities
       res = true

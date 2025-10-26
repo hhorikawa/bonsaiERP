@@ -18,7 +18,7 @@ class CreateAccounts < ActiveRecord::Migration[5.2]
         t.integer :accountable_id #, null:false
 
         # 売上, 変動費, 非変動費, ...
-        t.string :subtype, null:false
+        t.string :subtype, limit:40, null:false
         
         # この意味?
         t.decimal :exchange_rate, precision: 14, scale: 4, default: 1.0
@@ -36,17 +36,6 @@ class CreateAccounts < ActiveRecord::Migration[5.2]
 
         t.timestamps
       end
-
-      #add_index :accounts, :name, unique: true
-      #add_index :accounts, :amount
-      #add_index :accounts, :currency
-      #add_index :accounts, :type
-      #add_index :accounts, :contact_id
-      #add_index :accounts, :project_id
-      #add_index :accounts, :active
-      #add_index :accounts, :date
-      #add_index :accounts, :state
-      #add_index :accounts, :has_error
     end
   end
 end

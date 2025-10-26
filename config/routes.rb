@@ -5,6 +5,7 @@ class ActionDispatch::Routing::Mapper
 end
 
 BonsaiErp::Application.routes.draw do
+  resources :item_accountings
   draw :api
   draw :app
 

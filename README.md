@@ -76,8 +76,6 @@
 
 
 TODO: 
- - Chart は <s>おそらく <a href="https://github.com/jqPlot/jqPlot/">jqPlot</a> を使っていると思われる。</s> Chart.js の v1.x 辺り。古すぎる。差し替える.
-   Use `apexcharts`.
  - Install a UI library.
    + <a href="https://github.com/ColorlibHQ/gentelella/">ColorlibHQ/gentelella: Free Bootstrap 5 Admin Dashboard Template</a> or
    + <a href="https://flowbite.com/">Flowbite - Build websites even faster with components on top of Tailwind CSS</a>
@@ -88,7 +86,21 @@ TODO:
  - <s>Installing the `pundit` gem for authorization</s> fixed.
  
 
-##
+
+## *bonsaiERP 3*
+
+ - Chart は <i>Chart.js</i> の v1.x 辺り。古すぎる。差し替える. Use `apexcharts`.
+ - AngularJS v1.x 時代 (v1.0.0 = 2012年6月)。これも古すぎる. 作り直すしかない
+
+ - データベースに互換性はない:
+   + `accounts` table が取引を記録するようになっていたが, 設計がおかしい。v3 では, `accounts` table は勘定科目マスタ, `account_ledgers` table が仕訳を持つようにした。
+   + `movement_details` table は `accounts` table にぶら下がっていた。上のとおり, `accounts` table は勘定科目マスタにして, `transactions` table を `orders` として復活させ、そこにぶら下げるようにした。`20140217134723_drop_transactions_table.rb` で drop しているのがおかしい。
+
+●● おそらく, `stocks` table も時系列になっていないのでおかしい。
+
+
+
+## Statechart of Inventory
 
 See https://qiita.com/MelonPanUryuu/items/0372582e8b8e4e6ad1b4
     The diagrams are helpful, but there are many gaps.

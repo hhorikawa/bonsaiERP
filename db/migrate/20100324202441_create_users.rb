@@ -18,7 +18,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
         # Control users
         t.string   :crypted_password
         t.string   :salt
-        t.string   :confirmation_token, :limit => 60
+        t.string   :confirmation_token, limit: 60, index:{unique:true}
         t.datetime :confirmation_sent_at
         t.datetime :confirmed_at
         t.string   :reset_password_token
@@ -31,18 +31,12 @@ class CreateUsers < ActiveRecord::Migration[5.2]
         t.string :address
 
         t.boolean :active, null:false, default: true
-        t.string :auth_token
+        t.string :auth_token, index:{unique:true}
 
         t.string :rol, limit: 50
 
         t.timestamps  null:false
       end
-
-      #add_index :users, :email, unique: true
-      #add_index :users, :first_name
-      #add_index :users, :last_name
-      add_index :users, :confirmation_token, unique: true
-      add_index :users, :auth_token, unique: true
     end
   end
 

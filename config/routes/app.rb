@@ -134,7 +134,7 @@ patch 'loan_ledger_ins/:id/receive' => 'loan_ledger_ins#receive', as: :receive_l
 
 resources :sales_orders do
   member do
-    patch :approve
+    patch :confirm
     patch :void
     patch :inventory
   end
@@ -170,7 +170,11 @@ resources :stores do
   end
 
   # 出荷/納入
-  resources :deliveries
+  resources :deliveries do
+    member do
+      post :confirm
+    end
+  end
 end
 
 

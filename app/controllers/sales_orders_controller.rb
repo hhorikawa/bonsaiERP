@@ -8,7 +8,7 @@ class SalesOrdersController < ApplicationController
   include Controllers::Print
 
   before_action :set_order,
-                only: [:show, :edit, :update, :destroy, :approve, :void, :inventory ]
+                only: [:show, :edit, :update, :destroy, :confirm, :void, :inventory ]
 
   
   # GET /incomes
@@ -89,10 +89,10 @@ class SalesOrdersController < ApplicationController
   
   # PATCH /incomes/:id/approve
   # Method to approve an income
-  def approve
+  def confirm
     authorize @order
 
-    @order.approve! current_user
+    @order.confirm! current_user
     if @order.save
       flash[:notice] = "El Ingreso fue aprobado."
     else

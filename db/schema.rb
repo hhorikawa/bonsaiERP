@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_26_084238) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -51,7 +51,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.string "description", limit: 500, null: false
     t.string "accountable_type", limit: 80
     t.integer "accountable_id"
-    t.string "subtype", null: false
+    t.string "subtype", limit: 40, null: false
     t.decimal "exchange_rate", precision: 14, scale: 4, default: "1.0"
     t.boolean "has_error", default: false, null: false
     t.jsonb "error_messages"
@@ -128,7 +128,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.string "account_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["account_no"], name: "index_cashes_on_account_no", unique: true
+    t.index ["bank_name", "account_no"], name: "index_cashes_on_bank_name_and_account_no", unique: true
   end
 
   create_table "contact_accounts", force: :cascade do |t|
@@ -220,9 +220,23 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.index ["store_id"], name: "index_inventory_details_on_store_id"
   end
 
+  create_table "item_accountings", id: :serial, force: :cascade do |t|
+    t.string "name", null: false
+    t.string "item_type", limit: 40, null: false
+    t.integer "stock_ac_id", null: false
+    t.integer "revenue_ac_id", null: false
+    t.integer "purchase_ac_id", null: false
+    t.integer "ending_inv_ac_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ending_inv_ac_id"], name: "index_item_accountings_on_ending_inv_ac_id"
+    t.index ["purchase_ac_id"], name: "index_item_accountings_on_purchase_ac_id"
+    t.index ["revenue_ac_id"], name: "index_item_accountings_on_revenue_ac_id"
+    t.index ["stock_ac_id"], name: "index_item_accountings_on_stock_ac_id"
+  end
+
   create_table "items", id: :serial, force: :cascade do |t|
     t.integer "unit_id", null: false
-    t.integer "account_id", null: false
     t.decimal "price", precision: 14, scale: 2, default: "0.0", null: false
     t.string "name", limit: 255, null: false
     t.string "description", null: false
@@ -238,7 +252,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
     t.integer "tag_ids", default: [], array: true
     t.integer "updater_id"
     t.integer "creator_id", null: false
-    t.index ["account_id"], name: "index_items_on_account_id"
+    t.integer "accounting_id", null: false
+    t.index ["accounting_id"], name: "index_items_on_accounting_id"
     t.index ["code"], name: "index_items_on_code", unique: true
     t.index ["creator_id"], name: "index_items_on_creator_id"
     t.index ["unit_id"], name: "index_items_on_unit_id"
@@ -459,7 +474,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_05_114314) do
   add_foreign_key "inventory_details", "inventories"
   add_foreign_key "inventory_details", "items"
   add_foreign_key "inventory_details", "stores"
-  add_foreign_key "items", "accounts"
+  add_foreign_key "item_accountings", "accounts", column: "ending_inv_ac_id"
+  add_foreign_key "item_accountings", "accounts", column: "purchase_ac_id"
+  add_foreign_key "item_accountings", "accounts", column: "revenue_ac_id"
+  add_foreign_key "item_accountings", "accounts", column: "stock_ac_id"
+  add_foreign_key "items", "item_accountings", column: "accounting_id"
   add_foreign_key "items", "units"
   add_foreign_key "links", "organisations"
   add_foreign_key "links", "users"

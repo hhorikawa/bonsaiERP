@@ -1,31 +1,44 @@
-# encoding: utf-8
+
 # author: Boris Barroso
 # email: boriscyber@gmail.com
-class Incomes::InventoryOut < Inventories::Out
-  attribute :income_id, Integer
 
-  validates_presence_of :income
-  validate :valid_quantities
-  validate :valid_item_ids
+# フォームオブジェクト for 出荷/納入
+class Incomes::InventoryOut < Inventories::Form
 
-  delegate :income_details, to: :income
-  delegate :balance_inventory, :inventory_left, to: :income_calculations
+  #validate :valid_quantities
+  #validate :valid_item_ids
 
-  def income
-    @income ||= Income.active.where(id: income_id).first
-  end
+  #delegate :income_details, to: :income
+  #delegate :balance_inventory, :inventory_left, to: :income_calculations
 
-  def build_details
-    income.income_details.each do |det|
-      inventory.inventory_details.build(item_id: det.item_id ,quantity: det.balance)
+
+  # @param detail_params  [Hash{lineno => Hash}] params
+  #   {"1"=>{"item_id"=>"1", "quantity"=>"567"},
+  #    "2"=>{"item_id"=>"1", "quantity"=>"0.0"},
+  def self.create_details_from_params detail_params, store_id
+    ary = []
+    detail_params.each do |_lineno, h|
+      m = InventoryDetail.new h.permit(:item_id, :price, :quantity)
+      m.movement_type = 261  # Goods issue for an order. ここが異なるので別に定義
+      m.store_id = store_id
+      (ary << m) if m.quantity != 0.0
     end
-    # Needed because the item_ids are set in the build
-    inventory.inventory_details.each {|det| det.available = stock(det.item_id).quantity }
+
+    return ary
   end
 
-  def create
-    res = true
 
+  # TODO: 出庫の場合は, 現在庫の表示も必要
+  def build_details_from_order
+    order.details.each do |det|
+      # `balance` そのままではなく, 手入力する
+      self.details << InventoryDetail.new(item_id: det.item_id ,
+                                          price: det.price, quantity: 0)
+    end
+  end
+
+
+=begin
     save do
       update_income_details
       update_income_balanace
@@ -40,16 +53,14 @@ class Incomes::InventoryOut < Inventories::Out
       res && @inventory.save
     end
   end
+=end
+  
+  #def movement_detail(item_id)
+  #  @income.details.find {|det| det.item_id === item_id }
+  #end
 
-  def movement_detail(item_id)
-    @income.details.find {|det| det.item_id === item_id }
-  end
-
+  
 private
-
-  def operation
-    'inc_out'
-  end
 
   def valid_quantities
     res = true
