@@ -1,47 +1,62 @@
-# encoding: utf-8
+
 # author: Boris Barroso
 # email: boriscyber@gmail.com
+
+# general ledger
 class AccountLedgersController < ApplicationController
   include Controllers::Print
 
-  before_action :set_ledger, only: [:conciliate, :null, :update]
+  before_action :set_je, only: [:show, :update, :destroy, :conciliate, :null]
 
+  
   # GET /account_ledger
   def index
-    if params[:pendent]
-      @title = "Transacciones no pendientes"
-      @ledgers = AccountLedger.pendent.includes(:account, :account_to, :contact)
+    if params[:account_ledgers_query].blank?
+      @search = AccountLedgers::Query.new
+      @ledgers = AccountLedger #.all
     else
-      @title = "Transacciones"
-      @ledgers = AccountLedgers::Query.new.search(params[:search])
-      @ledgers = AccountLedger.all if @ledgers.empty?
+      @search = AccountLedgers::Query.new(
+                        params.require(:account_ledgers_query)
+                              .permit(*AccountLedgers::Query.attribute_names) )
+      @ledgers = @search.search()
     end
 
-    @ledgers = @ledgers.includes(:creator, :updater, :approver, :nuller).order(:date, :id).reverse_order.page(@page)
+    @ledgers = @ledgers.eager_load(:creator, :updater, :approver, :nuller)
+                       .order(:date, :entry_no, :id).page(params[:page])
   end
 
+  
   # GET /account_ledgers/:id
   def show
-    @ledger = present AccountLedger.find(params[:id])
+    #@ledgers = AccountLedger.find(params[:id])
 
     respond_to do |format|
       format.html
       format.print
-      format.pdf { print_pdf 'show.print', "recibo-#{@ledger}"  unless params[:debug] }
+      #format.pdf { print_pdf 'show.print', "recibo-#{@ledger}"  unless params[:debug] }
     end
   end
 
+  
   # PATCH /account_ledgers/:id
   # update the reference
   def update
-    if @account_ledger.update(account_ledger_params)
-      al = @account_ledger
-      render json: {id: al.id, reference: al.reference, updater: al.updater.to_s, updated_at: I18n.l(al.updated_at)}
-    else
-      render json: @account_ledger.errors.messages
+    authorize @je
+    
+    @je.assign account_ledger_params
+    begin
+      ActiveRecord::Base.transaction do
+        @je.save!
+      end
+    rescue ActiveRecord::RecordInvalid => e
+      render :edit, status: :unprocessable_entity
+      return
     end
+    
+    redirect_to({action:"show", date: @je.date, entry_no: @je.entry_no})
   end
 
+  
   # PATCH /account_ledgers/:id/conciliate
   def conciliate
     @conciliate = ConciliateAccount.new(@account_ledger)
@@ -56,6 +71,7 @@ class AccountLedgersController < ApplicationController
     redirect_to account_ledger_path(@account_ledger.id)
   end
 
+  
   # PATCH /account_ledgers/:id/null
   def null
     @null = NullAccountLedger.new(@account_ledger)
@@ -70,11 +86,20 @@ class AccountLedgersController < ApplicationController
   end
 
 
-  private
+  def destroy
+    authorize @je
+    # TODO: impl.
+  end
+  
 
-    def set_ledger
-      @account_ledger = AccountLedger.find(params[:id])
-    end
+private
+
+  def set_je
+    @je = JournalEntry.new( 
+            # multi lines
+            AccountLedger.where(date: params[:date], entry_no: params[:entry_no]) )
+    raise ActiveRecord::RecordNotFound if @je.lines.empty?
+  end
 
     def account_ledger_params
       params.permit(:reference)

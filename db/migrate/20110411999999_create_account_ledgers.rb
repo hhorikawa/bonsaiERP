@@ -5,6 +5,8 @@ class CreateAccountLedgers < ActiveRecord::Migration[5.2]
       # 仕訳の1行
       create_table :account_ledgers do |t|
         t.date :date, null:false
+        t.integer :entry_no, null:false
+        
         t.string   :reference
         t.string   :operation, limit: 20, null:false
 
@@ -50,18 +52,7 @@ class CreateAccountLedgers < ActiveRecord::Migration[5.2]
         
         t.timestamps
       end
-
-      #add_index :account_ledgers, :currency
-      #add_index :account_ledgers, :account_id
-      #add_index :account_ledgers, :account_to_id
-      #add_index :account_ledgers, :date
-      #add_index :account_ledgers, :conciliation
-      #add_index :account_ledgers, :operation
-      #add_index :account_ledgers, :reference
-      #add_index :account_ledgers, :active
-      #add_index :account_ledgers, :has_error
-      #add_index :account_ledgers, :project_id
-      #add_index :account_ledgers, :status
     end
   end
+  
 end

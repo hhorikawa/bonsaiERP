@@ -20,7 +20,7 @@
 
   <%= f.select :account_id,
             options_from_collection_for_select(
-                    ContactAccount.where(contact_id: @order.contact_id), 
+                    ContactAccount.joins(:account).where('contact_accounts.contact_id = ? AND accounts.currency = ?', @order.contact_id, @order.currency), 
                     :account_id, :name, @inv.account_id),
             required:false %>
 

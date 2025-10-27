@@ -1,10 +1,21 @@
-# encoding: utf-8
+
 # author: Boris Barroso
 # email: boriscyber@gmail.com
-class AccountLedgers::Query
-  def initialize(rel = AccountLedger)
-    @rel = rel
-  end
+
+# form object (search)
+class AccountLedgers::Query < BaseForm
+  attribute :text, :string
+
+  attribute :from, :date
+  attribute :to, :date
+
+  attribute :account_id, :integer
+
+  attribute :state, array: true, default: ['approved']
+  
+  #def initialize(rel = AccountLedger)
+  #  @rel = rel
+  #end
 
   def money(id)
     @rel.where(t[:account_id].eq(id).or(t[:account_to_id].eq(id)))
@@ -35,13 +46,14 @@ class AccountLedgers::Query
     .where("accounts.name ILIKE :s OR account_tos_account_ledgers.name ILIKE :s OR contacts.matchcode ILIKE :s", s: s)
   end
 
-  private
+  
+private
 
     def payment_columns(account_id)
       AccountLedger.column_names + ["account_id=#{account_id} AS is_account"]
     end
 
-    def t
-      AccountLedger.arel_table
-    end
+    #def t
+    #  AccountLedger.arel_table
+    #end
 end

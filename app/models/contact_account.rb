@@ -20,7 +20,7 @@ class ContactAccount < ApplicationRecord  # Account から派生
   def account_id
     account.id
   end
-  delegate :name, to: :account
+  delegate :name, :currency, to: :account
 
   
 private
