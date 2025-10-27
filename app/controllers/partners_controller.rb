@@ -33,7 +33,7 @@ class PartnersController < ApplicationController
   def new
     # 最初から口座を一つ作る
     @partner = Contact.new
-    @contact_account = ContactAccount.new account: Account.new(currency:"JPY", active:true)
+    @contact_account = ContactAccount.new account: Account.new(currency:"JPY", active:true, subtype:'APAR')
   end
 
   # GET /contacts/1/edit

@@ -86,8 +86,9 @@ class GoodsReceiptPosController < ApplicationController
     #       するか?
     amt = {}
     @inv.details.each do |detail|
-      amt[detail.item.accounting.stock_ac_id] =
-                        (amt[detail.item.accounting.stock_ac_id] || 0) +
+      # 三分法でやってみる
+      amt[detail.item.accounting.purchase_ac_id] =
+                        (amt[detail.item.accounting.purchase_ac_id] || 0) +
                         detail.price * detail.quantity
     end
 
@@ -96,12 +97,13 @@ class GoodsReceiptPosController < ApplicationController
         @inv.confirm! current_user
         @inv.save!
 
+        entry_no = rand(2_000_000_000)
         # Dr.
         sum_amt = 0
-        amt.each do |ac_id, a|
-          r = AccountLedger.new date: @inv.date,
+        amt.each do |pur_ac_id, a|
+          r = AccountLedger.new date: @inv.date, entry_no: entry_no,
                             operation: 'trans',
-                            account_id: ac_id,  # Dr.
+                            account_id: pur_ac_id,  # Dr.
                             amount: a,  # 取引通貨
                             currency: @inv.order.currency,
                             description: "goods receipt po",
@@ -112,7 +114,7 @@ class GoodsReceiptPosController < ApplicationController
           sum_amt += a
         end
         # Cr.
-        r = AccountLedger.new date: @inv.date,
+        r = AccountLedger.new date: @inv.date, entry_no: entry_no,
                             operation: 'trans',
                             account_id: @inv.account_id,
                             amount: -sum_amt,  # 取引通貨, 貸方マイナス

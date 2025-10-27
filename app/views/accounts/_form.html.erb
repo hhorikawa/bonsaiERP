@@ -1,18 +1,22 @@
 
-<em style="color:red">● TODO:</em>
-<ul>
-  <li>全部の科目に通貨があるのは、やりすぎでは?
-</ul>
-
 <% # @param form form object 
    # サブクラスの form からも呼び出される %>
+
+<em style="color:red">● TODO:</em>
+<ul>
+  <li><s>全部の科目に通貨があるのは、やりすぎでは?</s> fixed.
+</ul>
+
 
   <%= error_messages_for form.object %>
 
   <%= form.text_field :name %>  
-  <%= form.check_box  :active  %>  
+  <%= form.check_box  :active  %>
+<% if ['CASH', 'APAR'].include?(form.object.subtype) %>
   <%= form.select :currency,
             options_from_collection_for_select(Currency.all, :code, :to_s, form.object.currency),
             required:false, label:"Currency:", help:"後から変更できません" %>  
+<% end %>
+  
   <%= form.text_field :description  %>  
 

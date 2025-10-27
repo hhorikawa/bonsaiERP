@@ -1,28 +1,21 @@
-- ledger = present ledger  unless ledger.is_a?(AccountLedgerPresenter)
-- ledger.current_account_id = ledger.account_id
 
 %li.row-fluid.account_ledger(id='#{ledger.id}')
   .span5
     %h4.ib
       = link_to ledger, ledger, class: 'code', title: 'Código'
-    %strong= ledger.operation_tag
+    %strong= ledger.operation
 
-    = ledger.status_tag
-
-    .clearfix
-    = ledger.contact_link_tag
+    = ledger.status
 
     %p
       %i= l ledger.date.to_date
       %span.muted De:
-      = link_to ledger.account, ledger.account_url
-      %span.muted A:
-      = link_to ledger.account_to, ledger.account_to_url
+      = link_to ledger.account.name, ledger.account
   .span5
-    = ledger.updater_label
-    = ledger.creator_label
-    = ledger.approver_label
-    = ledger.nuller_label
+    = ledger.updater
+    = ledger.creator
+    = ledger.approver
+    = ledger.nuller
     .clearfix
 
     .inline-cont

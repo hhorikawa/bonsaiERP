@@ -11,7 +11,7 @@ class ContactAccountsController < ApplicationController
 
   # GET /contact_accounts/new
   def new
-    @contact_account = ContactAccount.new account: Account.new(currency:"JPY", active:true)
+    @contact_account = ContactAccount.new account: Account.new(currency:"JPY", active:true, subtype:'APAR')
   end
 
   # GET /contact_accounts/1/edit

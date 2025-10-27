@@ -8,7 +8,8 @@ class CreateAccounts < ActiveRecord::Migration[5.2]
         t.string  :name, null:false, index: {unique:true}
 
         # 通貨は勘定科目ごとに持つ。人名勘定なので可能.
-        t.column  :currency, "CHAR(3) NOT NULL"
+        # 現金預金と債権債務以外は, 通貨不要. nullable.
+        t.column  :currency, "CHAR(3) "
         
         t.boolean :active, null:false, default: true
         t.string  :description, limit: 500, null:false

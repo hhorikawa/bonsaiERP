@@ -17,6 +17,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_26_084238) do
 
   create_table "account_ledgers", force: :cascade do |t|
     t.date "date", null: false
+    t.integer "entry_no", null: false
     t.string "reference"
     t.string "operation", limit: 20, null: false
     t.integer "account_id", null: false
@@ -46,7 +47,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_26_084238) do
 
   create_table "accounts", id: :serial, force: :cascade do |t|
     t.string "name", null: false
-    t.string "currency", limit: 3, null: false
+    t.string "currency", limit: 3
     t.boolean "active", default: true, null: false
     t.string "description", limit: 500, null: false
     t.string "accountable_type", limit: 80

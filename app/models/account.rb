@@ -40,10 +40,12 @@ class Account < ApplicationRecord
   
   validates_presence_of :name
   validates_uniqueness_of :name
-  
-  validates_presence_of :currency
-  validates_inclusion_of :currency, in: CURRENCIES.keys
 
+  with_options if: ->{ ['CASH', 'APAR'].include?(subtype) } do |r|
+    r.validates_presence_of :currency
+    r.validates_inclusion_of :currency, in: CURRENCIES.keys
+  end
+  
   SUBTYPES = {
     # Assets / Liabilities
     'CASH' => 'Cash and Bank Account',

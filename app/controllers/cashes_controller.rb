@@ -18,9 +18,12 @@ class CashesController < ApplicationController
   # GET /banks/new
   def new
     #ac = Account.new accountable: Cash.new(),
-    @cash = Cash.new account: Account.new(currency: "JPY", active:true)
+    # TODO: 組織の機能通貨を初期値にする
+    @cash = Cash.new account: Account.new(currency: "JPY", active:true,
+                                          subtype: 'CASH')
   end
 
+  
   # GET /banks/1/edit
   def edit
   end

@@ -37,13 +37,11 @@ class AccountLedgers::Query < BaseForm
     payments(account_id).order('date desc, id desc')
   end
 
-  def search(search)
-    s = "%#{search}%"
-
-    AccountLedger
-    .eager_load(:contact, :account, :account_to)
-    .includes(:account, :account_to)
-    .where("accounts.name ILIKE :s OR account_tos_account_ledgers.name ILIKE :s OR contacts.matchcode ILIKE :s", s: s)
+  
+  def search()
+    # TODO: date なども調べる
+    AccountLedger.eager_load(:account)
+            .where("reference ILIKE :s OR description ILIKE :s ", s: text)
   end
 
   
