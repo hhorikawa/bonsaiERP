@@ -10,7 +10,7 @@
 
   <%= error_messages_for form.object %>
 
-  <%= form.text_field :name %>  
+  <%= form.text_field :name, help: "e.g. Expenses:Health:Medical" %>  
   <%= form.check_box  :active  %>
 <% if ['CASH', 'APAR'].include?(form.object.subtype) %>
   <%= form.select :currency,

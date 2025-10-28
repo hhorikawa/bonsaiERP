@@ -1,19 +1,28 @@
+
 # author: Boris Barroso
 # email: boriscyber@gmail.com
+
+# singular resource
 class ReportsController < ApplicationController
   include Controllers::DateRange
 
   before_action :set_date_range, :set_tag_ids
 
-  def index
+  # Profit and Loss (P/L)
+  def show
     @report = Report.new(@date_range, tag_ids: @tag_ids)
   end
 
+  # 
   def inventory
     @report = InventoryReportService.new(inventory_params)
     @tag_group = TagGroup.api
   end
 
+  # demand and supply schedule
+  def schedule
+  end
+  
 
   def present_date_range
     "del <i>#{I18n.l(date_range.date_start)}</i> al <i>#{I18n.l(date_range.date_end)}</i>".html_safe

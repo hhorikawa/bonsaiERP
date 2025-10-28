@@ -1,10 +1,13 @@
-# encoding: utf-8
+
 # author: Boris Barroso
 # email: boriscyber@gmail.com
+
+# on-hand stock: total number of items in a warehouse. inventory physically available
+# available stock: on-hand stock minus any quantities reserved for open transaction, such as sales orders, stock transfer etc.
 class Stock < ApplicationRecord
   belongs_to :store
   belongs_to :item
-  belongs_to :user
+  #belongs_to :user
 
   #validations
   validates_presence_of :store, :store_id, :item, :item_id

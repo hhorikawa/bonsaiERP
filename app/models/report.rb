@@ -1,14 +1,17 @@
 
 # 収支リポートのモデル
 class Report
-  attr_reader :date_range
+  # form object
+  attr_reader :search
+
+  # additional params
   attr_reader :attrs
 
-  def initialize(drange, attrs = {})
-    raise TypeError if !drange || !drange.is_a?(Range)
-    raise TypeError if drange.exclude_end?
+  
+  def initialize(search, attrs = {})
+    raise TypeError if !search.is_a?(DateRange)
     
-    @date_range = drange
+    @search = search
     @attrs = attrs
   end
 

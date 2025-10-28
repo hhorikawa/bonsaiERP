@@ -93,7 +93,8 @@ end
 
 resources :taxes
 
-resources :reports, only: [:index]
+# controller_name = `reports_controller`
+resource :report
 
 get 'inventory_report' => 'reports#inventory', as: :inventory_report
 

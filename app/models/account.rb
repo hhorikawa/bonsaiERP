@@ -48,14 +48,14 @@ class Account < ApplicationRecord
   
   SUBTYPES = {
     # Assets / Liabilities
-    'CASH' => 'Cash and Bank Account',
+    'CASH' => 'Assets:Cash and Bank Account',
     'APAR' => 'Accounts Payable and Receivable',
-    'INV' => 'Inventory',  # stock は完成品のみ, inventory は材料も含むイメージ
+    'INV' => 'Assets:Inventory',  # stock は完成品のみ, inventory は材料も含むイメージ
 
     # P/L
     'REV' => 'Revenue',
-    'VC' => 'Variable Cost',
-    'NON-VC' => 'Non-Variable Costs'
+    'VC' => 'Expenses:Variable Cost',
+    'NON-VC' => 'Expenses:Non-Variable Costs'
   }
   validates_inclusion_of :subtype, in: SUBTYPES.keys
   

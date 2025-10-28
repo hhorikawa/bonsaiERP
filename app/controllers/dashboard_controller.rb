@@ -1,6 +1,7 @@
 
 # author: Boris Barroso
 # email: boriscyber@gmail.com
+
 class DashboardController < ApplicationController
   #include Controllers::DateRange
 
@@ -14,18 +15,20 @@ class DashboardController < ApplicationController
     render template: 'dashboard/home'
   end
 
+  
   # GET /dashboard
   def show
     if params[:date_range].blank?
       today = Date.today
-      @date_range = DateRange.new date_start: today - 366, date_end: today
+      # `DateRange` is a form object.
+      @date_range = DateRange.new date_start: today - 366, date_end: today,
+                                  time_strata: 'month'
     else
-      @date_range = DateRange.new params[:date_range]
+      @date_range = DateRange.new params.require(:date_range)
+                                        .permit(*DateRange.attribute_names)
     end
     
-    @report = Report.new @date_range.range
-    #@dashboard = DashboardPresenter.new(view_context, @date_range)
-    #render template: 'dashboard/index'
+    @report = Report.new @date_range
   end
 
 
