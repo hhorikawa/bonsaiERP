@@ -94,7 +94,8 @@ end
 resources :taxes
 
 # controller_name = `reports_controller`
-resource :report
+# `#index` はリポートを一覧表示する
+resources :reports
 
 get 'inventory_report' => 'reports#inventory', as: :inventory_report
 

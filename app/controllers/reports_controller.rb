@@ -2,10 +2,14 @@
 # author: Boris Barroso
 # email: boriscyber@gmail.com
 
-# singular resource
+# 複数形 resource
 class ReportsController < ApplicationController
   before_action :set_date_range, only: [:show]
 
+
+  # リポートを一覧表示
+  def index
+  end
   
   # Profit and Loss (P/L)
   def show
