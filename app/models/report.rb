@@ -15,6 +15,7 @@ class Report
     @attrs = attrs
   end
 
+  
   def expenses_by_item
     conn.select_rows(sum_movement_details_sql(params(type: 'Expense') ) )
     .map {|v| ItemTransReport.new(*v)}
@@ -73,8 +74,10 @@ class Report
     @contacts_expenses ||= conn.select_rows(contacts_sql params(type: 'Expense')).map {|v| ContactReport.new(*v)}
   end
 
-  private
-    def offset
+  
+private
+  
+  def offset
       @offset ||= attrs[:offset].to_i >= 0 ? attrs[:offset].to_i : 0
     end
 

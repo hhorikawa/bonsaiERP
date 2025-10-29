@@ -1,3 +1,6 @@
+
+<% @page_title = "P/L: #{@date_range.date_start}..#{@date_range.date_end}" %>
+
 <% content_for :links do %>
   <ul class="breadcrumbs span6">
     <li></li>
@@ -14,68 +17,21 @@
   </div>
 <% end %>
 
-<h2 id="title">
-  Summary
-  <i class="fs80 n"><%= @date_range.range %></i>
-</h2>
 
-<%= render partial: "dashboard/general_aspects" %>
 
-<h5 class="n">●●未承認の伝票がある場合, ここに一覧を表示 </h5>
+<h5 class="n">●●未承認の伝票がある場合, ここに一覧を表示 --- too much</h5>
 
 <div class="well">
-  <%= form_for dashboard_path, method: :get, html: {id: "form_graph", class: 'form-inline'} do %>
-    <%= render 'layouts/date_range', dr: @date_range %>
-    <%= submit_tag 'Generate', class: 'btn' %>
+  <%= form_with model: @date_range, url: dashboard_path, method: :get, html: {id: "form_graph", class: 'form-inline'} do |f| %>
+    <%= render 'layouts/date_range', form:f  %>
+    <%= f.submit 'Generate', class: 'btn btn-primary' %>
+    <%= f.submit 'Reset', class: 'btn btn-secondary', name:'reset' %>
   <% end %>
 </div>
 
 <%= render 'dashboard/graph', data: @report %>
 
-<div class="row-fluid">
-  <div class="span6 well well-small">
-    <%#<div class="alert alert-success inline-block"></div>%>
-    <div class="row-fluid">
-      <div class="span6">
-        <h4 class="incomes-total muted ib n">
-          Income:
-        </h4>
-        <h4 class="bonsai-dark ib">
-          %
-          <%= ntc @report.incomes_percentage %>
-        </h4>
-      </div>
-      <div class="span6">
-        <h4 class="n ib">
-          <i class="icon-plus bonsai-dark"></i>
-          <%= ntc @report.total_incomes %>
-          <%= currency_label currency %>
-        </h4>
-      </div>
-    </div>
-  </div>
 
-  <div class="span6 well well-small">
-    <%#<div class="alert alert-error inline-block"></div>%>
-    <div class="row-fluid">
-      <div class="span6">
-        <h4 class="expenses-total ib n muted">
-          Expenses:
-        </h4>
-        <h4 class="ib text-error">
-          %
-          <%= ntc @report.expenses_pecentage %>
-        </h4>
-      </div>
-      <div class="span6">
-        <h4 class="n inline-block">
-          <i class="icon-minus text-error"></i>
-          <%= ntc @report.total_expenses %>
-          <%= currency_label currency %>
-        </h4>
-      </div>
-    </div>
-  </div>
-</div>
+
 
 <%= render "dashboard/tour_general" %>

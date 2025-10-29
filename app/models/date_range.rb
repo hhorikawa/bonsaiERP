@@ -7,6 +7,9 @@ class DateRange < BaseForm
   # nullable
   attribute :item_id, :integer
 
+  # nullable
+  attribute :store_id, :integer
+  
   # 'year', 'month', 'week', 'day'
   attribute :time_strata, :string
 

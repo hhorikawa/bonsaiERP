@@ -117,6 +117,9 @@ gem 'active_model_serializers', '~> 0.10.15'
 gem 'validates_email_format_of'#, '~> 1.5'
 
 # Model クラスに `validates_lengths_from_database()` が生える.
+# `validates_uniqueness_of` の追加クエリをなくす (performance improvement)
+# "database_validations" gem も考慮に値する.
+#   `db_belongs_to` method
 gem 'validates_lengths_from_database'
 
 # PostgreSQL hstore 拡張. Linux 側に postgresql-contrib パッケージが必要.
@@ -152,6 +155,8 @@ group :development, :test do
   gem "factory_bot_rails", "~> 6.5"
     
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
+  # コードベースをスキャンして、SQLインジェクションやクロスサイトスクリプティン
+  # グ（XSS）のような一般的な問題を含む脆弱性を検出
   gem "brakeman", require: false
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]

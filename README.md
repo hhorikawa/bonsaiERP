@@ -1,5 +1,5 @@
 
-# *bonsaiERP 3*
+# *bonsaiERP 3*, renovation
 
 [![License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/hhorikawa/bonsaiERP/blob/main/MIT-LICENSE.md)
 
@@ -10,7 +10,9 @@
 インボイス機能は持たない
 
  - Dashboard
- 
+   + Profit report
+   + Inventory report
+   
  - Master Data
    + ✅ Business Partners
      - 取引先口座 OK
@@ -75,28 +77,47 @@
    ActiveStorage は Rails 5.2 で導入された。
 
 
-TODO: 
- - Install a UI library.
-   + <a href="https://github.com/ColorlibHQ/gentelella/">ColorlibHQ/gentelella: Free Bootstrap 5 Admin Dashboard Template</a> or
-   + <a href="https://flowbite.com/">Flowbite - Build websites even faster with components on top of Tailwind CSS</a>
-
-   + https://coreui.io/bootstrap/docs/forms/stepper/ PRO only
-   + <a href="https://daisyui.com/">Tailwind CSS Component Library ⸺ daisyUI</a>
-   
- - <s>Installing the `pundit` gem for authorization</s> fixed.
- 
 
 
-## *bonsaiERP 3*
+## *bonsaiERP 3*, renovation
+
+<i>bonsaiERP 3</i> は, v2 までと互換性がありません。
+
+
+### Frontend
 
  - Chart は <i>Chart.js</i> の v1.x 辺り。古すぎる。差し替える. Use `apexcharts`.
  - AngularJS v1.x 時代 (v1.0.0 = 2012年6月)。これも古すぎる. 作り直すしかない
 
- - データベースに互換性はない:
-   + `accounts` table が取引を記録するようになっていたが, 設計がおかしい。v3 では, `accounts` table は勘定科目マスタ, `account_ledgers` table が仕訳を持つようにした。
-   + `movement_details` table は `accounts` table にぶら下がっていた。上のとおり, `accounts` table は勘定科目マスタにして, `transactions` table を `orders` として復活させ、そこにぶら下げるようにした。`20140217134723_drop_transactions_table.rb` で drop しているのがおかしい。
+Rails 8時代のフロントエンド
+
+ - Hotwire (Turbo, Stimulus)  -- takes care of at least 80% of the interactivity
+ 
+ - ▲ API mode + SPA アーキテクチャ (React)  -- 開発効率が悪すぎる
+ 
+ - Inertia.js  -- APIレスのフロントエンド
+   + <a href="https://techracho.bpsinc.jp/hachi8833/2025_10_20/153731">Rails: Inertia.jsでRailsのJavaScript開発にシンプルさを取り戻そう（翻訳)</a>
+   + <a href="https://kinsta.com/jp/blog/inertia-js/">Inertia.jsの基本的な特徴や仕組み（徹底解説)</a> <blockquote><code>Link</code> がクリックされると、Inertiaがクリックイベントに介入し、XHRリクエストをサーバーに送信。サーバーはこれがInertiaのリクエストであることを認識して、JSONのレスポンスを返します。このレスポンスにはJavaScriptのコンポーネント名とデータが含まれており、その後、Inertiaは不要なコンポーネントを削除し、新しいページの訪問（表示）に必要なコンポーネントに置き換え、履歴の状態を更新</blockquote>
+
+ - "react_on_rails" gem ("react-rails" の後継). コンポーネント単位で表示
+
+
+TODO: Install a UI library.
+ - <a href="https://github.com/ColorlibHQ/gentelella/">ColorlibHQ/gentelella: Free Bootstrap 5 Admin Dashboard Template</a> or
+ - <a href="https://flowbite.com/">Flowbite - Build websites even faster with components on top of Tailwind CSS</a>
+
+ - https://coreui.io/bootstrap/docs/forms/stepper/ PRO only
+ - <a href="https://daisyui.com/">Tailwind CSS Component Library ⸺ daisyUI</a>
+
+
+
+### Models
+
+ - `accounts` table が取引を記録するようになっていたが, 設計がおかしい。v3 では, `accounts` table は勘定科目マスタ, `account_ledgers` table が仕訳を持つようにした。
+ - `movement_details` table は `accounts` table にぶら下がっていた。上のとおり, `accounts` table は勘定科目マスタにして, `transactions` table を `orders` として復活させ、そこにぶら下げるようにした。`20140217134723_drop_transactions_table.rb` で drop しているのがおかしい。
 
 ●● おそらく, `stocks` table も時系列になっていないのでおかしい。
+
 
 
 

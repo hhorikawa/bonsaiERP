@@ -82,8 +82,7 @@ class GoodsReceiptPosController < ApplicationController
     authorize @inv
 
     # journal entry
-    # TODO: 1件ごとに作っていては件数がバカにならない. 集約して, 夜間バッチに
-    #       するか?
+    # 債権債務が絡む取引は、都度つど仕訳を作る
     amt = {}
     @inv.details.each do |detail|
       # 三分法でやってみる

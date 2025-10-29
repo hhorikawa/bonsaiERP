@@ -1,9 +1,14 @@
 %h4.n.ib.muted.graph
   Graph of Daily <span class="text-success">Income</span> vs <span class="text-error">Expense</span>
 
+%div(data-controller="dashboard")
+  %div
+    params
 
-.row-fluid
-  #report1.span12(style='height: 300px')
+  %div(id="chart")
+    replace here
+
+
 
 :javascript
   $(function() {

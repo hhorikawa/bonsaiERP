@@ -4,13 +4,12 @@
 
 # singular resource
 class ReportsController < ApplicationController
-  include Controllers::DateRange
+  before_action :set_date_range, only: [:show]
 
-  before_action :set_date_range, :set_tag_ids
-
+  
   # Profit and Loss (P/L)
   def show
-    @report = Report.new(@date_range, tag_ids: @tag_ids)
+    @report = Report.new(@date_range)  #, tag_ids: @tag_ids)
   end
 
   # 
@@ -19,16 +18,31 @@ class ReportsController < ApplicationController
     @tag_group = TagGroup.api
   end
 
+  
   # demand and supply schedule
   def schedule
+    # only committed demand
+    @demand_skd = SalesOrder.where('ship_date >= ? AND state = ?', date, 'confirmed')
+                            .group('ship_date').order('ship_date')
+    @supply_skd = PurchaseOrder.where('delivery_date >= ? AND state = ?', date, 'confirmed')
+                               .group('delivery_date').order('delivery_date')
   end
   
+  
+private
 
-  def present_date_range
-    "del <i>#{I18n.l(date_range.date_start)}</i> al <i>#{I18n.l(date_range.date_end)}</i>".html_safe
+  # for `before_action`
+  def set_date_range
+    if params[:date_range].blank? || !params[:reset].blank?
+      today = Date.today
+      # `DateRange` is a form object.
+      @date_range = DateRange.new date_start: today - 366, date_end: today,
+                                  time_strata: 'month'
+    else
+      @date_range = DateRange.new params.require(:date_range)
+                                        .permit(*DateRange.attribute_names)
+    end
   end
-
-  private
 
     def set_tag_ids
       @tag_ids = Tag.select("id").where(id: params[:tags]).pluck(:id).uniq

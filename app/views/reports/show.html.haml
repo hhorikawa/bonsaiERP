@@ -1,8 +1,11 @@
-%h2
-  Reportes
-  %i.n.fs70= present_date_range @date_range
 
-= render 'reports/form'
+<% @page_title = "P/L: #{@date_range.date_start}..#{@date_range.date_end}" %>
+
+= form_with model: @date_range, url: report_path, method: 'get' do |f|
+  = render 'layouts/date_range', form:f
+  = f.submit 'Generate report', class: 'btn btn-primary'
+  = f.submit 'Reset', class: 'btn btn-secondary', name:'reset'
+
 
 .row-fluid
   .span6.well.well-small

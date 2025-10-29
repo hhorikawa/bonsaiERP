@@ -29,7 +29,8 @@ class Inventory < BusinessRecord
   belongs_to :order, optional: true
   
   belongs_to :creator, class_name: "User"
-  # scrap の場合か?
+  
+  # scrap の場合 expense / PO partner
   belongs_to :account, optional:true
   
   belongs_to :project, optional: true
