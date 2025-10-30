@@ -26,7 +26,8 @@ class Contact < ApplicationRecord
   ########################################
   # Validations
 
-  before_validation :check
+  before_validation :norm
+  validate :check
   
   validates :matchcode, presence: true, uniqueness: true #{ scope: :type }
   validates :name, presence: true
@@ -117,12 +118,19 @@ class Contact < ApplicationRecord
   
 private
 
-  # for before_validation
-  def check
+  # for `before_validation`
+  def norm
     self.matchcode = matchcode.to_s.unicode_normalize(:nfkc).strip.upcase
     self.tax_number = nil if tax_number.blank?
   end
 
+  # for `validate()`
+  def check
+    if !staff && !client && !supplier
+      errors.add :base, "must enable at least one of staff, client, supplier"
+    end
+  end
+  
     # Check if the contact has any relations before destroy
     def check_relations
       accounts.empty? && inventories.empty?

@@ -6,8 +6,8 @@ class CreateTransactions < ActiveRecord::Migration[5.2]
         # STI は `type` が必要
         t.string :type, limit:80, null:false
 
-        # order datetime
-        t.datetime :date, null:false
+        # order_date: datetime はやりすぎ。`date` で十分
+        t.date :date, null:false
 
         # purchase order: vendor, sales order: customer
         t.references :contact, type: :integer, null:false, foreign_key:true

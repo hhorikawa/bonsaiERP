@@ -303,7 +303,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_26_084238) do
 
   create_table "orders", id: :serial, force: :cascade do |t|
     t.string "type", limit: 80, null: false
-    t.datetime "date", precision: nil, null: false
+    t.date "date", null: false
     t.integer "contact_id", null: false
     t.integer "store_id"
     t.decimal "gross_total", precision: 14, scale: 2, default: "0.0"
@@ -312,7 +312,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_26_084238) do
     t.string "bill_number"
     t.decimal "original_total", precision: 14, scale: 2, default: "0.0"
     t.decimal "balance_inventory", precision: 14, scale: 2, default: "0.0"
-    t.date "ship_date", null: false, comment: "If FOB and *CIF*, the date on the port of departure"
+    t.date "ship_date", comment: "If FOB and *CIF*, the date on the port of departure"
     t.string "delivery_loc"
     t.string "incoterms", limit: 10
     t.date "delivery_date"

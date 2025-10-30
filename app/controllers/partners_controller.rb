@@ -49,6 +49,7 @@ class PartnersController < ApplicationController
                             .require(:contact_account).require(:account)
                             .permit(:name, :currency, :active, :description))
     @contact_account.assign_attributes contact_account_params
+    @contact_account.account.subtype = 'APAR'
 
     begin
       ActiveRecord::Base.transaction do
@@ -57,7 +58,6 @@ class PartnersController < ApplicationController
         # save! だけだと account が作られない
         @contact_account.save!
         @contact_account.account.accountable = @contact_account
-        @contact_account.account.subtype = 'APAR'
         @contact_account.account.creator_id = current_user.id
         @contact_account.account.save!
       end
