@@ -13,6 +13,9 @@ class SalesOrder < Order
   ########################################
   # Relationships
 
+  # ship_from: sales only
+  belongs_to :store, optional:true
+
   has_many :payments, -> { where(operation: 'payin') }, class_name: 'AccountLedger', foreign_key: :account_id
 
   # what's this?
@@ -20,9 +23,8 @@ class SalesOrder < Order
 
   ########################################
   # Scopes
-  #scope :approved, -> { where(state: 'approved') }
+
   scope :active,   -> { where(state: ['approved', 'paid']) }
-  #scope :paid, -> { where(state: 'paid') }
 
   # customer
   scope :contact, -> (cid) { where(contact_id: cid) }
@@ -39,6 +41,12 @@ class SalesOrder < Order
   }
   scope :date_range, -> (range) { where(date: range) }
 
+  with_options if: :confirmed? do |r|
+    r.validates_presence_of :store_id   # ship_from
+    r.validates_presence_of :ship_date
+  end
+
+  
   def subtotal
     self.income_details.inject(0) {|sum, det| sum += det.total }
   end

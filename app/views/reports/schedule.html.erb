@@ -1,0 +1,24 @@
+
+<% @page_title = "Schedule" %>
+
+<table class="table table-sm">
+<% # sales order %>
+<% @demand_skd.each do |demand| %>
+  <tr>
+    <td><%= demand.ship_date %>
+    <td><%= demand.item.name %>
+    <td><5= demand.quantity %>
+<% end %>
+</table>
+
+
+
+<table class="table table-sm">
+<% # purchase order %>
+<% @supply_skd.each do |supply| %>
+  <tr>
+    <td><%= supply.delivery_date %>
+    <td><%= supply.item.name %>
+    <td><5= supply.quantity %>
+<% end %>
+</table>

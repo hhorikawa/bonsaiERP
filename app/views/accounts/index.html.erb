@@ -1,9 +1,16 @@
 
 <% @page_title = "Chart of Accounts" %>
 
+<% content_for :links do %>
+  <div class="btn-group" role="group">
+    <%= link_to 'New Account...', new_account_path, :class => 'new' %>
+  </div>
+<% end %>
 
-<p><%= link_to 'New Account...', new_account_path, :class => 'new' %>
 
+
+
+  
 <table class="table">
   <tr>
     <th>Name</th>

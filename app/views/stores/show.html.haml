@@ -1,10 +1,18 @@
 
-- @page_title = "Store: " + @store.name
+:ruby
+  @page_title = "Store: " + @store.name
+  @crumbs = [
+    ["Store/Warehouse", stores_path] ]
+
 
 - content_for :links do
-  %ul.breadcrumbs
-    %li
-      = link_to "店", stores_path
+  %div.btn-group{role: "group"}
+    = link_to "Edit...", edit_store_path(@store.id), class: 'btn'
+
+    = button_to "Destroy", store_path(@store.id), method: :delete,
+                data:{turbo_confirm: "Esta seguro de borrar el almacen?"}, class: 'btn'
+
+
 
 .row-fluid
   .span6
@@ -15,13 +23,7 @@
       .span8
         = nl2br @store.address
 
-  .span6.r
-    .btn-group
 
-      = link_to "Edit...", edit_store_path(@store.id), class: 'btn'
-
-      = button_to icon_delete_text, store_path(@store.id), method: :delete,
-                data:{turbo_confirm: "Esta seguro de borrar el almacen?"}, class: 'btn'
 
 - if @store.active
   %h2 In-Store Operations

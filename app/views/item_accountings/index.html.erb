@@ -1,8 +1,14 @@
 
 <% @page_title = "Item Accountings" %>
 
+<% content_for :links do %>
+  <div class="btn-group" role="group">
+    <%= link_to 'New Item-accounting...', new_item_accounting_path, :class => 'new' %>
+  </div>
+<% end %>
+  
 
-<p><%= link_to 'New Item-accounting...', new_item_accounting_path, :class => 'new' %>
+
 
 <table class="table">
   <tr>

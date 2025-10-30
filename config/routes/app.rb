@@ -95,7 +95,12 @@ resources :taxes
 
 # controller_name = `reports_controller`
 # `#index` はリポートを一覧表示する
-resources :reports
+resources :reports do
+  collection do
+    get :schedule
+  end
+end
+
 
 get 'inventory_report' => 'reports#inventory', as: :inventory_report
 

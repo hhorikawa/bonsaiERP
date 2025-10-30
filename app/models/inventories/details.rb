@@ -1,9 +1,20 @@
-# encoding: utf-8
+
 # author: Boris Barroso
 # email: boriscyber@gmail.com
+
 # Class that helps manage details for Inventory
-class Inventories::Details < Struct.new(:inventory)
-  delegate :details, :store_id, :store_to_id, to: :inventory
+# a form object for `InventoryDetail`
+class Inventories::Details < BaseForm
+  attribute :item_id, :integer
+  attribute :order_price, :decimal
+  attribute :order_qty, :decimal
+  
+  # actual
+  attribute :price, :decimal
+  attribute :qty, :decimal
+  
+                  ...
+
 
   def item_ids
     #@item_ids ||= details.select{|v| v.quantity > 0 }.map(&:item_id).uniq

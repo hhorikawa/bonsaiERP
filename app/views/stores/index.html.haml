@@ -2,12 +2,9 @@
 - @page_title = "店/倉庫"
 
 - content_for :links do
-  %ul.breadcrumbs
-    %li
-
-.row-fluid
-  .span6.r
+  %div.btn-group{role: "group"}
     = link_to "New store...", new_store_path, class: 'btn btn-secondary' 
+
 
 
 %ul#stores.unstyled.listing

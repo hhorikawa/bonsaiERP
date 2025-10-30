@@ -9,7 +9,8 @@
  - PostgreSQL 14.0 or higher
  - PostgreSQL development headers (`libpq-dev`), `postgresql-contrib` to enable **hstore**
  - Node.js v18.19 or higher
-
+ - redis v8.0
+ 
 
 ### Other Dependencies
 - ImageMagick (for image processing)

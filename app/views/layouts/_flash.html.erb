@@ -1,6 +1,14 @@
-<% flash.each do |name, msg| %>
-  <div class="flash alert <%= flash_class(name) %>" id="flash<%= name.to_s.capitalize %>">
-    <a class="close">x</a>
-    <h4 class="inline"><%= msg %></h4>
-  </div>
+
+<% flash.each do |name, msg|
+     fla_class = case name.to_s
+                 # std
+                 when 'alert'; "alert-danger"
+                 when 'notice'; "alert-success"
+                 else raise("internal error")
+                 end
+  %>
+<div class="alert <%= fla_class %> alert-dismissible fade show" role="alert">
+  <%= msg %>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
 <% end %>

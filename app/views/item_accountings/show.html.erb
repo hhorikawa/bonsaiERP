@@ -1,6 +1,21 @@
 
 <% @page_title = "Item_accounting: " + @item_accounting.name %>
+<% @crumbs = [
+     ['Item Accounting', item_accountings_path ] ]
+  %>
 
 
-<%= link_to 'Editar', edit_item_accounting_path(@item_accounting), :class => 'edit' %>
-<%= link_to 'Lista', item_accountings_path, :class => 'list' %>
+<% content_for :links do %>
+  <div class="btn-group" role="group">
+    <%= link_to 'Editar', edit_item_accounting_path(@item_accounting),
+	        :class => 'edit' %>
+  </div>
+<% end %>
+
+
+<table class="table">
+  <tr>
+    <th>
+  <tr>
+    <td>
+</table>

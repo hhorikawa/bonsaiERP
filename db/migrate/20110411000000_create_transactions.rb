@@ -12,7 +12,7 @@ class CreateTransactions < ActiveRecord::Migration[5.2]
         # purchase order: vendor, sales order: customer
         t.references :contact, type: :integer, null:false, foreign_key:true
 
-        # purchase order: ship to, sales order: ship from, nullable.
+        # purchase order: ship_to (NOT NULL), sales order: ship_from (nullable).
         t.references :store, type: :integer, foreign_key: true
 
         # before discount
@@ -31,7 +31,8 @@ class CreateTransactions < ActiveRecord::Migration[5.2]
         t.decimal :balance_inventory, precision: 14, scale: 2, default: 0.0
 
         # PO: When D-group, ship_date = delivery_date
-        t.date    :ship_date, null:false,
+        # SO: ship_date nullable
+        t.date    :ship_date, #null:false,
                   comment: "If FOB and *CIF*, the date on the port of departure"
 
         # if any. "TOKYO CY", "LONG BEACH CY"

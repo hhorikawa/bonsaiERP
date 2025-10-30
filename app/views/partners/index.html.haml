@@ -2,17 +2,11 @@
 - @page_title = "Business Partners"
 
 - content_for :links do
-  %ul.breadcrumbs.span6
-    %li
-      = ""
-
-
-.row-fluid
-  .span6.r
+  %div.btn-group{role: "group"}
     = link_to 'Export', partners_path(format: 'xls'), class: 'btn'
-
-    %tags(model='Contact' tag-ids='#{ tag_ids }' url='#{ }')
     = link_to "New Business Partner...", new_partner_path, class: 'btn btn-secondary'
+
+
 
 = render 'search'
 %p

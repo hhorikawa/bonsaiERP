@@ -147,6 +147,7 @@ module ApplicationHelper
     end
   end
 
+=begin
   def flash_class(fla)
     case fla.to_s
     when 'error'   then 'alert alert-error'
@@ -154,7 +155,8 @@ module ApplicationHelper
     when 'notice'  then 'alert alert-success'
     end
   end
-
+=end
+  
   def true_false(val)
     if val
       'icon-ok text-success'

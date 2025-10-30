@@ -2,15 +2,13 @@
 - @page_title = "Units of Measure"
 
 - content_for :links do
-  %ul.breadcrumbs
-    %li
-      &nbsp;
+  %div.btn-group{role: "group"}
+    = link_to "New UoM...", new_unit_path, class: 'btn btn-secondary' 
+
 
 %p 単位表は, UN/ECE Recommendation No.20 を使う。しかし, code は意味をなさない。表示は symbol を使え.
 
-.row-fluid
-  .span6.r
-    = link_to "New UoM...", new_unit_path, class: 'btn btn-secondary' 
+
 
 %table.table.table-striped
   %tr

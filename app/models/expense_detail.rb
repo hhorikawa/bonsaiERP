@@ -1,4 +1,4 @@
-# encoding: utf-8
+
 # Class to store the details of a expense
 class ExpenseDetail < MovementDetail
 

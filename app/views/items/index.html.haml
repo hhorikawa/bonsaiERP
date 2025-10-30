@@ -2,26 +2,14 @@
 - @page_title = "Product/Item Master"
 
 - content_for :links do
-  %ul.breadcrumbs.span6
-
-
-  %ul.span6.breadcrumbs.r
-    %a#help.dark(href='javascript:;')
-      %i.icon-question-sign
-      Help
-
-.row-fluid
-  .span6
-    = search_tag
-  .span6.r.buttons
-    %tags(model='Item' tag-ids='#{ tag_ids }' url='#{ items_path }')
-
+  %div.btn-group{role: "group"}
     = link_to "New Item...", new_item_path, class: 'btn btn-secondary'
-      
+
 
 = render 'search'
 %p
   = @search.nothing? ? "" : "Search: " + @search.attributes.inspect
+
 
 - paginate_html = paginate @items
 

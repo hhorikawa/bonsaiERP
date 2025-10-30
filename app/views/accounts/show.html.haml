@@ -1,12 +1,14 @@
 
-- @page_title = "Account: " + @account.name 
+:ruby
+  @page_title = "Account: " + @account.name 
+  @crumbs = [
+    ["Chart of Accounts", accounts_path] ]
+
+
 
 - content_for :links do
-  %ul.breadcrumps.span6
-    %li #{link_to "Chart of Accounts", accounts_path}
-
-  .links.span6
-    = link_to 'Edit...', edit_account_path(@account), :class => 'edit', :title => "Editar cuenta caja"
+  %div.btn-group{role: "group"}
+    = link_to 'Edit...', edit_account_path(@account), :class => 'btn'
     = button_to 'Destroy', account_path(@account), data:{turbo_confirm:'Sure?'}, method: :delete
 
 

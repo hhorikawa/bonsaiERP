@@ -1,14 +1,23 @@
 
 <% @page_title = "Contact Account: " + @contact_account.account.name %>
+<% @crumbs = [
+     ["Business Partners", partners_path],
+     [@partner.name, partner_path(@partner)] ]
+  %>
 
-<table>
+<% content_for :links do %>
+  <div class="btn-group" role="group">
+    <%= link_to 'Edit...', {action:"edit", id: @contact_account},
+               class: 'btn btn-secondary' %>
+    <%= button_to "Destroy", {action:"destroy", id:@contact_account}, method: :delete, data:{turbo_confirm:"Sure?"}, class:"btn" %>
+  </div>
+<% end %>
+
+
+
+<table class="table">
   <tr>
     <th>Bank Name: <td><%= @contact_account.bank_name %>
 </table>
 
-<div>
-  <%= link_to 'Edit...', {action:"edit", id: @contact_account},
-               class: 'btn btn-secondary' %>
 
-  <%= button_to "Destroy", {action:"destroy", id:@contact_account}, method: :delete, data:{turbo_confirm:"Sure?"} %>
-</div>

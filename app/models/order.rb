@@ -5,7 +5,8 @@
 class Order < BusinessRecord 
 
   # `delivered` = closed
-  STATES = %w(draft confirmed delivered void).freeze
+  # `partial`: PO = Partially Received, SO = Partially Fulfilled
+  STATES = %w(draft confirmed partial delivered void).freeze
 
   # Callbacks
   #before_update :check_items_balances
@@ -32,7 +33,6 @@ class Order < BusinessRecord
   # Validations
   
   validates_presence_of :date
-  validates_presence_of :ship_date
   
   enum :state, STATES.map{|x| [x,x]}.to_h
   
@@ -68,6 +68,16 @@ class Order < BusinessRecord
     "#{id}"
   end
 
+  def display_state
+    case state
+      when 'draft';     "badge text-bg-warning" 
+      when 'confirmed'; "badge text-bg-success"
+      when 'partial';   "badge text-bg-info"
+      when 'delivered'; "badge text-bg-primary"   # closed
+      when 'void';      "badge text-bg-dark"  
+    end
+  end
+  
 =begin
   def set_state_by_balance!
     if balance <= 0
@@ -174,10 +184,15 @@ private
      errors.add(:currency, I18n.t('errors.messages.movement.currency_change'))  if currency_changed? && ledgers.any?
    end
 
+   
   # for validate()
   def greater_or_equal_due_date
-    if date && ship_date && ship_date < date
+    if date && ship_date && !(date <= ship_date)
       errors.add(:ship_date, "must be >= order_date" )
+    end
+
+    if ship_date && delivery_date && !(ship_date <= delivery_date)
+      errors.add(:delivery_date, "must be >= ship_date" )
     end
   end
   

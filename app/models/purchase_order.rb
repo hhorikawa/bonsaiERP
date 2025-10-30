@@ -26,10 +26,13 @@ class PurchaseOrder < Order
   has_many :devolutions, -> { where(operation: 'devin') },
            class_name: 'AccountLedger', foreign_key: :account_id
 
-  # ship to: purchase only
+  # ship_to: purchase only, NOT NULL
   belongs_to :store
 
+  validates_presence_of :ship_date
+
   before_validation :set_delivery_date
+
   
   ########################################
   # Scopes

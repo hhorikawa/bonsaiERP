@@ -22,14 +22,21 @@ class ReportsController < ApplicationController
     @tag_group = TagGroup.api
   end
 
-  
+
+  # GET
   # demand and supply schedule
   def schedule
+    @date = Date.today - 1
+    
     # only committed demand
-    @demand_skd = SalesOrder.where('ship_date >= ? AND state = ?', date, 'confirmed')
-                            .group('ship_date').order('ship_date')
-    @supply_skd = PurchaseOrder.where('delivery_date >= ? AND state = ?', date, 'confirmed')
-                               .group('delivery_date').order('delivery_date')
+    @demand_skd = MovementDetail.joins(:order)
+                    .where('orders.type = ? AND ship_date > ? AND state = ?', 'SalesOrder', @date, 'confirmed')
+                    .group('ship_date, item_id').select('SUM(quantity) AS quantity')
+                    .order('ship_date')
+    @supply_skd = MovementDetail.joins(:order)
+                    .where('orders.type = ? AND delivery_date > ? AND state = ?', 'PurchaseOrder', @date, 'confirmed')
+                    .group('delivery_date, item_id').select('SUM(quantity) AS quantity')
+                    .order('delivery_date')
   end
   
   

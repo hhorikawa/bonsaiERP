@@ -32,55 +32,38 @@
 <% end %>
 
 <div class="container">
+  
   <header class="border-bottom ">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-	<li class="breadcrumb-item"><a href="#">Home</a></li>
-	<li class="breadcrumb-item"><a href="#">Library</a></li>
-	<li class="breadcrumb-item active" aria-current="page">Data</li>
+<% if @crumbs
+     @crumbs.each do |link| %>
+        <li class="breadcrumb-item">
+	  <%= link_to *link %>
+<%   end %>
+<% end %>
+	<li class="breadcrumb-item active" aria-current="page"></li>
       </ol>
     </nav>
 
+    
     <div class="d-flex flex-wrap justify-content-center mb-4 align-items-center" >
       <div class="d-flex align-items-center mb-md-0 me-md-auto">
 	<h1 ><%= @page_title || raise %></h1>
       </div>
-      
-      <ul class="nav nav-pills ">
-	<li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
-	<li class="nav-item"><a href="#" class="nav-link">Features</a></li>
-	<li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>
-	<li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
-	<li class="nav-item"><a href="#" class="nav-link">About</a></li>
-      </ul>
+
+      <%= yield :links %>
     </div>
   </header>
-</div>
 
-    <%= render 'layouts/notifications' %>
+  <%= render "layouts/flash"  %>
 
-    <div id="wrapper" class="cont">
-      <div id="topbar">
-        <div class="container-fluid">
-          <div class="main-links row-fluid"><%= yield :links %></div>
-        </div>
-      </div>
+  <%= yield %>
 
-      <div id="cont">
-        <div class="container-fluid">
-          <%= render "layouts/flash", flash: flash %>
+</div> <!-- /.container -->
 
-          <% if current_user.change_default_password? %>
-            <%= render "users/change_default_password" %>
-          <% end %>
 
-          <%= yield %>
-          <div class="clear"></div>
-        </div>
-      </div>
-
-      <%= render 'layouts/footer' %>
-    </div>
+<%= render 'layouts/footer' %>
 
 </body>
 </html>
