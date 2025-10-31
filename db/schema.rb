@@ -35,14 +35,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_26_084238) do
     t.boolean "has_error", default: false
     t.string "error_messages"
     t.string "status", limit: 50, default: "approved", null: false
-    t.integer "project_id"
     t.integer "inventory_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "updater_id"
     t.index ["account_id"], name: "index_account_ledgers_on_account_id"
     t.index ["inventory_id"], name: "index_account_ledgers_on_inventory_id"
-    t.index ["project_id"], name: "index_account_ledgers_on_project_id"
   end
 
   create_table "accounts", id: :serial, force: :cascade do |t|
@@ -194,7 +192,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_26_084238) do
     t.integer "creator_id", null: false
     t.integer "transference_id"
     t.integer "store_to_id"
-    t.integer "project_id"
     t.boolean "has_error", default: false, null: false
     t.jsonb "error_messages"
     t.datetime "created_at", precision: nil, null: false
@@ -202,7 +199,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_26_084238) do
     t.integer "updater_id"
     t.index ["account_id"], name: "index_inventories_on_account_id"
     t.index ["order_id"], name: "index_inventories_on_order_id"
-    t.index ["project_id"], name: "index_inventories_on_project_id"
     t.index ["store_id"], name: "index_inventories_on_store_id"
   end
 
@@ -306,6 +302,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_26_084238) do
     t.date "date", null: false
     t.integer "contact_id", null: false
     t.integer "store_id"
+    t.integer "trans_to_id"
     t.decimal "gross_total", precision: 14, scale: 2, default: "0.0"
     t.decimal "total", precision: 14, scale: 2, default: "0.0", null: false
     t.string "currency", limit: 3, null: false
@@ -331,6 +328,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_26_084238) do
     t.boolean "no_inventory", default: false, null: false
     t.index ["contact_id"], name: "index_orders_on_contact_id"
     t.index ["store_id"], name: "index_orders_on_store_id"
+    t.index ["trans_to_id"], name: "index_orders_on_trans_to_id"
   end
 
   create_table "organisations", id: :serial, force: :cascade do |t|
@@ -355,16 +353,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_26_084238) do
     t.date "due_on"
     t.string "plan", default: "2users"
     t.index ["tenant"], name: "index_organisations_on_tenant", unique: true
-  end
-
-  create_table "projects", id: :serial, force: :cascade do |t|
-    t.string "name", null: false
-    t.boolean "active", default: true, null: false
-    t.date "date_start"
-    t.date "date_end"
-    t.text "description", null: false
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "stocks", force: :cascade do |t|
@@ -464,13 +452,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_26_084238) do
 
   add_foreign_key "account_ledgers", "accounts"
   add_foreign_key "account_ledgers", "inventories"
-  add_foreign_key "account_ledgers", "projects"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "contact_accounts", "contacts"
   add_foreign_key "inventories", "accounts"
   add_foreign_key "inventories", "orders"
-  add_foreign_key "inventories", "projects"
   add_foreign_key "inventories", "stores"
   add_foreign_key "inventory_details", "inventories"
   add_foreign_key "inventory_details", "items"
@@ -488,4 +474,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_26_084238) do
   add_foreign_key "movement_details", "orders"
   add_foreign_key "orders", "contacts"
   add_foreign_key "orders", "stores"
+  add_foreign_key "orders", "stores", column: "trans_to_id"
 end

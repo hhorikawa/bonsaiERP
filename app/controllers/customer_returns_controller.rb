@@ -1,10 +1,23 @@
 
 # author: Boris Barroso
 # email: boriscyber@gmail.com
+
 # Devolutions of inventory for Income
 class CustomerReturnsController < ApplicationController
-  before_action :set_store_and_income
+  #before_action :set_store_and_income
 
+  before_action :set_order,
+                only: [:show, :edit, :update, :destroy, :confirm, :void ]
+
+  def index
+    @search = Movements::Search.new  # TODO:
+    @orders = 
+  end
+
+  def show
+  end
+
+  
   # GET
   # /incomes_inventory_ins/new?store_id=:store_id&income_id=:income_id
   def new
@@ -27,14 +40,34 @@ class CustomerReturnsController < ApplicationController
     end
   end
 
-  private
 
+  def edit
+  end
+
+  def update
+  end
+
+
+  def destroy
+  end
+
+  def confirm
+  end
+
+  def void
+  end
+
+  
+private
+  
+=begin
     def set_store_and_income
       @income = Income.active.find(params[:income_id])
       @store = Store.active.find(params[:store_id])
     rescue
       redirect_to incomes_path, alert: 'Ha seleccionado un almacen o un ingreso invalido.' and return
     end
+=end
 
     def inventory_params
       params.require(:incomes_inventory_in).permit(

@@ -44,11 +44,12 @@
 	    <li><a class="dropdown-item" href="/accounts/">Chart of Accounts</a>
             <li><%= link_to "Item Accounting", item_accountings_path,
                             class:"dropdown-item" %>
+	    <li><a class="dropdown-item" href="/transferences/">Journal Entry</a>
+            <li><%= link_to "General Ledger", account_ledgers_path,
+                            class:"dropdown-item" %>
               <!--
             <li><a class="dropdown-item" href="/staff_accounts/">Staff Accounts</a> -->
             <li><%= link_to t('views.menu.etiquetas'), tag_groups_path,
-                            class:"dropdown-item" %>
-            <li><%= link_to "General Ledger", account_ledgers_path,
                             class:"dropdown-item" %>
 
             <li><%= link_to t("views.menu.reports"), reports_path,
@@ -78,16 +79,18 @@
             Purchasing
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/purchase_orders/">Purchase Order &amp; Cancel</a>
+            <li><a class="dropdown-item" href="/purchase_orders/">Purchase Order</a>
           </ul>
         </li>
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button"
              data-bs-toggle="dropdown" aria-expanded="false">
-            In-Store/WHS Ops
+            Inventory
           </a>
           <ul class="dropdown-menu">
+	    <li><a class="dropdown-item" href="/transfer_requests/">Transfer Requests</a>
+	    <li><hr class="dropdown-divider"></li>
 <% Store.all.each do |store| %>            
             <li><%= link_to store.name, store, class:"dropdown-item" %>
 <% end %>
@@ -100,7 +103,7 @@
             Project
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/projects/">Production Order</a>
+            <li><a class="dropdown-item" href="/prod_orders/">Production Order</a>
           </ul>
         </li>
       

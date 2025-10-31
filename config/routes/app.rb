@@ -16,8 +16,6 @@ end
 
 resources :tag_groups
 
-resources :inventory_transferences, only: [:new, :create, :show]
-
 resources :export_expenses, only: [:index, :create]
 
 resources :export_incomes, only: [:index, :create]
@@ -62,17 +60,19 @@ end
 # ●●削除してよいか?
 resources :staff_accounts
 
+# G/L
 resources :account_ledgers, only: [:index, :show, :update] do
   post :transference, on: :collection
   patch :conciliate, on: :member
   patch :null, on: :member
 end
 
+# 振替伝票, 会計仕訳
+resources :transferences #, only: [:new, :create]
 
-# 転移. 何の? Transference between accounts
-resources :transferences, only: [:new, :create]
+resources :item_accountings
 
-# 権限委譲. 何の?
+# 「devolution」のスペイン語訳は、文脈によって異なりますが、「返却・払い戻し」を意味するdevolución（発音は「デボルーショーン」）や、
 resources :devolutions, only: [] do
   member do
     get :new_income
@@ -168,7 +168,9 @@ resources :goods_returns
 ######################################################################
 # Inventory
 
-# 店/倉庫
+resources :transfer_requests
+
+# In-Store Operations
 resources :stores do
   resources :goods_receipt_pos do
     member do
@@ -182,6 +184,8 @@ resources :stores do
       post :confirm
     end
   end
+
+  resources :inventory_transferences #, only: [:new, :create, :show]
 end
 
 
@@ -202,7 +206,8 @@ resources :inventory_ins
 ######################################################################
 # Project
 
-resources :projects
+# Production Orders
+resources :prod_orders
 
 
 ######################################################################

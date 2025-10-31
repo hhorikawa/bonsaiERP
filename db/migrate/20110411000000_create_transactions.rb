@@ -15,6 +15,9 @@ class CreateTransactions < ActiveRecord::Migration[5.2]
         # purchase order: ship_to (NOT NULL), sales order: ship_from (nullable).
         t.references :store, type: :integer, foreign_key: true
 
+        # trans. request
+        t.references :trans_to, type: :integer, foreign_key:{to_table:'stores'}
+        
         # before discount
         t.decimal :gross_total, precision: 14, scale: 2, default: 0.0
 

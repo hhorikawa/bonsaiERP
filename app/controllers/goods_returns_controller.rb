@@ -1,6 +1,8 @@
-# encoding: utf-8
+
 # author: Boris Barroso
 # email: boriscyber@gmail.com
+
+# Return to supplier
 class GoodsReturnsController < ApplicationController
   before_action :set_store_and_expense
 

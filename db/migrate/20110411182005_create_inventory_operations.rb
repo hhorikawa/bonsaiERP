@@ -10,7 +10,7 @@ class CreateInventoryOperations < ActiveRecord::Migration[5.2]
 
         t.string "state", limit: 50, null: false
 
-        # sales order / purchase order. nullable
+        # sales, purchase, transfer, production order. nullable
         t.references :order, type: :integer, foreign_key:true
 
         # 店は必須
@@ -26,7 +26,8 @@ class CreateInventoryOperations < ActiveRecord::Migration[5.2]
         t.integer  :creator_id, null:false
         t.integer  :transference_id
         t.integer  :store_to_id
-        t.references :project, type: :integer, foreign_key:true
+        
+        #t.references :project, type: :integer, foreign_key:true
 
         t.boolean :has_error, null:false, default: false
         t.jsonb   :error_messages

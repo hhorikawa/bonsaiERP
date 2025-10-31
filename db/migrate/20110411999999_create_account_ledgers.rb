@@ -45,9 +45,9 @@ class CreateAccountLedgers < ActiveRecord::Migration[5.2]
         t.string  :status, limit: 50, null:false, default: 'approved'
 
         # nullable
-        t.references :project, type: :integer, foreign_key: true
+        #t.references :project, type: :integer, foreign_key: true
 
-        # nullable
+        # goods receipt PO, delivery. nullable
         t.references :inventory, type: :integer, foreign_key: true
         
         t.timestamps

@@ -1,5 +1,7 @@
 # author: Boris Barroso
 # email: boriscyber@gmail.com
+
+# 倉庫での転送出庫、転送入庫
 class InventoryTransferencesController < ApplicationController
   before_action :set_store, only: [:new, :create]
 

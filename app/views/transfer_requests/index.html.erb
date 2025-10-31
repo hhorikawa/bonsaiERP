@@ -1,0 +1,16 @@
+<h1>transfer_requests</h1>
+
+<%= link_to 'New Transfer request', new_transfer_request_path, :class => 'new' %>
+
+<table class="decorated nwl">
+  <tr>
+    <th></th>
+  </tr>
+
+<% @transfer_requests.each do |transfer_request| %>
+  <tr>
+        <td><%= bonsai_links(transfer_request) %></td>
+  </tr>
+<% end %>
+</table>
+

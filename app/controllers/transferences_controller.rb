@@ -1,6 +1,8 @@
-# encoding: utf-8
+
 # author: Boris Barroso
 # email: boriscyber@gmail.com
+
+# 振替伝票, 会計仕訳  -- Comprobantes de transferencia, asientos contables
 class TransferencesController < ApplicationController
   before_action :find_account
 

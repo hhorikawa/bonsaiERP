@@ -1,7 +1,17 @@
-# encoding: utf-8
+
 # author: Boris Barroso
 # email: boriscyber@gmail.com
-class ProjectsController < ApplicationController
+
+=begin
+このプロジェクトは、単に経費を括るだけのもの。タスク管理・進捗管理も何もない
+
+-> Production Order として作り直す
+Production Process がどのようなものか、については、例えば
+https://learning.sap.com/courses/managing-logistics-in-sap-business-one/running-the-production-process-in-sap-business-one
+=end
+
+
+class ProdOrdersController < ApplicationController
   before_action :set_project, :only => [:show, :edit, :update, :destroy]
   # GET /projects
   def index

@@ -1,6 +1,8 @@
-# encoding: utf-8
+
 # author: Boris Barroso
 # email: boriscyber@gmail.com
+
+# form object for 振替伝票, 会計仕訳
 class Transference < BaseForm
   attr_reader :ledger
 
